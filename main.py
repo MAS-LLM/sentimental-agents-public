@@ -35,12 +35,11 @@ OPENAI_MODEL = os.getenv("OPENAI_MODEL")
 
 
 
-
 class Config:
     def __init__(self):
         self.dialog_temp = 1.5
         self.specifyTopic_temp = 1.5
-        self.generateContent_temp = 1
+        self.generateContent_temp = 1 # Content gen for agent messages TODO: split parameters for individual agents
         self.summarize_temp = 0
         self.nonBayes_alpha = 0.5
         self.nonBayes_tolerance = 0
