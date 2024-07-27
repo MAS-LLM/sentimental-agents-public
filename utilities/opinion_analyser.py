@@ -8,8 +8,12 @@ from polyfuzz.models import SentenceEmbeddings
 from sentence_transformers import SentenceTransformer
 from llama_index.llms.openai import OpenAI
 from llama_index.program.openai import OpenAIPydanticProgram
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from core.advisory_brief import ANALYTICS_TEMPLATE
+import logging
+import time
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class StrongOpinions(BaseModel):
     """
@@ -142,7 +146,7 @@ class AdvisorReport:
         Returns:
         OpenAI: An instance of the OpenAI model.
         """
-        return OpenAI(model=model)
+        return OpenAI(model=model, max_tokens= 3500)
 
     def get_program(self, llm, output_cls, prompt_template_str, verbose=False):
         """
@@ -166,7 +170,7 @@ class AdvisorReport:
 
     def get_report(self, program, data):
         """
-        Get a report from the program.
+        Get a report from the program with error handling and retry logic.
 
         Parameters:
         program (OpenAIPydanticProgram): An instance of the OpenAIPydanticProgram.
@@ -175,7 +179,26 @@ class AdvisorReport:
         Returns:
         Report: The generated report.
         """
-        return program(data=data)
+        max_retries = 3
+        retry_delay = 5  # seconds
+
+        for attempt in range(max_retries):
+            try:
+                logging.info(f"Attempt {attempt + 1} to generate report")
+                report = program(data=data)
+                logging.info("Report generated successfully")
+                return report
+            except ValidationError as e:
+                logging.error(f"Validation error occurred: {str(e)}")
+                if attempt < max_retries - 1:
+                    logging.info(f"Retrying in {retry_delay} seconds...")
+                    time.sleep(retry_delay)
+                else:
+                    logging.error("Max retries reached. Unable to generate report.")
+                    raise
+
+        # This line should never be reached, but added for completeness
+        raise Exception("Failed to generate report after multiple attempts")
 
     def split_and_group(self, text: str, max_sentences: int = 2) -> List[str]:
         """

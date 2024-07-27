@@ -25,11 +25,16 @@ from metrics.decision_making import DecisionMaker
 from utilities.opinion_analyser import AdvisorReport
 import argparse
 import pandas as pd
+import datetime
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 
 
 OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+
+
+
+
 
 class Config:
     def __init__(self):
@@ -221,7 +226,7 @@ def get_simulation_output(agents, non_bayesian_agent, history, output):
     return out
 
 
-def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, output_dir=None, config = None):
+def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config = None):
     with open(simulation_setup_data, "r", encoding="utf-8") as f:
         simulation_setup_data = json.load(f)
     job_title = simulation_setup_data["job_title"]
@@ -260,8 +265,13 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
         simulation_data["costs"] = costs
         simulation_data["initial_conditions"] = initial_conditions
 
-        if output_dir is None:
-            output_dir = f"output_files/exp26/candidate_{candidate_name}"
+
+
+
+
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_dir = f"output_files/{timestamp}/candidate_{candidate_name}"
+        
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -275,6 +285,5 @@ if __name__ == "__main__":
     parser.add_argument('--candidate_csv', type=str, help='CSV file containing candidate names and resumes.')
     parser.add_argument('--candidate_name', type=str, help='Name of a single candidate.')
     parser.add_argument('--candidate_bio', type=str, help='Resume of a single candidate.')
-    parser.add_argument('--output_dir', type=str, help='Directory to store the output files.')
     args = parser.parse_args()
-    main(args.simulation_setup_data, args.candidate_csv, args.candidate_name, args.candidate_bio, args.output_dir, config = config)
+    main(args.simulation_setup_data, args.candidate_csv, args.candidate_name, args.candidate_bio, config = config)

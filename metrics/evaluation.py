@@ -38,7 +38,7 @@ def load_simulation_data(directory):
 
 
 
-sim_data = load_simulation_data("output_files/exp21")
+sim_data = load_simulation_data("output_files/exp101")
 
 def prolificness_score(sim_data, directory):
 
@@ -86,7 +86,7 @@ def prolificness_score(sim_data, directory):
     plt.savefig(f"{directory}/prolificness_score_by_role_grid.png")
     #return unique_arguments_count_by_role
 
-dir_path = "output_files/exp21"
+dir_path = "output_files/exp101"
 
 sim_data = load_simulation_data(dir_path)
 prolificness_score(sim_data, dir_path)
