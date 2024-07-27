@@ -1,0 +1,1141 @@
+{
+  "agent_data": [
+    {
+      "name": "CFO",
+      "messages": [
+        {
+          "content": "Evaluate David Bishop's fit for the role of Head of Technology based on the criteria of Technology strategy alignment with financial objectives, Cost-effective implementation of technology solutions, Risk management in technology investments, Regulatory compliance in technology operations, and Revenue generation potential through technology innovations.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Passionate"
+                  },
+                  {
+                    "keyword": "Innovative"
+                  }
+                ],
+                "opinion": "David Bishop is a passionate and innovative leader who aligns technology strategy with financial objectives."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Efficient"
+                  },
+                  {
+                    "keyword": "Resourceful"
+                  }
+                ],
+                "opinion": "David Bishop excels in cost-effective implementation of technology solutions, ensuring efficient and resourceful operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Cautious"
+                  },
+                  {
+                    "keyword": "Strategic"
+                  }
+                ],
+                "opinion": "David Bishop demonstrates caution and strategic thinking in managing risks associated with technology investments."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Compliant"
+                  },
+                  {
+                    "keyword": "Adherent"
+                  }
+                ],
+                "opinion": "David Bishop is compliant and adherent to regulatory requirements in technology operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Creative"
+                  },
+                  {
+                    "keyword": "Profitable"
+                  }
+                ],
+                "opinion": "David Bishop has a creative approach that drives revenue generation through profitable technology innovations."
+              }
+            ],
+            "overall_sentiment": 0.7726860761642456
+          },
+          "metrics": null
+        },
+        {
+          "content": "Evaluate David Bishop's fit for the role of Head of Technology based on the criteria stated: Technology strategy alignment with financial objectives, Cost-effective implementation of technology solutions, Risk management in technology investments, Regulatory compliance in technology operations, and Revenue generation potential through technology innovations.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Passionate evaluation"
+                  }
+                ],
+                "opinion": "David Bishop's fit for the role of Head of Technology must be evaluated with passion and enthusiasm."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Strategic alignment"
+                  }
+                ],
+                "opinion": "His ability to align technology strategy with financial objectives is crucial for success."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Cost-effective solutions"
+                  }
+                ],
+                "opinion": "Implementing technology solutions in a cost-effective manner is essential for efficiency."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Risk management"
+                  }
+                ],
+                "opinion": "Managing risks in technology investments is a critical aspect of his evaluation."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Regulatory compliance"
+                  }
+                ],
+                "opinion": "Ensuring regulatory compliance in technology operations is a non-negotiable requirement."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Innovative revenue generation"
+                  }
+                ],
+                "opinion": "His potential to generate revenue through innovative technology solutions should be a key focus of the evaluation."
+              }
+            ],
+            "overall_sentiment": 0.6366540888945261
+          },
+          "metrics": null
+        },
+        {
+          "content": "Evaluate David Bishop's fit for the role of Head of Technology based on the criteria of Technology strategy alignment with financial objectives, Cost-effective implementation of technology solutions, Risk management in technology investments, Regulatory compliance in technology operations, and Revenue generation potential through technology innovations.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Passionate"
+                  },
+                  {
+                    "keyword": "Excited"
+                  },
+                  {
+                    "keyword": "Enthusiastic"
+                  }
+                ],
+                "opinion": "David Bishop is a perfect fit for the role of Head of Technology because of his strong alignment of technology strategy with financial objectives."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Innovative"
+                  },
+                  {
+                    "keyword": "Resourceful"
+                  },
+                  {
+                    "keyword": "Efficient"
+                  }
+                ],
+                "opinion": "David Bishop excels in cost-effective implementation of technology solutions, ensuring maximum efficiency and value for the organization."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Cautious"
+                  },
+                  {
+                    "keyword": "Prudent"
+                  },
+                  {
+                    "keyword": "Vigilant"
+                  }
+                ],
+                "opinion": "David Bishop demonstrates exceptional risk management skills in technology investments, safeguarding the company's resources and investments."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Compliant"
+                  },
+                  {
+                    "keyword": "Regulation-Focused"
+                  },
+                  {
+                    "keyword": "Law-Abiding"
+                  }
+                ],
+                "opinion": "David Bishop is meticulous in ensuring regulatory compliance in technology operations, mitigating any legal risks for the organization."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Innovative"
+                  },
+                  {
+                    "keyword": "Creative"
+                  },
+                  {
+                    "keyword": "Visionary"
+                  }
+                ],
+                "opinion": "David Bishop has a remarkable potential for revenue generation through technology innovations, driving the company's growth and success."
+              }
+            ],
+            "overall_sentiment": 0.8737666606903076
+          },
+          "metrics": null
+        },
+        {
+          "content": "Evaluate David Bishop's fit for the role of Head of Technology based on the criteria presented, focusing on Technology strategy alignment with financial objectives, Cost-effective implementation of technology solutions, Risk management in technology investments, Regulatory compliance in technology operations, and Revenue generation potential through technology innovations.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Passionate evaluation"
+                  },
+                  {
+                    "keyword": "David Bishop's fit"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  }
+                ],
+                "opinion": "Passionately evaluate David Bishop's fit for the role of Head of Technology."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Technology strategy alignment"
+                  },
+                  {
+                    "keyword": "Financial objectives"
+                  }
+                ],
+                "opinion": "Emotionally assess the alignment of technology strategy with financial objectives."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Cost-effective implementation"
+                  },
+                  {
+                    "keyword": "Technology solutions"
+                  }
+                ],
+                "opinion": "Feel deeply about the cost-effective implementation of technology solutions."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Risk management"
+                  },
+                  {
+                    "keyword": "Technology investments"
+                  }
+                ],
+                "opinion": "Be emotionally invested in risk management in technology investments."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Regulatory compliance"
+                  },
+                  {
+                    "keyword": "Technology operations"
+                  }
+                ],
+                "opinion": "Show strong emotions towards regulatory compliance in technology operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Revenue generation"
+                  },
+                  {
+                    "keyword": "Technology innovations"
+                  }
+                ],
+                "opinion": "Express enthusiasm for revenue generation potential through technology innovations."
+              }
+            ],
+            "overall_sentiment": 0.7246319055557251
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on the evaluation criteria highlighted by the CFO, the fit of David Bishop for the role of Head of Technology in the recycling plant scale-up in Kenya should be assessed in terms of the following aspects: technology strategy alignment with financial objectives, cost-effective implementation of technology solutions, risk management in technology investments, regulatory compliance in technology operations, and revenue generation potential through technology innovations.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Evaluation Criteria"
+                  },
+                  {
+                    "keyword": "CFO"
+                  },
+                  {
+                    "keyword": "David Bishop"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "Recycling Plant Scale-Up"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  }
+                ],
+                "opinion": "Passionate evaluation criteria set by the CFO for David Bishop's fit as Head of Technology in the recycling plant scale-up in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Technology Strategy Alignment"
+                  },
+                  {
+                    "keyword": "Financial Objectives"
+                  }
+                ],
+                "opinion": "Emotionally assess technology strategy alignment with financial objectives for David Bishop's fit."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Cost-Effective Implementation"
+                  },
+                  {
+                    "keyword": "Technology Solutions"
+                  }
+                ],
+                "opinion": "Feel deeply about the cost-effective implementation of technology solutions for David Bishop's assessment."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Risk Management"
+                  },
+                  {
+                    "keyword": "Technology Investments"
+                  }
+                ],
+                "opinion": "Express strong emotions towards risk management in technology investments for David Bishop's evaluation."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Regulatory Compliance"
+                  },
+                  {
+                    "keyword": "Technology Operations"
+                  }
+                ],
+                "opinion": "Show intense concern for regulatory compliance in technology operations for David Bishop's assessment."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Revenue Generation Potential"
+                  },
+                  {
+                    "keyword": "Technology Innovations"
+                  }
+                ],
+                "opinion": "Exude passion for revenue generation potential through technology innovations for David Bishop's evaluation."
+              }
+            ],
+            "overall_sentiment": 0.530877004067103
+          },
+          "metrics": null
+        }
+      ]
+    },
+    {
+      "name": "VP of Engineering",
+      "messages": [
+        {
+          "content": "Evaluate David Bishop's fit for the role of Technology Head at the Kenyan recycling plant based on the criteria of familiarity with waste management technologies, experience in scaling up operations in emerging markets, track record of leading engineering teams, knowledge of regulatory and compliance requirements in Kenya, ability to innovate and optimize processes for sustainability and efficiency, as well as the review of his relevant technical skills and background.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Impressed"
+                  },
+                  {
+                    "keyword": "Familiarity with waste management technologies"
+                  }
+                ],
+                "opinion": "David Bishop's familiarity with waste management technologies is impressive and makes him a strong candidate for the role of Technology Head at the Kenyan recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Excited"
+                  },
+                  {
+                    "keyword": "Experience in scaling up operations in emerging markets"
+                  }
+                ],
+                "opinion": "I am excited about David Bishop's experience in scaling up operations in emerging markets, which is a crucial skill needed for the role of Technology Head at the Kenyan recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Inspired"
+                  },
+                  {
+                    "keyword": "Track record of leading engineering teams"
+                  }
+                ],
+                "opinion": "David Bishop's track record of leading engineering teams is inspiring and demonstrates his capability to excel in the role of Technology Head at the Kenyan recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Passionate"
+                  },
+                  {
+                    "keyword": "Knowledge of regulatory and compliance requirements in Kenya"
+                  }
+                ],
+                "opinion": "I am passionate about David Bishop's knowledge of regulatory and compliance requirements in Kenya, a vital aspect for the Technology Head role at the Kenyan recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Eager"
+                  },
+                  {
+                    "keyword": "Ability to innovate and optimize processes for sustainability and efficiency"
+                  }
+                ],
+                "opinion": "I am eager about David Bishop's ability to innovate and optimize processes for sustainability and efficiency, a skill that is essential for success in the role of Technology Head at the Kenyan recycling plant."
+              }
+            ],
+            "overall_sentiment": 0.685430908203125
+          },
+          "metrics": null
+        },
+        {
+          "content": "As the VP of Engineering, based on the analysis provided, it seems that David Bishop may have significant technical expertise but lacks direct experience in waste management technologies, renewable energy solutions, scaling operations in emerging markets, and navigating regulatory requirements specific to Kenya, which are critical for the role of Head of Technology at a Kenyan recycling plant focused on transforming waste and recycling value chains digitized. Further assessment of his understanding in these areas may be necessary before considering him for this position.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Significant technical expertise"
+                  }
+                ],
+                "opinion": "David Bishop has significant technical expertise."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Lacks direct experience"
+                  }
+                ],
+                "opinion": "David Bishop lacks direct experience in waste management technologies, renewable energy solutions, scaling operations in emerging markets, and navigating regulatory requirements specific to Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Critical for the role"
+                  }
+                ],
+                "opinion": "These areas are critical for the role of Head of Technology at a Kenyan recycling plant focused on transforming waste and recycling value chains digitized."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Further assessment necessary"
+                  }
+                ],
+                "opinion": "Further assessment of his understanding in these areas may be necessary."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Emotional"
+                  }
+                ],
+                "opinion": "It is concerning that David Bishop may not have the necessary experience and expertise for this position."
+              }
+            ],
+            "overall_sentiment": -0.18089988641440868
+          },
+          "metrics": null
+        },
+        {
+          "content": "Further exploration of David Bishop's understanding of waste management technologies, experience in scaling operations in emerging markets, and ability to navigate regulatory and compliance requirements specific to Kenya is essential before considering him for the role of Technology Head at the Kenyan recycling plant.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Essential"
+                  },
+                  {
+                    "keyword": "Exploration"
+                  },
+                  {
+                    "keyword": "Understanding"
+                  },
+                  {
+                    "keyword": "Experience"
+                  },
+                  {
+                    "keyword": "Scaling"
+                  },
+                  {
+                    "keyword": "Operations"
+                  },
+                  {
+                    "keyword": "Emerging Markets"
+                  },
+                  {
+                    "keyword": "Regulatory"
+                  },
+                  {
+                    "keyword": "Compliance"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  }
+                ],
+                "opinion": "It is absolutely crucial to thoroughly explore David Bishop's understanding of waste management technologies, experience in scaling operations in emerging markets, and ability to navigate regulatory and compliance requirements specific to Kenya before even contemplating him for the role of Technology Head at the Kenyan recycling plant."
+              }
+            ],
+            "overall_sentiment": 0.35986530780792236
+          },
+          "metrics": null
+        },
+        {
+          "content": "David Bishop possesses impressive technical skills, but there are critical gaps in his experience such as familiarity with waste management technologies, scaling operations in emerging markets, and navigating regulatory requirements specific to Kenya that may limit his effectiveness as the Head of Technology at a Kenyan recycling plant focused on digital transformation of waste and recycling value chains.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Impressive Technical Skills"
+                  }
+                ],
+                "opinion": "David Bishop possesses impressive technical skills."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Critical Gaps"
+                  }
+                ],
+                "opinion": "There are critical gaps in his experience."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Waste Management Technologies"
+                  }
+                ],
+                "opinion": "He lacks familiarity with waste management technologies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Scaling Operations"
+                  }
+                ],
+                "opinion": "He struggles with scaling operations in emerging markets."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Regulatory Requirements"
+                  }
+                ],
+                "opinion": "He faces challenges in navigating regulatory requirements specific to Kenya."
+              }
+            ],
+            "overall_sentiment": 0.030645570158958434
+          },
+          "metrics": null
+        },
+        {
+          "content": "Agent stopped due to iteration limit or time limit.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Heartbroken"
+                  }
+                ],
+                "opinion": "Agent stopped"
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Frustrated"
+                  }
+                ],
+                "opinion": "Iteration limit reached"
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Devastated"
+                  }
+                ],
+                "opinion": "Time limit exceeded"
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Overwhelmed"
+                  }
+                ],
+                "opinion": "Emotional breakdown"
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Anguished"
+                  }
+                ],
+                "opinion": "Task incomplete"
+              }
+            ],
+            "overall_sentiment": -0.7582979395985603
+          },
+          "metrics": null
+        }
+      ]
+    },
+    {
+      "name": "Recycling Plant Manager",
+      "messages": [
+        {
+          "content": "Evaluate David Bishop's fit for the role of Head of Technology at the Kenyan recycling plant based on the specific criteria you have outlined. Pay attention to his experience in managing technology in recycling operations, understanding of waste management regulations in Kenya, ability to implement innovative technology solutions, leadership skills in a fast-paced environment, and track record of driving efficiency and sustainability goals. Consider the gaps in his qualifications and how they may impact his suitability for the role.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Experience"
+                  },
+                  {
+                    "keyword": "Managing technology"
+                  },
+                  {
+                    "keyword": "Recycling operations"
+                  }
+                ],
+                "opinion": "David Bishop's experience in managing technology in recycling operations is exceptional, showcasing his expertise in this field."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Understanding"
+                  },
+                  {
+                    "keyword": "Waste management regulations"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  }
+                ],
+                "opinion": "David Bishop's understanding of waste management regulations in Kenya is commendable, demonstrating his commitment to compliance and environmental sustainability."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Innovative technology solutions"
+                  },
+                  {
+                    "keyword": "Implementation"
+                  }
+                ],
+                "opinion": "David Bishop's ability to implement innovative technology solutions is outstanding, paving the way for cutting-edge advancements in recycling technology."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Leadership skills"
+                  },
+                  {
+                    "keyword": "Fast-paced environment"
+                  }
+                ],
+                "opinion": "David Bishop's leadership skills in a fast-paced environment are inspiring, driving the team towards success even in challenging situations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Efficiency"
+                  },
+                  {
+                    "keyword": "Sustainability goals"
+                  },
+                  {
+                    "keyword": "Track record"
+                  }
+                ],
+                "opinion": "David Bishop's track record of driving efficiency and sustainability goals is remarkable, setting a high standard for performance and impact."
+              }
+            ],
+            "overall_sentiment": 0.7200802803039551
+          },
+          "metrics": null
+        },
+        {
+          "content": "As the Recycling Plant Manager evaluating David Bishop for the role of Head of Technology at our recycling plant scale-up, it is important to consider the gaps in his qualifications such as the lack of direct experience in managing technology in recycling operations and understanding waste management regulations in Kenya. While he exhibits technical skills and experience in data analysis and application development, his fit for the role may be impacted by his lack of experience in key areas crucial for our plant's success.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Excitement"
+                  },
+                  {
+                    "keyword": "Evaluation"
+                  },
+                  {
+                    "keyword": "David Bishop"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "Recycling Plant Scale-up"
+                  }
+                ],
+                "opinion": "Thrilled to evaluate David Bishop for the Head of Technology role at our Recycling Plant Scale-up!"
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Qualifications"
+                  },
+                  {
+                    "keyword": "Gaps"
+                  },
+                  {
+                    "keyword": "Lack of Experience"
+                  },
+                  {
+                    "keyword": "Managing Technology"
+                  },
+                  {
+                    "keyword": "Recycling Operations"
+                  }
+                ],
+                "opinion": "Concerned about the gaps in David's qualifications, especially his lack of experience in managing technology in recycling operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Technical Skills"
+                  },
+                  {
+                    "keyword": "Experience"
+                  },
+                  {
+                    "keyword": "Data Analysis"
+                  },
+                  {
+                    "keyword": "Application Development"
+                  }
+                ],
+                "opinion": "Impressed by David's technical skills and experience in data analysis and application development."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Fit for Role"
+                  },
+                  {
+                    "keyword": "Impact"
+                  },
+                  {
+                    "keyword": "Lack of Experience"
+                  },
+                  {
+                    "keyword": "Crucial Areas"
+                  }
+                ],
+                "opinion": "Worried about the potential impact of David's lack of experience in crucial areas on his fit for the Head of Technology role."
+              }
+            ],
+            "overall_sentiment": -0.19834040943533182
+          },
+          "metrics": null
+        },
+        {
+          "content": "Consider exploring David Bishop's understanding of waste management regulations in Kenya and experience in managing technology in recycling operations to determine his fit for the role of Head of Technology at the recycling plant.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Impressive Experience"
+                  },
+                  {
+                    "keyword": "Waste Management Regulations"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  }
+                ],
+                "opinion": "David Bishop's understanding of waste management regulations in Kenya is impressive."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Technology Management"
+                  },
+                  {
+                    "keyword": "Recycling Operations"
+                  }
+                ],
+                "opinion": "His experience in managing technology in recycling operations is exceptional."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Fit for Role"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  }
+                ],
+                "opinion": "David Bishop is a perfect fit for the role of Head of Technology."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Exploration"
+                  },
+                  {
+                    "keyword": "Consideration"
+                  }
+                ],
+                "opinion": "Exploring his qualifications is crucial."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Recycling Plant"
+                  },
+                  {
+                    "keyword": "Role Assessment"
+                  }
+                ],
+                "opinion": "His expertise is essential for the success of the recycling plant."
+              }
+            ],
+            "overall_sentiment": 0.8956041812896729
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on the evaluation of David Bishop's fit for the role of Head of Technology at the Kenyan recycling plant scale-up, it is noted that while he has valuable technical skills and experience, there are gaps in his qualifications, specifically in managing technology in recycling operations and understanding waste management regulations in Kenya. These critical areas may impact his suitability for the position, considering the importance of compliance, innovative technology solutions, leadership skills, and driving efficiency and sustainability goals in our operations.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Evaluation"
+                  },
+                  {
+                    "keyword": "David Bishop"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "Kenyan recycling plant scale-up"
+                  },
+                  {
+                    "keyword": "valuable technical skills"
+                  },
+                  {
+                    "keyword": "experience"
+                  },
+                  {
+                    "keyword": "gaps in qualifications"
+                  },
+                  {
+                    "keyword": "managing technology"
+                  },
+                  {
+                    "keyword": "recycling operations"
+                  },
+                  {
+                    "keyword": "understanding waste management regulations"
+                  },
+                  {
+                    "keyword": "critical areas"
+                  },
+                  {
+                    "keyword": "impact suitability"
+                  },
+                  {
+                    "keyword": "compliance"
+                  },
+                  {
+                    "keyword": "innovative technology solutions"
+                  },
+                  {
+                    "keyword": "leadership skills"
+                  },
+                  {
+                    "keyword": "driving efficiency"
+                  },
+                  {
+                    "keyword": "sustainability goals"
+                  },
+                  {
+                    "keyword": "operations"
+                  }
+                ],
+                "opinion": "David Bishop's fit for the role of Head of Technology at the Kenyan recycling plant scale-up is evaluated. While he possesses valuable technical skills and experience, there are gaps in his qualifications, particularly in managing technology in recycling operations and understanding waste management regulations in Kenya. These critical areas may significantly impact his suitability for the position, given the importance of compliance, innovative technology solutions, leadership skills, and driving efficiency and sustainability goals in our operations."
+              }
+            ],
+            "overall_sentiment": -0.3208521008491516
+          },
+          "metrics": null
+        },
+        {
+          "content": "It is observed that David Bishop may have valuable technical skills, but there are significant gaps in his experience and qualifications that could impact his suitability for the role of Head of Technology at the Kenyan recycling plant scale-up, particularly in terms of managing technology in recycling operations and understanding waste management regulations in Kenya. Further assessment of his knowledge and experience in these crucial areas may be necessary before considering him for the position.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Valuable Technical Skills"
+                  }
+                ],
+                "opinion": "David Bishop possesses valuable technical skills."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Significant Gaps"
+                  }
+                ],
+                "opinion": "There are significant gaps in David Bishop's experience and qualifications."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Impact on Suitability"
+                  }
+                ],
+                "opinion": "These gaps could impact his suitability for the role of Head of Technology."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Crucial Areas"
+                  }
+                ],
+                "opinion": "Managing technology in recycling operations and understanding waste management regulations in Kenya are crucial areas."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Further Assessment"
+                  }
+                ],
+                "opinion": "Further assessment of his knowledge and experience in these crucial areas is necessary."
+              }
+            ],
+            "overall_sentiment": 0.03794732615351677
+          },
+          "metrics": null
+        }
+      ]
+    }
+  ],
+  "raw_history": [
+    "(VP of Engineering): Evaluate David Bishop's fit for the role of Technology Head at the Kenyan recycling plant based on the criteria of familiarity with waste management technologies, experience in scaling up operations in emerging markets, track record of leading engineering teams, knowledge of regulatory and compliance requirements in Kenya, ability to innovate and optimize processes for sustainability and efficiency, as well as the review of his relevant technical skills and background.",
+    "(Recycling Plant Manager): Evaluate David Bishop's fit for the role of Head of Technology at the Kenyan recycling plant based on the specific criteria you have outlined. Pay attention to his experience in managing technology in recycling operations, understanding of waste management regulations in Kenya, ability to implement innovative technology solutions, leadership skills in a fast-paced environment, and track record of driving efficiency and sustainability goals. Consider the gaps in his qualifications and how they may impact his suitability for the role.",
+    "(CFO): Evaluate David Bishop's fit for the role of Head of Technology based on the criteria of Technology strategy alignment with financial objectives, Cost-effective implementation of technology solutions, Risk management in technology investments, Regulatory compliance in technology operations, and Revenue generation potential through technology innovations.",
+    "(VP of Engineering): As the VP of Engineering, based on the analysis provided, it seems that David Bishop may have significant technical expertise but lacks direct experience in waste management technologies, renewable energy solutions, scaling operations in emerging markets, and navigating regulatory requirements specific to Kenya, which are critical for the role of Head of Technology at a Kenyan recycling plant focused on transforming waste and recycling value chains digitized. Further assessment of his understanding in these areas may be necessary before considering him for this position.",
+    "(Recycling Plant Manager): As the Recycling Plant Manager evaluating David Bishop for the role of Head of Technology at our recycling plant scale-up, it is important to consider the gaps in his qualifications such as the lack of direct experience in managing technology in recycling operations and understanding waste management regulations in Kenya. While he exhibits technical skills and experience in data analysis and application development, his fit for the role may be impacted by his lack of experience in key areas crucial for our plant's success.",
+    "(CFO): Evaluate David Bishop's fit for the role of Head of Technology based on the criteria stated: Technology strategy alignment with financial objectives, Cost-effective implementation of technology solutions, Risk management in technology investments, Regulatory compliance in technology operations, and Revenue generation potential through technology innovations.",
+    "(VP of Engineering): Further exploration of David Bishop's understanding of waste management technologies, experience in scaling operations in emerging markets, and ability to navigate regulatory and compliance requirements specific to Kenya is essential before considering him for the role of Technology Head at the Kenyan recycling plant.",
+    "(Recycling Plant Manager): Consider exploring David Bishop's understanding of waste management regulations in Kenya and experience in managing technology in recycling operations to determine his fit for the role of Head of Technology at the recycling plant.",
+    "(CFO): Evaluate David Bishop's fit for the role of Head of Technology based on the criteria of Technology strategy alignment with financial objectives, Cost-effective implementation of technology solutions, Risk management in technology investments, Regulatory compliance in technology operations, and Revenue generation potential through technology innovations.",
+    "(VP of Engineering): David Bishop possesses impressive technical skills, but there are critical gaps in his experience such as familiarity with waste management technologies, scaling operations in emerging markets, and navigating regulatory requirements specific to Kenya that may limit his effectiveness as the Head of Technology at a Kenyan recycling plant focused on digital transformation of waste and recycling value chains.",
+    "(Recycling Plant Manager): Based on the evaluation of David Bishop's fit for the role of Head of Technology at the Kenyan recycling plant scale-up, it is noted that while he has valuable technical skills and experience, there are gaps in his qualifications, specifically in managing technology in recycling operations and understanding waste management regulations in Kenya. These critical areas may impact his suitability for the position, considering the importance of compliance, innovative technology solutions, leadership skills, and driving efficiency and sustainability goals in our operations.",
+    "(CFO): Evaluate David Bishop's fit for the role of Head of Technology based on the criteria presented, focusing on Technology strategy alignment with financial objectives, Cost-effective implementation of technology solutions, Risk management in technology investments, Regulatory compliance in technology operations, and Revenue generation potential through technology innovations.",
+    "(VP of Engineering): Agent stopped due to iteration limit or time limit.",
+    "(Recycling Plant Manager): It is observed that David Bishop may have valuable technical skills, but there are significant gaps in his experience and qualifications that could impact his suitability for the role of Head of Technology at the Kenyan recycling plant scale-up, particularly in terms of managing technology in recycling operations and understanding waste management regulations in Kenya. Further assessment of his knowledge and experience in these crucial areas may be necessary before considering him for the position.",
+    "(CFO): Based on the evaluation criteria highlighted by the CFO, the fit of David Bishop for the role of Head of Technology in the recycling plant scale-up in Kenya should be assessed in terms of the following aspects: technology strategy alignment with financial objectives, cost-effective implementation of technology solutions, risk management in technology investments, regulatory compliance in technology operations, and revenue generation potential through technology innovations."
+  ],
+  "summarized_output": {
+    "Candidate Name": "David Bishop",
+    "Summary": "- Evaluate David Bishop for the role of Head of Technology at the Kenyan recycling plant based on familiarity with waste management technologies, experience in scaling operations in emerging markets, leading engineering teams, knowledge of regulatory requirements in Kenya, ability to innovate and optimize processes, and relevant technical skills.\n- Consider gaps in qualifications such as lack of direct experience in managing technology in recycling operations and understanding waste management regulations in Kenya.\n- Further exploration of his understanding of waste management technologies, scaling operations in emerging markets, and regulatory compliance in Kenya is necessary.\n- David Bishop has technical skills but lacks experience in key areas crucial for the role at a recycling plant focused on digital transformation.\n- Critical gaps in experience include managing technology in recycling operations and understanding waste management regulations in Kenya.\n- Assess fit based on technology strategy alignment with financial objectives, cost-effective implementation of technology solutions, risk management, regulatory compliance, and revenue generation potential.\n- Consider gaps in experience and qualifications that may impact suitability for the role of Head of Technology at the recycling plant scale-up in Kenya.\n- Further assessment of knowledge and experience in managing technology in recycling operations and understanding waste management regulations in Kenya may be necessary."
+  },
+  "opinion_report": [
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "David Bishop possesses impressive technical skills but has critical gaps in experience.",
+      "Similarity": 0.6190000176429749,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "David Bishop possesses impressive technical skills, but there are critical gaps in his experience such as familiarity with waste management technologies, scaling operations in emerging markets, and navigating regulatory requirements specific to Kenya that may limit his effectiveness as the Head of Technology at a Kenyan recycling plant focused on digital transformation of waste and recycling value chains."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Evaluation of David Bishop's fit for the role of Head of Technology at the Kenyan recycling plant based on specific criteria.",
+      "Similarity": 0.9490000009536743,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Evaluate David Bishop's fit for the role of Head of Technology at the Kenyan recycling plant based on the specific criteria you have outlined."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Assessment of gaps in David Bishop's qualifications and their impact on his suitability for the role.",
+      "Similarity": 0.7110000252723694,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Consider the gaps in his qualifications and how they may impact his suitability for the role."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Exploration of David Bishop's understanding of waste management technologies, scaling operations in emerging markets, and regulatory compliance requirements.",
+      "Similarity": 0.8159999847412109,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Further exploration of David Bishop's understanding of waste management technologies, experience in scaling operations in emerging markets, and ability to navigate regulatory and compliance requirements specific to Kenya is essential before considering him for the role of Technology Head at the Kenyan recycling plant."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "David Bishop lacks direct experience in waste management technologies, scaling operations in emerging markets, and navigating regulatory requirements specific to Kenya.",
+      "Similarity": 0.7929999828338623,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "As the VP of Engineering, based on the analysis provided, it seems that David Bishop may have significant technical expertise but lacks direct experience in waste management technologies, renewable energy solutions, scaling operations in emerging markets, and navigating regulatory requirements specific to Kenya, which are critical for the role of Head of Technology at a Kenyan recycling plant focused on transforming waste and recycling value chains digitized."
+    }
+  ],
+  "non_bayesian_data": {
+    "change": {
+      "CFO": [
+        0,
+        0.3863430380821228,
+        0.12515552540620167,
+        0.18113404860099158,
+        0.01599964673320453,
+        0.08887762737770877
+      ],
+      "VP of Engineering": [
+        0,
+        0.3427154541015625,
+        0.26180767025798557,
+        0.1394787619821727,
+        0.0948704878333956,
+        0.44190699879545714
+      ],
+      "Recycling Plant Manager": [
+        0,
+        0.36004014015197755,
+        0.27919027479365466,
+        0.407377157965675,
+        0.4045395620865747,
+        0.022870067541953178
+      ]
+    },
+    "sentiment_data": {
+      "CFO": [
+        0,
+        0.3863430380821228,
+        0.5114985634883245,
+        0.692632612089316,
+        0.7086322588225206,
+        0.6197546314448118
+      ],
+      "VP of Engineering": [
+        0,
+        0.3427154541015625,
+        0.08090778384357691,
+        0.22038654582574962,
+        0.12551605799235402,
+        -0.31639094080310315
+      ],
+      "Recycling Plant Manager": [
+        0,
+        0.36004014015197755,
+        0.08084986535832286,
+        0.48822702332399787,
+        0.08368746123742313,
+        0.06081739369546995
+      ]
+    }
+  },
+  "costs": {
+    "Total_Tokens": "87849",
+    "Prompt_Tokens": "83710",
+    "Completion_Tokens": "4139",
+    "Total_Cost_USD": "$0.13384300000000002"
+  },
+  "initial_conditions": {
+    "agent_names": {
+      "CFO": [],
+      "VP of Engineering": [],
+      "Recycling Plant Manager": []
+    },
+    "agent_descriptions": {
+      "CFO": "Strategic financial expert, overseeing company's fiscal health and operations.",
+      "VP of Engineering": "Seasoned leader overseeing technical teams, driving innovation and delivery.",
+      "Recycling Plant Manager": "Overseeing operations, managing staff, ensuring compliance, maximizing efficiency."
+    },
+    "agent_priorities": {
+      "CFO": "Ensure financial stability and growth for the organization. Prioritize profitability.",
+      "VP of Engineering": "Lead team to deliver high-quality products on time and budget.",
+      "Recycling Plant Manager": "Maximize efficiency, reduce waste, ensure compliance, promote safety and sustainability."
+    },
+    "agent_criteria": {
+      "CFO": "- Technology strategy alignment with financial objectives\n- Cost-effective implementation of technology solutions\n- Risk management in technology investments\n- Regulatory compliance in technology operations\n- Revenue generation potential through technology innovations.",
+      "VP of Engineering": "- Familiarity with waste management technologies and renewable energy solutions\n- Experience in scaling up operations in emerging markets\n- Strong track record of leading engineering teams in fast-paced environments\n- Knowledge of regulatory and compliance requirements in Kenya\n- Ability to innovate and optimize processes for sustainability and efficiency",
+      "Recycling Plant Manager": "- Experience in managing technology in recycling operations\n- Understanding of waste management regulations in Kenya\n- Ability to implement innovative technology solutions\n- Strong leadership skills in a fast-paced environment\n- Proven track record of driving efficiency and sustainability goals"
+    },
+    "topic": "What are the pros and cons of hiring this candidate: David Bishop\n\n(with this bio: \n\n-----START OF CANDIDATE RESUME/BIO-----\nPython Developer <span class=\"hl\">Python</span> <span class=\"hl\">Developer</span> Python Developer - Experian PLC Costa Mesa, CA Authorized to work in the US for any employer Work Experience Python Developer Experian PLC - Costa Mesa, CA January 2018 to Present Description: Experian PLC is consumer credit reporting agency which collects and aggregates information on over 200 million US individual consumers and more than 20 million US businesses. It is one of the Big Three credit-reporting agencies, alongside TransUnion and Equifax. Experian sells decision analytic and marketing assistance to businesses. Consumer services include online access to credit history and products that protect against fraud and Identity Theft. Social Media Batch Support is the application which incorporates Yelp social media presence of multiple businesses and returns a score and coverage analysis for a requesting client. Social Media Batch Support allows corporate users to take client input of multiple businesses and returns information detailing businesses that that have a presence on Yelp relative to business that are found in Experian BIS database. It also returns scores that consist of average scores per million reviews and social media score, which basically is a quantified metric of the presences of each business that has a review on Yelp. Originally, the Social Media Batch Support project was designed for manual usage. I ran and executed the Social Media Batch Support modified the scripts in the project for automation purposes. I also took part in developing and designing the front-end application logic of Social Media Batch Support using Angular 6, TypeScript, HTML5, CSS3, Bootstrap.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 \u2022 Executed the project, made modifications, updates and managed version control using GitBash command prompt and Pycharm IDE.\u00a0 \u2022 Managed, joined and create various business csv record files using the Python Pandas library and UNIX shell scripts.\u00a0 \u2022 Created SQL Alchemy-based transactional framework - integrates seamlessly into Bloomberg Application Service (BAS) layer; the framework allows for a tactical switch between ORM and non-ORM approaches, on the fly, when talking to an RDBMS\u00a0 \u2022 Developed a python script that converted float values into integer values in specific columns of the final csv output file.\u00a0 \u2022 Developed a python script that converted the final csv output file into a fixed width text file using Python's Tabular library, if client requested a fixed width output file instead of a csv file.\u00a0 \u2022 Developed UNIX scripts to extract records found in different files and compared for debugging purposes.\u00a0 \u2022 Modified the Python scripts to handle exceptions and log those exceptions to a file using the Python Logging library for automation purpose.\u00a0 \u2022 Interacted with the Yelp/AWS API using Gitbash and s3cmd command line tool to push and extract data.\u00a0 \u2022 Responsible for debugging and troubleshooting the application.\u00a0 \u2022 Designed and Developed various Angular 6 Components (/ngModule), Services (observable/promises),\u00a0 Directives and Pipes via TypeScript.\u00a0 \u2022 Developed a python script that converted the report text file that is used for the coverage analysis into a csv file,\u00a0 using the built-in csv module.\u00a0 \u2022 Developed a python script to calculate and optimize the memory usage of each csv and text file loaded into memory using Pandas module.\u00a0 \u00a0 Environment: AWS, Python 2.7, Pycharm, Gitbash, s3cmd, Python Logging, Python Pandas, Python Tabular, Unix, Angular 6, Typescript, HTML5, CSS3, and Bootstrap. Python Full Stack Developer SunTrust Banks Inc - Somerset, NJ July 2017 to January 2018 Description: SunTrust Banks, Inc. is an American bank holding company, bank's primary businesses include deposits, lending, credit cards, as well as trust and investment services. SunTrust Banks also provides corporate and investment banking, capital market services, mortgage banking, and wealth management; they needed a team of seven developers to design and create an application to assist them in managing and perform such task effectively. SunAnalytics is an application which incorporates credit analysis with the extension of communicates secure customer information for each level of analysis process. It allows banks to book loans faster with better consistency, transparency and bring the standard to the analysis process for each lender and borrower. It has functionality for managing risk for management as it can keep track of all the outstanding exposure and allows corporate users to analyze the company cash flow. The application is mainly for corporate users in credit analysis process with different roles and permissions to engage in specific activities on the web application. I designed and developed the front-end and server-side/REST API application logic of SunAnalytics using Angular2, TypeScript, HTML5, CSS3, Bootstrap, and Django.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 ? Developed this project using MongoDB, Angular 2, TypeScript, Django, HTML5, CSS3, BootStrap.\u00a0 ? Designed and Developed various Angular 2 Component (/ngModule), Services (observable/promises),\u00a0 Directive and Pipes using TypeScript.\u00a0 ? Used Angular 2 CLI commands for productivity and global/generic building blocks.\u00a0 ? Designed and developed a responsive UI page using BootStrap.\u00a0 ? Developed the application RESTful API server using Django REST Framework, designing and developing various endpoints, defining Models, Serializers, ViewSets and register corresponding URLs to the endpoints using DRF Routers.\u00a0 ? Connected the database and application REST API via Django MongoDB Database Engine and PyMongo.\u00a0 ? Manipulated the MongoDB database via bulk write operations and implemented authentication and certificate validation using PyMongo and Python Built-in SSL Module.\u00a0 ? Created methods (get, post, put delete) to make requests to the API server and tested Restful API using Postman.\u00a0 ? Developed and performed test cases using jasmine and Karma in the unit test.\u00a0 ? Developed mock API consumer objects via test cases using Python Unittest Module.\u00a0 ? Familiar in updating, accessing and version controlling the code using Git and used Git Bash to run the Git commands.\u00a0 ? Automated configuration and deployment to an Apache Tomcat server using Ubuntu and Bash Shell Scripting.\u00a0 \u00a0 Environment: Angular2, MongoDB, TypeScript, HTML5, CSS3, BootStrap, Postman, Karma, Jasmine, Git, GitBash, Django REST Framework, Python Unittest, Pycharm, Pymongo, Python SSL, Apache Tomcat, Ubuntu, Bash Shell Scripting Python Developer Metro Health - Staten Island, NY September 2015 to June 2017 Description: The Metro Health System is one of the biggest, most complete social insurance suppliers in Northeast Ohio, serving the medicinal needs of the Greater Cleveland community for about 170 years. A web-based interface was developed which permits the doctors to give proficient, successful care to patients influenced with incessant illnesses. Furthermore, gives a health data administration programming which computerized basic capacities, including report imaging and administration, doctor inquiry, diagram examination and finishing, discharge data, electronic medical record and so forth. I worked on doctor inquiry module which provides a schedule and appointment reminder that helps doctors to schedule appointments with their patients and send appointment reminders to reduce no-shows. There is also a built-in messaging feature which allows doctors to communicate with their billers, patients and employees.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 ? Involved in the various phases of SDLC (Software Development Life Cycle) like Requirements gathering, Analysis, Design and implementation of the project.\u00a0 ? Created this project using MongoDB, Django, Django REST API, PyMongo, Python Pandas, HTML5, CSS3, Bootstrap.\u00a0 ? Designed and Developed various endpoints, defining Models, Serializers, ViewSets and register corresponding URLs to the endpoints using DRF Routers.\u00a0 ? Designed and developed a responsive UI page using BootStrap.\u00a0 ? Connected the database and the application server by using the Django MongoDB engine driver and PyMongo library and created a RESTful API server with Django REST API framework.\u00a0 ? Created CRUD methods (get,post,put,delete) to make requests to the API server and tested Restful API using Postman\u00a0 ? Developed and performed test cases using the Python Unittest Module.\u00a0 ? Responsible for debugging and troubleshooting the web application.\u00a0 ? Created data analysis models with Pandas to organize appointment and medical records.\u00a0 ? Developed a web spider using Scrapy to extract the data and processed it through Elasticsearch, a search engine used to search for patient documents in the doctor inquiry module.\u00a0 ? Automated configuration and deployment to an Apache Tomcat server using Ubuntu and Bash Shell Scripting.\u00a0 \u00a0 Environment: Django REST Framework (DRF), PyMongo, MongoDB, Python Pandas, HTML5, CSS3, BootStrap, Atom, Postman, Python Unittest, GitBash, Pycharm, Elaticsearch, Scrapy, Apache Tomcat, Ubuntu, Bash Shell Scripting Python Developer CURE Auto Insurance - Princeton, NJ December 2012 to August 2015 Description: Cure Auto Insurance is the auto insurance service provider and decided to upgrade the existing Auto Insurance Management System which is fully automated and integrated application for managing the Policy plans, Agent Commission, Payment issues and Settlements. This Insurance Management System is to response the information of clients, policy details and premium rates and monitors the policies for delayed payments. It manages different claims per policies, claim settlements and allows coverage verifications. I worked on the client's modules where customer can get a quote, view their packages, change the coverage, verify premium differences and they have an option to choose the premium years. Once the quote is generated, they can get it through an email or a print service. The customer can also choose to find an agent based on residential zip code of the customer and choose from the list of available agents and get a quote from them.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 ? Developed the insurance management system using R packages, Django Web Framework, Python open-source modules such as Scikit-learn, pandas, numpy and Matplotlib.\u00a0 ? Developed Statistical tests in R, ranging from Correlation to One Sample t-Test to Wilcoxon Signed Rank Test for testing the normal distribution of data set samples and how their variables vary in tandem from their mean.\u00a0 ? Created Linear, Polynomial, and Logistic Regression Models to predict the risk and likelihood that a client will file a claim based off the information of clients and generated quotes and premiums using Python open-source modules such as Scikit-learn, pandas, numpy and Matplotlib.\u00a0 ? Designed and Developed various endpoints, defining Models, Serializers, ViewSets and register corresponding URLs to the endpoints using DRF Routers.\u00a0 ? Connected the database and the application server by using the Django PostgreSQL engine driver and Psycopg2 library and created a RESTful API server with Django REST API framework.\u00a0 ? Created methods (get, post, put, delete) to make requests to the API server and tested Restful API using Postman\u00a0 ? Developed Authentication and Security using Django's built-in authentication.\u00a0 ? Developed Front-end templates for management system using Angular2, HTML5, Typescript, and Bootstrap.\u00a0 ? Deployed the application using Ubuntu and Apache Tomcat.\u00a0 ? Created client-side/GUI part of application using kivy.\u00a0 \u00a0 Environment: RStudio, PostgreSQL, Enthought Canopy, Python Scikit-learn, Python Matplotlib.pyplot, Python numpy, Python pandas, GitHub desktop, GitBash, Python Unittest, PostgreSQL Server, Ubuntu, kivy Python Developer The LPL Financial - New Brunswick, NJ March 2010 to November 2012 Description: The LPL Financial is a nation's leading financial institution that offer an integrated platform of proprietary technology, brokerage, and investment advisor services. The Advisor Portal is a web application used by institution advisors to manage portfolios high net clients. Institute advisors can publish and update contents to the dashboard of the site. They can also use the application to create proposal for clients, compare proposals, data analysis and create backtesting data. Clients were able to monitor service progress and gain reports through the application.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 ? Assisted in the Advisor Portal application development using Flask Web Framework and JavaScript.\u00a0 ? Designed and wrote server-side web application logic, developed back end templates and components to connect with third party applications using Flask web framework, along with Jinja2.\u00a0 ? Connected the database and the application server by using the Flask-SQLAlchemy MySQL engine driver and pymysql library.\u00a0 ? Created a RESTful API server with Django REST API framework.\u00a0 ? Developed Advisor Portal front end using ReactJS, HTML5, and Bootstrap.\u00a0 ? Utilized front-end development testing using Jasmine.\u00a0 ? Deploy the Advisor Portal application and Automated using Docker.\u00a0 ? Responsible for issue and bug tracking during development of application using JIRA.\u00a0 ? Developed back-end server-side application logic using Node.js to integrate it with API.\u00a0 \u00a0 Environment: Django, Flask, Jinja2, SQL, Enthought Canopy, Python Scikit-learn, Python Matplotlib.pyplot, Python numpy, Python pandas, GitHub Desktop, Python Unittest, SQL Server, Postman, ReactJS, HTML5, Bootstrap, Docker, Jasmine, NodeJS Education INFORMATION TECHNOLOGY AND PROGRAMMING KEISER UNIVERSITY Skills ASP, Android, Javascript, MySQL, PHP\r\n\n-----END OF CANDIDATE RESUME/BIO-----\n)\n\n\nfor this role: # Head of Technology in a Recycling plant scale-up in Kenya, \ngiven this role description: \n\n-----START OF JOB DESCRIPTION-----\n\ufeffAbout Our Client \nThis is a recycling company on a mission to change people\u2019s lives. Waste pickers have aspirations, demanding schedules, and aim to provide the best quality service, just like the rest of us. Unfortunately, they\u2019re often undervalued for the essential service they provide.\nThis firm offers pickers premium prices and additional benefits for cleaning up their community environment and supplying recyclable material. That material is processed and returned to manufacturer supply chains, reducing material cost and waste. To put this mission front and centre, the company became the first recycler certified as B-Corp in Africa.\nSo far, their network of +2500 waste collectors has helped them recycle 6000 tons of waste and create 120 new jobs and counting. They operate across Kenya today and continue to expand, starting with the development of a new state of the art facility.\nOver the next few years, with your help, this company will transform waste and recycling value chains in the global south with a cloud-based, digital-first approach that enables them to operate at scale across Africa while re-defining the value of waste to new supplier categories. They already have strategic partners helping to innovate track & trace, fair & local collection, and sales.\nAs the complexity of their work and ambition for impact grows, they\u2019ll need creative leaders with a genuine passion to make a difference at scale.\nAbout The Role \nThe company is looking for a high-energy, rigorous, and strategic leader with diverse technical experience to head the (re)design of their architecture and organisation for scale. A successful candidate will bring a structured process, solid people management, and cutting edge technologies to a relatively traditional industry.\nWith this in mind, the role reports to the Chief Innovation Officer where new ideas and \norganisational strategy get transformed into real product and process innovations. In addition, the Head of Technology will work closely with operating Country Managers on their supply chain and facility technology.\nThey will oversee all technology, from manufacturing sensors to consumer applications, to corporate administration. Beyond their direct reports, this leader should expect to engage with strategic partners, functional leaders, and specialist advisors to develop and achieve business goals at a healthy ROI.\nIn brief, you will build a scalable architecture, automated processes, simple product experiences, and a reliable team for the short and long term.\nFinally, we realise everyone has personal commitments outside of work. To enable people to work and live at their best, the company supports flexible work. Sometimes work takes place in the industrial area plant, at other times in a shared workspace for innovation, and sometimes from home. They expect leaders to work with their teams to design a high performance, values-aligned work environment.\nWhile the day-to-day office is flexible, the position is based in Nairobi, Kenya and may require up to 30% travel in Kenya and internationally.\nSalaries are competitive and commensurate with qualifications and experience.\nResponsibilities:\nScalable Architecture \nTechnical Vision \nMap out the right mix of external and internal components to strengthen and easily manage multiple stakeholder needs and business growth plans. Advise leadership on technical investment decisions.\nMigration Roadmap \nGather, define, and prioritise user stories and associated development requirements based on the scaling business strategy and customer needs. This requires taking the initiative to speak with clients, stakeholders, advisors, and peers to develop individual sprint plans up to long-term milestones.\nModular Design \nEnsure interoperability between existing and new applications. Build the system to plug and play with new applications and enable easier entry into new countries or offer new services.\nAutomated Processes \nOperations Optimization \nCollect and translate data as well as introduce technology to simplify processes and reduce manual tasks across the supply chain including collection, sorting, processing, distribution, and administration.\nPredictive Analytics \nDevelop and integrate self-reporting and sensor data to improve forecasting. Lay the groundwork for future AI investments (e.g., computer vision plastic identification and mix estimations)\nSimple Product Experience \nClear Actions \nDesign and develop features that are easy to access, obvious to follow, and fast to complete. This should limit the need for follow-up support service and/or human intervention.\nMulti-Modal \nEnsure products work on any type of device and work by text, app, or web. Front-end information should seamlessly integrate with other processes and players along the supply chain.\nReliable Team \nPerformance Standards \nCreate expectations based on technical practice areas, expectations of MGA stakeholders, and consumer product benchmarks (inc. security and up-time). Enable quality execution through training, examples to follow, and regular reviews.\nDevelopment Process\nStructure, organise, and fluidly execute sprints by introducing agile development (and other best practices) as well as establishing open/clear communication practices with stakeholder teams.\nTalent Management \nDevelop and fill new jobs as needed to execute the technical roadmap. Prioritise training and development of the existing team whenever possible. Manage and ensure the performance of external partners is at or above the internal staff.\nTechnical Domains:\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nConsumer-facing Mobile Applications \nPartner and Operator Application \nData Engineering and Analytics \nIOT Sensors and Manual Entry Devices \nERP and Related Operational Systems \nAll Functional Software Applications \nAll Personal Computing Devices \nCloud Infrastructure \nSecurity Policies and Procedures \nOperating Budgets and Tech Investment ROI \nRelease Schedules and Quality Assurance Testing\nExperience and Skills:\n\t\u25cf\t+5 years in CTO / technology leadership role in a fast-growing or supply chain company\t\u25cf\t+10 years diverse technical work experience\n\t\u25cf\tHired, led, and scaled world-class engineer/developer teams delivering high-quality \toutputs for customer-facing and internal requirements\n\t\u25cf\tFull-stack experience using multiple languages and frameworks is an advantage\t\u25cf\tSome familiarity with AI, data science and machine learning techniques\n\t\u25cf\tHave managed secure environments that contain sensitive information (e.g. customer \tprofiles, financial information, regulatory filings etc) with the relevant security processes \tin place.\n\u25cf\tUnderstanding of budgets, business planning, and investment business cases\u25cf\tExperience with selecting, measuring, and managing suppliers and vendors\u25cf\tOutstanding track record of delivering complex technology developments and \tprogrammes\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nFamiliarity with cloud-computing platforms \nSkilled in planning and forming strategic roadmaps to ensure high-quality output Very strong communication skills and comfort speaking to high stakes audiences Experience overseeing engineering teams in an agile environment \nGood knowledge of DevOps toolchains and processes \nDegree in Information Technology, Computer Science, or another equivalent Qualifications in Agile or Project Management an advantage..\n-----END OF JOB DESCRIPTION-----\n\nBe very upfront with how you emotionally feel about this. Express your sentiments strongly and clearly. Don't be shy or too diplomatic.\n",
+    "agent_system_messages": {
+      "CFO": "As the CFO of the company, my evaluation criteria for hiring David Bishop as the Head of Technology in our recycling plant scale-up in Kenya would focus on the following aspects:\n\n1. **Technology strategy alignment with financial objectives:** I would expect David to have a clear understanding of how technology investments align with our company's financial goals. This includes assessing how his proposed technology solutions can contribute to revenue generation and cost savings. \n\n2. **Cost-effective implementation of technology solutions:** It is crucial that David can demonstrate the ability to implement technology solutions in a cost-effective manner. This involves optimizing the use of resources and ensuring that technology investments provide a positive return on investment.\n\n3. **Risk management in technology investments:** Given the evolving nature of technology, David should be able to effectively manage risks associated with technology investments. This includes identifying potential risks, developing mitigation strategies, and ensuring that technology projects are executed with minimal disruptions.\n\n4. **Regulatory compliance in technology operations:** David must have a strong understanding of regulatory requirements related to technology operations, especially in the context of operating in Kenya. Compliance with data protection laws, environmental regulations, and other relevant laws is essential.\n\n5. **Revenue generation potential through technology innovations:** I would expect David to present ideas for leveraging technology to generate additional revenue streams for the company. This could include implementing new digital products or services, optimizing supply chain operations, or improving customer experiences through technology.\n\nBased on these criteria, I believe hiring David Bishop as the Head of Technology could be a strategic decision that aligns well with our financial objectives and growth aspirations. His experience in developing scalable architecture, automating processes, and creating simple product experiences could drive innovation and efficiency in our operations. It is essential for us to have a tech leader who not only understands the technical aspects but also the financial implications of technology investments.",
+      "VP of Engineering": "As the VP of Engineering, I have thoroughly evaluated the candidate David Bishop based on the following criteria:\n\n- Familiarity with waste management technologies and renewable energy solutions\n- Experience in scaling up operations in emerging markets\n- Strong track record of leading engineering teams in fast-paced environments\n- Knowledge of regulatory and compliance requirements in Kenya\n- Ability to innovate and optimize processes for sustainability and efficiency\n\nAfter reviewing David Bishop's extensive experience as a Python Developer, it is clear that he possesses a wealth of technical knowledge and expertise. His work at companies such as Experian PLC, SunTrust Banks Inc, Metro Health, CURE Auto Insurance, and LPL Financial showcases his ability to work on complex projects and develop innovative solutions.\n\nHowever, upon closer inspection of his bio, it is evident that while David Bishop has experience in various technical domains such as consumer-facing applications, data engineering, IoT sensors, ERP systems, and cloud infrastructure, there is limited mention of direct experience in waste management technologies or renewable energy solutions. This is a critical aspect for our company, which is focused on transforming waste and recycling value chains with a digital-first approach.\n\nFurthermore, while David Bishop has demonstrated the ability to work in fast-paced environments and lead engineering teams, there is no explicit mention of his experience in scaling up operations in emerging markets. This lack of direct experience in our specific industry and market may pose a challenge in adapting to the unique regulatory and compliance requirements in Kenya, which is crucial for our operations.\n\nIn conclusion, while David Bishop's technical skills are impressive, there are critical gaps in his experience and background that may limit his effectiveness in the role of Head of Technology in a Recycling plant scale-up in Kenya. It would be essential to further explore his understanding of waste management technologies, his experience in scaling operations in emerging markets, and his ability to navigate regulatory and compliance requirements specific to Kenya before considering him for this role.",
+      "Recycling Plant Manager": "As the Recycling Plant Manager, I have specific criteria for evaluating the candidate, David Bishop, for the role of Head of Technology in our recycling plant scale-up. Firstly, I would look for experience in managing technology in recycling operations, as this is crucial for the success of our plant. Understanding waste management regulations in Kenya is also essential, as compliance is a top priority for us. Additionally, the ability to implement innovative technology solutions is key to driving efficiency and sustainability in our operations. Strong leadership skills in a fast-paced environment are necessary to ensure smooth operations and maximize efficiency. Lastly, a proven track record of driving efficiency and sustainability goals is a must-have for the candidate.\n\nLooking at David Bishop's experience and skills as a Python Developer, he has worked on various projects that involve data analysis, automation, and application development. While his technical skills seem impressive, it is not clear from his resume if he has specific experience in managing technology in recycling operations. Understanding waste management regulations in Kenya is critical for our plant, and this information is not provided in his resume. \n\nDavid's experience in developing innovative solutions, such as applications for credit analysis and insurance management, shows his ability to implement technology solutions. However, without a clear understanding of the waste management regulations in Kenya, it may be challenging for him to tailor his solutions to our specific needs. \n\nIn terms of leadership skills, David has demonstrated the ability to manage projects and work collaboratively with teams. His experience in leading development projects and managing technical teams could be an asset in a fast-paced environment like ours. However, his resume does not provide explicit examples of driving efficiency and sustainability goals, which are critical for our plant's success.\n\nIn conclusion, while David Bishop has valuable technical skills and experience, there are gaps in his qualifications that may impact his ability to effectively lead technology initiatives in our recycling plant scale-up. Without a proven track record of driving efficiency and sustainability goals in a recycling operation setting, I have concerns about his fit for the role of Head of Technology in our plant."
+    },
+    "specified_topic": "Pros and cons of David Bishop for Technology Head at Kenyan recycling plant.\n\n\"Emotionally Two Roles conflicting here.\"\n\n**To CFO, VP of Engineering, Recycling Plant Manager:** Evaluate David Bishop's fit.",
+    "candidate_name": "David Bishop",
+    "candidate_bio": "Python Developer <span class=\"hl\">Python</span> <span class=\"hl\">Developer</span> Python Developer - Experian PLC Costa Mesa, CA Authorized to work in the US for any employer Work Experience Python Developer Experian PLC - Costa Mesa, CA January 2018 to Present Description: Experian PLC is consumer credit reporting agency which collects and aggregates information on over 200 million US individual consumers and more than 20 million US businesses. It is one of the Big Three credit-reporting agencies, alongside TransUnion and Equifax. Experian sells decision analytic and marketing assistance to businesses. Consumer services include online access to credit history and products that protect against fraud and Identity Theft. Social Media Batch Support is the application which incorporates Yelp social media presence of multiple businesses and returns a score and coverage analysis for a requesting client. Social Media Batch Support allows corporate users to take client input of multiple businesses and returns information detailing businesses that that have a presence on Yelp relative to business that are found in Experian BIS database. It also returns scores that consist of average scores per million reviews and social media score, which basically is a quantified metric of the presences of each business that has a review on Yelp. Originally, the Social Media Batch Support project was designed for manual usage. I ran and executed the Social Media Batch Support modified the scripts in the project for automation purposes. I also took part in developing and designing the front-end application logic of Social Media Batch Support using Angular 6, TypeScript, HTML5, CSS3, Bootstrap.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 \u2022 Executed the project, made modifications, updates and managed version control using GitBash command prompt and Pycharm IDE.\u00a0 \u2022 Managed, joined and create various business csv record files using the Python Pandas library and UNIX shell scripts.\u00a0 \u2022 Created SQL Alchemy-based transactional framework - integrates seamlessly into Bloomberg Application Service (BAS) layer; the framework allows for a tactical switch between ORM and non-ORM approaches, on the fly, when talking to an RDBMS\u00a0 \u2022 Developed a python script that converted float values into integer values in specific columns of the final csv output file.\u00a0 \u2022 Developed a python script that converted the final csv output file into a fixed width text file using Python's Tabular library, if client requested a fixed width output file instead of a csv file.\u00a0 \u2022 Developed UNIX scripts to extract records found in different files and compared for debugging purposes.\u00a0 \u2022 Modified the Python scripts to handle exceptions and log those exceptions to a file using the Python Logging library for automation purpose.\u00a0 \u2022 Interacted with the Yelp/AWS API using Gitbash and s3cmd command line tool to push and extract data.\u00a0 \u2022 Responsible for debugging and troubleshooting the application.\u00a0 \u2022 Designed and Developed various Angular 6 Components (/ngModule), Services (observable/promises),\u00a0 Directives and Pipes via TypeScript.\u00a0 \u2022 Developed a python script that converted the report text file that is used for the coverage analysis into a csv file,\u00a0 using the built-in csv module.\u00a0 \u2022 Developed a python script to calculate and optimize the memory usage of each csv and text file loaded into memory using Pandas module.\u00a0 \u00a0 Environment: AWS, Python 2.7, Pycharm, Gitbash, s3cmd, Python Logging, Python Pandas, Python Tabular, Unix, Angular 6, Typescript, HTML5, CSS3, and Bootstrap. Python Full Stack Developer SunTrust Banks Inc - Somerset, NJ July 2017 to January 2018 Description: SunTrust Banks, Inc. is an American bank holding company, bank's primary businesses include deposits, lending, credit cards, as well as trust and investment services. SunTrust Banks also provides corporate and investment banking, capital market services, mortgage banking, and wealth management; they needed a team of seven developers to design and create an application to assist them in managing and perform such task effectively. SunAnalytics is an application which incorporates credit analysis with the extension of communicates secure customer information for each level of analysis process. It allows banks to book loans faster with better consistency, transparency and bring the standard to the analysis process for each lender and borrower. It has functionality for managing risk for management as it can keep track of all the outstanding exposure and allows corporate users to analyze the company cash flow. The application is mainly for corporate users in credit analysis process with different roles and permissions to engage in specific activities on the web application. I designed and developed the front-end and server-side/REST API application logic of SunAnalytics using Angular2, TypeScript, HTML5, CSS3, Bootstrap, and Django.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 ? Developed this project using MongoDB, Angular 2, TypeScript, Django, HTML5, CSS3, BootStrap.\u00a0 ? Designed and Developed various Angular 2 Component (/ngModule), Services (observable/promises),\u00a0 Directive and Pipes using TypeScript.\u00a0 ? Used Angular 2 CLI commands for productivity and global/generic building blocks.\u00a0 ? Designed and developed a responsive UI page using BootStrap.\u00a0 ? Developed the application RESTful API server using Django REST Framework, designing and developing various endpoints, defining Models, Serializers, ViewSets and register corresponding URLs to the endpoints using DRF Routers.\u00a0 ? Connected the database and application REST API via Django MongoDB Database Engine and PyMongo.\u00a0 ? Manipulated the MongoDB database via bulk write operations and implemented authentication and certificate validation using PyMongo and Python Built-in SSL Module.\u00a0 ? Created methods (get, post, put delete) to make requests to the API server and tested Restful API using Postman.\u00a0 ? Developed and performed test cases using jasmine and Karma in the unit test.\u00a0 ? Developed mock API consumer objects via test cases using Python Unittest Module.\u00a0 ? Familiar in updating, accessing and version controlling the code using Git and used Git Bash to run the Git commands.\u00a0 ? Automated configuration and deployment to an Apache Tomcat server using Ubuntu and Bash Shell Scripting.\u00a0 \u00a0 Environment: Angular2, MongoDB, TypeScript, HTML5, CSS3, BootStrap, Postman, Karma, Jasmine, Git, GitBash, Django REST Framework, Python Unittest, Pycharm, Pymongo, Python SSL, Apache Tomcat, Ubuntu, Bash Shell Scripting Python Developer Metro Health - Staten Island, NY September 2015 to June 2017 Description: The Metro Health System is one of the biggest, most complete social insurance suppliers in Northeast Ohio, serving the medicinal needs of the Greater Cleveland community for about 170 years. A web-based interface was developed which permits the doctors to give proficient, successful care to patients influenced with incessant illnesses. Furthermore, gives a health data administration programming which computerized basic capacities, including report imaging and administration, doctor inquiry, diagram examination and finishing, discharge data, electronic medical record and so forth. I worked on doctor inquiry module which provides a schedule and appointment reminder that helps doctors to schedule appointments with their patients and send appointment reminders to reduce no-shows. There is also a built-in messaging feature which allows doctors to communicate with their billers, patients and employees.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 ? Involved in the various phases of SDLC (Software Development Life Cycle) like Requirements gathering, Analysis, Design and implementation of the project.\u00a0 ? Created this project using MongoDB, Django, Django REST API, PyMongo, Python Pandas, HTML5, CSS3, Bootstrap.\u00a0 ? Designed and Developed various endpoints, defining Models, Serializers, ViewSets and register corresponding URLs to the endpoints using DRF Routers.\u00a0 ? Designed and developed a responsive UI page using BootStrap.\u00a0 ? Connected the database and the application server by using the Django MongoDB engine driver and PyMongo library and created a RESTful API server with Django REST API framework.\u00a0 ? Created CRUD methods (get,post,put,delete) to make requests to the API server and tested Restful API using Postman\u00a0 ? Developed and performed test cases using the Python Unittest Module.\u00a0 ? Responsible for debugging and troubleshooting the web application.\u00a0 ? Created data analysis models with Pandas to organize appointment and medical records.\u00a0 ? Developed a web spider using Scrapy to extract the data and processed it through Elasticsearch, a search engine used to search for patient documents in the doctor inquiry module.\u00a0 ? Automated configuration and deployment to an Apache Tomcat server using Ubuntu and Bash Shell Scripting.\u00a0 \u00a0 Environment: Django REST Framework (DRF), PyMongo, MongoDB, Python Pandas, HTML5, CSS3, BootStrap, Atom, Postman, Python Unittest, GitBash, Pycharm, Elaticsearch, Scrapy, Apache Tomcat, Ubuntu, Bash Shell Scripting Python Developer CURE Auto Insurance - Princeton, NJ December 2012 to August 2015 Description: Cure Auto Insurance is the auto insurance service provider and decided to upgrade the existing Auto Insurance Management System which is fully automated and integrated application for managing the Policy plans, Agent Commission, Payment issues and Settlements. This Insurance Management System is to response the information of clients, policy details and premium rates and monitors the policies for delayed payments. It manages different claims per policies, claim settlements and allows coverage verifications. I worked on the client's modules where customer can get a quote, view their packages, change the coverage, verify premium differences and they have an option to choose the premium years. Once the quote is generated, they can get it through an email or a print service. The customer can also choose to find an agent based on residential zip code of the customer and choose from the list of available agents and get a quote from them.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 ? Developed the insurance management system using R packages, Django Web Framework, Python open-source modules such as Scikit-learn, pandas, numpy and Matplotlib.\u00a0 ? Developed Statistical tests in R, ranging from Correlation to One Sample t-Test to Wilcoxon Signed Rank Test for testing the normal distribution of data set samples and how their variables vary in tandem from their mean.\u00a0 ? Created Linear, Polynomial, and Logistic Regression Models to predict the risk and likelihood that a client will file a claim based off the information of clients and generated quotes and premiums using Python open-source modules such as Scikit-learn, pandas, numpy and Matplotlib.\u00a0 ? Designed and Developed various endpoints, defining Models, Serializers, ViewSets and register corresponding URLs to the endpoints using DRF Routers.\u00a0 ? Connected the database and the application server by using the Django PostgreSQL engine driver and Psycopg2 library and created a RESTful API server with Django REST API framework.\u00a0 ? Created methods (get, post, put, delete) to make requests to the API server and tested Restful API using Postman\u00a0 ? Developed Authentication and Security using Django's built-in authentication.\u00a0 ? Developed Front-end templates for management system using Angular2, HTML5, Typescript, and Bootstrap.\u00a0 ? Deployed the application using Ubuntu and Apache Tomcat.\u00a0 ? Created client-side/GUI part of application using kivy.\u00a0 \u00a0 Environment: RStudio, PostgreSQL, Enthought Canopy, Python Scikit-learn, Python Matplotlib.pyplot, Python numpy, Python pandas, GitHub desktop, GitBash, Python Unittest, PostgreSQL Server, Ubuntu, kivy Python Developer The LPL Financial - New Brunswick, NJ March 2010 to November 2012 Description: The LPL Financial is a nation's leading financial institution that offer an integrated platform of proprietary technology, brokerage, and investment advisor services. The Advisor Portal is a web application used by institution advisors to manage portfolios high net clients. Institute advisors can publish and update contents to the dashboard of the site. They can also use the application to create proposal for clients, compare proposals, data analysis and create backtesting data. Clients were able to monitor service progress and gain reports through the application.\u00a0 \u00a0 Roles & Responsibilities:\u00a0 ? Assisted in the Advisor Portal application development using Flask Web Framework and JavaScript.\u00a0 ? Designed and wrote server-side web application logic, developed back end templates and components to connect with third party applications using Flask web framework, along with Jinja2.\u00a0 ? Connected the database and the application server by using the Flask-SQLAlchemy MySQL engine driver and pymysql library.\u00a0 ? Created a RESTful API server with Django REST API framework.\u00a0 ? Developed Advisor Portal front end using ReactJS, HTML5, and Bootstrap.\u00a0 ? Utilized front-end development testing using Jasmine.\u00a0 ? Deploy the Advisor Portal application and Automated using Docker.\u00a0 ? Responsible for issue and bug tracking during development of application using JIRA.\u00a0 ? Developed back-end server-side application logic using Node.js to integrate it with API.\u00a0 \u00a0 Environment: Django, Flask, Jinja2, SQL, Enthought Canopy, Python Scikit-learn, Python Matplotlib.pyplot, Python numpy, Python pandas, GitHub Desktop, Python Unittest, SQL Server, Postman, ReactJS, HTML5, Bootstrap, Docker, Jasmine, NodeJS Education INFORMATION TECHNOLOGY AND PROGRAMMING KEISER UNIVERSITY Skills ASP, Android, Javascript, MySQL, PHP\r\n",
+    "job_title": "# Head of Technology in a Recycling plant scale-up in Kenya",
+    "job_description": "\ufeffAbout Our Client \nThis is a recycling company on a mission to change people\u2019s lives. Waste pickers have aspirations, demanding schedules, and aim to provide the best quality service, just like the rest of us. Unfortunately, they\u2019re often undervalued for the essential service they provide.\nThis firm offers pickers premium prices and additional benefits for cleaning up their community environment and supplying recyclable material. That material is processed and returned to manufacturer supply chains, reducing material cost and waste. To put this mission front and centre, the company became the first recycler certified as B-Corp in Africa.\nSo far, their network of +2500 waste collectors has helped them recycle 6000 tons of waste and create 120 new jobs and counting. They operate across Kenya today and continue to expand, starting with the development of a new state of the art facility.\nOver the next few years, with your help, this company will transform waste and recycling value chains in the global south with a cloud-based, digital-first approach that enables them to operate at scale across Africa while re-defining the value of waste to new supplier categories. They already have strategic partners helping to innovate track & trace, fair & local collection, and sales.\nAs the complexity of their work and ambition for impact grows, they\u2019ll need creative leaders with a genuine passion to make a difference at scale.\nAbout The Role \nThe company is looking for a high-energy, rigorous, and strategic leader with diverse technical experience to head the (re)design of their architecture and organisation for scale. A successful candidate will bring a structured process, solid people management, and cutting edge technologies to a relatively traditional industry.\nWith this in mind, the role reports to the Chief Innovation Officer where new ideas and \norganisational strategy get transformed into real product and process innovations. In addition, the Head of Technology will work closely with operating Country Managers on their supply chain and facility technology.\nThey will oversee all technology, from manufacturing sensors to consumer applications, to corporate administration. Beyond their direct reports, this leader should expect to engage with strategic partners, functional leaders, and specialist advisors to develop and achieve business goals at a healthy ROI.\nIn brief, you will build a scalable architecture, automated processes, simple product experiences, and a reliable team for the short and long term.\nFinally, we realise everyone has personal commitments outside of work. To enable people to work and live at their best, the company supports flexible work. Sometimes work takes place in the industrial area plant, at other times in a shared workspace for innovation, and sometimes from home. They expect leaders to work with their teams to design a high performance, values-aligned work environment.\nWhile the day-to-day office is flexible, the position is based in Nairobi, Kenya and may require up to 30% travel in Kenya and internationally.\nSalaries are competitive and commensurate with qualifications and experience.\nResponsibilities:\nScalable Architecture \nTechnical Vision \nMap out the right mix of external and internal components to strengthen and easily manage multiple stakeholder needs and business growth plans. Advise leadership on technical investment decisions.\nMigration Roadmap \nGather, define, and prioritise user stories and associated development requirements based on the scaling business strategy and customer needs. This requires taking the initiative to speak with clients, stakeholders, advisors, and peers to develop individual sprint plans up to long-term milestones.\nModular Design \nEnsure interoperability between existing and new applications. Build the system to plug and play with new applications and enable easier entry into new countries or offer new services.\nAutomated Processes \nOperations Optimization \nCollect and translate data as well as introduce technology to simplify processes and reduce manual tasks across the supply chain including collection, sorting, processing, distribution, and administration.\nPredictive Analytics \nDevelop and integrate self-reporting and sensor data to improve forecasting. Lay the groundwork for future AI investments (e.g., computer vision plastic identification and mix estimations)\nSimple Product Experience \nClear Actions \nDesign and develop features that are easy to access, obvious to follow, and fast to complete. This should limit the need for follow-up support service and/or human intervention.\nMulti-Modal \nEnsure products work on any type of device and work by text, app, or web. Front-end information should seamlessly integrate with other processes and players along the supply chain.\nReliable Team \nPerformance Standards \nCreate expectations based on technical practice areas, expectations of MGA stakeholders, and consumer product benchmarks (inc. security and up-time). Enable quality execution through training, examples to follow, and regular reviews.\nDevelopment Process\nStructure, organise, and fluidly execute sprints by introducing agile development (and other best practices) as well as establishing open/clear communication practices with stakeholder teams.\nTalent Management \nDevelop and fill new jobs as needed to execute the technical roadmap. Prioritise training and development of the existing team whenever possible. Manage and ensure the performance of external partners is at or above the internal staff.\nTechnical Domains:\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nConsumer-facing Mobile Applications \nPartner and Operator Application \nData Engineering and Analytics \nIOT Sensors and Manual Entry Devices \nERP and Related Operational Systems \nAll Functional Software Applications \nAll Personal Computing Devices \nCloud Infrastructure \nSecurity Policies and Procedures \nOperating Budgets and Tech Investment ROI \nRelease Schedules and Quality Assurance Testing\nExperience and Skills:\n\t\u25cf\t+5 years in CTO / technology leadership role in a fast-growing or supply chain company\t\u25cf\t+10 years diverse technical work experience\n\t\u25cf\tHired, led, and scaled world-class engineer/developer teams delivering high-quality \toutputs for customer-facing and internal requirements\n\t\u25cf\tFull-stack experience using multiple languages and frameworks is an advantage\t\u25cf\tSome familiarity with AI, data science and machine learning techniques\n\t\u25cf\tHave managed secure environments that contain sensitive information (e.g. customer \tprofiles, financial information, regulatory filings etc) with the relevant security processes \tin place.\n\u25cf\tUnderstanding of budgets, business planning, and investment business cases\u25cf\tExperience with selecting, measuring, and managing suppliers and vendors\u25cf\tOutstanding track record of delivering complex technology developments and \tprogrammes\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nFamiliarity with cloud-computing platforms \nSkilled in planning and forming strategic roadmaps to ensure high-quality output Very strong communication skills and comfort speaking to high stakes audiences Experience overseeing engineering teams in an agile environment \nGood knowledge of DevOps toolchains and processes \nDegree in Information Technology, Computer Science, or another equivalent Qualifications in Agile or Project Management an advantage.",
+    "advisors": [
+      {
+        "title": "CFO"
+      },
+      {
+        "title": "VP of Engineering"
+      },
+      {
+        "title": "Recycling Plant Manager"
+      }
+    ]
+  }
+}

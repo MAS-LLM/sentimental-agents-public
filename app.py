@@ -7,7 +7,7 @@ import plotly.express as px
 import base64
 import io
 import random
-from runner import run_simulation
+#from runner import run_simulation
 
 
 app = dash.Dash(
@@ -143,7 +143,7 @@ def process_data(n_clicks, job_title, job_description, resume_contents, advisors
         config = None
     # Generate tabs for each agent
     tabs = []
-    for key, entry in :
+    for key, entry in  dict():
         agent_name = row['Name']
         
         # Generate dummy data for demonstration
