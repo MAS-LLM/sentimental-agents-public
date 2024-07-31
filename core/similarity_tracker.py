@@ -108,10 +108,11 @@ embeddings.shape
 
 r_embeddings = reducer.fit_transform(embeddings)
 
+
 colors = []
 text_list = []
 for i in range(0, len(tracker.text_embeddings), 3):
-    c_round = i//3 +1
+    c_round = i//3 + 1
     for agent, color in zip(agents, ["#1E90FF", "#FF69B4", "#2ECC71"]):
         message = tracker.messages[agent][i//3]
         colors.append(color)
@@ -119,26 +120,30 @@ for i in range(0, len(tracker.text_embeddings), 3):
             f"{agent} in Round {c_round} <br> <br> {message[:80]} <br> {message[80:160]} <br> {message[160:240]}"
         )
 
-
-
 # Create the 3D scatter plot
-fig = go.Figure(data=[go.Scatter3d(
-    x=r_embeddings[:, 0],
-    y=r_embeddings[:, 1],
-    z=r_embeddings[:, 2],
-    mode='markers',
-    marker=dict(
-        size=5,
-        color=colors,
-        opacity=0.8
-    ),
-    text=text_list,  # You can replace this with actual labels if available
-    hoverinfo='text'
-)])
+fig = go.Figure()
+
+# Add traces for each agent
+for agent, color in zip(agents, ["#1E90FF", "#FF69B4", "#2ECC71"]):
+    agent_indices = [i for i in range(len(colors)) if colors[i] == color]
+    fig.add_trace(go.Scatter3d(
+        x=r_embeddings[agent_indices, 0],
+        y=r_embeddings[agent_indices, 1],
+        z=r_embeddings[agent_indices, 2],
+        mode='markers',
+        marker=dict(
+            size=5,
+            color=color,
+            opacity=0.8
+        ),
+        text=[text_list[i] for i in agent_indices],
+        hoverinfo='text',
+        name=agent  # This will appear in the legend
+    ))
 
 # Update the layout
 fig.update_layout(
-    title='3D UMAP Embeddings',
+    title='3D UMAP Agent Message Embeddings',
     scene=dict(
         xaxis_title='UMAP 1',
         yaxis_title='UMAP 2',
@@ -146,10 +151,18 @@ fig.update_layout(
     ),
     width=900,
     height=700,
-    margin=dict(r=20, b=10, l=10, t=40)
+    margin=dict(r=20, b=10, l=10, t=40),
+    legend_title_text='Agents',
+    legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="left",
+        x=0.01
+    )
 )
 
-fig.write_html("plot_outputs/embedding plot.html")
+
+fig.write_html("plot_outputs/embedding_plot.html")
 
 # Show the plot
 fig.show()
