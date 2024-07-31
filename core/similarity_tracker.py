@@ -12,7 +12,7 @@ print(f"Using device: {device}")
 model = SentenceTransformer("BAAI/bge-large-en-v1.5")
 model = model.to(device)
 
-with open("output_files/20240731_150705/candidate_David Bishop/simulation_data.json", "r") as jfile:
+with open("output_files/20240731_162814/candidate_Austin Wilson/simulation_data.json", "r") as jfile:
     test_data = json.load(jfile)["raw_history"]
 
 
@@ -93,7 +93,7 @@ fig.update_layout(
     hovermode='x unified'
 )
 
-fig.write_html("plot_outputs/similarity_change.html")
+fig.write_html("plot_outputs/similarity_change_Austin Wilson.html")
 
 fig.show()
 
@@ -162,7 +162,7 @@ fig.update_layout(
 )
 
 
-fig.write_html("plot_outputs/embedding_plot.html")
+fig.write_html("plot_outputs/embedding_plot_Austin Wilson.html")
 
 # Show the plot
 fig.show()
