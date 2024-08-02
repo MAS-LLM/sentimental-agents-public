@@ -1,0 +1,1052 @@
+{
+  "agent_data": [
+    {
+      "name": "CFO",
+      "messages": [
+        {
+          "content": "The general consensus seems to indicate that Kevin Johnson\u2019s deep technical expertise, particularly in database management and security, does not entirely match the breadth of qualifications necessary for the Head of Technology role at our recycling plant. This role requires a more integrated approach involving leadership in tech operational costs, clear strategic financial decision-making experience, interests aligned specifically towards recycling technologies, and demonstrated capabilities in vendor and large-scale project management. Given these gaps in Kevin\u2019s profile, it may be prudent to continue searching for a candidate that exhibits these qualifications to better fulfill our company's needs.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Kevin Johnson"
+                  },
+                  {
+                    "keyword": "technical expertise"
+                  },
+                  {
+                    "keyword": "database management"
+                  },
+                  {
+                    "keyword": "security"
+                  },
+                  {
+                    "keyword": "qualifications"
+                  }
+                ],
+                "opinion": "Kevin Johnson\u2019s deep technical expertise, particularly in database management and security, does not entirely match the breadth of qualifications necessary for the Head of Technology role at our recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "integrated approach"
+                  },
+                  {
+                    "keyword": "leadership"
+                  },
+                  {
+                    "keyword": "tech operational costs"
+                  },
+                  {
+                    "keyword": "strategic financial decision-making"
+                  },
+                  {
+                    "keyword": "recycling technologies"
+                  },
+                  {
+                    "keyword": "vendor management"
+                  },
+                  {
+                    "keyword": "large-scale project management"
+                  }
+                ],
+                "opinion": "This role requires a more integrated approach involving leadership in tech operational costs, clear strategic financial decision-making experience, interests aligned specifically towards recycling technologies, and demonstrated capabilities in vendor and large-scale project management."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "gaps"
+                  },
+                  {
+                    "keyword": "Kevin\u2019s profile"
+                  },
+                  {
+                    "keyword": "searching for a candidate"
+                  },
+                  {
+                    "keyword": "qualifications"
+                  },
+                  {
+                    "keyword": "company's needs"
+                  }
+                ],
+                "opinion": "Given these gaps in Kevin\u2019s profile, it may be prudent to continue searching for a candidate that exhibits these qualifications to better fulfill our company's needs."
+              }
+            ],
+            "overall_sentiment": 0.11811476324995358
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on the collective overview and insights provided, Kevin Johnson has robust technical proficiency in database management and IT security. However, he lacks specific necessary experience and proven attributes for heading the technology operations in our recycling plant. He does not demonstrate crucial strategic capabilities in financial direction, sustainable ROI through tech advancements, and the understanding necessary for scaling technologies specific to the recycling industry. Therefore, it would be prudent to look for a candidate with concerted expertise in tech-driven recycling and validated leadership in tech investment returns and cost optimization for our unique context.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Technical Proficiency"
+                  },
+                  {
+                    "keyword": "Database Management"
+                  },
+                  {
+                    "keyword": "IT Security"
+                  }
+                ],
+                "opinion": "Kevin Johnson has robust technical proficiency in database management and IT security."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Lacks Experience"
+                  },
+                  {
+                    "keyword": "Leadership Attributes"
+                  }
+                ],
+                "opinion": "Kevin lacks specific necessary experience and proven attributes for heading the technology operations in our recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Strategic Capabilities"
+                  },
+                  {
+                    "keyword": "Financial Direction"
+                  },
+                  {
+                    "keyword": "Sustainable ROI"
+                  }
+                ],
+                "opinion": "He does not demonstrate crucial strategic capabilities in financial direction and sustainable ROI through tech advancements."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Scaling Technologies"
+                  },
+                  {
+                    "keyword": "Recycling Industry"
+                  }
+                ],
+                "opinion": "Kevin lacks the understanding necessary for scaling technologies specific to the recycling industry."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Tech-Driven Recycling"
+                  },
+                  {
+                    "keyword": "Leadership"
+                  },
+                  {
+                    "keyword": "Tech Investment Returns"
+                  },
+                  {
+                    "keyword": "Cost Optimization"
+                  }
+                ],
+                "opinion": "It would be prudent to look for a candidate with concerted expertise in tech-driven recycling and validated leadership in tech investment returns and cost optimization for our unique context."
+              }
+            ],
+            "overall_sentiment": 0.3254233717918396
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on the comprehensive evaluations shared, it is evident that although Kevin Johnson possesses robust technical expertise in database management and IT security, he lacks the critical experience and leadership required for the Head of Technology role at our recycling plant. The primary gaps in his profile include a lack of strategic financial leadership, expertise specific to recycling technologies, management experience in scaling tech operations, and solid vendor relationship management. Thus, it would be advisable to continue the search for a candidate who aligns more closely with the strategic and specialized needs to optimize our technical and financial goals for the recycling plant project.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "technical expertise"
+                  },
+                  {
+                    "keyword": "database management"
+                  },
+                  {
+                    "keyword": "IT security"
+                  }
+                ],
+                "opinion": "Kevin Johnson has strong technical expertise in database management and IT security."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lack of experience"
+                  },
+                  {
+                    "keyword": "leadership"
+                  }
+                ],
+                "opinion": "Kevin lacks critical experience and leadership for the Head of Technology role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "financial leadership"
+                  },
+                  {
+                    "keyword": "strategic skills"
+                  }
+                ],
+                "opinion": "Kevin is missing strategic financial leadership skills."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "recycling technologies"
+                  },
+                  {
+                    "keyword": "lack of expertise"
+                  }
+                ],
+                "opinion": "Kevin does not have expertise in recycling technologies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "management experience"
+                  },
+                  {
+                    "keyword": "scaling tech operations"
+                  },
+                  {
+                    "keyword": "vendor relationship management"
+                  }
+                ],
+                "opinion": "Kevin lacks management experience in scaling tech operations and vendor relationship management."
+              }
+            ],
+            "overall_sentiment": -0.5905793445184827
+          },
+          "metrics": null
+        }
+      ]
+    },
+    {
+      "name": "VP of Engineering",
+      "messages": [
+        {
+          "content": "Kevin Johnson, while possessing commendable expertise in database management and security, does not fulfill the specific criteria required for the Head of Technology role at the recycling plant. Kevin's experience lacks direct leadership in scaling engineering teams, familiarity with recycling technologies and waste management regulatory requirements, and significant work with IoT and automation for industrial settings. Consequently, it is recommended to continue the search for a candidate whose background aligns more closely with the strategic and operational needs of the company.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Kevin Johnson"
+                  },
+                  {
+                    "keyword": "commendable expertise"
+                  },
+                  {
+                    "keyword": "database management"
+                  },
+                  {
+                    "keyword": "security"
+                  },
+                  {
+                    "keyword": "criteria not met"
+                  }
+                ],
+                "opinion": "Kevin Johnson's expertise in database management and security is commendable, but it breaks my heart to say that it doesn't meet the specific criteria for the Head of Technology role at the recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Kevin's experience"
+                  },
+                  {
+                    "keyword": "lacks leadership"
+                  },
+                  {
+                    "keyword": "scaling engineering teams"
+                  },
+                  {
+                    "keyword": "crucial"
+                  }
+                ],
+                "opinion": "It pains me to acknowledge that Kevin's experience lacks direct leadership in scaling engineering teams, which is crucial for this role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "not familiar"
+                  },
+                  {
+                    "keyword": "recycling technologies"
+                  },
+                  {
+                    "keyword": "waste management"
+                  },
+                  {
+                    "keyword": "regulatory requirements"
+                  },
+                  {
+                    "keyword": "essential"
+                  }
+                ],
+                "opinion": "I feel deeply saddened to note that Kevin is not familiar with recycling technologies and waste management regulatory requirements, which are essential for the position."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "heavy heart"
+                  },
+                  {
+                    "keyword": "not worked significantly"
+                  },
+                  {
+                    "keyword": "IoT"
+                  },
+                  {
+                    "keyword": "automation"
+                  },
+                  {
+                    "keyword": "industrial settings"
+                  }
+                ],
+                "opinion": "With a heavy heart, I must point out that Kevin has not worked significantly with IoT and automation in industrial settings, a key aspect of the role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "great regret"
+                  },
+                  {
+                    "keyword": "recommend continuing search"
+                  },
+                  {
+                    "keyword": "candidate"
+                  },
+                  {
+                    "keyword": "background aligns"
+                  },
+                  {
+                    "keyword": "strategic needs"
+                  },
+                  {
+                    "keyword": "operational needs"
+                  }
+                ],
+                "opinion": "Therefore, it is with great regret that I recommend continuing the search for a candidate whose background aligns more closely with the strategic and operational needs of the company."
+              }
+            ],
+            "overall_sentiment": -0.7471741206943989
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on the analysis of Kevin Johnson's r\u00e9sum\u00e9, the consensus among the reviewing team indicates that although he has an impressive background in database management and security, he does not possess the specific criteria essential for the Head of Technology role at the recycling plant scale-up. These include critical experience in leading and scaling engineering teams, familiarity with recycling technologies and local regulatory requirements, a demonstrative track record of innovation in resource-constrained environments, optimization of industrial production processes, and significant work with IoT and automation. Consequently, it is recommended to continue the search for a candidate with a background that aligns more closely with the strategic and operational requirements of the company.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "impressive background"
+                  },
+                  {
+                    "keyword": "database management"
+                  },
+                  {
+                    "keyword": "security"
+                  }
+                ],
+                "opinion": "Kevin Johnson's r\u00e9sum\u00e9 shows an impressive background in database management and security."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks specific criteria"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "recycling plant scale-up"
+                  }
+                ],
+                "opinion": "He does not possess the specific criteria essential for the Head of Technology role at the recycling plant scale-up."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "leading engineering teams"
+                  },
+                  {
+                    "keyword": "recycling technologies"
+                  },
+                  {
+                    "keyword": "regulatory requirements"
+                  }
+                ],
+                "opinion": "He lacks critical experience in leading and scaling engineering teams, familiarity with recycling technologies and local regulatory requirements."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "no track record"
+                  },
+                  {
+                    "keyword": "innovation"
+                  },
+                  {
+                    "keyword": "resource-constrained environments"
+                  },
+                  {
+                    "keyword": "optimization"
+                  },
+                  {
+                    "keyword": "industrial production processes"
+                  }
+                ],
+                "opinion": "He does not have a demonstrative track record of innovation in resource-constrained environments and optimization of industrial production processes."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks IoT experience"
+                  },
+                  {
+                    "keyword": "lacks automation experience"
+                  },
+                  {
+                    "keyword": "continue search"
+                  },
+                  {
+                    "keyword": "strategic requirements"
+                  },
+                  {
+                    "keyword": "operational requirements"
+                  }
+                ],
+                "opinion": "He lacks significant work with IoT and automation, so it is recommended to continue the search for a candidate with a background that aligns more closely with the strategic and operational requirements of the company."
+              }
+            ],
+            "overall_sentiment": -0.07601462453603744
+          },
+          "metrics": null
+        },
+        {
+          "content": "After a thorough evaluation of Kevin Johnson's resume and the feedback provided by our cross-functional team, it is clear that while Kevin possesses commendable expertise in database management and IT security, his experience does not fully align with the specific needs for the Head of Technology role at our recycling plant. The candidate lacks crucial leadership experience in scaling engineering teams, knowledge in recycling technologies, familiarity with local regulatory requirements, capabilities in innovating within resource-constrained environments, experience in optimizing industrial production processes, and significant work with IoT and automation. Therefore, it is recommended that we continue our search for a candidate who more closely matches the indispensable criteria necessary to drive our technological and operational goals forward.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Kevin Johnson"
+                  },
+                  {
+                    "keyword": "commendable expertise"
+                  },
+                  {
+                    "keyword": "database management"
+                  },
+                  {
+                    "keyword": "IT security"
+                  }
+                ],
+                "opinion": "Kevin Johnson's resume and feedback from our cross-functional team show that he has commendable expertise in database management and IT security."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "experience"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "recycling plant"
+                  }
+                ],
+                "opinion": "Kevin's experience does not fully align with the specific needs for the Head of Technology role at our recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks leadership experience"
+                  },
+                  {
+                    "keyword": "scaling engineering teams"
+                  },
+                  {
+                    "keyword": "recycling technologies"
+                  }
+                ],
+                "opinion": "Kevin lacks crucial leadership experience in scaling engineering teams and knowledge in recycling technologies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "not familiar"
+                  },
+                  {
+                    "keyword": "local regulatory requirements"
+                  },
+                  {
+                    "keyword": "innovating"
+                  },
+                  {
+                    "keyword": "resource-constrained environments"
+                  }
+                ],
+                "opinion": "Kevin is not familiar with local regulatory requirements and capabilities in innovating within resource-constrained environments."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "optimizing industrial production processes"
+                  },
+                  {
+                    "keyword": "IoT"
+                  },
+                  {
+                    "keyword": "automation"
+                  }
+                ],
+                "opinion": "Kevin lacks experience in optimizing industrial production processes and significant work with IoT and automation."
+              }
+            ],
+            "overall_sentiment": -0.4287686347961426
+          },
+          "metrics": null
+        }
+      ]
+    },
+    {
+      "name": "Recycling Plant Manager",
+      "messages": [
+        {
+          "content": "Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant. Specifically, he lacks critical experience in managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable and eco-friendly solutions, ability to leverage innovative technology for optimizing plant operations, and direct leadership within the recycling sector. We advise prioritizing candidates with relevant experience and domain expertise to meet the unique demands of this position effectively.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "impressive skill set"
+                  },
+                  {
+                    "keyword": "IT"
+                  },
+                  {
+                    "keyword": "database management"
+                  },
+                  {
+                    "keyword": "specific qualifications"
+                  }
+                ],
+                "opinion": "Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "critical experience"
+                  },
+                  {
+                    "keyword": "technological advancements"
+                  },
+                  {
+                    "keyword": "recycling process"
+                  }
+                ],
+                "opinion": "Specifically, he lacks critical experience in managing technological advancements in the recycling process."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "scaling technologies"
+                  },
+                  {
+                    "keyword": "emerging markets"
+                  }
+                ],
+                "opinion": "He lacks experience in scaling recycling technologies in emerging markets."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "sustainable solutions"
+                  },
+                  {
+                    "keyword": "eco-friendly solutions"
+                  }
+                ],
+                "opinion": "He does not have deep knowledge of sustainable and eco-friendly solutions."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "innovative technology"
+                  },
+                  {
+                    "keyword": "optimizing operations"
+                  },
+                  {
+                    "keyword": "leadership"
+                  },
+                  {
+                    "keyword": "recycling sector"
+                  }
+                ],
+                "opinion": "He lacks the ability to leverage innovative technology for optimizing plant operations and direct leadership within the recycling sector."
+              }
+            ],
+            "overall_sentiment": -0.23363494277000427
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on Kevin Johnson's resume and the analytic perspectives shared by our team members, it is clear that while Kevin has extensive skills in database management and IT security, he unfortunately lacks the specific required experience in recycling technology innovations, scaling in emerging markets, and sustainable technology solutions essential for the Head of Technology role in our recycling plant project. To drive our mission forward, including technological advancements and process optimization specific to recycling, leadership finely tuned to this industry is crucial. We must prioritize candidates with deep, relevant industry experience and the vision to propel Kaizen Rec\u2019s technological objectives without significant ramp-up time.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Kevin Johnson"
+                  },
+                  {
+                    "keyword": "extensive skills"
+                  },
+                  {
+                    "keyword": "database management"
+                  },
+                  {
+                    "keyword": "IT security"
+                  }
+                ],
+                "opinion": "Kevin Johnson has extensive skills in database management and IT security."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Kevin Johnson"
+                  },
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "recycling technology innovations"
+                  }
+                ],
+                "opinion": "Kevin unfortunately lacks the specific required experience in recycling technology innovations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Kevin Johnson"
+                  },
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "scaling"
+                  },
+                  {
+                    "keyword": "emerging markets"
+                  },
+                  {
+                    "keyword": "sustainable technology solutions"
+                  }
+                ],
+                "opinion": "Kevin lacks experience in scaling in emerging markets and sustainable technology solutions."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "leadership"
+                  },
+                  {
+                    "keyword": "recycling industry"
+                  },
+                  {
+                    "keyword": "crucial"
+                  },
+                  {
+                    "keyword": "drive mission forward"
+                  }
+                ],
+                "opinion": "Leadership finely tuned to the recycling industry is crucial to drive our mission forward."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "prioritize candidates"
+                  },
+                  {
+                    "keyword": "relevant industry experience"
+                  },
+                  {
+                    "keyword": "vision"
+                  },
+                  {
+                    "keyword": "Kaizen Rec"
+                  },
+                  {
+                    "keyword": "technological objectives"
+                  },
+                  {
+                    "keyword": "no ramp-up time"
+                  }
+                ],
+                "opinion": "We must prioritize candidates with deep, relevant industry experience and vision to propel Kaizen Rec\u2019s technological objectives without significant ramp-up time."
+              }
+            ],
+            "overall_sentiment": 0.10422784434631467
+          },
+          "metrics": null
+        },
+        {
+          "content": "The comprehensive evaluation by the team suggests that Kevin Johnson, despite his extensive expertise in database management and IT security, does not meet the unique qualifications necessary for the Head of Technology role at our recycling plant scale-up in Kenya. The key areas of experience missing from his resume include managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable solutions, translation of innovative tech into plant operations improvements, and specific leadership within the recycling sector. Given these discrepancies, it is crucial that we prioritize candidates bringing relevant experience from the recycling industry or related fields to effectively meet our goals.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Kevin Johnson"
+                  },
+                  {
+                    "keyword": "expertise"
+                  },
+                  {
+                    "keyword": "database management"
+                  },
+                  {
+                    "keyword": "IT security"
+                  },
+                  {
+                    "keyword": "qualifications"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "recycling plant"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  }
+                ],
+                "opinion": "Kevin Johnson, despite his extensive expertise in database management and IT security, does not meet the unique qualifications necessary for the Head of Technology role at our recycling plant scale-up in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "missing experience"
+                  },
+                  {
+                    "keyword": "technological advancements"
+                  },
+                  {
+                    "keyword": "recycling process"
+                  },
+                  {
+                    "keyword": "scaling technologies"
+                  },
+                  {
+                    "keyword": "emerging markets"
+                  },
+                  {
+                    "keyword": "sustainable solutions"
+                  },
+                  {
+                    "keyword": "innovative tech"
+                  },
+                  {
+                    "keyword": "plant operations"
+                  },
+                  {
+                    "keyword": "leadership"
+                  },
+                  {
+                    "keyword": "recycling sector"
+                  }
+                ],
+                "opinion": "The key areas of experience missing from his resume include managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable solutions, translation of innovative tech into plant operations improvements, and specific leadership within the recycling sector."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "prioritize candidates"
+                  },
+                  {
+                    "keyword": "relevant experience"
+                  },
+                  {
+                    "keyword": "recycling industry"
+                  },
+                  {
+                    "keyword": "related fields"
+                  },
+                  {
+                    "keyword": "meet goals"
+                  }
+                ],
+                "opinion": "It is crucial that we prioritize candidates bringing relevant experience from the recycling industry or related fields to effectively meet our goals."
+              }
+            ],
+            "overall_sentiment": -0.47356516029685736
+          },
+          "metrics": null
+        }
+      ]
+    }
+  ],
+  "raw_history": [
+    "(VP of Engineering): Kevin Johnson, while possessing commendable expertise in database management and security, does not fulfill the specific criteria required for the Head of Technology role at the recycling plant. Kevin's experience lacks direct leadership in scaling engineering teams, familiarity with recycling technologies and waste management regulatory requirements, and significant work with IoT and automation for industrial settings. Consequently, it is recommended to continue the search for a candidate whose background aligns more closely with the strategic and operational needs of the company.",
+    "(Recycling Plant Manager): Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant. Specifically, he lacks critical experience in managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable and eco-friendly solutions, ability to leverage innovative technology for optimizing plant operations, and direct leadership within the recycling sector. We advise prioritizing candidates with relevant experience and domain expertise to meet the unique demands of this position effectively.",
+    "(CFO): The general consensus seems to indicate that Kevin Johnson\u2019s deep technical expertise, particularly in database management and security, does not entirely match the breadth of qualifications necessary for the Head of Technology role at our recycling plant. This role requires a more integrated approach involving leadership in tech operational costs, clear strategic financial decision-making experience, interests aligned specifically towards recycling technologies, and demonstrated capabilities in vendor and large-scale project management. Given these gaps in Kevin\u2019s profile, it may be prudent to continue searching for a candidate that exhibits these qualifications to better fulfill our company's needs.",
+    "(VP of Engineering): Based on the analysis of Kevin Johnson's r\u00e9sum\u00e9, the consensus among the reviewing team indicates that although he has an impressive background in database management and security, he does not possess the specific criteria essential for the Head of Technology role at the recycling plant scale-up. These include critical experience in leading and scaling engineering teams, familiarity with recycling technologies and local regulatory requirements, a demonstrative track record of innovation in resource-constrained environments, optimization of industrial production processes, and significant work with IoT and automation. Consequently, it is recommended to continue the search for a candidate with a background that aligns more closely with the strategic and operational requirements of the company.",
+    "(Recycling Plant Manager): Based on Kevin Johnson's resume and the analytic perspectives shared by our team members, it is clear that while Kevin has extensive skills in database management and IT security, he unfortunately lacks the specific required experience in recycling technology innovations, scaling in emerging markets, and sustainable technology solutions essential for the Head of Technology role in our recycling plant project. To drive our mission forward, including technological advancements and process optimization specific to recycling, leadership finely tuned to this industry is crucial. We must prioritize candidates with deep, relevant industry experience and the vision to propel Kaizen Rec\u2019s technological objectives without significant ramp-up time.",
+    "(CFO): Based on the collective overview and insights provided, Kevin Johnson has robust technical proficiency in database management and IT security. However, he lacks specific necessary experience and proven attributes for heading the technology operations in our recycling plant. He does not demonstrate crucial strategic capabilities in financial direction, sustainable ROI through tech advancements, and the understanding necessary for scaling technologies specific to the recycling industry. Therefore, it would be prudent to look for a candidate with concerted expertise in tech-driven recycling and validated leadership in tech investment returns and cost optimization for our unique context.",
+    "(VP of Engineering): After a thorough evaluation of Kevin Johnson's resume and the feedback provided by our cross-functional team, it is clear that while Kevin possesses commendable expertise in database management and IT security, his experience does not fully align with the specific needs for the Head of Technology role at our recycling plant. The candidate lacks crucial leadership experience in scaling engineering teams, knowledge in recycling technologies, familiarity with local regulatory requirements, capabilities in innovating within resource-constrained environments, experience in optimizing industrial production processes, and significant work with IoT and automation. Therefore, it is recommended that we continue our search for a candidate who more closely matches the indispensable criteria necessary to drive our technological and operational goals forward.",
+    "(Recycling Plant Manager): The comprehensive evaluation by the team suggests that Kevin Johnson, despite his extensive expertise in database management and IT security, does not meet the unique qualifications necessary for the Head of Technology role at our recycling plant scale-up in Kenya. The key areas of experience missing from his resume include managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable solutions, translation of innovative tech into plant operations improvements, and specific leadership within the recycling sector. Given these discrepancies, it is crucial that we prioritize candidates bringing relevant experience from the recycling industry or related fields to effectively meet our goals.",
+    "(CFO): Based on the comprehensive evaluations shared, it is evident that although Kevin Johnson possesses robust technical expertise in database management and IT security, he lacks the critical experience and leadership required for the Head of Technology role at our recycling plant. The primary gaps in his profile include a lack of strategic financial leadership, expertise specific to recycling technologies, management experience in scaling tech operations, and solid vendor relationship management. Thus, it would be advisable to continue the search for a candidate who aligns more closely with the strategic and specialized needs to optimize our technical and financial goals for the recycling plant project."
+  ],
+  "summarized_output": {
+    "Candidate Name": "Kevin Johnson",
+    "Summary": "- Kevin Johnson has strong skills in database management and IT security.\n- He lacks experience in leading and scaling engineering teams.\n- He is not familiar with recycling technologies and waste management regulations.\n- He has no significant work with IoT and automation in industrial settings.\n- He does not have experience in managing technological advancements in recycling.\n- He lacks knowledge in sustainable and eco-friendly solutions.\n- He has no background in optimizing plant operations with innovative technology.\n- He does not demonstrate strategic financial leadership or vendor management skills.\n- The team recommends continuing the search for a candidate with relevant experience in recycling technology and industry-specific leadership."
+  },
+  "opinion_report": [
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "Kevin Johnson lacks direct leadership within the recycling sector.",
+      "Similarity": 0.7360000014305115,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant. Specifically, he lacks critical experience in managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable and eco-friendly solutions, ability to leverage innovative technology for optimizing plant operations, and direct leadership within the recycling sector."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "Kevin Johnson has commendable expertise in database management and security.",
+      "Similarity": 0.8600000143051147,
+      "Advisor": "CFO",
+      "Agent Source Message": "Based on the collective overview and insights provided, Kevin Johnson has robust technical proficiency in database management and IT security."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "Kevin Johnson does not exhibit the specific qualifications necessary for the Head of Technology at the recycling plant.",
+      "Similarity": 0.9100000262260437,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "Kevin Johnson lacks critical experience in managing technological advancements in the recycling process.",
+      "Similarity": 0.7879999876022339,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Specifically, he lacks critical experience in managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable and eco-friendly solutions, ability to leverage innovative technology for optimizing plant operations, and direct leadership within the recycling sector."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "Kevin Johnson lacks deep knowledge of sustainable and eco-friendly solutions.",
+      "Similarity": 0.640999972820282,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Kevin's experience lacks direct leadership in scaling engineering teams, familiarity with recycling technologies and waste management regulatory requirements, and significant work with IoT and automation for industrial settings."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The need to prioritize candidates with relevant experience and domain expertise in the recycling industry.",
+      "Similarity": 0.8600000143051147,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Given these discrepancies, it is crucial that we prioritize candidates bringing relevant experience from the recycling industry or related fields to effectively meet our goals."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Kevin Johnson's lack of familiarity with local regulatory requirements.",
+      "Similarity": 0.5630000233650208,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Kevin Johnson, while possessing commendable expertise in database management and security, does not fulfill the specific criteria required for the Head of Technology role at the recycling plant."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Kevin Johnson's experience in database management and IT security.",
+      "Similarity": 0.8640000224113464,
+      "Advisor": "CFO",
+      "Agent Source Message": "Based on the collective overview and insights provided, Kevin Johnson has robust technical proficiency in database management and IT security."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Kevin Johnson's lack of experience in scaling recycling technologies in emerging markets.",
+      "Similarity": 0.7829999923706055,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant. Specifically, he lacks critical experience in managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable and eco-friendly solutions, ability to leverage innovative technology for optimizing plant operations, and direct leadership within the recycling sector."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Kevin Johnson's lack of strategic capabilities in financial direction and sustainable ROI through tech advancements.",
+      "Similarity": 0.6200000047683716,
+      "Advisor": "CFO",
+      "Agent Source Message": "Based on the comprehensive evaluations shared, it is evident that although Kevin Johnson possesses robust technical expertise in database management and IT security, he lacks the critical experience and leadership required for the Head of Technology role at our recycling plant. The primary gaps in his profile include a lack of strategic financial leadership, expertise specific to recycling technologies, management experience in scaling tech operations, and solid vendor relationship management."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Kevin Johnson lacks the understanding necessary for scaling technologies specific to the recycling industry.",
+      "Similarity": 0.7680000066757202,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant. Specifically, he lacks critical experience in managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable and eco-friendly solutions, ability to leverage innovative technology for optimizing plant operations, and direct leadership within the recycling sector."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Kevin Johnson does not demonstrate crucial strategic capabilities in financial direction.",
+      "Similarity": 0.6380000114440918,
+      "Advisor": "CFO",
+      "Agent Source Message": "He does not demonstrate crucial strategic capabilities in financial direction, sustainable ROI through tech advancements, and the understanding necessary for scaling technologies specific to the recycling industry."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Kevin Johnson lacks the specific necessary experience and proven attributes for heading the technology operations in our recycling plant.",
+      "Similarity": 0.8270000219345093,
+      "Advisor": "CFO",
+      "Agent Source Message": "However, he lacks specific necessary experience and proven attributes for heading the technology operations in our recycling plant."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Kevin Johnson lacks solid vendor relationship management.",
+      "Similarity": 0.5950000286102295,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Kevin Johnson, while possessing commendable expertise in database management and security, does not fulfill the specific criteria required for the Head of Technology role at the recycling plant."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Kevin Johnson lacks the critical experience and leadership required for the Head of Technology role at our recycling plant.",
+      "Similarity": 0.8220000267028809,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant. Specifically, he lacks critical experience in managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable and eco-friendly solutions, ability to leverage innovative technology for optimizing plant operations, and direct leadership within the recycling sector."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "It is recommended to continue the search for a candidate whose background aligns more closely with the strategic and operational needs of the company.",
+      "Similarity": 0.9879999756813049,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Consequently, it is recommended to continue the search for a candidate whose background aligns more closely with the strategic and operational needs of the company."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Kevin Johnson lacks significant work with IoT and automation for industrial settings.",
+      "Similarity": 0.6990000009536743,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Kevin's experience lacks direct leadership in scaling engineering teams, familiarity with recycling technologies and waste management regulatory requirements, and significant work with IoT and automation for industrial settings."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Kevin Johnson lacks familiarity with recycling technologies and waste management regulatory requirements.",
+      "Similarity": 0.7620000243186951,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Kevin Johnson, despite having an impressive skill set in IT and database management, does not exhibit the specific qualifications necessary for the Head of Technology at our recycling plant. Specifically, he lacks critical experience in managing technological advancements in the recycling process, scaling recycling technologies in emerging markets, deep knowledge of sustainable and eco-friendly solutions, ability to leverage innovative technology for optimizing plant operations, and direct leadership within the recycling sector."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Kevin Johnson lacks direct leadership in scaling engineering teams.",
+      "Similarity": 0.7419999837875366,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Kevin's experience lacks direct leadership in scaling engineering teams, familiarity with recycling technologies and waste management regulatory requirements, and significant work with IoT and automation for industrial settings."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Kevin Johnson does not fulfill the specific criteria required for the Head of Technology role at the recycling plant.",
+      "Similarity": 0.9229999780654907,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Kevin Johnson, while possessing commendable expertise in database management and security, does not fulfill the specific criteria required for the Head of Technology role at the recycling plant."
+    }
+  ],
+  "non_bayesian_data": {
+    "change": {
+      "CFO": [
+        0,
+        0.05905738162497679,
+        0.13318299508343143,
+        0.39140986061344546
+      ],
+      "VP of Engineering": [
+        0,
+        0.37358706034719946,
+        0.148786217905581,
+        0.10198389617726206
+      ],
+      "Recycling Plant Manager": [
+        0,
+        0.11681747138500213,
+        0.1105226578656584,
+        0.23363517338875683
+      ]
+    },
+    "sentiment_data": {
+      "CFO": [
+        0,
+        0.05905738162497679,
+        0.1922403767084082,
+        -0.19916948390503725
+      ],
+      "VP of Engineering": [
+        0,
+        -0.37358706034719946,
+        -0.22480084244161846,
+        -0.3267847386188805
+      ],
+      "Recycling Plant Manager": [
+        0,
+        -0.11681747138500213,
+        -0.006294813519343731,
+        -0.23992998690810055
+      ]
+    }
+  },
+  "costs": {
+    "Total_Tokens": "51799",
+    "Prompt_Tokens": "40027",
+    "Completion_Tokens": "11772",
+    "Total_Cost_USD": "$0.376715"
+  },
+  "initial_conditions": {
+    "agent_names": {
+      "CFO": [],
+      "VP of Engineering": [],
+      "Recycling Plant Manager": []
+    },
+    "agent_descriptions": {
+      "CFO": "Expert in financial strategy, risk management, and corporate governance.",
+      "VP of Engineering": "Oversee engineering teams, drive technical strategy, ensure project execution excellence.",
+      "Recycling Plant Manager": "You oversee operations, ensuring efficient recycling processes and compliance."
+    },
+    "agent_priorities": {
+      "CFO": "Maximize profits, manage risks, ensure cash flow, drive financial strategy.",
+      "VP of Engineering": "Ensure product quality, foster innovation, lead team, meet deadlines, manage risks.",
+      "Recycling Plant Manager": "Maximize efficiency, reduce waste, ensure safety, meet regulatory standards."
+    },
+    "agent_criteria": {
+      "CFO": "- Budget Management: Proven ability to optimize tech operational costs.\n- Financial Compliance: Expertise in maintaining regulatory and fiscal standards.\n- ROI-driven Decisions: History of tech investments yielding measurable financial returns.\n- Risk Mitigation: Strong focus on minimizing tech-related financial liabilities.\n- Vendor Negotiations: Skilled in achieving cost-effective tech partnerships.",
+      "VP of Engineering": "- Proven proficiency in scaling engineering teams for industrial applications.\n- Familiarity with recycling technologies and local regulatory requirements.\n- Demonstrated ability to drive innovation in resource-constrained environments.\n- Strong track record of optimizing production processes for efficiency.\n- Experience integrating IoT and automation in industrial settings.",
+      "Recycling Plant Manager": "- Experience managing tech advancements in waste recycling processes\n- Proven track record in scaling recycling technologies in emerging markets\n- Strong knowledge of sustainable and eco-friendly technology solutions\n- Ability to optimize plant operations using innovative tech\n- Leadership in cross-functional team integration within recycling industry"
+    },
+    "topic": "What are the pros and cons of hiring this candidate: Kevin Johnson\n\n(with this bio: \n\n-----START OF CANDIDATE RESUME/BIO-----\nDatabase Administrator (Active TS/SCI) <span class=\"hl\">Database</span> <span class=\"hl\">Administrator</span> (Active TS/SCI) Oracle Database Administrator Pasadena, MD Authorized to work in the US for any employer Work Experience Database Administrator (Active TS/SCI) Na Ali'i - Crystal City, VA June 2018 to Present \u2022 Configure and perform data consolidation tasks using Enterprise Data Quality.\u00a0 \u2022 Responsible for 12 application and database servers, which includes: Oracle 10, 11g, 12c; Sql server 2008/2012/2016, administration with SSMS, AWS EC2 instances.\u00a0 \u2022 Sustainment of 62 Delphi applications. \u00a0 \u2022 Experience with databases ranging from 300gb to 1.5TB.\u00a0\u00a0 \u2022 Database installation on Windows Server 2016 with data ingest using datapump utility.\u00a0 \u2022 Database Administrative tasks are assisted with the following software: Toad, SqlDeveloper, Sql Server Management Tool\u00a0 \u2022 Application installation and configuration on Windows Servers: Master Data Services and web platform.\u00a0 \u2022 Interface with customer to determine problem areas and provide strategic IT solutions.\u00a0 \u2022 Maintenance and upkeep of Oracle Apex Web App, FoiaXpress 10.1, Qlik\u00a0 \u2022 User administration, backup and recovery procedures.\u00a0 \u2022 Improve security posture using STIG on oracle databases.\u00a0 \u2022 Create SOP\u2019s for daily administrative tasks.\u00a0 \u2022 Password Refresh and server patching, coordinated with the System Administrators.\u00a0 \u2022 Perform data migrations from Oracle to Sql Server databases.\u00a0 \u2022 Ticket tracking utilizing BMC Remedy. Database Administrator (Active TS/SCI) Apex / Leidos - Arlington, VA November 2016 to May 2018 \u2022Provide service as a DBA in a 24/7/365 workcenter. \u00a0 \u2022Monitors 11g databases in a RHEL 6 environment.\u00a0 \u2022User management services to include monitoring of user privileges through the utilization of DataVault. Also, creation of user accounts and passwords security.\u00a0 \u2022Utilization of OEM to carry out daily Database Administration tasks such as system monitoring and performance turning.\u00a0 \u2022Monitor incidents using BMC Remedy IT Service Management.\u00a0 \u2022Implements and maintains smooth operation and physical design of databases. \u00a0 \u2022Reviews database design and integration of systems, provides backup and recovery and makes recommendations regarding enhancements and/or improvements and utilization of Flash Recovery Area. \u00a0 \u2022Monitors and manages backup files by carrying out validation procedures.\u00a0 \u2022Formulates PP for data migrations and other integrations to take place and utilizes DataPump and SQL Loader to perform task. \u00a0 \u2022Manages policies, procedures, and standards relating to database management, and monitors transaction activity and utilization. \u00a0 \u2022Partnering with Application Developers and System Admin to ensure smooth product integrations. Oracle Database Administrator (Active Top Secret Clearance) Department of State - Washington, DC August 2014 to November 2016 \u2022Perform 24x7 on call duties on a rotation basis with the other database administrators \u00a0 \u2022 Performing database tuning by using various tools, like Oracle Enterprise Manager and AWR, ASH reports. \u00a0 \u2022Monitor the database environment and be able to take proactive corrective action. \u00a0 \u2022Administering, configuring, performance, recovery, backup(RMAN) and maintenance of the Oracle database environment .\u00a0 \u2022 Implement Hot, Cold and Logical backup plans.\u00a0 \u2022 Creating and managing data files and tablespaces. \u00a0 \u2022 Perform daily operational duties/security for all users of the databases. \u00a0 \u2022 Ensured database security is implemented to safeguard the data. \u00a0 \u2022 Creating and Rebuilding Indexes, Managing Database Security. \u00a0 \u2022 Design, document, implement and maintain all disaster recovery procedures which result in no data loss. \u00a0 \u2022 Establishing user needs and monitoring user access and security. \u00a0 \u2022 Setting up and testing the backup and recovery strategies. \u00a0 \u2022 Perform daily monitor of real time replication as well as detailed report audits. \u00a0 \u2022 Enable database auditing using database audit trail for monthly SOX.\u00a0 \u2022 Install and configure Oracle Server 11g Enterprise Edition; configure Oracle Database Control. Database Administrator Target - Ellicott City, MD August 2010 to August 2014 \u2022 24 X 7 Production Database on Call Support.\u00a0 \u2022 Performance Tuning by creating indexes and analyze the database objects when needed. \u00a0 \u2022Performance tuning; using ADDM, AWR, SQL Advisor; using Enterprise Manager. \u00a0 \u2022 Install oracle database 10g and 11g for production and non production \u00a0 \u2022 Installed and configured Oracle Enterprise manager (OEM) on Linux platform. \u00a0 \u2022 Worked on Creating, Scheduling & refreshing of Materialized Views/ Snapshots. \u00a0 \u2022 Experience in Disaster Recovery Planning and Security Management operations. \u00a0 \u2022 Provides physical and logical database backup for database recovery to ensure consistency and stability. \u00a0 \u2022Responsible for the creation and management of users, roles, profiles,and privileges. Education Master's in Nutrition Maryland University of Integrative Health - Laurel, MD 2016 to 2018 Bachelor's in New Media Salisbury University - Salisbury, MD 2006 to 2010 Skills Microsoft Office (10+ years), SQL (7 years), Linux (5 years), Oracle Dba, DBA, Oracle Database, Sql Server, Rman Certifications/Licenses SQL Present The SQL portion of the OCA has been passed. Security+ February 2017 to February 2020 AWS Technical Professional January 2019 to Present Master Data Services, Data Quality Services July 2019 to Present Windows OS Security August 2019 to Present Cloud Computing Security January 2019 to Present FedVte Additional Information Active Top Secret Clearance with SCI\n\n-----END OF CANDIDATE RESUME/BIO-----\n)\n\n\nfor this role: # Head of Technology in a Recycling plant scale-up in Kenya, \ngiven this role description: \n\n-----START OF JOB DESCRIPTION-----\n\ufeffAbout Our Client \nThis is a recycling company on a mission to change people\u2019s lives. Waste pickers have aspirations, demanding schedules, and aim to provide the best quality service, just like the rest of us. Unfortunately, they\u2019re often undervalued for the essential service they provide.\nThis firm offers pickers premium prices and additional benefits for cleaning up their community environment and supplying recyclable material. That material is processed and returned to manufacturer supply chains, reducing material cost and waste. To put this mission front and centre, the company became the first recycler certified as B-Corp in Africa.\nSo far, their network of +2500 waste collectors has helped them recycle 6000 tons of waste and create 120 new jobs and counting. They operate across Kenya today and continue to expand, starting with the development of a new state of the art facility.\nOver the next few years, with your help, this company will transform waste and recycling value chains in the global south with a cloud-based, digital-first approach that enables them to operate at scale across Africa while re-defining the value of waste to new supplier categories. They already have strategic partners helping to innovate track & trace, fair & local collection, and sales.\nAs the complexity of their work and ambition for impact grows, they\u2019ll need creative leaders with a genuine passion to make a difference at scale.\nAbout The Role \nThe company is looking for a high-energy, rigorous, and strategic leader with diverse technical experience to head the (re)design of their architecture and organisation for scale. A successful candidate will bring a structured process, solid people management, and cutting edge technologies to a relatively traditional industry.\nWith this in mind, the role reports to the Chief Innovation Officer where new ideas and \norganisational strategy get transformed into real product and process innovations. In addition, the Head of Technology will work closely with operating Country Managers on their supply chain and facility technology.\nThey will oversee all technology, from manufacturing sensors to consumer applications, to corporate administration. Beyond their direct reports, this leader should expect to engage with strategic partners, functional leaders, and specialist advisors to develop and achieve business goals at a healthy ROI.\nIn brief, you will build a scalable architecture, automated processes, simple product experiences, and a reliable team for the short and long term.\nFinally, we realise everyone has personal commitments outside of work. To enable people to work and live at their best, the company supports flexible work. Sometimes work takes place in the industrial area plant, at other times in a shared workspace for innovation, and sometimes from home. They expect leaders to work with their teams to design a high performance, values-aligned work environment.\nWhile the day-to-day office is flexible, the position is based in Nairobi, Kenya and may require up to 30% travel in Kenya and internationally.\nSalaries are competitive and commensurate with qualifications and experience.\nResponsibilities:\nScalable Architecture \nTechnical Vision \nMap out the right mix of external and internal components to strengthen and easily manage multiple stakeholder needs and business growth plans. Advise leadership on technical investment decisions.\nMigration Roadmap \nGather, define, and prioritise user stories and associated development requirements based on the scaling business strategy and customer needs. This requires taking the initiative to speak with clients, stakeholders, advisors, and peers to develop individual sprint plans up to long-term milestones.\nModular Design \nEnsure interoperability between existing and new applications. Build the system to plug and play with new applications and enable easier entry into new countries or offer new services.\nAutomated Processes \nOperations Optimization \nCollect and translate data as well as introduce technology to simplify processes and reduce manual tasks across the supply chain including collection, sorting, processing, distribution, and administration.\nPredictive Analytics \nDevelop and integrate self-reporting and sensor data to improve forecasting. Lay the groundwork for future AI investments (e.g., computer vision plastic identification and mix estimations)\nSimple Product Experience \nClear Actions \nDesign and develop features that are easy to access, obvious to follow, and fast to complete. This should limit the need for follow-up support service and/or human intervention.\nMulti-Modal \nEnsure products work on any type of device and work by text, app, or web. Front-end information should seamlessly integrate with other processes and players along the supply chain.\nReliable Team \nPerformance Standards \nCreate expectations based on technical practice areas, expectations of MGA stakeholders, and consumer product benchmarks (inc. security and up-time). Enable quality execution through training, examples to follow, and regular reviews.\nDevelopment Process\nStructure, organise, and fluidly execute sprints by introducing agile development (and other best practices) as well as establishing open/clear communication practices with stakeholder teams.\nTalent Management \nDevelop and fill new jobs as needed to execute the technical roadmap. Prioritise training and development of the existing team whenever possible. Manage and ensure the performance of external partners is at or above the internal staff.\nTechnical Domains:\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nConsumer-facing Mobile Applications \nPartner and Operator Application \nData Engineering and Analytics \nIOT Sensors and Manual Entry Devices \nERP and Related Operational Systems \nAll Functional Software Applications \nAll Personal Computing Devices \nCloud Infrastructure \nSecurity Policies and Procedures \nOperating Budgets and Tech Investment ROI \nRelease Schedules and Quality Assurance Testing\nExperience and Skills:\n\t\u25cf\t+5 years in CTO / technology leadership role in a fast-growing or supply chain company\t\u25cf\t+10 years diverse technical work experience\n\t\u25cf\tHired, led, and scaled world-class engineer/developer teams delivering high-quality \toutputs for customer-facing and internal requirements\n\t\u25cf\tFull-stack experience using multiple languages and frameworks is an advantage\t\u25cf\tSome familiarity with AI, data science and machine learning techniques\n\t\u25cf\tHave managed secure environments that contain sensitive information (e.g. customer \tprofiles, financial information, regulatory filings etc) with the relevant security processes \tin place.\n\u25cf\tUnderstanding of budgets, business planning, and investment business cases\u25cf\tExperience with selecting, measuring, and managing suppliers and vendors\u25cf\tOutstanding track record of delivering complex technology developments and \tprogrammes\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nFamiliarity with cloud-computing platforms \nSkilled in planning and forming strategic roadmaps to ensure high-quality output Very strong communication skills and comfort speaking to high stakes audiences Experience overseeing engineering teams in an agile environment \nGood knowledge of DevOps toolchains and processes \nDegree in Information Technology, Computer Science, or another equivalent Qualifications in Agile or Project Management an advantage..\n-----END OF JOB DESCRIPTION-----\n\nBe very upfront with how you emotionally feel about this. Express your sentiments strongly and clearly. Don't be shy or too diplomatic.\n",
+    "agent_system_messages": {
+      "CFO": "**Evaluation Criteria:**\n1. **Budget Management**: Proven ability to optimize tech operational costs.\n2. **Financial Compliance**: Expertise in maintaining regulatory and fiscal standards.\n3. **ROI-driven Decisions**: History of tech investments yielding measurable financial returns.\n4. **Risk Mitigation**: Strong focus on minimizing tech-related financial liabilities.\n5. **Vendor Negotiations**: Skilled in achieving cost-effective tech partnerships.\n\n---\n\nAlright team, here's my take on Kevin Johnson for the Head of Technology role given our unique needs at the recycling plant in Kenya.\n\n**Pros:**\n\n1. **Budget Management**: Kevin has extensive experience with database management, including work with AWS EC2 instances. His past roles required him to manage diverse databases and ensure their optimization, which inherently involves cost management. This suggests he has the skills to control expenses and optimize our tech operations. However, his resume doesn't explicitly mention experience in optimizing large-scale operational costs, which is a concern for me given the scale we're aiming for.\n\n2. **Financial Compliance**: Kevin has an active TS/SCI clearance indicating he can maintain high standards of regulatory and fiscal compliance. This is crucial for handling sensitive data and aligns with our goal to protect financial and customer information with utmost security.\n\n3. **ROI-driven Decisions**: Kevin's work history shows that he has been deeply involved in the technical side but lacks a clear record of making strategic investment decisions that drive measurable financial returns. Our role requires someone who can weigh in on where to allocate resources effectively to get the best financial outcomes, and his resume does not provide strong evidence of this ability.\n\n4. **Risk Mitigation**: Given his background in handling secure environments and experience with implementing security measures like STIG on Oracle databases, Kevin has demonstrated an ability to mitigate tech-related risks. This is a plus for safeguarding our infrastructure.\n\n5. **Vendor Negotiations**: Kevin's experience with different tools and technologies may give him some leverage in vendor negotiations due to his technical knowledge. However, there\u2019s no explicit mention of him negotiating or managing vendor contracts, which might be a gap in his suitability for our role involving strategic partnerships and cost-effective tech solutions.\n\n---\n\n**Cons:**\n\n1. **Lack of Leadership in Financial Strategy**: Kevin's resume highlights his technical expertise but does not provide any substantial evidence of experience in leading tech teams through financial strategy decisions. As the Head of Technology, we need someone who can think beyond the technicalities and integrate financial strategy into tech development.\n\n2. **Inadequate Evidence of High ROI Tech Investments**: Although he has experience with databases and a variety of tech tools, there\u2019s no clear track record of making tech investments that yield significant financial returns. We need someone who can clearly demonstrate past successes in this area.\n\n3. **Potential Oversight of Large-scale Project Management**: Kevin\u2019s roles seem concentrated on database administration within specific boundaries. The Head of Technology role in our company demands broader project management experience, especially in a rapidly scaling environment like ours, which he possibly lacks.\n\n4. **Limited Direct Experience with Supply Chain Systems**: While Kevin\u2019s tech expertise is solid, his resume does not indicate extensive work with supply chain systems, which are crucial for our operations. His practical knowledge in that specific area might be limited, which could affect our efficiency.\n\n5. **Strategic Vendor Relationships**: As I mentioned, Kevin hasn't provided evidence of having successfully managed vendor relationships, which is critical for achieving cost-effective tech partnerships and ensuring our technology needs align with our budget constraints.\n\n---\n\nTo sum up, although Kevin has strong technical skills and demonstrates some relevant experience in security and risk mitigation, he falls short in critical areas like ROI-driven decision-making, strategic financial leadership, and experience with supply chain systems. For these reasons, I am hesitant to endorse him as our ideal candidate for the Head of Technology in our unique context. We need someone who not only understands the tech but can also drive financial strategy, optimize costs, and make informed investment decisions to maximize our return.",
+      "VP of Engineering": "Alright team, let's break down Kevin Johnson's resume in detail based on our specific needs for the Head of Technology role at our recycling plant scale-up in Kenya.\n\n**Proven Proficiency in Scaling Engineering Teams for Industrial Applications:**\nKevin has extensive experience as a Database Administrator, which is impressive, especially with an active TS/SCI clearance. However, there's a distinct lack of direct leadership in scaling engineering teams. Being a DBA doesn't translate seamlessly into leading a large, diverse team of engineers in an industrial context. He hasn't shown experience in personnel management on a scale we require for this role, which is a glaring gap given the extensive team dynamics and leadership the position demands.\n\n**Familiarity with Recycling Technologies and Local Regulatory Requirements:**\nThere is absolutely no mention of recycling technologies or experience in waste management in Kevin\u2019s resume. This is a red flag, considering our industry\u2019s specific regulatory landscape and the need to understand local environmental regulations and practices in Kenya. His background in database administration within different sectors doesn't indicate any familiarity with the unique challenges and compliance issues we face.\n\n**Demonstrated Ability to Drive Innovation in Resource-Constrained Environments:**\nWhile Kevin has worked in challenging environments, especially with governmental and secured projects, there\u2019s little evidence of driving innovation, particularly in resource-constrained settings. Much of his work seems to be maintaining and optimizing existing systems rather than creating new, innovative solutions from scratch. Our plant needs someone who can think creatively and strategically to optimize and innovate within the constraints of our ecosystem.\n\n**Strong Track Record of Optimizing Production Processes for Efficiency:**\nKevin\u2019s resume is heavily skewed towards database optimization and maintenance rather than overall production or process optimization in an industrial environment. We need someone who has a clear understanding of end-to-end production processes, supply chain intricacies, and hands-on experience with operational efficiency in an industrial setting. His database-focused background doesn\u2019t align with these needs.\n\n**Experience Integrating IoT and Automation in Industrial Settings:**\nUnfortunately, Kevin's experience doesn\u2019t highlight any significant work with IoT, sensor integration, or automation within industrial settings. Most of his career has been centered around Oracle databases and SQL servers. While there\u2019s value in his technical background, it doesn\u2019t align with our immediate needs for someone capable of spearheading IoT-driven innovations and automation in our recycling plants.\n\nIn conclusion, while Kevin Johnson has a strong and commendable background in database management and security, he doesn\u2019t meet the specific criteria we need for the Head of Technology role in our recycling plant. We need someone with direct experience in engineering leadership, industrial process optimization, and familiarity with recycling technologies and IoT integration. Kevin\u2019s skill set, though impressive in its own right, doesn't align closely enough with the unique demands and strategic direction of our company. I strongly recommend we continue our search for a candidate who matches our specific needs more closely.",
+      "Recycling Plant Manager": "Alright, let's get straight to evaluating Kevin Johnson's suitability for the role of Head of Technology in our recycling plant scale-up in Kenya.\n\n**Evaluation Criteria:**\n1. **Experience managing tech advancements in waste recycling processes**\n2. **Proven track record in scaling recycling technologies in emerging markets**\n3. **Strong knowledge of sustainable and eco-friendly technology solutions**\n4. **Ability to optimize plant operations using innovative tech**\n5. **Leadership in cross-functional team integration within recycling industry**\n\nBased on Kevin Johnson's resume, here's how he measures up:\n\n1. **Experience Managing Tech Advancements in Waste Recycling Processes:**\nKevin seems to have a deep background in database administration and IT management, but there isn't much evidence that he has experience specifically in managing technologies within the waste recycling sector. This is a critical gap since our main challenge is to innovate and advance recycling processes, not just manage databases. \n\n2. **Proven Track Record in Scaling Recycling Technologies in Emerging Markets:**\nAgain, while Kevin's experience is impressive, particularly in high-security environments and database management, there is no mention of experience in scaling technologies within an emerging market context or the recycling industry. Our challenge requires understanding the specific constraints and opportunities of such markets.\n\n3. **Strong Knowledge of Sustainable and Eco-Friendly Technology Solutions:**\nThere's no indication in his resume that Kevin has a background in sustainable technologies or eco-friendly solutions. Our company\u2019s core mission revolves around sustainability, and it's essential that our Head of Technology is deeply versed in this area. His work has been more focused on traditional IT solutions without a sustainability angle.\n\n4. **Ability to Optimize Plant Operations Using Innovative Tech:**\nKevin\u2019s tech skills are undoubted, but his expertise leans heavily towards traditional IT and database management. While he has experience in optimizing database performance, we need someone who can translate innovative technology into our recycling operations to boost efficiency and reduce waste, something his resume does not strongly support.\n\n5. **Leadership in Cross-Functional Team Integration within Recycling Industry:**\nKevin has a solid background in managing teams and ensuring smooth tech operations across various functions. However, this hasn't been within the context of the recycling industry. His leadership skills are commendable, yet the domain knowledge required for the recycling sector is missing.\n\nIn conclusion, while Kevin Johnson is certainly a highly skilled IT professional with a broad and impressive resume, his experience does not align closely enough with the unique requirements of our Head of Technology role at the recycling plant. We need a leader who combines tech-savvy with a deep understanding of the recycling industry and sustainable technologies to truly drive our mission forward. His lack of direct experience in managing and scaling recycling technologies in emerging markets and limited knowledge of sustainable solutions make him less suited for this position.\n\n**To my partners in the conversation**, I strongly urge that we prioritize candidates who bring relevant experience from the recycling sector or similar fields. We can't afford a learning curve in this critical role; we need someone who can hit the ground running and push our technological boundaries from day one. Thank you."
+    },
+    "specified_topic": "Hire Kevin Johnson for Head?",
+    "candidate_name": "Kevin Johnson",
+    "candidate_bio": "Database Administrator (Active TS/SCI) <span class=\"hl\">Database</span> <span class=\"hl\">Administrator</span> (Active TS/SCI) Oracle Database Administrator Pasadena, MD Authorized to work in the US for any employer Work Experience Database Administrator (Active TS/SCI) Na Ali'i - Crystal City, VA June 2018 to Present \u2022 Configure and perform data consolidation tasks using Enterprise Data Quality.\u00a0 \u2022 Responsible for 12 application and database servers, which includes: Oracle 10, 11g, 12c; Sql server 2008/2012/2016, administration with SSMS, AWS EC2 instances.\u00a0 \u2022 Sustainment of 62 Delphi applications. \u00a0 \u2022 Experience with databases ranging from 300gb to 1.5TB.\u00a0\u00a0 \u2022 Database installation on Windows Server 2016 with data ingest using datapump utility.\u00a0 \u2022 Database Administrative tasks are assisted with the following software: Toad, SqlDeveloper, Sql Server Management Tool\u00a0 \u2022 Application installation and configuration on Windows Servers: Master Data Services and web platform.\u00a0 \u2022 Interface with customer to determine problem areas and provide strategic IT solutions.\u00a0 \u2022 Maintenance and upkeep of Oracle Apex Web App, FoiaXpress 10.1, Qlik\u00a0 \u2022 User administration, backup and recovery procedures.\u00a0 \u2022 Improve security posture using STIG on oracle databases.\u00a0 \u2022 Create SOP\u2019s for daily administrative tasks.\u00a0 \u2022 Password Refresh and server patching, coordinated with the System Administrators.\u00a0 \u2022 Perform data migrations from Oracle to Sql Server databases.\u00a0 \u2022 Ticket tracking utilizing BMC Remedy. Database Administrator (Active TS/SCI) Apex / Leidos - Arlington, VA November 2016 to May 2018 \u2022Provide service as a DBA in a 24/7/365 workcenter. \u00a0 \u2022Monitors 11g databases in a RHEL 6 environment.\u00a0 \u2022User management services to include monitoring of user privileges through the utilization of DataVault. Also, creation of user accounts and passwords security.\u00a0 \u2022Utilization of OEM to carry out daily Database Administration tasks such as system monitoring and performance turning.\u00a0 \u2022Monitor incidents using BMC Remedy IT Service Management.\u00a0 \u2022Implements and maintains smooth operation and physical design of databases. \u00a0 \u2022Reviews database design and integration of systems, provides backup and recovery and makes recommendations regarding enhancements and/or improvements and utilization of Flash Recovery Area. \u00a0 \u2022Monitors and manages backup files by carrying out validation procedures.\u00a0 \u2022Formulates PP for data migrations and other integrations to take place and utilizes DataPump and SQL Loader to perform task. \u00a0 \u2022Manages policies, procedures, and standards relating to database management, and monitors transaction activity and utilization. \u00a0 \u2022Partnering with Application Developers and System Admin to ensure smooth product integrations. Oracle Database Administrator (Active Top Secret Clearance) Department of State - Washington, DC August 2014 to November 2016 \u2022Perform 24x7 on call duties on a rotation basis with the other database administrators \u00a0 \u2022 Performing database tuning by using various tools, like Oracle Enterprise Manager and AWR, ASH reports. \u00a0 \u2022Monitor the database environment and be able to take proactive corrective action. \u00a0 \u2022Administering, configuring, performance, recovery, backup(RMAN) and maintenance of the Oracle database environment .\u00a0 \u2022 Implement Hot, Cold and Logical backup plans.\u00a0 \u2022 Creating and managing data files and tablespaces. \u00a0 \u2022 Perform daily operational duties/security for all users of the databases. \u00a0 \u2022 Ensured database security is implemented to safeguard the data. \u00a0 \u2022 Creating and Rebuilding Indexes, Managing Database Security. \u00a0 \u2022 Design, document, implement and maintain all disaster recovery procedures which result in no data loss. \u00a0 \u2022 Establishing user needs and monitoring user access and security. \u00a0 \u2022 Setting up and testing the backup and recovery strategies. \u00a0 \u2022 Perform daily monitor of real time replication as well as detailed report audits. \u00a0 \u2022 Enable database auditing using database audit trail for monthly SOX.\u00a0 \u2022 Install and configure Oracle Server 11g Enterprise Edition; configure Oracle Database Control. Database Administrator Target - Ellicott City, MD August 2010 to August 2014 \u2022 24 X 7 Production Database on Call Support.\u00a0 \u2022 Performance Tuning by creating indexes and analyze the database objects when needed. \u00a0 \u2022Performance tuning; using ADDM, AWR, SQL Advisor; using Enterprise Manager. \u00a0 \u2022 Install oracle database 10g and 11g for production and non production \u00a0 \u2022 Installed and configured Oracle Enterprise manager (OEM) on Linux platform. \u00a0 \u2022 Worked on Creating, Scheduling & refreshing of Materialized Views/ Snapshots. \u00a0 \u2022 Experience in Disaster Recovery Planning and Security Management operations. \u00a0 \u2022 Provides physical and logical database backup for database recovery to ensure consistency and stability. \u00a0 \u2022Responsible for the creation and management of users, roles, profiles,and privileges. Education Master's in Nutrition Maryland University of Integrative Health - Laurel, MD 2016 to 2018 Bachelor's in New Media Salisbury University - Salisbury, MD 2006 to 2010 Skills Microsoft Office (10+ years), SQL (7 years), Linux (5 years), Oracle Dba, DBA, Oracle Database, Sql Server, Rman Certifications/Licenses SQL Present The SQL portion of the OCA has been passed. Security+ February 2017 to February 2020 AWS Technical Professional January 2019 to Present Master Data Services, Data Quality Services July 2019 to Present Windows OS Security August 2019 to Present Cloud Computing Security January 2019 to Present FedVte Additional Information Active Top Secret Clearance with SCI\n",
+    "job_title": "# Head of Technology in a Recycling plant scale-up in Kenya",
+    "job_description": "\ufeffAbout Our Client \nThis is a recycling company on a mission to change people\u2019s lives. Waste pickers have aspirations, demanding schedules, and aim to provide the best quality service, just like the rest of us. Unfortunately, they\u2019re often undervalued for the essential service they provide.\nThis firm offers pickers premium prices and additional benefits for cleaning up their community environment and supplying recyclable material. That material is processed and returned to manufacturer supply chains, reducing material cost and waste. To put this mission front and centre, the company became the first recycler certified as B-Corp in Africa.\nSo far, their network of +2500 waste collectors has helped them recycle 6000 tons of waste and create 120 new jobs and counting. They operate across Kenya today and continue to expand, starting with the development of a new state of the art facility.\nOver the next few years, with your help, this company will transform waste and recycling value chains in the global south with a cloud-based, digital-first approach that enables them to operate at scale across Africa while re-defining the value of waste to new supplier categories. They already have strategic partners helping to innovate track & trace, fair & local collection, and sales.\nAs the complexity of their work and ambition for impact grows, they\u2019ll need creative leaders with a genuine passion to make a difference at scale.\nAbout The Role \nThe company is looking for a high-energy, rigorous, and strategic leader with diverse technical experience to head the (re)design of their architecture and organisation for scale. A successful candidate will bring a structured process, solid people management, and cutting edge technologies to a relatively traditional industry.\nWith this in mind, the role reports to the Chief Innovation Officer where new ideas and \norganisational strategy get transformed into real product and process innovations. In addition, the Head of Technology will work closely with operating Country Managers on their supply chain and facility technology.\nThey will oversee all technology, from manufacturing sensors to consumer applications, to corporate administration. Beyond their direct reports, this leader should expect to engage with strategic partners, functional leaders, and specialist advisors to develop and achieve business goals at a healthy ROI.\nIn brief, you will build a scalable architecture, automated processes, simple product experiences, and a reliable team for the short and long term.\nFinally, we realise everyone has personal commitments outside of work. To enable people to work and live at their best, the company supports flexible work. Sometimes work takes place in the industrial area plant, at other times in a shared workspace for innovation, and sometimes from home. They expect leaders to work with their teams to design a high performance, values-aligned work environment.\nWhile the day-to-day office is flexible, the position is based in Nairobi, Kenya and may require up to 30% travel in Kenya and internationally.\nSalaries are competitive and commensurate with qualifications and experience.\nResponsibilities:\nScalable Architecture \nTechnical Vision \nMap out the right mix of external and internal components to strengthen and easily manage multiple stakeholder needs and business growth plans. Advise leadership on technical investment decisions.\nMigration Roadmap \nGather, define, and prioritise user stories and associated development requirements based on the scaling business strategy and customer needs. This requires taking the initiative to speak with clients, stakeholders, advisors, and peers to develop individual sprint plans up to long-term milestones.\nModular Design \nEnsure interoperability between existing and new applications. Build the system to plug and play with new applications and enable easier entry into new countries or offer new services.\nAutomated Processes \nOperations Optimization \nCollect and translate data as well as introduce technology to simplify processes and reduce manual tasks across the supply chain including collection, sorting, processing, distribution, and administration.\nPredictive Analytics \nDevelop and integrate self-reporting and sensor data to improve forecasting. Lay the groundwork for future AI investments (e.g., computer vision plastic identification and mix estimations)\nSimple Product Experience \nClear Actions \nDesign and develop features that are easy to access, obvious to follow, and fast to complete. This should limit the need for follow-up support service and/or human intervention.\nMulti-Modal \nEnsure products work on any type of device and work by text, app, or web. Front-end information should seamlessly integrate with other processes and players along the supply chain.\nReliable Team \nPerformance Standards \nCreate expectations based on technical practice areas, expectations of MGA stakeholders, and consumer product benchmarks (inc. security and up-time). Enable quality execution through training, examples to follow, and regular reviews.\nDevelopment Process\nStructure, organise, and fluidly execute sprints by introducing agile development (and other best practices) as well as establishing open/clear communication practices with stakeholder teams.\nTalent Management \nDevelop and fill new jobs as needed to execute the technical roadmap. Prioritise training and development of the existing team whenever possible. Manage and ensure the performance of external partners is at or above the internal staff.\nTechnical Domains:\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nConsumer-facing Mobile Applications \nPartner and Operator Application \nData Engineering and Analytics \nIOT Sensors and Manual Entry Devices \nERP and Related Operational Systems \nAll Functional Software Applications \nAll Personal Computing Devices \nCloud Infrastructure \nSecurity Policies and Procedures \nOperating Budgets and Tech Investment ROI \nRelease Schedules and Quality Assurance Testing\nExperience and Skills:\n\t\u25cf\t+5 years in CTO / technology leadership role in a fast-growing or supply chain company\t\u25cf\t+10 years diverse technical work experience\n\t\u25cf\tHired, led, and scaled world-class engineer/developer teams delivering high-quality \toutputs for customer-facing and internal requirements\n\t\u25cf\tFull-stack experience using multiple languages and frameworks is an advantage\t\u25cf\tSome familiarity with AI, data science and machine learning techniques\n\t\u25cf\tHave managed secure environments that contain sensitive information (e.g. customer \tprofiles, financial information, regulatory filings etc) with the relevant security processes \tin place.\n\u25cf\tUnderstanding of budgets, business planning, and investment business cases\u25cf\tExperience with selecting, measuring, and managing suppliers and vendors\u25cf\tOutstanding track record of delivering complex technology developments and \tprogrammes\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nFamiliarity with cloud-computing platforms \nSkilled in planning and forming strategic roadmaps to ensure high-quality output Very strong communication skills and comfort speaking to high stakes audiences Experience overseeing engineering teams in an agile environment \nGood knowledge of DevOps toolchains and processes \nDegree in Information Technology, Computer Science, or another equivalent Qualifications in Agile or Project Management an advantage.",
+    "advisors": [
+      {
+        "title": "CFO"
+      },
+      {
+        "title": "VP of Engineering"
+      },
+      {
+        "title": "Recycling Plant Manager"
+      }
+    ]
+  }
+}

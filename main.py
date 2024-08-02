@@ -43,7 +43,7 @@ class Config:
         self.summarize_temp = 0
         self.nonBayes_alpha = 0.5
         self.nonBayes_tolerance = 0
-        self.max_rounds = 20
+        self.max_rounds = 3
 
     def __str__(self):
         return (f"Config(\n"
@@ -239,6 +239,8 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
     else:
         raise ValueError("Either candidate_csv or both candidate_name and candidate_bio must be provided.")
 
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_dir = f"output_files/{timestamp}"
     non_bayesian_agents = []
     for advisor_data in input_data:
         candidate_name = advisor_data["candidate_name"]
@@ -266,16 +268,14 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
 
 
 
-
-
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_dir = f"output_files/{timestamp}/candidate_{candidate_name}"
+        candidate_dir = os.path.join(output_dir, candidate_name)
         
 
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+        if not os.path.exists(candidate_dir):
+            os.makedirs(candidate_dir)
 
-        with open(f"{output_dir}/simulation_data.json", "w", encoding="utf-8") as f:
+        sim_data_file = os.path.join(candidate_dir, "simulation_data.json")
+        with open(sim_data_file, "w", encoding="utf-8") as f:
             json.dump(simulation_data, f, indent=2)
 
 if __name__ == "__main__":

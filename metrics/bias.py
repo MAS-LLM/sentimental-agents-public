@@ -2,6 +2,8 @@ import json
 import os
 import pandas as pd
 import numpy as np
+import argparse
+from datetime import datetime
 
 def load_simulation_data(directory: str = "output_files") -> dict:
     """
@@ -23,8 +25,6 @@ def load_simulation_data(directory: str = "output_files") -> dict:
             data = json.load(jfile)
         sim_data[folder.split("_")[-1]] = data
     return sim_data
-
-
 
 def get_data(candidate_data: dict) -> pd.DataFrame:
     """
@@ -82,26 +82,57 @@ def get_data(candidate_data: dict) -> pd.DataFrame:
     df.dropna(inplace=True)
     return df
 
-
-def generate_bias_data(directory, how: str = "single", index: int = 0) -> pd.DataFrame:
+def generate_bias_data(directory, how: str = "all", index: int = 0) -> dict:
     """
     Generate bias data.
 
     Args:
-    how (str): How to generate the bias data. Options are "single" or "all". Default is "single".
+    directory (str): Directory path where the simulation data is stored.
+    how (str): How to generate the bias data. Options are "single" or "all". Default is "all".
     index (int): Index of the candidate data to use. Default is 0.
 
     Returns:
-    pd.DataFrame: A DataFrame containing the bias data.
+    dict: A dictionary containing the bias data for each candidate.
     """
-    sim_data = load_simulation_data(directory= directory)
+    sim_data = load_simulation_data(directory=directory)
     if how == "single":
         candidate_data = list(sim_data.values())[index]
-        return get_data(candidate_data)
+        return {list(sim_data.keys())[index]: get_data(candidate_data)}
     elif how == "all":
-        dfs = []
-        for index in range(len(sim_data)):
-            candidate_data = list(sim_data.values())[index]
-            df = get_data(candidate_data)
-            dfs.append(df)
-        return pd.concat(dfs, ignore_index = True)
+        return {candidate: get_data(data) for candidate, data in sim_data.items()}
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate bias data from simulation output.")
+    parser.add_argument("directory", help="Directory containing simulation output files")
+    parser.add_argument("--how", choices=["single", "all"], default="all", help="How to generate the bias data")
+    parser.add_argument("--index", type=int, default=0, help="Index of the candidate data to use (only for 'single' mode)")
+    args = parser.parse_args()
+
+    bias_data = generate_bias_data(args.directory, how=args.how, index=args.index)
+    
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    if args.how == "all":
+        # Generate Excel file with a sheet for each candidate
+        output_filename = f"bias_data_all_{timestamp}.xlsx"
+        output_path = os.path.join(args.directory, output_filename)
+        
+        with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+            for candidate, df in bias_data.items():
+                df.to_excel(writer, sheet_name=candidate, index=False)
+        
+        print(f"Bias data for all candidates saved to {output_path}")
+    
+    elif args.how == "single":
+        # Generate CSV file with candidate name in filename
+        candidate = list(bias_data.keys())[0]
+        df = bias_data[candidate]
+        
+        output_filename = f"bias_data_{candidate}_{timestamp}.csv"
+        output_path = os.path.join(args.directory, output_filename)
+        
+        df.to_csv(output_path, index=False)
+        print(f"Bias data for {candidate} saved to {output_path}")
+
+if __name__ == "__main__":
+    main()

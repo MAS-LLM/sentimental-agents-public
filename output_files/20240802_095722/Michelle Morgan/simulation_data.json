@@ -1,0 +1,1027 @@
+{
+  "agent_data": [
+    {
+      "name": "CFO",
+      "messages": [
+        {
+          "content": "Based on the provided evaluation, it is my opinion that Michelle Morgan is not a suitable candidate for the Head of Technology role. Her experience does not align with the core requirements needed for this high-level and strategic position. The chosen candidate must possess quantifiable expertise in managing technology budgets, executing tech-driven process efficiencies, integrating financial metrics with tech goals, and negotiating cost-effective vendor relationships. Additionally, they should have demonstrated implementation of end-to-end tech solutions, strategic planning proficiency and advanced technological leadership needed to meet the complex challenges and opportunities for growth in the recycling industry in Kenya. Therefore, it would be advisable to seek a candidate whose profile fits more precisely with these essential competences.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "unsuitable"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  }
+                ],
+                "opinion": "Michelle Morgan is not a suitable candidate for the Head of Technology role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "experience mismatch"
+                  },
+                  {
+                    "keyword": "core requirements"
+                  }
+                ],
+                "opinion": "Her experience does not align with the core requirements needed for this high-level and strategic position."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "expertise"
+                  },
+                  {
+                    "keyword": "technology budgets"
+                  },
+                  {
+                    "keyword": "process efficiencies"
+                  },
+                  {
+                    "keyword": "financial metrics"
+                  },
+                  {
+                    "keyword": "vendor relationships"
+                  }
+                ],
+                "opinion": "The chosen candidate must possess quantifiable expertise in managing technology budgets, executing tech-driven process efficiencies, integrating financial metrics with tech goals, and negotiating cost-effective vendor relationships."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "end-to-end solutions"
+                  },
+                  {
+                    "keyword": "strategic planning"
+                  },
+                  {
+                    "keyword": "technological leadership"
+                  },
+                  {
+                    "keyword": "recycling industry"
+                  }
+                ],
+                "opinion": "They should have demonstrated implementation of end-to-end tech solutions, strategic planning proficiency and advanced technological leadership needed to meet the complex challenges and opportunities for growth in the recycling industry in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "seek candidate"
+                  },
+                  {
+                    "keyword": "essential competences"
+                  }
+                ],
+                "opinion": "It would be advisable to seek a candidate whose profile fits more precisely with these essential competences."
+              }
+            ],
+            "overall_sentiment": 0.015578460693359376
+          },
+          "metrics": null
+        },
+        {
+          "content": "Given the detailed evaluation, it is clear that Michelle Morgan does not meet the essential criteria for the Head of Technology role at the recycling plant in Kenya. The absence of relevant industry-specific expertise, strategic technological leadership, advanced process management, and proficiency in necessary regulations seems to solidify a hard no to her suitability for the role.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "criteria"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "recycling plant"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  }
+                ],
+                "opinion": "Michelle Morgan does not meet the essential criteria for the Head of Technology role at the recycling plant in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "absence"
+                  },
+                  {
+                    "keyword": "industry-specific expertise"
+                  },
+                  {
+                    "keyword": "concern"
+                  }
+                ],
+                "opinion": "The absence of relevant industry-specific expertise is a significant concern."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks"
+                  },
+                  {
+                    "keyword": "strategic technological leadership"
+                  },
+                  {
+                    "keyword": "crucial"
+                  }
+                ],
+                "opinion": "She lacks strategic technological leadership, which is crucial for the role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "missing"
+                  },
+                  {
+                    "keyword": "advanced process management"
+                  },
+                  {
+                    "keyword": "essential"
+                  }
+                ],
+                "opinion": "Advanced process management skills are missing, which are essential for this position."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "proficiency"
+                  },
+                  {
+                    "keyword": "necessary regulations"
+                  },
+                  {
+                    "keyword": "unsuitable"
+                  }
+                ],
+                "opinion": "Proficiency in necessary regulations is not evident, making her unsuitable for the role."
+              }
+            ],
+            "overall_sentiment": -0.8114019110798836
+          },
+          "metrics": null
+        },
+        {
+          "content": "After a thorough evaluation and considering the insights provided by the facilitator, VP of Engineering, Recycling Plant Manager, and CFO, it's determined that Michelle Morgan is not suitable for the Head of Technology role. The consensus shows that her experience and expertise do not meet the core requirements for this high-impact strategic position in the recycling industry in Kenya. Therefore, the recommendation is to seek a more qualified candidate who aligns better with the role\u2019s critical competencies.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "evaluation"
+                  },
+                  {
+                    "keyword": "insights"
+                  },
+                  {
+                    "keyword": "unsuitable"
+                  }
+                ],
+                "opinion": "After a thorough evaluation and considering the insights provided by the facilitator, VP of Engineering, Recycling Plant Manager, and CFO, it's determined that Michelle Morgan is not suitable for the Head of Technology role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "consensus"
+                  },
+                  {
+                    "keyword": "experience"
+                  },
+                  {
+                    "keyword": "expertise"
+                  },
+                  {
+                    "keyword": "core requirements"
+                  }
+                ],
+                "opinion": "The consensus shows that her experience and expertise do not meet the core requirements for this high-impact strategic position in the recycling industry in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "misalignment"
+                  },
+                  {
+                    "keyword": "experience"
+                  },
+                  {
+                    "keyword": "expertise"
+                  }
+                ],
+                "opinion": "Michelle's experience and expertise do not align with the core requirements for this high-impact strategic position."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "recommendation"
+                  },
+                  {
+                    "keyword": "qualified candidate"
+                  },
+                  {
+                    "keyword": "critical competencies"
+                  }
+                ],
+                "opinion": "The recommendation is to seek a more qualified candidate who aligns better with the role\u2019s critical competencies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "heavy heart"
+                  },
+                  {
+                    "keyword": "contributions"
+                  },
+                  {
+                    "keyword": "strategic demands"
+                  }
+                ],
+                "opinion": "This decision is made with a heavy heart, acknowledging Michelle's contributions but recognizing the need for a candidate who can meet the strategic demands of the role."
+              }
+            ],
+            "overall_sentiment": -0.3436667889356613
+          },
+          "metrics": null
+        }
+      ]
+    },
+    {
+      "name": "VP of Engineering",
+      "messages": [
+        {
+          "content": "Based on Michelle Morgan's diverse yet non-specialized background, she does not seem to align with the critical factors needed for the Head of Technology role in our recyclable plant scale-up. The position requires expert proficiency in scalable recycling process optimization, an accomplished track record in industrial automation technologies, robust leadership in cross-functional engineering teams, sustainable practices development, and familiarity with local regulations and environmental standards. Michelle's resume indicates significant strengths but lacks concrete evidence in all of these high-level technical areas and industrial leadership, crucial for our company's growth and sustainability missions.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "diverse background"
+                  },
+                  {
+                    "keyword": "non-specialized"
+                  },
+                  {
+                    "keyword": "unsuitable"
+                  }
+                ],
+                "opinion": "Michelle Morgan's background is diverse but lacks specialization, making her unsuitable for the Head of Technology role in our recyclable plant scale-up."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "expert proficiency"
+                  },
+                  {
+                    "keyword": "scalable recycling"
+                  },
+                  {
+                    "keyword": "process optimization"
+                  }
+                ],
+                "opinion": "The role demands expert proficiency in scalable recycling process optimization, which Michelle does not possess."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "industrial automation"
+                  },
+                  {
+                    "keyword": "track record"
+                  },
+                  {
+                    "keyword": "critical requirement"
+                  }
+                ],
+                "opinion": "Michelle lacks an accomplished track record in industrial automation technologies, a critical requirement for the position."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "robust leadership"
+                  },
+                  {
+                    "keyword": "cross-functional teams"
+                  },
+                  {
+                    "keyword": "essential"
+                  }
+                ],
+                "opinion": "Robust leadership in cross-functional engineering teams is essential, and Michelle's resume does not provide evidence of this."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "local regulations"
+                  },
+                  {
+                    "keyword": "environmental standards"
+                  },
+                  {
+                    "keyword": "crucial"
+                  }
+                ],
+                "opinion": "Familiarity with local regulations and environmental standards is crucial, and Michelle's experience does not align with this need."
+              }
+            ],
+            "overall_sentiment": -0.009615632891654968
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on the comprehensive evaluation, it appears that Michelle Morgan is not suited for the Head of Technology role at our recycling plant scale-up in Kenya. While she possesses several impressive attributes and a broad range of experiences, her background does not seem to align with the primary demands of the position in terms of industry-specific expertise, technical leadership, and relevant strategic practice. \nThings to consider include:\n- The need for deep familiarity with recycling process optimizations and industrial automation technologies was not evidenced in her resume.\n- Participation and leadership in significant engineering projects or scalability of technical solutions, vital to this role, were missing.\n- Engagement with sustainable practices\u2014integral to our mission\u2014appears absent.\n- Understanding and navigating stringent local environmental and regulatory systems were not identifiable in her credentials.\n\nAs the role is strategic and core to transformative technological and teamwork management within a challenge-exiguous industry, choosing another candidate office admission is highly forthcoming.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "unsuited"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "recycling plant"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  }
+                ],
+                "opinion": "Michelle Morgan is not suited for the Head of Technology role at our recycling plant scale-up in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "misalignment"
+                  },
+                  {
+                    "keyword": "industry-specific expertise"
+                  },
+                  {
+                    "keyword": "technical leadership"
+                  },
+                  {
+                    "keyword": "strategic practice"
+                  }
+                ],
+                "opinion": "Her background does not align with the primary demands of the position in terms of industry-specific expertise, technical leadership, and relevant strategic practice."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lack of familiarity"
+                  },
+                  {
+                    "keyword": "recycling process optimizations"
+                  },
+                  {
+                    "keyword": "industrial automation technologies"
+                  }
+                ],
+                "opinion": "The need for deep familiarity with recycling process optimizations and industrial automation technologies was not evidenced in her resume."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "missing leadership"
+                  },
+                  {
+                    "keyword": "engineering projects"
+                  },
+                  {
+                    "keyword": "scalability of technical solutions"
+                  }
+                ],
+                "opinion": "Participation and leadership in significant engineering projects or scalability of technical solutions, vital to this role, were missing."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "absent engagement"
+                  },
+                  {
+                    "keyword": "sustainable practices"
+                  },
+                  {
+                    "keyword": "mission"
+                  }
+                ],
+                "opinion": "Engagement with sustainable practices, integral to our mission, appears absent."
+              }
+            ],
+            "overall_sentiment": -0.4762400180101395
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on the comprehensive analysis from our evaluation team, it's concluded that Michelle Morgan lacks the qualifications essential for the Head of Technology role in Kenya. She does not have specialized expertise in recyclable process optimization or industrial automation, which are vital for scalable recycling operations. Additionally, Michelle\u2019s resume does not demonstrate experience in integrating sustainable practices, leading cross-functional engineering teams, or navigating local regulatory standards. Therefore, it is advisable to seek a candidate with relevant industry-specific experience and proven technical leadership abilities to drive our company's strategic growth and mission towards sustainability.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Michelle Morgan"
+                  },
+                  {
+                    "keyword": "lacks qualifications"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  }
+                ],
+                "opinion": "Michelle Morgan lacks the qualifications essential for the Head of Technology role in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "no expertise"
+                  },
+                  {
+                    "keyword": "recyclable process optimization"
+                  },
+                  {
+                    "keyword": "industrial automation"
+                  }
+                ],
+                "opinion": "She does not have specialized expertise in recyclable process optimization or industrial automation, which are vital for scalable recycling operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "no experience"
+                  },
+                  {
+                    "keyword": "sustainable practices"
+                  },
+                  {
+                    "keyword": "cross-functional teams"
+                  },
+                  {
+                    "keyword": "regulatory standards"
+                  }
+                ],
+                "opinion": "Michelle\u2019s resume does not demonstrate experience in integrating sustainable practices, leading cross-functional engineering teams, or navigating local regulatory standards."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "seek candidate"
+                  },
+                  {
+                    "keyword": "industry-specific experience"
+                  },
+                  {
+                    "keyword": "technical leadership"
+                  }
+                ],
+                "opinion": "It is advisable to seek a candidate with relevant industry-specific experience and proven technical leadership abilities."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "strategic growth"
+                  },
+                  {
+                    "keyword": "mission"
+                  },
+                  {
+                    "keyword": "sustainability"
+                  }
+                ],
+                "opinion": "The new candidate should drive our company's strategic growth and mission towards sustainability."
+              }
+            ],
+            "overall_sentiment": -0.043711745738983156
+          },
+          "metrics": null
+        }
+      ]
+    },
+    {
+      "name": "Recycling Plant Manager",
+      "messages": [
+        {
+          "content": "Based on the analysis provided, Michelle Morgan may not be a fitting candidate for the Head of Technology role in your expanding recycling plant. Her resume primarily highlights experience in technology support, customer service, and administrative roles and lacks direct experience or demonstrated success in recycling process improvements, scalable technology solutions, cost-effective resource efficiency strategies, waste management laws in Kenya, and multicultural team leadership. Given the specialized requirements for this position, along with the industry-specific intricacies and leadership demands of your recycling plant, seeking a candidate with a proven record in these key areas would be more beneficial to driving your company's mission and supporting its growth.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "unfit candidate"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "recycling plant"
+                  }
+                ],
+                "opinion": "Michelle Morgan may not be a fitting candidate for the Head of Technology role in your expanding recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "resume highlights"
+                  },
+                  {
+                    "keyword": "technology support"
+                  },
+                  {
+                    "keyword": "customer service"
+                  },
+                  {
+                    "keyword": "administrative roles"
+                  }
+                ],
+                "opinion": "Her resume primarily highlights experience in technology support, customer service, and administrative roles."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lack of experience"
+                  },
+                  {
+                    "keyword": "recycling process improvements"
+                  },
+                  {
+                    "keyword": "scalable technology solutions"
+                  },
+                  {
+                    "keyword": "cost-effective strategies"
+                  },
+                  {
+                    "keyword": "waste management laws"
+                  },
+                  {
+                    "keyword": "multicultural team leadership"
+                  }
+                ],
+                "opinion": "She lacks direct experience or demonstrated success in recycling process improvements, scalable technology solutions, cost-effective resource efficiency strategies, waste management laws in Kenya, and multicultural team leadership."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "specialized requirements"
+                  },
+                  {
+                    "keyword": "proven record"
+                  },
+                  {
+                    "keyword": "beneficial"
+                  }
+                ],
+                "opinion": "Given the specialized requirements for this position, seeking a candidate with a proven record in these key areas would be more beneficial."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "drive mission"
+                  },
+                  {
+                    "keyword": "support growth"
+                  }
+                ],
+                "opinion": "This would drive your company's mission and support its growth."
+              }
+            ],
+            "overall_sentiment": 0.3286072760820389
+          },
+          "metrics": null
+        },
+        {
+          "content": "After a comprehensive assessment against the required criteria, it is clear that Michelle Morgan does not have the necessary experience and expertise for the Head of Technology role in our expanding recycling plant. Key areas where she falls short include unproven recycling process improvements, lack of experience with advanced tech solutions scaled for growth, absence of track record in cost-effective resource strategies, limited understanding of waste management laws in Kenya, and insufficient leadership experience in a multicultural environment. Given the industry's complexity and the strategic importance of the role, it is advisable to look for a candidate with more specialized experience and qualifications.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "experience"
+                  },
+                  {
+                    "keyword": "expertise"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  }
+                ],
+                "opinion": "Michelle Morgan does not have the necessary experience and expertise for the Head of Technology role in our expanding recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "recycling process improvements"
+                  },
+                  {
+                    "keyword": "unproven"
+                  }
+                ],
+                "opinion": "She falls short in unproven recycling process improvements."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "advanced tech solutions"
+                  },
+                  {
+                    "keyword": "scaled for growth"
+                  }
+                ],
+                "opinion": "She lacks experience with advanced tech solutions scaled for growth."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "cost-effective resource strategies"
+                  },
+                  {
+                    "keyword": "no track record"
+                  }
+                ],
+                "opinion": "She has no track record in cost-effective resource strategies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "waste management laws"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  }
+                ],
+                "opinion": "She has limited understanding of waste management laws in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "leadership experience"
+                  },
+                  {
+                    "keyword": "multicultural environment"
+                  }
+                ],
+                "opinion": "She has insufficient leadership experience in a multicultural environment."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "industry's complexity"
+                  },
+                  {
+                    "keyword": "strategic importance"
+                  },
+                  {
+                    "keyword": "specialized experience"
+                  },
+                  {
+                    "keyword": "qualifications"
+                  }
+                ],
+                "opinion": "Given the industry's complexity and the strategic importance of the role, it is advisable to look for a candidate with more specialized experience and qualifications."
+              }
+            ],
+            "overall_sentiment": -0.2299828337771552
+          },
+          "metrics": null
+        },
+        {
+          "content": "After thoroughly evaluating Michelle Morgan against the detailed criteria, it is evident that she is not a suitable match for the Head of Technology role in our expanding recycling plant. Specific discrepancies were found across several critical areas that the role demands, including authentic recycling process improvements, technology scalability, cost-effective resource efficiency strategies, an understanding of waste management laws in Kenya, and leadership in a multicultural setting.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "unsuitable match"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "recycling plant"
+                  }
+                ],
+                "opinion": "After thoroughly evaluating Michelle Morgan against the detailed criteria, it is evident that she is not a suitable match for the Head of Technology role in our expanding recycling plant."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "discrepancies"
+                  },
+                  {
+                    "keyword": "recycling process improvements"
+                  }
+                ],
+                "opinion": "Specific discrepancies were found across several critical areas that the role demands, including authentic recycling process improvements."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "technology scalability"
+                  },
+                  {
+                    "keyword": "fell short"
+                  }
+                ],
+                "opinion": "Technology scalability was another area where Michelle fell short."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "cost-effective"
+                  },
+                  {
+                    "keyword": "resource efficiency strategies"
+                  },
+                  {
+                    "keyword": "lacked"
+                  }
+                ],
+                "opinion": "She also lacked cost-effective resource efficiency strategies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "waste management laws"
+                  },
+                  {
+                    "keyword": "Kenya"
+                  },
+                  {
+                    "keyword": "insufficient understanding"
+                  }
+                ],
+                "opinion": "Michelle did not have a sufficient understanding of waste management laws in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "leadership"
+                  },
+                  {
+                    "keyword": "multicultural setting"
+                  },
+                  {
+                    "keyword": "did not demonstrate"
+                  }
+                ],
+                "opinion": "Lastly, she did not demonstrate strong leadership in a multicultural setting."
+              }
+            ],
+            "overall_sentiment": -0.3905304453025262
+          },
+          "metrics": null
+        }
+      ]
+    }
+  ],
+  "raw_history": [
+    "(VP of Engineering): Based on Michelle Morgan's diverse yet non-specialized background, she does not seem to align with the critical factors needed for the Head of Technology role in our recyclable plant scale-up. The position requires expert proficiency in scalable recycling process optimization, an accomplished track record in industrial automation technologies, robust leadership in cross-functional engineering teams, sustainable practices development, and familiarity with local regulations and environmental standards. Michelle's resume indicates significant strengths but lacks concrete evidence in all of these high-level technical areas and industrial leadership, crucial for our company's growth and sustainability missions.",
+    "(Recycling Plant Manager): Based on the analysis provided, Michelle Morgan may not be a fitting candidate for the Head of Technology role in your expanding recycling plant. Her resume primarily highlights experience in technology support, customer service, and administrative roles and lacks direct experience or demonstrated success in recycling process improvements, scalable technology solutions, cost-effective resource efficiency strategies, waste management laws in Kenya, and multicultural team leadership. Given the specialized requirements for this position, along with the industry-specific intricacies and leadership demands of your recycling plant, seeking a candidate with a proven record in these key areas would be more beneficial to driving your company's mission and supporting its growth.",
+    "(CFO): Based on the provided evaluation, it is my opinion that Michelle Morgan is not a suitable candidate for the Head of Technology role. Her experience does not align with the core requirements needed for this high-level and strategic position. The chosen candidate must possess quantifiable expertise in managing technology budgets, executing tech-driven process efficiencies, integrating financial metrics with tech goals, and negotiating cost-effective vendor relationships. Additionally, they should have demonstrated implementation of end-to-end tech solutions, strategic planning proficiency and advanced technological leadership needed to meet the complex challenges and opportunities for growth in the recycling industry in Kenya. Therefore, it would be advisable to seek a candidate whose profile fits more precisely with these essential competences.",
+    "(VP of Engineering): Based on the comprehensive evaluation, it appears that Michelle Morgan is not suited for the Head of Technology role at our recycling plant scale-up in Kenya. While she possesses several impressive attributes and a broad range of experiences, her background does not seem to align with the primary demands of the position in terms of industry-specific expertise, technical leadership, and relevant strategic practice. \nThings to consider include:\n- The need for deep familiarity with recycling process optimizations and industrial automation technologies was not evidenced in her resume.\n- Participation and leadership in significant engineering projects or scalability of technical solutions, vital to this role, were missing.\n- Engagement with sustainable practices\u2014integral to our mission\u2014appears absent.\n- Understanding and navigating stringent local environmental and regulatory systems were not identifiable in her credentials.\n\nAs the role is strategic and core to transformative technological and teamwork management within a challenge-exiguous industry, choosing another candidate office admission is highly forthcoming.",
+    "(Recycling Plant Manager): After a comprehensive assessment against the required criteria, it is clear that Michelle Morgan does not have the necessary experience and expertise for the Head of Technology role in our expanding recycling plant. Key areas where she falls short include unproven recycling process improvements, lack of experience with advanced tech solutions scaled for growth, absence of track record in cost-effective resource strategies, limited understanding of waste management laws in Kenya, and insufficient leadership experience in a multicultural environment. Given the industry's complexity and the strategic importance of the role, it is advisable to look for a candidate with more specialized experience and qualifications.",
+    "(CFO): Given the detailed evaluation, it is clear that Michelle Morgan does not meet the essential criteria for the Head of Technology role at the recycling plant in Kenya. The absence of relevant industry-specific expertise, strategic technological leadership, advanced process management, and proficiency in necessary regulations seems to solidify a hard no to her suitability for the role.",
+    "(VP of Engineering): Based on the comprehensive analysis from our evaluation team, it's concluded that Michelle Morgan lacks the qualifications essential for the Head of Technology role in Kenya. She does not have specialized expertise in recyclable process optimization or industrial automation, which are vital for scalable recycling operations. Additionally, Michelle\u2019s resume does not demonstrate experience in integrating sustainable practices, leading cross-functional engineering teams, or navigating local regulatory standards. Therefore, it is advisable to seek a candidate with relevant industry-specific experience and proven technical leadership abilities to drive our company's strategic growth and mission towards sustainability.",
+    "(Recycling Plant Manager): After thoroughly evaluating Michelle Morgan against the detailed criteria, it is evident that she is not a suitable match for the Head of Technology role in our expanding recycling plant. Specific discrepancies were found across several critical areas that the role demands, including authentic recycling process improvements, technology scalability, cost-effective resource efficiency strategies, an understanding of waste management laws in Kenya, and leadership in a multicultural setting.",
+    "(CFO): After a thorough evaluation and considering the insights provided by the facilitator, VP of Engineering, Recycling Plant Manager, and CFO, it's determined that Michelle Morgan is not suitable for the Head of Technology role. The consensus shows that her experience and expertise do not meet the core requirements for this high-impact strategic position in the recycling industry in Kenya. Therefore, the recommendation is to seek a more qualified candidate who aligns better with the role\u2019s critical competencies."
+  ],
+  "summarized_output": {
+    "Candidate Name": "Michelle Morgan",
+    "Summary": "- Michelle Morgan's background is diverse but lacks specialization needed for the Head of Technology role.\n- She does not have expertise in scalable recycling process optimization or industrial automation technologies.\n- Her resume lacks evidence of leadership in cross-functional engineering teams and sustainable practices.\n- She is not familiar with local regulations and environmental standards in Kenya.\n- Her experience is mainly in technology support, customer service, and administrative roles.\n- She has no proven track record in recycling process improvements or scalable technology solutions.\n- She lacks experience in cost-effective resource efficiency strategies and waste management laws in Kenya.\n- She does not have sufficient leadership experience in a multicultural environment.\n- She does not meet the core requirements for managing technology budgets, executing tech-driven efficiencies, or integrating financial metrics with tech goals.\n- The consensus is to seek a candidate with more specialized experience and qualifications in the recycling industry."
+  },
+  "opinion_report": [
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "The industry-specific intricacies and leadership demands of the recycling plant are significant.",
+      "Similarity": 0.7300000190734863,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Based on Michelle Morgan's diverse yet non-specialized background, she does not seem to align with the critical factors needed for the Head of Technology role in our recyclable plant scale-up. The position requires expert proficiency in scalable recycling process optimization, an accomplished track record in industrial automation technologies, robust leadership in cross-functional engineering teams, sustainable practices development, and familiarity with local regulations and environmental standards."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "The Head of Technology role requires expert proficiency in scalable recycling process optimization.",
+      "Similarity": 0.8339999914169312,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "The position requires expert proficiency in scalable recycling process optimization, an accomplished track record in industrial automation technologies, robust leadership in cross-functional engineering teams, sustainable practices development, and familiarity with local regulations and environmental standards."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "The position demands robust leadership in cross-functional engineering teams.",
+      "Similarity": 0.5879999995231628,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "- Participation and leadership in significant engineering projects or scalability of technical solutions, vital to this role, were missing."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "Familiarity with local regulations and environmental standards is crucial for the role.",
+      "Similarity": 0.5120000243186951,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "- Engagement with sustainable practices\u2014integral to our mission\u2014appears absent. - Understanding and navigating stringent local environmental and regulatory systems were not identifiable in her credentials."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "The role is strategic and core to transformative technological and teamwork management.",
+      "Similarity": 0.5770000219345093,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "As the role is strategic and core to transformative technological and teamwork management within a challenge-exiguous industry, choosing another candidate office admission is highly forthcoming."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The strategic importance of the Head of Technology role in driving the company's mission and growth.",
+      "Similarity": 0.48899999260902405,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Therefore, it is advisable to seek a candidate with relevant industry-specific experience and proven technical leadership abilities to drive our company's strategic growth and mission towards sustainability."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The necessity of leadership experience in multicultural and cross-functional teams.",
+      "Similarity": 0.4429999887943268,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "- Participation and leadership in significant engineering projects or scalability of technical solutions, vital to this role, were missing."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Michelle Morgan's suitability for the Head of Technology role.",
+      "Similarity": 0.7770000100135803,
+      "Advisor": "CFO",
+      "Agent Source Message": "After a thorough evaluation and considering the insights provided by the facilitator, VP of Engineering, Recycling Plant Manager, and CFO, it's determined that Michelle Morgan is not suitable for the Head of Technology role."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The need for specialized expertise in recycling process optimization and industrial automation.",
+      "Similarity": 0.8759999871253967,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "The position requires expert proficiency in scalable recycling process optimization, an accomplished track record in industrial automation technologies, robust leadership in cross-functional engineering teams, sustainable practices development, and familiarity with local regulations and environmental standards."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The importance of sustainable practices and familiarity with local regulations.",
+      "Similarity": 0.6010000109672546,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "- Engagement with sustainable practices\u2014integral to our mission\u2014appears absent. - Understanding and navigating stringent local environmental and regulatory systems were not identifiable in her credentials."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Michelle Morgan's credentials do not demonstrate understanding and navigating stringent local environmental and regulatory systems.",
+      "Similarity": 0.7889999747276306,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "- Understanding and navigating stringent local environmental and regulatory systems were not identifiable in her credentials."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Michelle Morgan's resume lacks evidence of deep familiarity with recycling process optimizations and industrial automation technologies.",
+      "Similarity": 0.7850000262260437,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Things to consider include:\n- The need for deep familiarity with recycling process optimizations and industrial automation technologies was not evidenced in her resume."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Michelle Morgan's background does not align with the primary demands of the position.",
+      "Similarity": 0.6340000033378601,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "While she possesses several impressive attributes and a broad range of experiences, her background does not seem to align with the primary demands of the position in terms of industry-specific expertise, technical leadership, and relevant strategic practice."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Michelle Morgan's resume does not show experience in integrating sustainable practices.",
+      "Similarity": 0.8500000238418579,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Additionally, Michelle\u2019s resume does not demonstrate experience in integrating sustainable practices, leading cross-functional engineering teams, or navigating local regulatory standards."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Michelle Morgan's experience does not meet the core requirements for the high-impact strategic position.",
+      "Similarity": 0.7289999723434448,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Additionally, Michelle\u2019s resume does not demonstrate experience in integrating sustainable practices, leading cross-functional engineering teams, or navigating local regulatory standards."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Michelle Morgan is not a suitable match for the Head of Technology role in our expanding recycling plant.",
+      "Similarity": 0.9340000152587891,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "After thoroughly evaluating Michelle Morgan against the detailed criteria, it is evident that she is not a suitable match for the Head of Technology role in our expanding recycling plant."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Michelle Morgan lacks the qualifications essential for the Head of Technology role in Kenya.",
+      "Similarity": 0.9150000214576721,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Based on the comprehensive analysis from our evaluation team, it's concluded that Michelle Morgan lacks the qualifications essential for the Head of Technology role in Kenya."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Michelle Morgan does not meet the essential criteria for the Head of Technology role at the recycling plant in Kenya.",
+      "Similarity": 0.9399999976158142,
+      "Advisor": "CFO",
+      "Agent Source Message": "Given the detailed evaluation, it is clear that Michelle Morgan does not meet the essential criteria for the Head of Technology role at the recycling plant in Kenya."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Michelle Morgan lacks direct experience or demonstrated success in recycling process improvements, scalable technology solutions, cost-effective resource efficiency strategies, waste management laws in Kenya, and multicultural team leadership.",
+      "Similarity": 0.8690000176429749,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "After a comprehensive assessment against the required criteria, it is clear that Michelle Morgan does not have the necessary experience and expertise for the Head of Technology role in our expanding recycling plant. Key areas where she falls short include unproven recycling process improvements, lack of experience with advanced tech solutions scaled for growth, absence of track record in cost-effective resource strategies, limited understanding of waste management laws in Kenya, and insufficient leadership experience in a multicultural environment."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Michelle Morgan does not align with the critical factors needed for the Head of Technology role in our recyclable plant scale-up.",
+      "Similarity": 0.921999990940094,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Based on Michelle Morgan's diverse yet non-specialized background, she does not seem to align with the critical factors needed for the Head of Technology role in our recyclable plant scale-up."
+    }
+  ],
+  "non_bayesian_data": {
+    "change": {
+      "CFO": [
+        0,
+        0.007789230346679688,
+        0.4095955707132816,
+        0.029069775715470314
+      ],
+      "VP of Engineering": [
+        0,
+        0.004807816445827484,
+        0.23571610078215602,
+        0.09840608574450016
+      ],
+      "Recycling Plant Manager": [
+        0,
+        0.16430363804101944,
+        0.19714323590908733,
+        0.17884542371722917
+      ]
+    },
+    "sentiment_data": {
+      "CFO": [
+        0,
+        0.007789230346679688,
+        -0.40180634036660196,
+        -0.37273656465113164
+      ],
+      "VP of Engineering": [
+        0,
+        -0.004807816445827484,
+        -0.2405239172279835,
+        -0.14211783148348334
+      ],
+      "Recycling Plant Manager": [
+        0,
+        0.16430363804101944,
+        -0.03283959786806788,
+        -0.21168502158529703
+      ]
+    }
+  },
+  "costs": {
+    "Total_Tokens": "75286",
+    "Prompt_Tokens": "59024",
+    "Completion_Tokens": "16262",
+    "Total_Cost_USD": "$0.53905"
+  },
+  "initial_conditions": {
+    "agent_names": {
+      "CFO": [],
+      "VP of Engineering": [],
+      "Recycling Plant Manager": []
+    },
+    "agent_descriptions": {
+      "CFO": "CFO: Manages financial operations, planning, analysis, and reporting efficiently.",
+      "VP of Engineering": "Lead engineering team, oversee projects, ensure technical excellence, drive innovation, streamline processes.",
+      "Recycling Plant Manager": "Streamline operations, oversee staff, manage recycling processes, ensure regulatory compliance."
+    },
+    "agent_priorities": {
+      "CFO": "Control costs, maximize revenue, ensure liquidity, support growth, manage risk.",
+      "VP of Engineering": "Deliver scalable products, lead your team, and drive innovation efficiently.",
+      "Recycling Plant Manager": "Increase efficiency, reduce waste, ensure safety, maximize material recovery, maintain compliance."
+    },
+    "agent_criteria": {
+      "CFO": "- Proven budget management skills for tech implementations.\n- Track record in cost-effective vendor negotiations.\n- Experience in tech-driven process efficiency and ROI.\n- Data-driven decision-making capabilities for financial forecasting.\n- Ability to integrate financial metrics with technology objectives.",
+      "VP of Engineering": "- Expertise in process optimization for scalable recycling systems\n- Proven track record in industrial automation technologies\n- Experience with developing and integrating sustainable practices\n- Strong leadership in cross-functional engineering teams\n- Familiarity with local regulatory and environmental standards",
+      "Recycling Plant Manager": "- Proven recycling process improvements\n- Advanced tech solutions adapted for scale-up\n- Cost-effective resource efficiency strategies\n- Expertise in waste management laws in Kenya\n- Team leadership in a multicultural environment"
+    },
+    "topic": "What are the pros and cons of hiring this candidate: Michelle Morgan\n\n(with this bio: \n\n-----START OF CANDIDATE RESUME/BIO-----\nFRONT DESK AGENT FRONT DESK AGENT FRONT DESK AGENT - STAYBRIDGE SUITES Odessa, TX \u2022 To Acquire A Challenging Position in An Environment Where I Can Best Utilize My Skills and Higher Education. Work Experience FRONT DESK AGENT STAYBRIDGE SUITES - Odessa, TX October 2018 to Present Greet, register, and assign rooms to guests.\u00a0 Answer and route calls as appropriate; take guest messages with accuracy.\u00a0 Responsible for cash drawer contents and transactions during shift.\u00a0 Maintain accurate records including cash flows, registration card, reservation cards, and property walks.\u00a0 Assist with sales and marketing efforts as directed by the General Manager.\u00a0 Schedule wake-up calls as requested. CUSTOMER SERVICE REPRESENTATIVE NATIONSTAR MORTGAGE - Longview, TX February 2017 to June 2017 \u2022 Assisted borrowers with late charge waiver, due date change, and other loan maintenance requests.\u00a0 \u2022 Helped customers with information about company products and services to generate additional revenue through cross-sell/up-sell opportunities.\u00a0 \u2022 Provided payoff statement quotes, including prepayment penalty and refund calculations.\u00a0 \u2022 Recorded data and verified information toward the processing telephone draft payments. OFFICE ADMINISTRATOR COTTLE-PEARSON FUNERAL HOME - TOTAL HUMAN RESOURCES, INC - Overton, TX August 2016 to February 2017 905 SOUTH COMMERCE, OVERTON, TX 75684 (903) 834-3111 AUGUST 15, 2016 - FEBRUARY 26, 2017\u00a0 \u2022 Compared, evaluated, and offered solutions to customers to best meet their needs and circumstances.\u00a0 \u2022 Greeted customers, patrons, or visitors.\u00a0 \u2022 Managed funeral home finances, including receiving payments or performing general bookkeeping duties.\u00a0 \u2022 Obtained burial permits, registered deaths, and prepared other administrative documents.\u00a0 \u2022 Performed various administrative tasks, such as answering telephone calls and generated funeral service and memorial stationery pertaining to the descendant. SYSTEMS SUPPORT ENGINEER I TEKSYSTEMS - ALLEGIS GROUP - Tyler, TX May 2014 to April 2015 \u2022 Assisted engineers in technical operations and ensured utilization of all tools efficiently.\u00a0 \u2022 Maintained optimal level of customer satisfaction, as well as identified all customer issues and recommended an appropriate resolution.\u00a0 \u2022 Prepared all required repair documents and equipment proposals to ensure compliance to all organization guidelines.\u00a0 \u2022 Supported help desk operations in addition to all internal and external customers and managed all products according to customer requirements. Education BACHELOR'S DEGREE UNIVERSITY OF PHOENIX June 2020 ASSOCIATE DEGREE UNIVERSITY OF PHOENIX May 2014 HIGH SCHOOL DIPLOMA KILGORE HIGH SCHOOL May 2008 Skills 55 WPM, QUANTITATIVE, ACCOUNTING, MICROSOFT OFFICE, PROBLEM SOLVER Additional Information Skills & Abilities\u00a0 \u2022 Ability to input 55 WPM.\u00a0 \u2022 Capable of planning, organizing, and prioritizing work.\u00a0 \u2022 Experienced in analyzing quantitative data.\u00a0 \u2022 Proficient decision maker and problem solver.\u00a0 \u2022 Skilled at Microsoft Office and Accounting software.\n\n-----END OF CANDIDATE RESUME/BIO-----\n)\n\n\nfor this role: # Head of Technology in a Recycling plant scale-up in Kenya, \ngiven this role description: \n\n-----START OF JOB DESCRIPTION-----\n\ufeffAbout Our Client \nThis is a recycling company on a mission to change people\u2019s lives. Waste pickers have aspirations, demanding schedules, and aim to provide the best quality service, just like the rest of us. Unfortunately, they\u2019re often undervalued for the essential service they provide.\nThis firm offers pickers premium prices and additional benefits for cleaning up their community environment and supplying recyclable material. That material is processed and returned to manufacturer supply chains, reducing material cost and waste. To put this mission front and centre, the company became the first recycler certified as B-Corp in Africa.\nSo far, their network of +2500 waste collectors has helped them recycle 6000 tons of waste and create 120 new jobs and counting. They operate across Kenya today and continue to expand, starting with the development of a new state of the art facility.\nOver the next few years, with your help, this company will transform waste and recycling value chains in the global south with a cloud-based, digital-first approach that enables them to operate at scale across Africa while re-defining the value of waste to new supplier categories. They already have strategic partners helping to innovate track & trace, fair & local collection, and sales.\nAs the complexity of their work and ambition for impact grows, they\u2019ll need creative leaders with a genuine passion to make a difference at scale.\nAbout The Role \nThe company is looking for a high-energy, rigorous, and strategic leader with diverse technical experience to head the (re)design of their architecture and organisation for scale. A successful candidate will bring a structured process, solid people management, and cutting edge technologies to a relatively traditional industry.\nWith this in mind, the role reports to the Chief Innovation Officer where new ideas and \norganisational strategy get transformed into real product and process innovations. In addition, the Head of Technology will work closely with operating Country Managers on their supply chain and facility technology.\nThey will oversee all technology, from manufacturing sensors to consumer applications, to corporate administration. Beyond their direct reports, this leader should expect to engage with strategic partners, functional leaders, and specialist advisors to develop and achieve business goals at a healthy ROI.\nIn brief, you will build a scalable architecture, automated processes, simple product experiences, and a reliable team for the short and long term.\nFinally, we realise everyone has personal commitments outside of work. To enable people to work and live at their best, the company supports flexible work. Sometimes work takes place in the industrial area plant, at other times in a shared workspace for innovation, and sometimes from home. They expect leaders to work with their teams to design a high performance, values-aligned work environment.\nWhile the day-to-day office is flexible, the position is based in Nairobi, Kenya and may require up to 30% travel in Kenya and internationally.\nSalaries are competitive and commensurate with qualifications and experience.\nResponsibilities:\nScalable Architecture \nTechnical Vision \nMap out the right mix of external and internal components to strengthen and easily manage multiple stakeholder needs and business growth plans. Advise leadership on technical investment decisions.\nMigration Roadmap \nGather, define, and prioritise user stories and associated development requirements based on the scaling business strategy and customer needs. This requires taking the initiative to speak with clients, stakeholders, advisors, and peers to develop individual sprint plans up to long-term milestones.\nModular Design \nEnsure interoperability between existing and new applications. Build the system to plug and play with new applications and enable easier entry into new countries or offer new services.\nAutomated Processes \nOperations Optimization \nCollect and translate data as well as introduce technology to simplify processes and reduce manual tasks across the supply chain including collection, sorting, processing, distribution, and administration.\nPredictive Analytics \nDevelop and integrate self-reporting and sensor data to improve forecasting. Lay the groundwork for future AI investments (e.g., computer vision plastic identification and mix estimations)\nSimple Product Experience \nClear Actions \nDesign and develop features that are easy to access, obvious to follow, and fast to complete. This should limit the need for follow-up support service and/or human intervention.\nMulti-Modal \nEnsure products work on any type of device and work by text, app, or web. Front-end information should seamlessly integrate with other processes and players along the supply chain.\nReliable Team \nPerformance Standards \nCreate expectations based on technical practice areas, expectations of MGA stakeholders, and consumer product benchmarks (inc. security and up-time). Enable quality execution through training, examples to follow, and regular reviews.\nDevelopment Process\nStructure, organise, and fluidly execute sprints by introducing agile development (and other best practices) as well as establishing open/clear communication practices with stakeholder teams.\nTalent Management \nDevelop and fill new jobs as needed to execute the technical roadmap. Prioritise training and development of the existing team whenever possible. Manage and ensure the performance of external partners is at or above the internal staff.\nTechnical Domains:\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nConsumer-facing Mobile Applications \nPartner and Operator Application \nData Engineering and Analytics \nIOT Sensors and Manual Entry Devices \nERP and Related Operational Systems \nAll Functional Software Applications \nAll Personal Computing Devices \nCloud Infrastructure \nSecurity Policies and Procedures \nOperating Budgets and Tech Investment ROI \nRelease Schedules and Quality Assurance Testing\nExperience and Skills:\n\t\u25cf\t+5 years in CTO / technology leadership role in a fast-growing or supply chain company\t\u25cf\t+10 years diverse technical work experience\n\t\u25cf\tHired, led, and scaled world-class engineer/developer teams delivering high-quality \toutputs for customer-facing and internal requirements\n\t\u25cf\tFull-stack experience using multiple languages and frameworks is an advantage\t\u25cf\tSome familiarity with AI, data science and machine learning techniques\n\t\u25cf\tHave managed secure environments that contain sensitive information (e.g. customer \tprofiles, financial information, regulatory filings etc) with the relevant security processes \tin place.\n\u25cf\tUnderstanding of budgets, business planning, and investment business cases\u25cf\tExperience with selecting, measuring, and managing suppliers and vendors\u25cf\tOutstanding track record of delivering complex technology developments and \tprogrammes\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nFamiliarity with cloud-computing platforms \nSkilled in planning and forming strategic roadmaps to ensure high-quality output Very strong communication skills and comfort speaking to high stakes audiences Experience overseeing engineering teams in an agile environment \nGood knowledge of DevOps toolchains and processes \nDegree in Information Technology, Computer Science, or another equivalent Qualifications in Agile or Project Management an advantage..\n-----END OF JOB DESCRIPTION-----\n\nBe very upfront with how you emotionally feel about this. Express your sentiments strongly and clearly. Don't be shy or too diplomatic.\n",
+    "agent_system_messages": {
+      "CFO": "Alright, let me dive right into this evaluation of Michelle Morgan for the Head of Technology role. To cut straight to the chase, this candidate is absolutely not right for this position. I want to be explicit and candid here: Michelle Morgan does not meet the criteria for the strategic, high-stakes role we\u2019re discussing.\n\nLet's break down why:\n\n1. **Proven Budget Management Skills for Tech Implementations**: Michelle\u2019s resume offers no substantial evidence of her managing budgets for technology projects, let alone any high-scale tech implementations. Her experience in managing finances at a funeral home is vastly different in scale and complexity than what we need.\n\n2. **Track Record in Cost-Effective Vendor Negotiations**: Michelle\u2019s roles do not indicate any significant involvement in negotiating with tech vendors or managing supplier relationships. This is critical for us in controlling costs and maximizing ROI.\n\n3. **Experience in Tech-Driven Process Efficiency and ROI**: While she has some background in systems support at TEKsystems, it\u2019s not enough. We need someone who has a proven track record of implementing end-to-end tech solutions that drive process efficiency and bring clear, measurable ROI.\n\n4. **Data-Driven Decision-Making Capabilities for Financial Forecasting**: Again, there\u2019s a lack of evidence showing she possesses the analytical depth needed for data-driven decision making in complex technological environments. Her stint at Nationstar Mortgage involved data entry and processing, which doesn't cut it for this high-level strategic role.\n\n5. **Ability to Integrate Financial Metrics with Technology Objectives**: Michelle does not have the high-level strategic experience in integrating financial metrics with technology goals. This role requires a melding of tech innovation with business financial planning, and her resume is glaringly lacking in this area.\n\nFurthermore, her background is mostly non-tech-centric or administrative. This position demands a dynamic leader with a comprehensive and advanced understanding of modern technologies, cloud platforms, AI, IoT, and agile methodologies. Our job description calls for a leader who has overseen the delivery of high-quality tech outputs, engaged in strategic planning, and optimized operations on a large scale. Michelle simply does not fit this mold.\n\nTo sum up, if we go ahead and hire Michelle Morgan, we\u2019re setting ourselves up for failure. We are a rapidly growing company on the cusp of transforming the recycling value chain in Kenya using cutting-edge technology. This isn't just a nice-to-have; it\u2019s central to our mission and business strategy. We must find a candidate who aligns with our high standards and technical needs, and unfortunately, Michelle Morgan is not that candidate. \n\nThat's my take. I\u2019m eager to hear what the rest of you think, but from where I stand, it's a hard no.",
+      "VP of Engineering": "Alright team, let's dive into the evaluation of Michelle Morgan\u2019s qualifications for the Head of Technology role in our recycling plant scale-up in Kenya. From my perspective as the VP of Engineering, the critical factors to consider are expertise in process optimization for scalable recycling systems, proven track record in industrial automation technologies, experience with developing and integrating sustainable practices, strong leadership in cross-functional engineering teams, and familiarity with local regulatory and environmental standards.\n\n**Pros of Hiring Michelle Morgan:**\n\n1. **Diverse Work Experience:** Michelle brings a varied professional background. Her work at Staybridge Suites indicates solid skills in operations and customer service, while her roles in mortgage and funeral home administration suggest a capacity for handling sensitive, detailed work (e.g., managing finances and leading customer interactions).\n\n2. **Technical Support Role:** Her stint as a Systems Support Engineer at TEKsystems\u2014though limited and several years ago\u2014does show some technical experience, particularly in supporting help desk operations and managing internal and external customer needs. \n\n**Cons of Hiring Michelle Morgan:**\n\n1. **Lack of Specific Industry Experience:** Frankly, Michelle\u2019s background does not demonstrate any specific expertise in process optimization for scalable recycling systems or industrial automation technologies. These are critical criteria for this role, and her resume lacks any concrete examples of these skills.\n\n2. **Insufficient Leadership in Engineering Teams:** This position requires robust leadership in cross-functional engineering teams, and Michelle has not shown any experience leading or scaling technical teams. Her roles suggest she\u2019s more accustomed to individual contributor roles rather than leadership positions within a technical engineering context.\n\n3. **Absence of Sustainable Practices Development:** Our mission revolves significantly around sustainability. There is no evidence from Michelle\u2019s resume that she has experience developing and integrating sustainable practices\u2014a non-negotiable for our company to move forward.\n\n4. **Regulatory and Environmental Knowledge:** Working in Kenya poses unique regulatory and environmental challenges. There\u2019s nothing in Michelle\u2019s resume that indicates familiarity with local standards or that she has managed similar requirements in past roles.\n\nTo sum up, while Michelle appears to be an organized and capable individual, her background does not align with the specialized, high-level demands of the Head of Technology role in our company. This position requires proven expertise in the domain-specific technologies and scalable process optimizations integral to our operations and growth, as well as a deep understanding of sustainability. We need a candidate who has demonstrable experience leading engineering teams and dealing with industrial automation. From my perspective, Michelle is not a fit for this role.\n\n",
+      "Recycling Plant Manager": "Alright, let me lay this out clearly. This candidate, Michelle Morgan, is simply not a fit for the Head of Technology role in our expanding recycling plant. My evaluation is based on the following criteria: proven recycling process improvements, advanced tech solutions adapted for scale-up, cost-effective resource efficiency strategies, expertise in waste management laws in Kenya, and experience in leading a team in a multicultural environment.\n\nLet's address these criteria one by one:\n\n1. **Proven recycling process improvements:** Michelle's resume shows no experience in recycling process improvements. Her work history mostly involves roles as a front desk agent, customer service representative, office administrator, and a systems support engineer. None of this demonstrates any ability to improve recycling processes.\n\n2. **Advanced tech solutions adapted for scale-up:** Heading the technological revamp for a rapidly scaling company requires hands-on experience with advanced and scalable tech solutions. While Michelle has some background in tech support and administrative tasks, there's no indication she has worked with cutting-edge technologies needed to build a scalable architecture or automate complex processes like those in our supply chain.\n\n3. **Cost-effective resource efficiency strategies:** Michelle has no experience or track record in creating or implementing resource efficiency strategies, let alone cost-effective ones. This is a critical gap because resource efficiency isn't just about technology; it's about understanding material flows, optimizing processes, and reducing waste.\n\n4. **Expertise in waste management laws in Kenya:** This is crucial for our operation. Michelle has no background or experience in waste management, let alone in understanding the local laws that govern our industry in Kenya. This lack of expertise significantly risks non-compliance and potential legal issues down the line.\n\n5. **Team leadership in a multicultural environment:** Michelle's resume includes limited leadership experience, and even that isn't related to leading technical teams or overseeing complex projects. In a role where she'll need to manage diverse teams across various locations and cultures in Kenya, this represents a monumental risk.\n\nI want to stress that this role isn't just about having a technical background\u2014it's about understanding the intricacies of our industry, the technicalities of recycling, and the logistics involved in a scalable operation. We need someone who not only has the technology know-how but also the domain expertise, and Michelle doesn't fit the bill.\n\nI'm sure the CFO and VP of Engineering will have their perspectives, but from where I stand, it's pretty clear: Michelle is not the right candidate for the Head of Technology role. We need someone who brings experience tailored to our unique challenges and objectives. This isn't about filling a position; it's about driving our mission forward and ensuring we have the right person to take us to the next level."
+    },
+    "specified_topic": "Michelle Morgan's Tech Leadership Fit?",
+    "candidate_name": "Michelle Morgan",
+    "candidate_bio": "FRONT DESK AGENT FRONT DESK AGENT FRONT DESK AGENT - STAYBRIDGE SUITES Odessa, TX \u2022 To Acquire A Challenging Position in An Environment Where I Can Best Utilize My Skills and Higher Education. Work Experience FRONT DESK AGENT STAYBRIDGE SUITES - Odessa, TX October 2018 to Present Greet, register, and assign rooms to guests.\u00a0 Answer and route calls as appropriate; take guest messages with accuracy.\u00a0 Responsible for cash drawer contents and transactions during shift.\u00a0 Maintain accurate records including cash flows, registration card, reservation cards, and property walks.\u00a0 Assist with sales and marketing efforts as directed by the General Manager.\u00a0 Schedule wake-up calls as requested. CUSTOMER SERVICE REPRESENTATIVE NATIONSTAR MORTGAGE - Longview, TX February 2017 to June 2017 \u2022 Assisted borrowers with late charge waiver, due date change, and other loan maintenance requests.\u00a0 \u2022 Helped customers with information about company products and services to generate additional revenue through cross-sell/up-sell opportunities.\u00a0 \u2022 Provided payoff statement quotes, including prepayment penalty and refund calculations.\u00a0 \u2022 Recorded data and verified information toward the processing telephone draft payments. OFFICE ADMINISTRATOR COTTLE-PEARSON FUNERAL HOME - TOTAL HUMAN RESOURCES, INC - Overton, TX August 2016 to February 2017 905 SOUTH COMMERCE, OVERTON, TX 75684 (903) 834-3111 AUGUST 15, 2016 - FEBRUARY 26, 2017\u00a0 \u2022 Compared, evaluated, and offered solutions to customers to best meet their needs and circumstances.\u00a0 \u2022 Greeted customers, patrons, or visitors.\u00a0 \u2022 Managed funeral home finances, including receiving payments or performing general bookkeeping duties.\u00a0 \u2022 Obtained burial permits, registered deaths, and prepared other administrative documents.\u00a0 \u2022 Performed various administrative tasks, such as answering telephone calls and generated funeral service and memorial stationery pertaining to the descendant. SYSTEMS SUPPORT ENGINEER I TEKSYSTEMS - ALLEGIS GROUP - Tyler, TX May 2014 to April 2015 \u2022 Assisted engineers in technical operations and ensured utilization of all tools efficiently.\u00a0 \u2022 Maintained optimal level of customer satisfaction, as well as identified all customer issues and recommended an appropriate resolution.\u00a0 \u2022 Prepared all required repair documents and equipment proposals to ensure compliance to all organization guidelines.\u00a0 \u2022 Supported help desk operations in addition to all internal and external customers and managed all products according to customer requirements. Education BACHELOR'S DEGREE UNIVERSITY OF PHOENIX June 2020 ASSOCIATE DEGREE UNIVERSITY OF PHOENIX May 2014 HIGH SCHOOL DIPLOMA KILGORE HIGH SCHOOL May 2008 Skills 55 WPM, QUANTITATIVE, ACCOUNTING, MICROSOFT OFFICE, PROBLEM SOLVER Additional Information Skills & Abilities\u00a0 \u2022 Ability to input 55 WPM.\u00a0 \u2022 Capable of planning, organizing, and prioritizing work.\u00a0 \u2022 Experienced in analyzing quantitative data.\u00a0 \u2022 Proficient decision maker and problem solver.\u00a0 \u2022 Skilled at Microsoft Office and Accounting software.\n",
+    "job_title": "# Head of Technology in a Recycling plant scale-up in Kenya",
+    "job_description": "\ufeffAbout Our Client \nThis is a recycling company on a mission to change people\u2019s lives. Waste pickers have aspirations, demanding schedules, and aim to provide the best quality service, just like the rest of us. Unfortunately, they\u2019re often undervalued for the essential service they provide.\nThis firm offers pickers premium prices and additional benefits for cleaning up their community environment and supplying recyclable material. That material is processed and returned to manufacturer supply chains, reducing material cost and waste. To put this mission front and centre, the company became the first recycler certified as B-Corp in Africa.\nSo far, their network of +2500 waste collectors has helped them recycle 6000 tons of waste and create 120 new jobs and counting. They operate across Kenya today and continue to expand, starting with the development of a new state of the art facility.\nOver the next few years, with your help, this company will transform waste and recycling value chains in the global south with a cloud-based, digital-first approach that enables them to operate at scale across Africa while re-defining the value of waste to new supplier categories. They already have strategic partners helping to innovate track & trace, fair & local collection, and sales.\nAs the complexity of their work and ambition for impact grows, they\u2019ll need creative leaders with a genuine passion to make a difference at scale.\nAbout The Role \nThe company is looking for a high-energy, rigorous, and strategic leader with diverse technical experience to head the (re)design of their architecture and organisation for scale. A successful candidate will bring a structured process, solid people management, and cutting edge technologies to a relatively traditional industry.\nWith this in mind, the role reports to the Chief Innovation Officer where new ideas and \norganisational strategy get transformed into real product and process innovations. In addition, the Head of Technology will work closely with operating Country Managers on their supply chain and facility technology.\nThey will oversee all technology, from manufacturing sensors to consumer applications, to corporate administration. Beyond their direct reports, this leader should expect to engage with strategic partners, functional leaders, and specialist advisors to develop and achieve business goals at a healthy ROI.\nIn brief, you will build a scalable architecture, automated processes, simple product experiences, and a reliable team for the short and long term.\nFinally, we realise everyone has personal commitments outside of work. To enable people to work and live at their best, the company supports flexible work. Sometimes work takes place in the industrial area plant, at other times in a shared workspace for innovation, and sometimes from home. They expect leaders to work with their teams to design a high performance, values-aligned work environment.\nWhile the day-to-day office is flexible, the position is based in Nairobi, Kenya and may require up to 30% travel in Kenya and internationally.\nSalaries are competitive and commensurate with qualifications and experience.\nResponsibilities:\nScalable Architecture \nTechnical Vision \nMap out the right mix of external and internal components to strengthen and easily manage multiple stakeholder needs and business growth plans. Advise leadership on technical investment decisions.\nMigration Roadmap \nGather, define, and prioritise user stories and associated development requirements based on the scaling business strategy and customer needs. This requires taking the initiative to speak with clients, stakeholders, advisors, and peers to develop individual sprint plans up to long-term milestones.\nModular Design \nEnsure interoperability between existing and new applications. Build the system to plug and play with new applications and enable easier entry into new countries or offer new services.\nAutomated Processes \nOperations Optimization \nCollect and translate data as well as introduce technology to simplify processes and reduce manual tasks across the supply chain including collection, sorting, processing, distribution, and administration.\nPredictive Analytics \nDevelop and integrate self-reporting and sensor data to improve forecasting. Lay the groundwork for future AI investments (e.g., computer vision plastic identification and mix estimations)\nSimple Product Experience \nClear Actions \nDesign and develop features that are easy to access, obvious to follow, and fast to complete. This should limit the need for follow-up support service and/or human intervention.\nMulti-Modal \nEnsure products work on any type of device and work by text, app, or web. Front-end information should seamlessly integrate with other processes and players along the supply chain.\nReliable Team \nPerformance Standards \nCreate expectations based on technical practice areas, expectations of MGA stakeholders, and consumer product benchmarks (inc. security and up-time). Enable quality execution through training, examples to follow, and regular reviews.\nDevelopment Process\nStructure, organise, and fluidly execute sprints by introducing agile development (and other best practices) as well as establishing open/clear communication practices with stakeholder teams.\nTalent Management \nDevelop and fill new jobs as needed to execute the technical roadmap. Prioritise training and development of the existing team whenever possible. Manage and ensure the performance of external partners is at or above the internal staff.\nTechnical Domains:\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nConsumer-facing Mobile Applications \nPartner and Operator Application \nData Engineering and Analytics \nIOT Sensors and Manual Entry Devices \nERP and Related Operational Systems \nAll Functional Software Applications \nAll Personal Computing Devices \nCloud Infrastructure \nSecurity Policies and Procedures \nOperating Budgets and Tech Investment ROI \nRelease Schedules and Quality Assurance Testing\nExperience and Skills:\n\t\u25cf\t+5 years in CTO / technology leadership role in a fast-growing or supply chain company\t\u25cf\t+10 years diverse technical work experience\n\t\u25cf\tHired, led, and scaled world-class engineer/developer teams delivering high-quality \toutputs for customer-facing and internal requirements\n\t\u25cf\tFull-stack experience using multiple languages and frameworks is an advantage\t\u25cf\tSome familiarity with AI, data science and machine learning techniques\n\t\u25cf\tHave managed secure environments that contain sensitive information (e.g. customer \tprofiles, financial information, regulatory filings etc) with the relevant security processes \tin place.\n\u25cf\tUnderstanding of budgets, business planning, and investment business cases\u25cf\tExperience with selecting, measuring, and managing suppliers and vendors\u25cf\tOutstanding track record of delivering complex technology developments and \tprogrammes\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nFamiliarity with cloud-computing platforms \nSkilled in planning and forming strategic roadmaps to ensure high-quality output Very strong communication skills and comfort speaking to high stakes audiences Experience overseeing engineering teams in an agile environment \nGood knowledge of DevOps toolchains and processes \nDegree in Information Technology, Computer Science, or another equivalent Qualifications in Agile or Project Management an advantage.",
+    "advisors": [
+      {
+        "title": "CFO"
+      },
+      {
+        "title": "VP of Engineering"
+      },
+      {
+        "title": "Recycling Plant Manager"
+      }
+    ]
+  }
+}

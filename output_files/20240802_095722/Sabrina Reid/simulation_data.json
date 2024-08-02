@@ -1,0 +1,1022 @@
+{
+  "agent_data": [
+    {
+      "name": "CFO",
+      "messages": [
+        {
+          "content": "The feedback has unanimously suggested that, based on the assessment, Sabrina Reid lacks the critical experience required for the Head of Technology role at the recycling plant scale-up. Here's a summary of the core evaluation:\n\n1. **Financial Acumen**: Inadequate experience in managing large-scale budgets and making smart financial decisions for significant technology investments.\n2. **Cost-Effectiveness**: Lack of direct evidence in budget management and optimizing cost-effectiveness at scale.\n3. **Risk Management**: Limited experienced in identifying and managing risks in larger, fast-growing and complex environments.\n4. **Regulatory Compliance**: No evident experience with regulatory frameworks pertinent to the operation.\n5. **Vendor Negotiation**: Limited interaction with large-scale vendors and strategic partnerships essential for managing numerous technical and commercial aspects effectively.\n\nGiven these points, the suitability of Sabrina Reid for this leadership role is significantly compromised. Emphasis has been put on the need for a candidate who assuredly meets the necessary criteria from the onset for stable and sustainable growth.\n\nMoving forward, more suitably qualified candidates who specifically meet these standards and have relevant experience shall be better serves alignment with the company\u2019s critical operational and future growth ambit.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Critical Experience"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "Recycling Plant"
+                  }
+                ],
+                "opinion": "The feedback has unanimously suggested that Sabrina Reid lacks the critical experience required for the Head of Technology role at the recycling plant scale-up."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Financial Acumen"
+                  },
+                  {
+                    "keyword": "Large-Scale Budgets"
+                  },
+                  {
+                    "keyword": "Technology Investments"
+                  }
+                ],
+                "opinion": "Sabrina has inadequate experience in managing large-scale budgets and making smart financial decisions for significant technology investments."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Cost-Effectiveness"
+                  },
+                  {
+                    "keyword": "Budget Management"
+                  },
+                  {
+                    "keyword": "Optimization"
+                  }
+                ],
+                "opinion": "There is a lack of direct evidence in Sabrina's budget management and optimizing cost-effectiveness at scale."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Risk Management"
+                  },
+                  {
+                    "keyword": "Complex Environments"
+                  },
+                  {
+                    "keyword": "Fast-Growing"
+                  }
+                ],
+                "opinion": "Sabrina has limited experience in identifying and managing risks in larger, fast-growing, and complex environments."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Regulatory Compliance"
+                  },
+                  {
+                    "keyword": "Regulatory Frameworks"
+                  },
+                  {
+                    "keyword": "Operation"
+                  }
+                ],
+                "opinion": "There is no evident experience with regulatory frameworks pertinent to the operation."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Vendor Negotiation"
+                  },
+                  {
+                    "keyword": "Strategic Partnerships"
+                  },
+                  {
+                    "keyword": "Technical and Commercial Aspects"
+                  }
+                ],
+                "opinion": "Sabrina has limited interaction with large-scale vendors and strategic partnerships essential for managing numerous technical and commercial aspects effectively."
+              }
+            ],
+            "overall_sentiment": -0.2597817210480571
+          },
+          "metrics": null
+        },
+        {
+          "content": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position at our recycling plant scale-up. Despite her commendable technical skills in web development, her expertise does not extend to the advanced financial, managerial, and industry-specific requirements central to ensuring sustainable growth and supporting the intricate needs of our scaling operations. The unanimous concurrence across the CFO, VP of Engineering, and Recycling Plant Manager underlines the priority to pursue potential candidates who align precisely with our strategic and financial goals.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "heavy heart"
+                  },
+                  {
+                    "keyword": "not right candidate"
+                  }
+                ],
+                "opinion": "It is with a heavy heart that we acknowledge Sabrina Reid is not the right candidate for the Head of Technology position at our recycling plant scale-up."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "commendable skills"
+                  },
+                  {
+                    "keyword": "limited expertise"
+                  }
+                ],
+                "opinion": "Despite her commendable technical skills in web development, her expertise does not extend to the advanced financial, managerial, and industry-specific requirements."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "sustainable growth"
+                  },
+                  {
+                    "keyword": "scaling operations"
+                  }
+                ],
+                "opinion": "Her expertise does not meet the central needs for sustainable growth and supporting the intricate needs of our scaling operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "unanimous concurrence"
+                  },
+                  {
+                    "keyword": "strategic goals"
+                  }
+                ],
+                "opinion": "The unanimous concurrence across the CFO, VP of Engineering, and Recycling Plant Manager highlights the need for candidates who align with our strategic and financial goals."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "prioritize candidates"
+                  },
+                  {
+                    "keyword": "strategic and financial goals"
+                  }
+                ],
+                "opinion": "We must prioritize pursuing potential candidates who align precisely with our strategic and financial goals."
+              }
+            ],
+            "overall_sentiment": 0.0195845365524292
+          },
+          "metrics": null
+        },
+        {
+          "content": "Based on a thorough evaluation of Sabrina Reid\u2019s candidacy for the Head of Technology position, key stakeholder feedback unanimously indicates that she does not meet the critical requirements necessary for this role. She lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation.\n\nMoving forward, it is highly recommended that we focus on prospective candidates who explicitly possess these vital qualifications and experience to align with our intricate needs and objectives for sustainable growth and robust operational execution in the Kenyan scaling recycling plant context.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Sabrina Reid"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "evaluation"
+                  },
+                  {
+                    "keyword": "stakeholder feedback"
+                  },
+                  {
+                    "keyword": "critical requirements"
+                  }
+                ],
+                "opinion": "Sabrina Reid\u2019s candidacy for the Head of Technology position has been thoroughly evaluated, and the feedback from key stakeholders is unanimous: she does not meet the critical requirements necessary for this role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lack of experience"
+                  },
+                  {
+                    "keyword": "financial acumen"
+                  },
+                  {
+                    "keyword": "budget management"
+                  },
+                  {
+                    "keyword": "strategic investment"
+                  }
+                ],
+                "opinion": "Sabrina lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "cost management"
+                  },
+                  {
+                    "keyword": "risk management"
+                  },
+                  {
+                    "keyword": "complex environments"
+                  },
+                  {
+                    "keyword": "rapid growth"
+                  }
+                ],
+                "opinion": "She also falls short in cost management at scale and risk management in complex and rapidly growing environments."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "regulatory compliance"
+                  },
+                  {
+                    "keyword": "vendor negotiation"
+                  },
+                  {
+                    "keyword": "lack of experience"
+                  }
+                ],
+                "opinion": "Additionally, Sabrina does not have the necessary experience in regulatory compliance in the sector and substantial engagement in high-stakes vendor negotiation."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "future focus"
+                  },
+                  {
+                    "keyword": "vital qualifications"
+                  },
+                  {
+                    "keyword": "sustainable growth"
+                  },
+                  {
+                    "keyword": "operational execution"
+                  },
+                  {
+                    "keyword": "Kenyan recycling plant"
+                  }
+                ],
+                "opinion": "Moving forward, it is highly recommended that we focus on prospective candidates who explicitly possess these vital qualifications and experience to align with our intricate needs and objectives for sustainable growth and robust operational execution in the Kenyan scaling recycling plant context."
+              }
+            ],
+            "overall_sentiment": -0.07951486930251121
+          },
+          "metrics": null
+        }
+      ]
+    },
+    {
+      "name": "VP of Engineering",
+      "messages": [
+        {
+          "content": "Sabrina Reid is not recommended for the Head of Technology role. While she has a strong background in web development, UX/UI design, and front-end technologies, her resume lacks critical experience in recycling technologies, scaling engineering teams in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management. These areas of expertise are vital for the success of our scaling operations in the recycling plant environment.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "not recommended"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  }
+                ],
+                "opinion": "Sabrina Reid is not recommended for the Head of Technology role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "strong background"
+                  },
+                  {
+                    "keyword": "web development"
+                  },
+                  {
+                    "keyword": "UX/UI design"
+                  },
+                  {
+                    "keyword": "front-end technologies"
+                  }
+                ],
+                "opinion": "She has a strong background in web development, UX/UI design, and front-end technologies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "recycling technologies"
+                  },
+                  {
+                    "keyword": "scaling engineering teams"
+                  },
+                  {
+                    "keyword": "emerging markets"
+                  },
+                  {
+                    "keyword": "large-scale change management"
+                  },
+                  {
+                    "keyword": "sustainable engineering"
+                  },
+                  {
+                    "keyword": "financial tech management"
+                  }
+                ],
+                "opinion": "Her resume lacks critical experience in recycling technologies, scaling engineering teams in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "vital expertise"
+                  },
+                  {
+                    "keyword": "scaling operations"
+                  },
+                  {
+                    "keyword": "recycling plant"
+                  }
+                ],
+                "opinion": "These areas of expertise are vital for the success of our scaling operations in the recycling plant environment."
+              }
+            ],
+            "overall_sentiment": 0.19807198084890842
+          },
+          "metrics": null
+        },
+        {
+          "content": "All key stakeholders have agreed that Sabrina Reid lacks the critical experience and expertise needed for the Head of Technology role at our scaling recycling plant operations. Despite her impressive technical background in web development, her qualifications do not meet the specific requirements in terms of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management. Consequently, it is advised to focus on evaluating other candidates who better align with the specialized criteria indispensable for this role.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Sabrina Reid"
+                  },
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "Head of Technology"
+                  },
+                  {
+                    "keyword": "recycling plant"
+                  }
+                ],
+                "opinion": "Sabrina Reid lacks the critical experience and expertise needed for the Head of Technology role at our scaling recycling plant operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "impressive background"
+                  },
+                  {
+                    "keyword": "web development"
+                  },
+                  {
+                    "keyword": "qualifications"
+                  },
+                  {
+                    "keyword": "specific requirements"
+                  }
+                ],
+                "opinion": "Despite her impressive technical background in web development, her qualifications do not meet the specific requirements."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "recycling technologies"
+                  },
+                  {
+                    "keyword": "team scaling"
+                  },
+                  {
+                    "keyword": "emerging markets"
+                  },
+                  {
+                    "keyword": "change management"
+                  },
+                  {
+                    "keyword": "sustainable engineering"
+                  },
+                  {
+                    "keyword": "financial tech management"
+                  }
+                ],
+                "opinion": "She does not have experience in recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "evaluate other candidates"
+                  },
+                  {
+                    "keyword": "specialized criteria"
+                  },
+                  {
+                    "keyword": "indispensable"
+                  }
+                ],
+                "opinion": "It is advised to focus on evaluating other candidates who better align with the specialized criteria indispensable for this role."
+              }
+            ],
+            "overall_sentiment": -0.7057885359972715
+          },
+          "metrics": null
+        },
+        {
+          "content": "The thorough evaluation conducted by all key stakeholders clearly indicates that Sabrina Reid is not a suitable candidate for the Head of Technology role in our scaling recycling plant operations. Despite her impressive background in web development, she lacks the necessary experience in recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial technology management. Therefore, it is recommended to focus on finding other candidates with the exact expertise needed for sustainable growth and success in this critical role.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "evaluation"
+                  },
+                  {
+                    "keyword": "stakeholders"
+                  },
+                  {
+                    "keyword": "unsuitable candidate"
+                  }
+                ],
+                "opinion": "The thorough evaluation conducted by all key stakeholders clearly indicates that Sabrina Reid is not a suitable candidate for the Head of Technology role in our scaling recycling plant operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "impressive background"
+                  },
+                  {
+                    "keyword": "lack of experience"
+                  },
+                  {
+                    "keyword": "recycling technologies"
+                  },
+                  {
+                    "keyword": "team scaling"
+                  },
+                  {
+                    "keyword": "change management"
+                  },
+                  {
+                    "keyword": "sustainable engineering"
+                  },
+                  {
+                    "keyword": "financial technology"
+                  }
+                ],
+                "opinion": "Despite her impressive background in web development, she lacks the necessary experience in recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial technology management."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "recommendation"
+                  },
+                  {
+                    "keyword": "focus on other candidates"
+                  },
+                  {
+                    "keyword": "expertise"
+                  },
+                  {
+                    "keyword": "sustainable growth"
+                  },
+                  {
+                    "keyword": "success"
+                  }
+                ],
+                "opinion": "Therefore, it is recommended to focus on finding other candidates with the exact expertise needed for sustainable growth and success in this critical role."
+              }
+            ],
+            "overall_sentiment": -0.22098131974538168
+          },
+          "metrics": null
+        }
+      ]
+    },
+    {
+      "name": "Recycling Plant Manager",
+      "messages": [
+        {
+          "content": "Based on my evaluation, while Sabrina Reid has extensive experience in web development, she lacks the pivotal experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, and regional project management in Africa. Our Head of Technology role urgently requires a candidate with a proven background in these areas to drive our ambitions forward. Hence, it's in our best interest to reconsider more suitably qualified candidates who exemplify these critical industry-specific needs.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Sabrina Reid"
+                  },
+                  {
+                    "keyword": "extensive experience"
+                  },
+                  {
+                    "keyword": "web development"
+                  }
+                ],
+                "opinion": "Sabrina Reid has extensive experience in web development."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "process optimization"
+                  },
+                  {
+                    "keyword": "recycling industry"
+                  }
+                ],
+                "opinion": "She lacks pivotal experience in process optimization within the recycling industry."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "sustainable waste management technologies"
+                  }
+                ],
+                "opinion": "She lacks experience in sustainable waste management technologies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "scalable recycling solutions"
+                  }
+                ],
+                "opinion": "She lacks experience in scalable recycling solutions."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lacks experience"
+                  },
+                  {
+                    "keyword": "regional project management"
+                  },
+                  {
+                    "keyword": "Africa"
+                  }
+                ],
+                "opinion": "She lacks experience in regional project management in Africa."
+              }
+            ],
+            "overall_sentiment": -0.719586618244648
+          },
+          "metrics": null
+        },
+        {
+          "content": "As the Recycling Plant Manager, you have sound reasoning for believing that Sabrina Reid is not the ideal fit for the Head of Technology role in scaling the recycling plant operations in Kenya. The core areas where her experience does not match the requirements include process optimization in the recycling stream, expertise in sustainable waste management technologies, developed scalable recycling solutions, African regional tech project management, and strong logistics and supply chain integration. Therefore, it is advisable to consider candidates who possess proven experience in these key areas to ensure alignment with the company's critical operational needs and growth prospects.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "Misalignment"
+                  },
+                  {
+                    "keyword": "Core Requirements"
+                  }
+                ],
+                "opinion": "Sabrina Reid's experience does not align with the core requirements for the Head of Technology role in scaling the recycling plant operations in Kenya."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Lack of Expertise"
+                  },
+                  {
+                    "keyword": "Process Optimization"
+                  }
+                ],
+                "opinion": "Her background lacks expertise in process optimization within the recycling stream."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Insufficient Knowledge"
+                  },
+                  {
+                    "keyword": "Sustainable Waste Management"
+                  }
+                ],
+                "opinion": "She does not have sufficient knowledge in sustainable waste management technologies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "No Scalable Solutions"
+                  },
+                  {
+                    "keyword": "Crucial Role"
+                  }
+                ],
+                "opinion": "Sabrina has not developed scalable recycling solutions, which is crucial for this role."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "Lack of Regional Experience"
+                  },
+                  {
+                    "keyword": "Logistics and Supply Chain"
+                  }
+                ],
+                "opinion": "She lacks experience in African regional tech project management and strong logistics and supply chain integration."
+              }
+            ],
+            "overall_sentiment": -0.6911547273397446
+          },
+          "metrics": null
+        },
+        {
+          "content": "As the Recycling Plant Manager, based on a detailed evaluation of Sabrina Reid's profile, her expertise does not align with the critical needs of the Head of Technology role required to support our operations. Specifically, she lacks experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, regional project management in Africa, and efficient logistics and supply chain systems. Hence, it is advisable to consider candidates who possess the relevant industry-specific knowledge and region-specific experience to meet our enterprise goals and growing needs.",
+          "sentiment_data": {
+            "opinions": [
+              {
+                "keywords": [
+                  {
+                    "keyword": "expertise misalignment"
+                  },
+                  {
+                    "keyword": "critical needs"
+                  }
+                ],
+                "opinion": "Sabrina Reid's expertise does not align with the critical needs of the Head of Technology role required to support our operations."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lack of experience"
+                  },
+                  {
+                    "keyword": "process optimization"
+                  }
+                ],
+                "opinion": "She lacks experience in process optimization within the recycling industry."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lack of experience"
+                  },
+                  {
+                    "keyword": "sustainable waste management"
+                  }
+                ],
+                "opinion": "She lacks experience in sustainable waste management technologies."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lack of experience"
+                  },
+                  {
+                    "keyword": "scalable recycling solutions"
+                  },
+                  {
+                    "keyword": "regional project management"
+                  }
+                ],
+                "opinion": "She lacks experience in scalable recycling solutions and regional project management in Africa."
+              },
+              {
+                "keywords": [
+                  {
+                    "keyword": "lack of experience"
+                  },
+                  {
+                    "keyword": "logistics and supply chain"
+                  }
+                ],
+                "opinion": "She lacks experience in efficient logistics and supply chain systems."
+              }
+            ],
+            "overall_sentiment": -0.6588030561804772
+          },
+          "metrics": null
+        }
+      ]
+    }
+  ],
+  "raw_history": [
+    "(VP of Engineering): Sabrina Reid is not recommended for the Head of Technology role. While she has a strong background in web development, UX/UI design, and front-end technologies, her resume lacks critical experience in recycling technologies, scaling engineering teams in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management. These areas of expertise are vital for the success of our scaling operations in the recycling plant environment.",
+    "(Recycling Plant Manager): Based on my evaluation, while Sabrina Reid has extensive experience in web development, she lacks the pivotal experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, and regional project management in Africa. Our Head of Technology role urgently requires a candidate with a proven background in these areas to drive our ambitions forward. Hence, it's in our best interest to reconsider more suitably qualified candidates who exemplify these critical industry-specific needs.",
+    "(CFO): The feedback has unanimously suggested that, based on the assessment, Sabrina Reid lacks the critical experience required for the Head of Technology role at the recycling plant scale-up. Here's a summary of the core evaluation:\n\n1. **Financial Acumen**: Inadequate experience in managing large-scale budgets and making smart financial decisions for significant technology investments.\n2. **Cost-Effectiveness**: Lack of direct evidence in budget management and optimizing cost-effectiveness at scale.\n3. **Risk Management**: Limited experienced in identifying and managing risks in larger, fast-growing and complex environments.\n4. **Regulatory Compliance**: No evident experience with regulatory frameworks pertinent to the operation.\n5. **Vendor Negotiation**: Limited interaction with large-scale vendors and strategic partnerships essential for managing numerous technical and commercial aspects effectively.\n\nGiven these points, the suitability of Sabrina Reid for this leadership role is significantly compromised. Emphasis has been put on the need for a candidate who assuredly meets the necessary criteria from the onset for stable and sustainable growth.\n\nMoving forward, more suitably qualified candidates who specifically meet these standards and have relevant experience shall be better serves alignment with the company\u2019s critical operational and future growth ambit.",
+    "(VP of Engineering): All key stakeholders have agreed that Sabrina Reid lacks the critical experience and expertise needed for the Head of Technology role at our scaling recycling plant operations. Despite her impressive technical background in web development, her qualifications do not meet the specific requirements in terms of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management. Consequently, it is advised to focus on evaluating other candidates who better align with the specialized criteria indispensable for this role.",
+    "(Recycling Plant Manager): As the Recycling Plant Manager, you have sound reasoning for believing that Sabrina Reid is not the ideal fit for the Head of Technology role in scaling the recycling plant operations in Kenya. The core areas where her experience does not match the requirements include process optimization in the recycling stream, expertise in sustainable waste management technologies, developed scalable recycling solutions, African regional tech project management, and strong logistics and supply chain integration. Therefore, it is advisable to consider candidates who possess proven experience in these key areas to ensure alignment with the company's critical operational needs and growth prospects.",
+    "(CFO): All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position at our recycling plant scale-up. Despite her commendable technical skills in web development, her expertise does not extend to the advanced financial, managerial, and industry-specific requirements central to ensuring sustainable growth and supporting the intricate needs of our scaling operations. The unanimous concurrence across the CFO, VP of Engineering, and Recycling Plant Manager underlines the priority to pursue potential candidates who align precisely with our strategic and financial goals.",
+    "(VP of Engineering): The thorough evaluation conducted by all key stakeholders clearly indicates that Sabrina Reid is not a suitable candidate for the Head of Technology role in our scaling recycling plant operations. Despite her impressive background in web development, she lacks the necessary experience in recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial technology management. Therefore, it is recommended to focus on finding other candidates with the exact expertise needed for sustainable growth and success in this critical role.",
+    "(Recycling Plant Manager): As the Recycling Plant Manager, based on a detailed evaluation of Sabrina Reid's profile, her expertise does not align with the critical needs of the Head of Technology role required to support our operations. Specifically, she lacks experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, regional project management in Africa, and efficient logistics and supply chain systems. Hence, it is advisable to consider candidates who possess the relevant industry-specific knowledge and region-specific experience to meet our enterprise goals and growing needs.",
+    "(CFO): Based on a thorough evaluation of Sabrina Reid\u2019s candidacy for the Head of Technology position, key stakeholder feedback unanimously indicates that she does not meet the critical requirements necessary for this role. She lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation.\n\nMoving forward, it is highly recommended that we focus on prospective candidates who explicitly possess these vital qualifications and experience to align with our intricate needs and objectives for sustainable growth and robust operational execution in the Kenyan scaling recycling plant context."
+  ],
+  "summarized_output": {
+    "Candidate Name": "Sabrina Reid",
+    "Summary": "- **VP of Engineering**: Sabrina Reid is not recommended for the Head of Technology role due to lack of experience in recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management.\n  \n- **Recycling Plant Manager**: Sabrina Reid lacks experience in process optimization in recycling, sustainable waste management technologies, scalable recycling solutions, and regional project management in Africa. A candidate with proven experience in these areas is needed.\n\n- **CFO**: Sabrina Reid lacks critical experience in financial management, cost-effectiveness, risk management, regulatory compliance, and vendor negotiation. A candidate with these qualifications is necessary for sustainable growth.\n\n- **VP of Engineering**: All stakeholders agree that Sabrina Reid lacks the necessary experience in recycling technologies, team scaling, change management, sustainable practices, and financial tech management. Other candidates should be considered.\n\n- **Recycling Plant Manager**: Sabrina Reid's experience does not match the needs for process optimization, sustainable waste management, scalable solutions, regional project management in Africa, and logistics. Candidates with relevant experience should be considered.\n\n- **CFO**: Stakeholders agree that Sabrina Reid lacks experience in financial management, cost management, risk management, regulatory compliance, and vendor negotiation. Focus should be on candidates with"
+  },
+  "opinion_report": [
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "The Head of Technology role requires financial acumen and strategic investment experience.",
+      "Similarity": 0.6240000128746033,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Our Head of Technology role urgently requires a candidate with a proven background in these areas to drive our ambitions forward."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "The Head of Technology role requires regional project management experience in Africa.",
+      "Similarity": 0.5220000147819519,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Specifically, she lacks experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, regional project management in Africa, and efficient logistics and supply chain systems. Hence, it is advisable to consider candidates who possess the relevant industry-specific knowledge and region-specific experience to meet our enterprise goals and growing needs."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "The Head of Technology role requires experience in recycling technologies, sustainable waste management, and scalable recycling solutions.",
+      "Similarity": 0.7070000171661377,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "As the Recycling Plant Manager, based on a detailed evaluation of Sabrina Reid's profile, her expertise does not align with the critical needs of the Head of Technology role required to support our operations. Specifically, she lacks experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, regional project management in Africa, and efficient logistics and supply chain systems."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "Sabrina Reid's qualifications do not meet the specific requirements for the Head of Technology role.",
+      "Similarity": 0.8820000290870667,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Sabrina Reid is not recommended for the Head of Technology role."
+    },
+    {
+      "Opinion Type": "Agreeable Opinions",
+      "Opinion": "Sabrina Reid has a strong background in web development, UX/UI design, and front-end technologies.",
+      "Similarity": 0.7329999804496765,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Sabrina Reid is not recommended for the Head of Technology role. While she has a strong background in web development, UX/UI design, and front-end technologies, her resume lacks critical experience in recycling technologies, scaling engineering teams in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "Sabrina Reid's lack of experience in recycling technologies and sustainable engineering practices.",
+      "Similarity": 0.7850000262260437,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "All key stakeholders have agreed that Sabrina Reid lacks the critical experience and expertise needed for the Head of Technology role at our scaling recycling plant operations. Despite her impressive technical background in web development, her qualifications do not meet the specific requirements in terms of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The need for financial tech management and cost management at scale for the Head of Technology role.",
+      "Similarity": 0.527999997138977,
+      "Advisor": "CFO",
+      "Agent Source Message": "Based on a thorough evaluation of Sabrina Reid\u2019s candidacy for the Head of Technology position, key stakeholder feedback unanimously indicates that she does not meet the critical requirements necessary for this role. She lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The requirement for regional project management experience in Africa for the Head of Technology role.",
+      "Similarity": 0.5339999794960022,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "The core areas where her experience does not match the requirements include process optimization in the recycling stream, expertise in sustainable waste management technologies, developed scalable recycling solutions, African regional tech project management, and strong logistics and supply chain integration."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The importance of large-scale change management experience for the Head of Technology role.",
+      "Similarity": 0.4350000023841858,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "Our Head of Technology role urgently requires a candidate with a proven background in these areas to drive our ambitions forward. Hence, it's in our best interest to reconsider more suitably qualified candidates who exemplify these critical industry-specific needs."
+    },
+    {
+      "Opinion Type": "Extensively Discussed Opinions",
+      "Opinion": "The necessity of experience in scaling engineering teams in emerging markets for the Head of Technology role.",
+      "Similarity": 0.4749999940395355,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Despite her impressive technical background in web development, her qualifications do not meet the specific requirements in terms of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management. Consequently, it is advised to focus on evaluating other candidates who better align with the specialized criteria indispensable for this role."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Sabrina Reid is not recommended for the Head of Technology role.",
+      "Similarity": 1.0,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Sabrina Reid is not recommended for the Head of Technology role."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Sabrina Reid lacks critical experience in recycling technologies, scaling engineering teams in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management.",
+      "Similarity": 0.8479999899864197,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "All key stakeholders have agreed that Sabrina Reid lacks the critical experience and expertise needed for the Head of Technology role at our scaling recycling plant operations. Despite her impressive technical background in web development, her qualifications do not meet the specific requirements in terms of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Sabrina Reid lacks critical experience in recycling technologies, scaling engineering teams in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management.",
+      "Similarity": 0.8479999899864197,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "All key stakeholders have agreed that Sabrina Reid lacks the critical experience and expertise needed for the Head of Technology role at our scaling recycling plant operations. Despite her impressive technical background in web development, her qualifications do not meet the specific requirements in terms of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Sabrina Reid lacks pivotal experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, and regional project management in Africa.",
+      "Similarity": 0.8840000033378601,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "As the Recycling Plant Manager, based on a detailed evaluation of Sabrina Reid's profile, her expertise does not align with the critical needs of the Head of Technology role required to support our operations. Specifically, she lacks experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, regional project management in Africa, and efficient logistics and supply chain systems."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Sabrina Reid lacks pivotal experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, and regional project management in Africa.",
+      "Similarity": 0.8840000033378601,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "As the Recycling Plant Manager, based on a detailed evaluation of Sabrina Reid's profile, her expertise does not align with the critical needs of the Head of Technology role required to support our operations. Specifically, she lacks experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, regional project management in Africa, and efficient logistics and supply chain systems."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position.",
+      "Similarity": 0.9039999842643738,
+      "Advisor": "CFO",
+      "Agent Source Message": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position at our recycling plant scale-up."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position.",
+      "Similarity": 0.9039999842643738,
+      "Advisor": "CFO",
+      "Agent Source Message": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position at our recycling plant scale-up."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Sabrina Reid is not recommended for the Head of Technology role.",
+      "Similarity": 1.0,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Sabrina Reid is not recommended for the Head of Technology role."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Sabrina Reid lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation.",
+      "Similarity": 0.8539999723434448,
+      "Advisor": "CFO",
+      "Agent Source Message": "She lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation."
+    },
+    {
+      "Opinion Type": "Negative Opinions",
+      "Opinion": "Sabrina Reid lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation.",
+      "Similarity": 0.8539999723434448,
+      "Advisor": "CFO",
+      "Agent Source Message": "She lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Sabrina Reid lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation.",
+      "Similarity": 0.8539999723434448,
+      "Advisor": "CFO",
+      "Agent Source Message": "She lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Sabrina Reid lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation.",
+      "Similarity": 0.8539999723434448,
+      "Advisor": "CFO",
+      "Agent Source Message": "She lacks demonstrated experience in crucial areas such as financial acumen for budget management and strategic investment, cost management at scale, risk management in complex and rapidly growing environments, regulatory compliance in the sector, and substantial engagement in high-stakes vendor negotiation."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position.",
+      "Similarity": 0.9039999842643738,
+      "Advisor": "CFO",
+      "Agent Source Message": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position at our recycling plant scale-up."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position.",
+      "Similarity": 0.9039999842643738,
+      "Advisor": "CFO",
+      "Agent Source Message": "All key stakeholders have reached a consensus that Sabrina Reid is not the right candidate for the Head of Technology position at our recycling plant scale-up."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Sabrina Reid lacks pivotal experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, and regional project management in Africa.",
+      "Similarity": 0.8840000033378601,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "As the Recycling Plant Manager, based on a detailed evaluation of Sabrina Reid's profile, her expertise does not align with the critical needs of the Head of Technology role required to support our operations. Specifically, she lacks experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, regional project management in Africa, and efficient logistics and supply chain systems."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Sabrina Reid lacks pivotal experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, and regional project management in Africa.",
+      "Similarity": 0.8840000033378601,
+      "Advisor": "Recycling Plant Manager",
+      "Agent Source Message": "As the Recycling Plant Manager, based on a detailed evaluation of Sabrina Reid's profile, her expertise does not align with the critical needs of the Head of Technology role required to support our operations. Specifically, she lacks experience in process optimization within the recycling industry, sustainable waste management technologies, scalable recycling solutions, regional project management in Africa, and efficient logistics and supply chain systems."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Sabrina Reid lacks critical experience in recycling technologies, scaling engineering teams in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management.",
+      "Similarity": 0.8479999899864197,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "All key stakeholders have agreed that Sabrina Reid lacks the critical experience and expertise needed for the Head of Technology role at our scaling recycling plant operations. Despite her impressive technical background in web development, her qualifications do not meet the specific requirements in terms of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Sabrina Reid lacks critical experience in recycling technologies, scaling engineering teams in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management.",
+      "Similarity": 0.8479999899864197,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "All key stakeholders have agreed that Sabrina Reid lacks the critical experience and expertise needed for the Head of Technology role at our scaling recycling plant operations. Despite her impressive technical background in web development, her qualifications do not meet the specific requirements in terms of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Sabrina Reid is not recommended for the Head of Technology role.",
+      "Similarity": 1.0,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Sabrina Reid is not recommended for the Head of Technology role."
+    },
+    {
+      "Opinion Type": "Strong Opinions",
+      "Opinion": "Sabrina Reid is not recommended for the Head of Technology role.",
+      "Similarity": 1.0,
+      "Advisor": "VP of Engineering",
+      "Agent Source Message": "Sabrina Reid is not recommended for the Head of Technology role."
+    }
+  ],
+  "non_bayesian_data": {
+    "change": {
+      "CFO": [
+        0,
+        0.12989086052402854,
+        0.07473769853822887,
+        0.012180853658355778
+      ],
+      "VP of Engineering": [
+        0,
+        0.09903599042445421,
+        0.4024122632108629,
+        0.041197476520513476
+      ],
+      "Recycling Plant Manager": [
+        0,
+        0.359793309122324,
+        0.16568070910871024,
+        0.06666451897472148
+      ]
+    },
+    "sentiment_data": {
+      "CFO": [
+        0,
+        -0.12989086052402854,
+        -0.05515316198579967,
+        -0.06733401564415545
+      ],
+      "VP of Engineering": [
+        0,
+        0.09903599042445421,
+        -0.30337627278640866,
+        -0.2621787962658952
+      ],
+      "Recycling Plant Manager": [
+        0,
+        -0.359793309122324,
+        -0.5254740182310342,
+        -0.5921385372057557
+      ]
+    }
+  },
+  "costs": {
+    "Total_Tokens": "44215",
+    "Prompt_Tokens": "36239",
+    "Completion_Tokens": "7976",
+    "Total_Cost_USD": "$0.300835"
+  },
+  "initial_conditions": {
+    "agent_names": {
+      "CFO": [],
+      "VP of Engineering": [],
+      "Recycling Plant Manager": []
+    },
+    "agent_descriptions": {
+      "CFO": "Balancing finances and strategy guides sustainable company growth.",
+      "VP of Engineering": "Oversee product development, manage engineering teams, ensure technical excellence, strategic planning.",
+      "Recycling Plant Manager": "Oversee operations, ensure efficiency, manage personnel, and optimize recycling processes."
+    },
+    "agent_priorities": {
+      "CFO": "Maximize profits, manage risks, ensure cash flow, and drive growth.",
+      "VP of Engineering": "Innovate solutions, ensure quality, streamline processes, mentor team, meet deadlines.",
+      "Recycling Plant Manager": "Maximize efficiency, minimize waste, ensure safety, meet compliance, lead team."
+    },
+    "agent_criteria": {
+      "CFO": "- Financial acumen: CapEx, OpEx, and ROI.\n- Cost-effectiveness: Budget control capabilities.\n- Risk management: Mitigation plans for tech investments.\n- Regulatory compliance: Understanding financial reporting standards.\n- Vendor negotiation: Achieve favorable contract terms.",
+      "VP of Engineering": "- Proven technical innovation in recycling plant technologies\n- Experience scaling engineering teams in emerging markets\n- Strong change management for tech-driven process improvement\n- Track record in sustainable engineering practices\n- Financial acumen for tech investment and budgeting",
+      "Recycling Plant Manager": "- Proven process optimization in recycling stream\n- Expertise in sustainable waste management tech\n- Innovated scalable recycling solutions\n- Managed African regional tech projects\n- Strong logistics and supply chain integration"
+    },
+    "topic": "What are the pros and cons of hiring this candidate: Sabrina Reid\n\n(with this bio: \n\n-----START OF CANDIDATE RESUME/BIO-----\nFreelance Web Developer Freelance Web <span class=\"hl\">Developer</span> Front- End Developer for Hire Bronx, NY Authorized to work in the US for any employer Work Experience Freelance Web Developer outtethedev.com January 2016 to Present \u2022 Crafted outtethedev.com by hand early in my career as a personal home page and to showcase my portfolio. The site, outtethedev.com was created with HTML5, CSS3, JavaScript, jQuery, and Bootstrap. The portfolio features links to live versions of projects I've worked on and links to my GitHub, where you can view samples of my code as well.\u00a0 \u00a0 \u2022 I was asked by a client to build a automated Twitter bot account that would automatically retweet all tweets with certain hashtags, and automatically reply to messages in order to help grow her business. After setting up a Twitter application and obtaining the appropriate API Keys, I cloned the twitter- bot-bootstrap repository by spences10 in a new directory and installed the necessary dependencies via Node Package Manager. Using twitter bot bootstrap, not only was I able to code the hashtags for retweets and response messages, I was also able to filter out tweets that contained certain \"offensive\" words and phrases.\u00a0 \u00a0 \u2022 Built a website for a client to help them grow their youtube following. The client wanted viewers to be able to subscribe to his channel and view his videos on his site. He also wanted to be able to view his channels analytics from the site including a live subscriber counter. This was achieved with HTML5, CSS3, PHP, Wordpress, and the Youtube API. I created a custom Wordpress theme to the client's exact\u00a0 specifications and used the Youtube API to pull information from the client's Youtube page. The site helped his channel gain about 13,000 new subscribers in 4 months. WordPress Developer AppsByMax Inc February 2018 to June 2018 \u2022 Built a new custom WordPress Theme to serve as the AppsByMax company homepage. It allows AppsByMax to catalog all of the apps they release. It also allows AppsByMax to create Tutorials for iOS and Swift.\u00a0 \u00a0 \u2022 Performed the entire UX/UI design of the site and presented the complete mock-up under a high amount of pressure in under 5 days. CEO then requested a Redesign of the site, which was completed in 2 days.\u00a0 \u00a0 \u2022 Created a brand new WordPress post type, \u201cProducts\u201d, to showcase all of the apps created by AppsByMax. The Products archive page was modified to display the Products in a style similar to Pinterest using Masonry.js\u00a0 \u00a0 \u2022 Hardcoded a slideshow into the Products post type separate from the content to cycle through all of the post\u2019s image attachments. It\u2019s meant to be used as a way to display screenshots and photos without inserting them into the content.\u00a0 \u00a0 \u2022 The Products post type can dynamically add app store badges when provided with URL metadata through custom fields. Using the provided metadata, the Products post adds an appropriate app store badge that links to the URL at the bottom of the post.\u00a0 \u00a0 \u2022 Added a new menu to the WordPress dashboard, \u201cSocial Media Links\u201d that allow\u2019s AppsByMax to input the URLs to their various social media accounts. When a URL is entered, the corresponding icon of the site appears in the footer and, when clicked, will bring the user to the linked URL. Volunteer Senior Front- End Developer Code for Social Good January 2017 to February 2018 \u2022 Organized and directed Front- End development of a recently released monumental web app that connects non-profit organizations with technical volunteers around the world. The app is built using HTML5, CSS3, SASS, Angular 2, Typescript, and Materialize CSS. Visit us at app.code4socialgood.org\u00a0 \u00a0 \u2022 Built original SignUp, Login, and Forgot Password pages from scratch using the Reactive Forms Module and Validators imported from Angular 2's form library. Reactive Forms would allow for more straightforward communication of data between our server and project components.\u00a0 \u00a0 \u2022 Constructed the original User Dashboard, along with the Non-Profit Dashboard by importing the Reactive Forms Module and Validators from the form library. By taking advantage of the Angular library's built-in Validator functions such as .required and .minlength, I was able to prevent users from moving forward with account and project creation without providing the server with certain bits of data.\u00a0 \u00a0 \u2022 Created About page featuring Google Map of all volunteers on site. Because Angular isn't optimized to support the Google Maps API, I imported the AGM framework from SebastianM into the project. This allowed me to be able to display data for every registered volunteer on the map with a marker using Angular's *for directive. With volunteer data available on the map, nonprofit organizations can see if any volunteers registered to our app are in their area very quickly without even creating an account. Education High school or equivalent American School of Correspondence - Lansing, IL May 2010 to November 2014 Skills HTML 5 (3 years), CSS3 (3 years), Javascript (3 years), JQuery (3 years), Bootstrap (3 years), Materialize CSS (1 year), SASS (1 year), Angular (2 years), Typescript (2 years), ES6 (2 years), Rest APIs (1 year), Visual Studio (1 year), Sublime Text (2 years), CMS (Less than 1 year), Wordpress (Less than 1 year), Front End (3 years), Python (Less than 1 year), PHP (Less than 1 year), Website (3 years), Word Press (Less than 1 year), HTML5 (3 years), Angular (2 years), React (Less than 1 year), Front-End Links https://github.com/Outte\n\n-----END OF CANDIDATE RESUME/BIO-----\n)\n\n\nfor this role: # Head of Technology in a Recycling plant scale-up in Kenya, \ngiven this role description: \n\n-----START OF JOB DESCRIPTION-----\n\ufeffAbout Our Client \nThis is a recycling company on a mission to change people\u2019s lives. Waste pickers have aspirations, demanding schedules, and aim to provide the best quality service, just like the rest of us. Unfortunately, they\u2019re often undervalued for the essential service they provide.\nThis firm offers pickers premium prices and additional benefits for cleaning up their community environment and supplying recyclable material. That material is processed and returned to manufacturer supply chains, reducing material cost and waste. To put this mission front and centre, the company became the first recycler certified as B-Corp in Africa.\nSo far, their network of +2500 waste collectors has helped them recycle 6000 tons of waste and create 120 new jobs and counting. They operate across Kenya today and continue to expand, starting with the development of a new state of the art facility.\nOver the next few years, with your help, this company will transform waste and recycling value chains in the global south with a cloud-based, digital-first approach that enables them to operate at scale across Africa while re-defining the value of waste to new supplier categories. They already have strategic partners helping to innovate track & trace, fair & local collection, and sales.\nAs the complexity of their work and ambition for impact grows, they\u2019ll need creative leaders with a genuine passion to make a difference at scale.\nAbout The Role \nThe company is looking for a high-energy, rigorous, and strategic leader with diverse technical experience to head the (re)design of their architecture and organisation for scale. A successful candidate will bring a structured process, solid people management, and cutting edge technologies to a relatively traditional industry.\nWith this in mind, the role reports to the Chief Innovation Officer where new ideas and \norganisational strategy get transformed into real product and process innovations. In addition, the Head of Technology will work closely with operating Country Managers on their supply chain and facility technology.\nThey will oversee all technology, from manufacturing sensors to consumer applications, to corporate administration. Beyond their direct reports, this leader should expect to engage with strategic partners, functional leaders, and specialist advisors to develop and achieve business goals at a healthy ROI.\nIn brief, you will build a scalable architecture, automated processes, simple product experiences, and a reliable team for the short and long term.\nFinally, we realise everyone has personal commitments outside of work. To enable people to work and live at their best, the company supports flexible work. Sometimes work takes place in the industrial area plant, at other times in a shared workspace for innovation, and sometimes from home. They expect leaders to work with their teams to design a high performance, values-aligned work environment.\nWhile the day-to-day office is flexible, the position is based in Nairobi, Kenya and may require up to 30% travel in Kenya and internationally.\nSalaries are competitive and commensurate with qualifications and experience.\nResponsibilities:\nScalable Architecture \nTechnical Vision \nMap out the right mix of external and internal components to strengthen and easily manage multiple stakeholder needs and business growth plans. Advise leadership on technical investment decisions.\nMigration Roadmap \nGather, define, and prioritise user stories and associated development requirements based on the scaling business strategy and customer needs. This requires taking the initiative to speak with clients, stakeholders, advisors, and peers to develop individual sprint plans up to long-term milestones.\nModular Design \nEnsure interoperability between existing and new applications. Build the system to plug and play with new applications and enable easier entry into new countries or offer new services.\nAutomated Processes \nOperations Optimization \nCollect and translate data as well as introduce technology to simplify processes and reduce manual tasks across the supply chain including collection, sorting, processing, distribution, and administration.\nPredictive Analytics \nDevelop and integrate self-reporting and sensor data to improve forecasting. Lay the groundwork for future AI investments (e.g., computer vision plastic identification and mix estimations)\nSimple Product Experience \nClear Actions \nDesign and develop features that are easy to access, obvious to follow, and fast to complete. This should limit the need for follow-up support service and/or human intervention.\nMulti-Modal \nEnsure products work on any type of device and work by text, app, or web. Front-end information should seamlessly integrate with other processes and players along the supply chain.\nReliable Team \nPerformance Standards \nCreate expectations based on technical practice areas, expectations of MGA stakeholders, and consumer product benchmarks (inc. security and up-time). Enable quality execution through training, examples to follow, and regular reviews.\nDevelopment Process\nStructure, organise, and fluidly execute sprints by introducing agile development (and other best practices) as well as establishing open/clear communication practices with stakeholder teams.\nTalent Management \nDevelop and fill new jobs as needed to execute the technical roadmap. Prioritise training and development of the existing team whenever possible. Manage and ensure the performance of external partners is at or above the internal staff.\nTechnical Domains:\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nConsumer-facing Mobile Applications \nPartner and Operator Application \nData Engineering and Analytics \nIOT Sensors and Manual Entry Devices \nERP and Related Operational Systems \nAll Functional Software Applications \nAll Personal Computing Devices \nCloud Infrastructure \nSecurity Policies and Procedures \nOperating Budgets and Tech Investment ROI \nRelease Schedules and Quality Assurance Testing\nExperience and Skills:\n\t\u25cf\t+5 years in CTO / technology leadership role in a fast-growing or supply chain company\t\u25cf\t+10 years diverse technical work experience\n\t\u25cf\tHired, led, and scaled world-class engineer/developer teams delivering high-quality \toutputs for customer-facing and internal requirements\n\t\u25cf\tFull-stack experience using multiple languages and frameworks is an advantage\t\u25cf\tSome familiarity with AI, data science and machine learning techniques\n\t\u25cf\tHave managed secure environments that contain sensitive information (e.g. customer \tprofiles, financial information, regulatory filings etc) with the relevant security processes \tin place.\n\u25cf\tUnderstanding of budgets, business planning, and investment business cases\u25cf\tExperience with selecting, measuring, and managing suppliers and vendors\u25cf\tOutstanding track record of delivering complex technology developments and \tprogrammes\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nFamiliarity with cloud-computing platforms \nSkilled in planning and forming strategic roadmaps to ensure high-quality output Very strong communication skills and comfort speaking to high stakes audiences Experience overseeing engineering teams in an agile environment \nGood knowledge of DevOps toolchains and processes \nDegree in Information Technology, Computer Science, or another equivalent Qualifications in Agile or Project Management an advantage..\n-----END OF JOB DESCRIPTION-----\n\nBe very upfront with how you emotionally feel about this. Express your sentiments strongly and clearly. Don't be shy or too diplomatic.\n",
+    "agent_system_messages": {
+      "CFO": "Alright, let's get into this. My role as CFO is to scrutinize any candidate's potential impact on our financial health and strategic growth. Here\u2019s my assessment based on Sabrina Reid's resume and the requirements for the Head of Technology in our scale-up.\n\n**Evaluation Criteria:**\n\n1. **Financial Acumen:** The role of Head of Technology involves significant CapEx and OpEx considerations. We need someone who can make smart financial decisions in tech investments, and it doesn't seem like Sabrina has direct experience managing large-scale budgets or making high-stakes financial decisions. She\u2019s been a freelance web developer and has some experience at a mid-level company but being head of technology for a company that\u2019s scaling rapidly in Kenya requires a different level of financial insight and rigor.\n\n2. **Cost-Effectiveness:** While Sabrina has completed projects under tight deadlines, cost-control in a leadership role requires a deep understanding of budget management. There\u2019s no direct evidence from her bio that she\u2019s had to work within strict budget constraints or optimize for cost-effectiveness at scale.\n\n3. **Risk Management:** This role needs someone capable of identifying, assessing, and mitigating risks associated with tech investments. Building a few web applications and managing smaller scope projects doesn't give me confidence that Sabrina has the depth of experience needed to handle tech risks in a fast-growing, complex environment like ours.\n\n4. **Regulatory Compliance:** Compliance is another grey area for Sabrina. There\u2019s no mention of experience with regulatory frameworks, which is vital given the sensitivity of data and the complexity of our operations.\n\n5. **Vendor Negotiation:** We need to negotiate favorable terms with tech vendors to keep costs down and value high. Sabrina\u2019s portfolio indicates limited interaction with such large-scale vendors or strategic partnerships. This is a critical gap given our own needs and the complexity of managing numerous technical domains and vendors.\n\n**In Conclusion:**\n\nI honestly don't believe Sabrina Reid is the right fit for the Head of Technology role at our recycling plant scale-up. While she has commendable experience as a web developer and her projects are innovative, the leap to a strategic leadership role overseeing a broad tech landscape with significant financial implications is too vast. She doesn't have the demonstrated experience in budget control, risk management, regulatory compliance, or vendor negotiation that I deem essential for this role. \n\nHer background is rich in technical creativity but lacking in the financial and management acumen needed for us to achieve our lofty ambitions while maintaining robust fiscal health.\n\nI urge you all to consider the substantial financial and strategic risks of moving forward with a candidate who doesn\u2019t tick these crucial boxes. We need someone who fits our comprehensive criteria right from the start to ensure sustainable growth and operational excellence. \n\n*[CFO stops speaking]*",
+      "VP of Engineering": "Alright, let's dive into this. Evaluating Sabrina Reid based on our criteria:\n\n1. **Proven Technical Innovation in Recycling Plant Technologies:** Sabrina has significant experience in web development, including building custom applications and optimizing user experience. However, I am not seeing any specific experience related to recycling plant technologies. This raises a red flag for me. The unique demands of a recycling plant require someone with proven experience in innovative recycling technologies or, at the very least, industrial automation. Her freelance web development experience, while impressive, does not directly translate to the highly specific needs of our complex technological environment in a recycling facility.\n\n2. **Experience Scaling Engineering Teams in Emerging Markets:** There\u2019s no mention of her experience in scaling engineering teams, especially in emerging markets. The crux of our job is to expand operations seamlessly across Kenya and potentially other African countries. Leaders in this role need to have hands-on experience managing and scaling tech teams in similar environments. Her background primarily consists of freelance and contract work with limited evidence of managing large teams, which is crucial for the effective leadership we need.\n\n3. **Strong Change Management for Tech-Driven Process Improvement:** Sabrina has shown she can handle high-pressure situations and quick redesigns, evidenced by her swift turnarounds on projects like those at AppsByMax. However, change management at the scale we're considering involves aligning cross-functional teams and stakeholders, and managing substantial organizational changes beyond coding sprints. There\u2019s no substantial evidence in her resume that she has experience managing tech-driven transformations in complex operational settings like ours.\n\n4. **Track Record in Sustainable Engineering Practices:** There is no indication that Sabrina has been involved in sustainable engineering practices. Our mission is deeply rooted in sustainability, and it\u2019s imperative our Head of Technology has a solid track record in this area. We need someone who understands the specific challenges and innovations related to sustainable waste management and recycling.\n\n5. **Financial Acumen for Tech Investment and Budgeting:** While her work kind of demonstrates technical competence, Sabrina's resume lacks evidence of financial acumen in managing substantial tech investments or budgeting for large-scale technological deployments. We\u2019re looking for a strategic leader who can make sound financial decisions to drive our tech roadmap. Her resume does not provide concrete evidence of these capabilities.\n\n**In summary**: Sabrina has a solid technical background with evident skills in web development, UX/UI design, and front-end technologies. However, she lacks concrete experience in the critical areas of recycling technologies, team scaling in emerging markets, large-scale change management, sustainable engineering practices, and financial tech management. Hence, I cannot recommend her for the Head of Technology role in our scaling recycling plant operations. We need a leader with directly relevant experience to drive our mission forward successfully.",
+      "Recycling Plant Manager": "As the Recycling Plant Manager, I strongly believe that Sabrina Reid is not the right fit for the Head of Technology role in our ambitious recycling plant scale-up in Kenya. Let me break down why, based on my specific evaluation criteria:\n\n1. **Proven process optimization in recycling stream**: While Sabrina has showcased her technical expertise across various web development projects, there is a notable lack of experience in optimizing processes within the recycling or waste management industry. She has proficiently built websites and applications, but these achievements don't translate directly to the hands-on process improvement needed in our recycling stream.\n\n2. **Expertise in sustainable waste management tech**: Sabrina's resume does not demonstrate any direct involvement with sustainable waste management technologies. This role requires an intimate understanding of how to leverage technology to enhance recycling processes, reduce waste, and implement sustainable practices. Her background in web development, although impressive, does not cover this critical aspect.\n\n3. **Innovated scalable recycling solutions**: The candidate\u2019s resume does not reflect any experience or innovative achievements in developing scalable recycling solutions. Our goal is to transform waste and recycling value chains across Africa, which demands someone who has a track record of working on large-scale environmental or sustainability projects. Sabrina\u2019s portfolio highlights her ability to scale web applications and digital solutions, but not recycling systems.\n\n4. **Managed African regional tech projects**: There is no indication that Sabrina has managed regional technology projects within Africa, or anywhere with similar challenges. Leading technology projects in Africa comes with unique logistical, infrastructural, and cultural challenges that require specific experience and understanding. Her work so far seems to be domestically focused, primarily in a freelancing capacity, with no mention of navigating the complexities of African project implementation.\n\n5. **Strong logistics and supply chain integration**: Our recycling operations heavily depend on integrated, efficient logistics and supply chain systems. Sabrina\u2019s technical experience with web development and some backend integrations (like APIs) does not equate to managing complex supply chain systems in a manufacturing or recycling context. This role demands someone who understands the end-to-end flow of materials and can optimize these elements for better efficiency and output.\n\nAlthough Sabrina Reid appears to be a highly skilled web developer with a passion for technology, her resume does not align with the critical needs of our Head of Technology role at this recycling plant. We need someone with a robust background in sustainability tech, recycling process optimization, and significant regional experience in Africa to drive our vision forward.\n\nGiven these points, I strongly urge the team to consider candidates who have direct experience and proven success in the recycling and waste management industry with a focus on scalability and regional implementation in Africa.\n\n**Source for Evaluation**: Directly paraphrased and critically analyzed from Sabrina Reid's resume/Bio and specific job description provided."
+    },
+    "specified_topic": "Candidate Pros and Cons Evaluation.",
+    "candidate_name": "Sabrina Reid",
+    "candidate_bio": "Freelance Web Developer Freelance Web <span class=\"hl\">Developer</span> Front- End Developer for Hire Bronx, NY Authorized to work in the US for any employer Work Experience Freelance Web Developer outtethedev.com January 2016 to Present \u2022 Crafted outtethedev.com by hand early in my career as a personal home page and to showcase my portfolio. The site, outtethedev.com was created with HTML5, CSS3, JavaScript, jQuery, and Bootstrap. The portfolio features links to live versions of projects I've worked on and links to my GitHub, where you can view samples of my code as well.\u00a0 \u00a0 \u2022 I was asked by a client to build a automated Twitter bot account that would automatically retweet all tweets with certain hashtags, and automatically reply to messages in order to help grow her business. After setting up a Twitter application and obtaining the appropriate API Keys, I cloned the twitter- bot-bootstrap repository by spences10 in a new directory and installed the necessary dependencies via Node Package Manager. Using twitter bot bootstrap, not only was I able to code the hashtags for retweets and response messages, I was also able to filter out tweets that contained certain \"offensive\" words and phrases.\u00a0 \u00a0 \u2022 Built a website for a client to help them grow their youtube following. The client wanted viewers to be able to subscribe to his channel and view his videos on his site. He also wanted to be able to view his channels analytics from the site including a live subscriber counter. This was achieved with HTML5, CSS3, PHP, Wordpress, and the Youtube API. I created a custom Wordpress theme to the client's exact\u00a0 specifications and used the Youtube API to pull information from the client's Youtube page. The site helped his channel gain about 13,000 new subscribers in 4 months. WordPress Developer AppsByMax Inc February 2018 to June 2018 \u2022 Built a new custom WordPress Theme to serve as the AppsByMax company homepage. It allows AppsByMax to catalog all of the apps they release. It also allows AppsByMax to create Tutorials for iOS and Swift.\u00a0 \u00a0 \u2022 Performed the entire UX/UI design of the site and presented the complete mock-up under a high amount of pressure in under 5 days. CEO then requested a Redesign of the site, which was completed in 2 days.\u00a0 \u00a0 \u2022 Created a brand new WordPress post type, \u201cProducts\u201d, to showcase all of the apps created by AppsByMax. The Products archive page was modified to display the Products in a style similar to Pinterest using Masonry.js\u00a0 \u00a0 \u2022 Hardcoded a slideshow into the Products post type separate from the content to cycle through all of the post\u2019s image attachments. It\u2019s meant to be used as a way to display screenshots and photos without inserting them into the content.\u00a0 \u00a0 \u2022 The Products post type can dynamically add app store badges when provided with URL metadata through custom fields. Using the provided metadata, the Products post adds an appropriate app store badge that links to the URL at the bottom of the post.\u00a0 \u00a0 \u2022 Added a new menu to the WordPress dashboard, \u201cSocial Media Links\u201d that allow\u2019s AppsByMax to input the URLs to their various social media accounts. When a URL is entered, the corresponding icon of the site appears in the footer and, when clicked, will bring the user to the linked URL. Volunteer Senior Front- End Developer Code for Social Good January 2017 to February 2018 \u2022 Organized and directed Front- End development of a recently released monumental web app that connects non-profit organizations with technical volunteers around the world. The app is built using HTML5, CSS3, SASS, Angular 2, Typescript, and Materialize CSS. Visit us at app.code4socialgood.org\u00a0 \u00a0 \u2022 Built original SignUp, Login, and Forgot Password pages from scratch using the Reactive Forms Module and Validators imported from Angular 2's form library. Reactive Forms would allow for more straightforward communication of data between our server and project components.\u00a0 \u00a0 \u2022 Constructed the original User Dashboard, along with the Non-Profit Dashboard by importing the Reactive Forms Module and Validators from the form library. By taking advantage of the Angular library's built-in Validator functions such as .required and .minlength, I was able to prevent users from moving forward with account and project creation without providing the server with certain bits of data.\u00a0 \u00a0 \u2022 Created About page featuring Google Map of all volunteers on site. Because Angular isn't optimized to support the Google Maps API, I imported the AGM framework from SebastianM into the project. This allowed me to be able to display data for every registered volunteer on the map with a marker using Angular's *for directive. With volunteer data available on the map, nonprofit organizations can see if any volunteers registered to our app are in their area very quickly without even creating an account. Education High school or equivalent American School of Correspondence - Lansing, IL May 2010 to November 2014 Skills HTML 5 (3 years), CSS3 (3 years), Javascript (3 years), JQuery (3 years), Bootstrap (3 years), Materialize CSS (1 year), SASS (1 year), Angular (2 years), Typescript (2 years), ES6 (2 years), Rest APIs (1 year), Visual Studio (1 year), Sublime Text (2 years), CMS (Less than 1 year), Wordpress (Less than 1 year), Front End (3 years), Python (Less than 1 year), PHP (Less than 1 year), Website (3 years), Word Press (Less than 1 year), HTML5 (3 years), Angular (2 years), React (Less than 1 year), Front-End Links https://github.com/Outte\n",
+    "job_title": "# Head of Technology in a Recycling plant scale-up in Kenya",
+    "job_description": "\ufeffAbout Our Client \nThis is a recycling company on a mission to change people\u2019s lives. Waste pickers have aspirations, demanding schedules, and aim to provide the best quality service, just like the rest of us. Unfortunately, they\u2019re often undervalued for the essential service they provide.\nThis firm offers pickers premium prices and additional benefits for cleaning up their community environment and supplying recyclable material. That material is processed and returned to manufacturer supply chains, reducing material cost and waste. To put this mission front and centre, the company became the first recycler certified as B-Corp in Africa.\nSo far, their network of +2500 waste collectors has helped them recycle 6000 tons of waste and create 120 new jobs and counting. They operate across Kenya today and continue to expand, starting with the development of a new state of the art facility.\nOver the next few years, with your help, this company will transform waste and recycling value chains in the global south with a cloud-based, digital-first approach that enables them to operate at scale across Africa while re-defining the value of waste to new supplier categories. They already have strategic partners helping to innovate track & trace, fair & local collection, and sales.\nAs the complexity of their work and ambition for impact grows, they\u2019ll need creative leaders with a genuine passion to make a difference at scale.\nAbout The Role \nThe company is looking for a high-energy, rigorous, and strategic leader with diverse technical experience to head the (re)design of their architecture and organisation for scale. A successful candidate will bring a structured process, solid people management, and cutting edge technologies to a relatively traditional industry.\nWith this in mind, the role reports to the Chief Innovation Officer where new ideas and \norganisational strategy get transformed into real product and process innovations. In addition, the Head of Technology will work closely with operating Country Managers on their supply chain and facility technology.\nThey will oversee all technology, from manufacturing sensors to consumer applications, to corporate administration. Beyond their direct reports, this leader should expect to engage with strategic partners, functional leaders, and specialist advisors to develop and achieve business goals at a healthy ROI.\nIn brief, you will build a scalable architecture, automated processes, simple product experiences, and a reliable team for the short and long term.\nFinally, we realise everyone has personal commitments outside of work. To enable people to work and live at their best, the company supports flexible work. Sometimes work takes place in the industrial area plant, at other times in a shared workspace for innovation, and sometimes from home. They expect leaders to work with their teams to design a high performance, values-aligned work environment.\nWhile the day-to-day office is flexible, the position is based in Nairobi, Kenya and may require up to 30% travel in Kenya and internationally.\nSalaries are competitive and commensurate with qualifications and experience.\nResponsibilities:\nScalable Architecture \nTechnical Vision \nMap out the right mix of external and internal components to strengthen and easily manage multiple stakeholder needs and business growth plans. Advise leadership on technical investment decisions.\nMigration Roadmap \nGather, define, and prioritise user stories and associated development requirements based on the scaling business strategy and customer needs. This requires taking the initiative to speak with clients, stakeholders, advisors, and peers to develop individual sprint plans up to long-term milestones.\nModular Design \nEnsure interoperability between existing and new applications. Build the system to plug and play with new applications and enable easier entry into new countries or offer new services.\nAutomated Processes \nOperations Optimization \nCollect and translate data as well as introduce technology to simplify processes and reduce manual tasks across the supply chain including collection, sorting, processing, distribution, and administration.\nPredictive Analytics \nDevelop and integrate self-reporting and sensor data to improve forecasting. Lay the groundwork for future AI investments (e.g., computer vision plastic identification and mix estimations)\nSimple Product Experience \nClear Actions \nDesign and develop features that are easy to access, obvious to follow, and fast to complete. This should limit the need for follow-up support service and/or human intervention.\nMulti-Modal \nEnsure products work on any type of device and work by text, app, or web. Front-end information should seamlessly integrate with other processes and players along the supply chain.\nReliable Team \nPerformance Standards \nCreate expectations based on technical practice areas, expectations of MGA stakeholders, and consumer product benchmarks (inc. security and up-time). Enable quality execution through training, examples to follow, and regular reviews.\nDevelopment Process\nStructure, organise, and fluidly execute sprints by introducing agile development (and other best practices) as well as establishing open/clear communication practices with stakeholder teams.\nTalent Management \nDevelop and fill new jobs as needed to execute the technical roadmap. Prioritise training and development of the existing team whenever possible. Manage and ensure the performance of external partners is at or above the internal staff.\nTechnical Domains:\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nConsumer-facing Mobile Applications \nPartner and Operator Application \nData Engineering and Analytics \nIOT Sensors and Manual Entry Devices \nERP and Related Operational Systems \nAll Functional Software Applications \nAll Personal Computing Devices \nCloud Infrastructure \nSecurity Policies and Procedures \nOperating Budgets and Tech Investment ROI \nRelease Schedules and Quality Assurance Testing\nExperience and Skills:\n\t\u25cf\t+5 years in CTO / technology leadership role in a fast-growing or supply chain company\t\u25cf\t+10 years diverse technical work experience\n\t\u25cf\tHired, led, and scaled world-class engineer/developer teams delivering high-quality \toutputs for customer-facing and internal requirements\n\t\u25cf\tFull-stack experience using multiple languages and frameworks is an advantage\t\u25cf\tSome familiarity with AI, data science and machine learning techniques\n\t\u25cf\tHave managed secure environments that contain sensitive information (e.g. customer \tprofiles, financial information, regulatory filings etc) with the relevant security processes \tin place.\n\u25cf\tUnderstanding of budgets, business planning, and investment business cases\u25cf\tExperience with selecting, measuring, and managing suppliers and vendors\u25cf\tOutstanding track record of delivering complex technology developments and \tprogrammes\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\n\u25cf\nFamiliarity with cloud-computing platforms \nSkilled in planning and forming strategic roadmaps to ensure high-quality output Very strong communication skills and comfort speaking to high stakes audiences Experience overseeing engineering teams in an agile environment \nGood knowledge of DevOps toolchains and processes \nDegree in Information Technology, Computer Science, or another equivalent Qualifications in Agile or Project Management an advantage.",
+    "advisors": [
+      {
+        "title": "CFO"
+      },
+      {
+        "title": "VP of Engineering"
+      },
+      {
+        "title": "Recycling Plant Manager"
+      }
+    ]
+  }
+}

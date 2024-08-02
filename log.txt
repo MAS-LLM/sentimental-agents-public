@@ -1,0 +1,6 @@
+A syntax error happened on metrics\evaluation.py. This file cannot be formatted.
+Syntax Error @ 2:1.
+parser error: error at 1:14: expected one of !=, %, &, (, *, **, +, ,, -, ., /, //, :, ;, <, <<, <=, =, ==, >, >=, >>, @, NEWLINE, [, ^, and, if, in, is, not, or, |
+
+Organize this code to run using one command where the argument is the experiment directory.
+                                                                                          ^
