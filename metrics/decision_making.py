@@ -1,6 +1,6 @@
 from typing import List
-from utilities.sentiment import SentimentAnalyzer
-from core.dialog import DialogueAgentWithTools
+#from utilities.sentiment import SentimentAnalyzer
+#from core.dialog import DialogueAgentWithTools
 import os
 import json
 import pandas as pd
@@ -10,11 +10,17 @@ class DecisionMaker:
     """
     A class to make decisions based on sentiment analysis of agents' messages.
     """
-    def __init__(self, score_type = "average", directory = "output_files"):
+    def __init__(self, directory: str, setup_file: str, score_type: str = "average"):
         """
-        Initialize the DecisionMaker with a list of agents.
+        Initialize the DecisionMaker with a directory, setup file, and score type.
+
+        Args:
+            directory (str): The directory containing the simulation data.
+            setup_file (str): Path to the simulation setup data JSON file.
+            score_type (str, optional): The type of score to use. Defaults to "average".
         """
         self.directory = directory
+        self.setup_file = setup_file
         self.score_type = score_type
         self.calculate_decision_metrics()
 
@@ -30,7 +36,7 @@ class DecisionMaker:
             self.sim_data[folder.split("_")[-1]] = data  
 
     def assign_scores(self):
-        with open("input_examples/simulation_setup_data.json", "r", encoding="utf-8") as jfile:
+        with open(self.setup_file, "r", encoding="utf-8") as jfile:
             setup_data = json.load(jfile)
         self.agents = setup_data["technical_advisors"]
         #self.agents = [x["name"] for x in list(self.sim_data.values())[0]["agent_data"]]
@@ -148,6 +154,18 @@ class DecisionMaker:
         self.rank_list(intuition=True)
         self.borda_count(intuition=True)
 
+    def save_results(self, filename: str = "decision_metrics.csv"):
+        """
+        Save the sentiment data frame (sdf) to a CSV file in the specified directory.
+
+        Args:
+            filename (str, optional): Name of the CSV file. Defaults to "decision_metrics.csv".
+        """
+        output_path = os.path.join(self.directory, filename)
+        self.sdf.to_csv(output_path, index=False)
+        print(f"Decision metrics saved to: {output_path}")
+
+
     def calculate_decision_metrics(self):
         self.load_simulation_data()
         self.assign_scores()
@@ -157,3 +175,29 @@ class DecisionMaker:
         self.get_tiered_list()
         self.calculate_confidence()
         self.intuitive_list()
+
+# Example usage
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run DecisionMaker on a specified folder")
+    parser.add_argument("folder", type=str, help="Path to the folder containing simulation data")
+    parser.add_argument("--setup_file", type=str, default="data/input/simulation_setup_data.json",
+                        help="Path to the simulation setup data JSON file")
+    parser.add_argument("--score_type", type=str, default="average", choices=["average", "last_value"],
+                        help="Type of score to use (default: average)")
+    parser.add_argument("--output_file", type=str, default="decision_metrics.csv",
+                        help="Name of the output CSV file (default: decision_metrics.csv)")
+
+    args = parser.parse_args()
+
+    decision_maker = DecisionMaker(directory=args.folder, setup_file=args.setup_file, score_type=args.score_type)
+    
+    # Save the results to a CSV file
+    decision_maker.save_results(args.output_file)
+    
+    # Print summary information
+    print(f"Decision metrics calculated for data in: {args.folder}")
+    print(f"Using setup file: {args.setup_file}")
+    print(f"Using score type: {args.score_type}")
+    print(f"Results saved to: {os.path.join(args.folder, args.output_file)}")

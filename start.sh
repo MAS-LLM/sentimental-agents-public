@@ -11,3 +11,5 @@ python metrics/evaluation.py output_files/20240802_095722 data/input/resume_samp
 #python metrics/bias.py /path/to/your/directory [--how {single,all}] [--index INDEX]
 
 python metrics/bias.py output_files/20240802_095722 --how all
+
+python metrics/decision_making.py output_files/20240802_095722
