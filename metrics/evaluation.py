@@ -11,8 +11,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 import gensim
 from gensim.models import LdaModel
 from gensim.corpora import Dictionary
-import pyLDAvis
-import pyLDAvis.gensim_models as gensimvis
 import nltk
 from nltk.corpus import stopwords
 from gensim.utils import simple_preprocess
@@ -20,15 +18,11 @@ import torch
 from polyfuzz import PolyFuzz
 from polyfuzz.models import SentenceEmbeddings
 from sentence_transformers import SentenceTransformer
-import tempfile
 from dotenv import load_dotenv
-from pathlib import Path
-from llama_index.readers.file import UnstructuredReader
-from llama_index.core import VectorStoreIndex, ServiceContext
+from llama_index.core import VectorStoreIndex
 from llama_index.core.node_parser import MarkdownNodeParser
 from llama_index.embeddings.langchain import LangchainEmbedding
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from llama_index.core import SimpleDirectoryReader
 from llama_index.core import Document
 from llama_index.core import Settings
 
