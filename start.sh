@@ -1,4 +1,4 @@
-python3 main.py --simulation_setup_data "data/input/simulation_setup_data.json"  --candidate_csv "data/input/100sample.csv"
+python3 main.py --simulation_setup_data "data/input/simulation_setup_data.json"  --candidate_csv "data/input/1sample.csv"
 
 
 ## getting evaluation data. PS: used the resume csv used in the simulation for this step.

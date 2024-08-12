@@ -201,15 +201,8 @@ def sentiment_non_bayesian_plot(candidate_name, candidate_data, candidate_dir, c
     sentiment_data = non_bayesian_data.get("sentiment_data", {})
     change_data = non_bayesian_data.get("change", {})
 
-    # Check consistency in number of rounds
-    sentiment_rounds = [len(scores) for scores in sentiment_data.values()]
-    change_rounds = [len(scores) for scores in change_data.values()]
-
-    if len(set(sentiment_rounds)) != 1 or len(set(change_rounds)) != 1:
-        raise ValueError(f"Inconsistent number of rounds for candidate {candidate_name}. "
-                         f"Sentiment rounds: {sentiment_rounds}, Change rounds: {change_rounds}")
-
-    num_rounds = sentiment_rounds[0]  # They should all be the same now
+    # Determine the maximum number of rounds
+    max_rounds = max(len(scores) for scores in sentiment_data.values())
 
     # Only generate plots for the first 10 candidates
     if candidate_index < 10:
@@ -219,14 +212,14 @@ def sentiment_non_bayesian_plot(candidate_name, candidate_data, candidate_dir, c
         for agent in agents:
             agent_name = agent.get("name", "Unknown")
             sentiment_scores = sentiment_data.get(agent_name, [])
-            plt.plot(range(1, num_rounds + 1), sentiment_scores, marker='o', linestyle='-', label=agent_name)
+            plt.plot(range(1, len(sentiment_scores) + 1), sentiment_scores, marker='o', linestyle='-', label=agent_name)
 
         plt.title(f'Sentiment Scores over Rounds for {candidate_name}')
         plt.xlabel('Round')
         plt.ylabel('Sentiment Score')
         plt.legend()
         plt.grid(True)
-        plt.xticks(range(1, num_rounds + 1), [str(i) for i in range(1, num_rounds + 1)])
+        plt.xticks(range(1, max_rounds + 1), [str(i) for i in range(1, max_rounds + 1)])
         plt.gca().yaxis.set_major_locator(plt.MaxNLocator(integer=True))
         plt.tight_layout()
         plt.savefig(os.path.join(candidate_dir, f'sentiment_scores_{candidate_name}.png'), dpi=150)
@@ -236,17 +229,17 @@ def sentiment_non_bayesian_plot(candidate_name, candidate_data, candidate_dir, c
         plt.figure(figsize=(12, 6))  # Increased figure width
         bar_width = 0.15  # Reduced bar width
         num_agents = len(agents)
-        index = np.arange(1, num_rounds)  # Increased spacing between round groups
+        index = np.arange(1, max_rounds)  # Increased spacing between round groups
 
         for i, agent in enumerate(agents):
             agent_name = agent.get("name", "Unknown")
             change_scores = change_data.get(agent_name, [])[1:]  # Exclude round 0
-            plt.bar(index + i * bar_width, change_scores, bar_width, label=agent_name)
+            plt.bar(index[:len(change_scores)] + i * bar_width, change_scores, bar_width, label=agent_name)
 
         plt.title(f'Non-Bayesian Change over Rounds for {candidate_name}')
         plt.xlabel('Round')
         plt.ylabel('Change Score')
-        plt.xticks(index + bar_width * (num_agents - 1) / 2, [str(i) for i in range(1, num_rounds)])
+        plt.xticks(index + bar_width * (num_agents - 1) / 2, [str(i) for i in range(1, max_rounds)])
         plt.legend()
         plt.grid(True, axis='y')
         plt.tight_layout()

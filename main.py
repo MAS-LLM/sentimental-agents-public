@@ -3,13 +3,14 @@ import os
 import logging
 
 from dotenv import load_dotenv
+
 load_dotenv()
 import concurrent.futures
 
 from core.dialog import DialogueSimulator, DialogueAgent, DialogueAgentWithTools
 
 from utilities.utilities import summarise_document
-#from tool_loader import TOOLS
+# from tool_loader import TOOLS
 from utilities.data_loader import load_file
 import pandas as pd
 
@@ -17,8 +18,8 @@ from collections import defaultdict
 import json
 import wandb
 
-
-from core.simulation_utilities import generate_agent_information, generate_system_messages, generate_topic, specify_topic, initialize_agents
+from core.simulation_utilities import generate_agent_information, generate_system_messages, generate_topic, \
+    specify_topic, initialize_agents
 from core.non_bayesian import NonBayesianSentimentAgent
 from langchain.callbacks import get_openai_callback
 from metrics.decision_making import DecisionMaker
@@ -29,21 +30,18 @@ import datetime
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 
-
 OPENAI_MODEL = os.getenv("OPENAI_MODEL")
-
-
 
 
 class Config:
     def __init__(self):
         self.dialog_temp = 1.5
         self.specifyTopic_temp = 1.5
-        self.generateContent_temp = 1 # Content gen for agent messages TODO: split parameters for individual agents
+        self.generateContent_temp = 1  # Content gen for agent messages TODO: split parameters for individual agents
         self.summarize_temp = 0
         self.nonBayes_alpha = 0.5
-        self.nonBayes_tolerance = 0
-        self.max_rounds = 3
+        self.nonBayes_tolerance = 0.1
+        self.max_rounds = 10
 
     def __str__(self):
         return (f"Config(\n"
@@ -67,19 +65,23 @@ class Config:
             "max_rounds": self.max_rounds
         }
 
+
 # Usage:
 config = Config()
-#print(config)
-#print(config.to_dict())
 
 
-def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_name, config = None) -> Tuple[str, Dict[str, Any]]:
+# print(config)
+# print(config.to_dict())
+
+
+def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_name, config=None) -> Tuple[
+    str, Dict[str, Any]]:
     """Run the simulation and return the summary and analytics."""
-    
+
     def select_next_speaker(step: int, agents: List[DialogueAgent]) -> int:
         """Function to determine the next speaker."""
         return step % len(agents)
-    
+
     if config is None:
         non_bayesian_agent = NonBayesianSentimentAgent(agents)
     else:
@@ -88,26 +90,32 @@ def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_
     simulator = DialogueSimulator(agents=agents, selection_function=select_next_speaker)
     simulator.reset()
     simulator.inject("Facilitator", specified_topic)
-    
-    
-    # Main dialogue loop
-    if config is None:
-        max_iters = 3 * len(agents)
-    else:
-        max_iters = config.max_rounds * len(agents)
-    for i in range(max_iters):
-        message = None
-        # print(f"Step {i}, {simulator.step}")
-        name, agent_message, speaker_idx = simulator.step()  # Get new data from the simulator
-        # print(f"Name: {name}, Agent Message: {agent_message}, Speaker Index: {speaker_idx}")
-        if non_bayesian_agent.update(speaker_idx) == "Break":
-            break
+    # Define the maximum rounds and initialize the round counter
+    # max_rounds = 40  # You can adjust this value based on your needs
+    round_counter = 0
+
+    while True:
+        round_counter += 1  # Increment the round counter
+
+        # Iterate through each agent in the simulation
+        for i in range(len(agents)):
+            name, agent_message, speaker_idx = simulator.step()  # Get new data from the simulator
+
+            print('round:', round_counter, 'speaker:', name,  'speaker_idx:', speaker_idx)
+
+            # Update the agent's sentiment and check if the stopping condition is met
+            if non_bayesian_agent.update(speaker_idx) == "Break":
+                print(f"Agent {name} has triggered the stopping condition, ending simulation.")
+                break  # Exit the for-loop if the stopping condition is met
+
         else:
-            #wandb.log({
-            #    f"{name}_sentiment_change":non_bayesian_agent.agent_tracker[name][-1],
-            #    f"{name}_sentiment_value":non_bayesian_agent.change_tracker[name][-1]
-            #})
-            pass
+            # If no stopping condition was met, check if the maximum rounds have been reached
+            if round_counter >= config.max_rounds:
+                print(f"Maximum rounds of {config.max_rounds} reached, stopping simulation.")
+                break  # Exit the while-loop if the maximum rounds are reached
+            continue  # Continue to the next round if no break was encountered
+
+        break  # If an agent triggered a break, exit the while-loop
 
     # Post-process conversation for analytics
     history = simulator.conversation_history
@@ -117,13 +125,13 @@ def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_
     else:
         summary = summarise_document(history, config.summarize_temp)
 
-
     output = {
         "Candidate Name": candidate_name,
         "Summary": summary,
     }
-    
+
     return output, non_bayesian_agent, history
+
 
 def fetch_agent_profiles(advisors: List[str], job_title: str) -> str:
     """
@@ -150,29 +158,28 @@ def fetch_agent_profiles(advisors: List[str], job_title: str) -> str:
     return json.dumps(agent_profiles, indent=2)
 
 
-
 def simulate(
-        candidate_name: str, 
-        candidate_bio: str, 
-        job_title: str, 
-        job_description: str, 
-        tools: Dict, 
+        candidate_name: str,
+        candidate_bio: str,
+        job_title: str,
+        job_description: str,
+        tools: Dict,
         advisors: List[Dict],
-        config = None
-    ) -> Tuple[str, Dict[str, Any]]:
-    
+        config=None
+) -> Tuple[str, Dict[str, Any]]:
     logging.info("Starting the simulation.")
-    
+
     agent_names = {advisor["title"]: tools for advisor in advisors}
-    
+
     agent_descriptions, agent_priorities, agent_criteria = generate_agent_information(agent_names, job_title)
-    
+
     topic = generate_topic(candidate_name, candidate_bio, job_title, job_description)
     conversation_description = f"""Here is the topic of conversation: {topic}
     The participants are: {', '.join(agent_names.keys())}"""
-    
-    agent_system_messages = generate_system_messages(agent_names, agent_descriptions, agent_priorities, agent_criteria, tools, conversation_description)
-    
+
+    agent_system_messages = generate_system_messages(agent_names, agent_descriptions, agent_priorities, agent_criteria,
+                                                     tools, conversation_description)
+
     if config is not None:
         specified_topic = specify_topic(topic, agent_names, config.specifyTopic_temp)
     else:
@@ -194,32 +201,32 @@ def simulate(
 
     }
     if config is not None:
-        agents = initialize_agents(agent_names, agent_system_messages, temperature = config.dialog_temp)
+        agents = initialize_agents(agent_names, agent_system_messages, temperature=config.dialog_temp)
     else:
         agents = initialize_agents(agent_names, agent_system_messages)
-    output, non_bayesian_agent, history  = run_simulation(agents, specified_topic, candidate_name = candidate_name, config = config)
-    
+    output, non_bayesian_agent, history = run_simulation(agents, specified_topic, candidate_name=candidate_name,
+                                                         config=config)
+
     return output, non_bayesian_agent, agents, history, initial_conditions
 
 
-
 def get_simulation_output(agents, non_bayesian_agent, history, output):
-    #dm = DecisionMaker(agents)
-    #decision_metrics = {
+    # dm = DecisionMaker(agents)
+    # decision_metrics = {
     #    x.name: x.decision_metrics for x in dm.agents
-    #}
+    # }
     report = AdvisorReport(agents)
     agent_data = [{
-        "name":agent.name,
+        "name": agent.name,
         "messages": [x.to_dict() for x in agent.messages],
     } for agent in agents]
     out = {
-        "agent_data":agent_data,
-        "raw_history":history,
-        "summarized_output":output,
-        "opinion_report":report.generate().to_dict(orient = "records"),
-        #"decision_metrics": decision_metrics,
-        "non_bayesian_data":{
+        "agent_data": agent_data,
+        "raw_history": history,
+        "summarized_output": output,
+        "opinion_report": report.generate().to_dict(orient="records"),
+        # "decision_metrics": decision_metrics,
+        "non_bayesian_data": {
             "change": non_bayesian_agent.change_tracker,
             "sentiment_data": non_bayesian_agent.agent_tracker,
         }
@@ -227,7 +234,7 @@ def get_simulation_output(agents, non_bayesian_agent, history, output):
     return out
 
 
-def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config = None):
+def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config=None):
     with open(simulation_setup_data, "r", encoding="utf-8") as f:
         simulation_setup_data = json.load(f)
     job_title = simulation_setup_data["job_title"]
@@ -268,10 +275,7 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
         simulation_data["costs"] = costs
         simulation_data["initial_conditions"] = initial_conditions
 
-
-
         candidate_dir = os.path.join(output_dir, candidate_name)
-        
 
         if not os.path.exists(candidate_dir):
             os.makedirs(candidate_dir)
@@ -280,6 +284,7 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
         with open(sim_data_file, "w", encoding="utf-8") as f:
             json.dump(simulation_data, f, indent=2)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run simulation for candidate(s).')
     parser.add_argument('--simulation_setup_data', type=str, help='JSON file containing simulation setup data.')
@@ -287,4 +292,4 @@ if __name__ == "__main__":
     parser.add_argument('--candidate_name', type=str, help='Name of a single candidate.')
     parser.add_argument('--candidate_bio', type=str, help='Resume of a single candidate.')
     args = parser.parse_args()
-    main(args.simulation_setup_data, args.candidate_csv, args.candidate_name, args.candidate_bio, config = config)
+    main(args.simulation_setup_data, args.candidate_csv, args.candidate_name, args.candidate_bio, config=config)
