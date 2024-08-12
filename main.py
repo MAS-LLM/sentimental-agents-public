@@ -27,6 +27,8 @@ from utilities.opinion_analyser import AdvisorReport
 import argparse
 import pandas as pd
 import datetime
+import random
+random.seed(10)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 
@@ -39,9 +41,9 @@ class Config:
         self.specifyTopic_temp = 1.5
         self.generateContent_temp = 1  # Content gen for agent messages TODO: split parameters for individual agents
         self.summarize_temp = 0
-        self.nonBayes_alpha = 0.5
-        self.nonBayes_tolerance = 0.1
-        self.max_rounds = 10
+        self.nonBayes_alpha = 0.3
+        self.nonBayes_tolerance = 0.01
+        self.max_rounds = 20
 
     def __str__(self):
         return (f"Config(\n"

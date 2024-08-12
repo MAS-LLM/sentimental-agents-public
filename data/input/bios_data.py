@@ -36,13 +36,13 @@ for item in filtered_data:
 df = pd.DataFrame(data)
 
 # Shuffle and select a random sample of candidates
-sample_size = 10  # Default sample size
+sample_size = 50  # Default sample size
 df_sample = df.sample(n=min(sample_size, len(df)), random_state=42)
 
 # Save the full dataset to CSV
 # df.to_csv('software_engineers.csv', index=False)
 
 # Save the random sample to a separate CSV
-df_sample.to_csv('10sample.csv', index=False)
+df_sample.to_csv('50sample.csv', index=False)
 
-print(f"Filtered data saved to 'software_engineers.csv' and a random sample to '10sample.csv'")
+print(f"Filtered data saved to 'software_engineers.csv' and a random sample to '50sample.csv'")

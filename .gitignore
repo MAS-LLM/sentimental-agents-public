@@ -1,3 +1,7 @@
 __pycache__/
 .idea/
 .env
+output_files/
+plot_outputs/
+
+

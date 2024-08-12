@@ -34,6 +34,8 @@ from llama_index.core import Settings
 import multiprocessing as mp
 from functools import partial
 
+from sklearn.metrics.pairwise import cosine_similarity
+
 # Download NLTK stopwords
 nltk.download('stopwords', quiet=True)
 
@@ -45,6 +47,134 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 embed_model = LangchainEmbedding(
     HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2", model_kwargs={"device": device})
 )
+
+def analyze_emergent_behavior(sim_data, directory):
+    """Evaluate and save metrics related to emergent behaviors like groupthink, polarization, and consensus."""
+    behavior_results = []
+
+    for scenario_name, scenario_data in sim_data.items():
+        print(f"Analyzing emergent behavior for {scenario_name} scenario...")
+        scenario_behavior = {'Scenario': scenario_name}
+
+        sentiment_variances = []  # Polarization
+        agent_syncs = []  # Consensus or groupthink
+
+        if isinstance(scenario_data, dict):
+            non_bayesian_data = scenario_data.get("non_bayesian_data", {})
+            sentiment_data = non_bayesian_data.get("sentiment_data", {})
+
+            # 1. Sentiment Variance Across Agents: Polarization measure
+            sentiment_variance_across_agents = np.var([scores[-1] for scores in sentiment_data.values()])
+            sentiment_variances.append(sentiment_variance_across_agents)
+
+            # 2. Agent Synchronization: Measure of consensus or groupthink
+            final_sentiments = [np.array([scores[-1]]) for scores in sentiment_data.values() if scores]
+            if len(final_sentiments) > 1:
+                agent_sync = np.mean([cosine_similarity(s1.reshape(1, -1), s2.reshape(1, -1))
+                                      for i, s1 in enumerate(final_sentiments)
+                                      for j, s2 in enumerate(final_sentiments) if i != j])
+            else:
+                agent_sync = 1.0
+            agent_syncs.append(agent_sync)
+
+        scenario_behavior['Sentiment_Variance'] = np.mean(sentiment_variances)
+        scenario_behavior['Agent_Synchronization'] = np.mean(agent_syncs)
+
+        behavior_results.append(scenario_behavior)
+
+    behavior_df = pd.DataFrame(behavior_results)
+    behavior_csv_path = os.path.join(directory, "emergent_behavior_metrics.csv")
+    behavior_df.to_csv(behavior_csv_path, index=False)
+    print(f"Emergent behavior metrics saved to {behavior_csv_path}")
+
+    return behavior_df
+def plot_emergent_behavior(behavior_df, directory):
+    """Generate plots to visualize emergent behaviors like polarization and consensus."""
+    # Plotting Sentiment Variance (Polarization)
+    plt.figure(figsize=(10, 6))
+    plt.bar(behavior_df['Scenario'], behavior_df['Sentiment_Variance'], color='blue')
+    plt.xlabel('Scenario')
+    plt.ylabel('Sentiment Variance')
+    plt.title('Sentiment Variance Across Scenarios (Polarization)')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    sentiment_variance_path = os.path.join(directory, "sentiment_variance_plot.png")
+    plt.savefig(sentiment_variance_path)
+    plt.close()
+    print(f"Sentiment variance plot saved to {sentiment_variance_path}")
+
+    # Plotting Agent Synchronization (Consensus or Groupthink)
+    plt.figure(figsize=(10, 6))
+    plt.bar(behavior_df['Scenario'], behavior_df['Agent_Synchronization'], color='green')
+    plt.xlabel('Scenario')
+    plt.ylabel('Agent Synchronization')
+    plt.title('Agent Synchronization Across Scenarios (Consensus or Groupthink)')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    agent_sync_path = os.path.join(directory, "agent_synchronization_plot.png")
+    plt.savefig(agent_sync_path)
+    plt.close()
+    print(f"Agent synchronization plot saved to {agent_sync_path}")
+
+def quantitative_metrics_ablation(sim_data, directory):
+    """Evaluate and save quantitative metrics for the ablation scenarios."""
+    metrics_results = []
+
+    for scenario_name, scenario_data in sim_data.items():
+        print(f"Evaluating {scenario_name} scenario...")
+        scenario_metrics = {'Scenario': scenario_name}
+
+        convergence_speeds = []
+        sentiment_stabilities = []
+        sentiment_drifts = []
+        max_rounds_utilization = []
+        agent_syncs = []
+
+        if isinstance(scenario_data, dict):
+            non_bayesian_data = scenario_data.get("non_bayesian_data", {})
+            sentiment_data = non_bayesian_data.get("sentiment_data", {})
+            change_data = non_bayesian_data.get("change", {})
+
+            # 1. Convergence Speed: Average rounds to converge
+            avg_rounds = np.mean([len(scores) for scores in sentiment_data.values()])
+            convergence_speeds.append(avg_rounds)
+
+            # 2. Sentiment Stability: Variance of sentiment changes
+            sentiment_variance = np.mean([np.var(changes) for changes in change_data.values()])
+            sentiment_stabilities.append(sentiment_variance)
+
+            # 3. Sentiment Drift: Total drift across rounds
+            total_drift = np.sum([np.sum(np.abs(np.diff(scores))) for scores in sentiment_data.values()])
+            sentiment_drifts.append(total_drift)
+
+            # 4. Max Rounds Utilization
+            max_rounds = 20
+            percentage_max_rounds = (avg_rounds / max_rounds) * 100
+            max_rounds_utilization.append(percentage_max_rounds)
+
+            # 5. Agent Synchronization: End similarity of agent sentiments
+            final_sentiments = [np.array([scores[-1]]) for scores in sentiment_data.values() if scores]
+            if len(final_sentiments) > 1:
+                agent_sync = np.mean([cosine_similarity(s1.reshape(1, -1), s2.reshape(1, -1))
+                                      for i, s1 in enumerate(final_sentiments)
+                                      for j, s2 in enumerate(final_sentiments) if i != j])
+            else:
+                agent_sync = 1.0
+            agent_syncs.append(agent_sync)
+
+        scenario_metrics['Avg_Convergence_Speed'] = np.mean(convergence_speeds)
+        scenario_metrics['Sentiment_Stability'] = np.mean(sentiment_stabilities)
+        scenario_metrics['Sentiment_Drift'] = np.mean(sentiment_drifts)
+        scenario_metrics['Max_Rounds_Utilization'] = np.mean(max_rounds_utilization)
+        scenario_metrics['Agent_Synchronization'] = np.mean(agent_syncs)
+
+        metrics_results.append(scenario_metrics)
+
+    metrics_df = pd.DataFrame(metrics_results)
+    metrics_df.to_csv(os.path.join(directory, "ablation_quantitative_metrics.csv"), index=False)
+    print(f"Quantitative metrics saved to {directory}/ablation_quantitative_metrics.csv")
+
+
 
 
 def load_simulation_data(directory):
@@ -403,7 +533,17 @@ def main(experiment_directory, resume_file, num_processes):
     print("Running defensibility check...")
     run_defensibility_check(experiment_directory, resume_file)
 
+    # **New addition for ablation metrics**
+    print("Evaluating quantitative metrics for ablation study...")
+    quantitative_metrics_ablation(sim_data, experiment_directory)
+
+    # **New addition for emergent behavior analysis**
+    print("Analyzing emergent behaviors...")
+    behavior_df = analyze_emergent_behavior(sim_data, experiment_directory)
+    plot_emergent_behavior(behavior_df, experiment_directory)
+
     print("Analysis complete!")
+
 
 
 if __name__ == "__main__":
