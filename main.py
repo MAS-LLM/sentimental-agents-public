@@ -97,7 +97,9 @@ def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_
         max_iters = config.max_rounds * len(agents)
     for i in range(max_iters):
         message = None
+        # print(f"Step {i}, {simulator.step}")
         name, agent_message, speaker_idx = simulator.step()  # Get new data from the simulator
+        # print(f"Name: {name}, Agent Message: {agent_message}, Speaker Index: {speaker_idx}")
         if non_bayesian_agent.update(speaker_idx) == "Break":
             break
         else:
