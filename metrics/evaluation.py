@@ -90,13 +90,23 @@ def analyze_emergent_behavior(sim_data, directory):
     return behavior_df
 def plot_emergent_behavior(behavior_df, directory):
     """Generate plots to visualize emergent behaviors like polarization and consensus."""
+    # Removing the word 'Candidate' from Scenario names
+    behavior_df['Scenario'] = behavior_df['Scenario'].str.replace('Candidate ', '')
+
+    # Define a colormap that can handle a wide variety of colors
+    cmap = plt.get_cmap("viridis")  # 'viridis' is continuous and can handle many distinct values
+
+    # Normalize the colors to ensure a unique color for each scenario
+    norm = plt.Normalize(0, len(behavior_df['Scenario']))
+    colors = cmap(norm(range(len(behavior_df['Scenario']))))
+
     # Plotting Sentiment Variance (Polarization)
     plt.figure(figsize=(10, 6))
-    plt.bar(behavior_df['Scenario'], behavior_df['Sentiment_Variance'], color='blue')
+    plt.bar(behavior_df['Scenario'], behavior_df['Sentiment_Variance'], color=colors)
     plt.xlabel('Scenario')
     plt.ylabel('Sentiment Variance')
     plt.title('Sentiment Variance Across Scenarios (Polarization)')
-    plt.xticks(rotation=45, ha='right')
+    plt.xticks(rotation=90, ha='right')
     plt.tight_layout()
     sentiment_variance_path = os.path.join(directory, "sentiment_variance_plot.png")
     plt.savefig(sentiment_variance_path)
@@ -105,16 +115,17 @@ def plot_emergent_behavior(behavior_df, directory):
 
     # Plotting Agent Synchronization (Consensus or Groupthink)
     plt.figure(figsize=(10, 6))
-    plt.bar(behavior_df['Scenario'], behavior_df['Agent_Synchronization'], color='green')
+    plt.bar(behavior_df['Scenario'], behavior_df['Agent_Synchronization'], color=colors)
     plt.xlabel('Scenario')
     plt.ylabel('Agent Synchronization')
     plt.title('Agent Synchronization Across Scenarios (Consensus or Groupthink)')
-    plt.xticks(rotation=45, ha='right')
+    plt.xticks(rotation=90, ha='right')
     plt.tight_layout()
     agent_sync_path = os.path.join(directory, "agent_synchronization_plot.png")
     plt.savefig(agent_sync_path)
     plt.close()
     print(f"Agent synchronization plot saved to {agent_sync_path}")
+
 
 def quantitative_metrics_ablation(sim_data, directory):
     """Evaluate and save quantitative metrics for the ablation scenarios."""
@@ -344,9 +355,9 @@ def sentiment_non_bayesian_plot(candidate_name, candidate_data, candidate_dir, c
             sentiment_scores = sentiment_data.get(agent_name, [])
             plt.plot(range(1, len(sentiment_scores) + 1), sentiment_scores, marker='o', linestyle='-', label=agent_name)
 
-        plt.title(f'Sentiment Scores over Rounds for {candidate_name}')
-        plt.xlabel('Round')
-        plt.ylabel('Sentiment Score')
+        plt.title(f'Sentiment Scores over Rounds for {candidate_name}', fontsize=18)
+        plt.xlabel('Round', fontsize=14)
+        plt.ylabel('Sentiment Score', fontsize=14)
         plt.legend()
         plt.grid(True)
         plt.xticks(range(1, max_rounds + 1), [str(i) for i in range(1, max_rounds + 1)])
@@ -366,9 +377,9 @@ def sentiment_non_bayesian_plot(candidate_name, candidate_data, candidate_dir, c
             change_scores = change_data.get(agent_name, [])[1:]  # Exclude round 0
             plt.bar(index[:len(change_scores)] + i * bar_width, change_scores, bar_width, label=agent_name)
 
-        plt.title(f'Non-Bayesian Change over Rounds for {candidate_name}')
-        plt.xlabel('Round')
-        plt.ylabel('Change Score')
+        plt.title(f'Non-Bayesian Change over Rounds for {candidate_name}', fontsize=18)
+        plt.xlabel('Round', fontsize=14)
+        plt.ylabel('Change Score', fontsize=14)
         plt.xticks(index + bar_width * (num_agents - 1) / 2, [str(i) for i in range(1, max_rounds)])
         plt.legend()
         plt.grid(True, axis='y')

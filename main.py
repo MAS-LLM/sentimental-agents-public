@@ -43,7 +43,7 @@ class Config:
         self.summarize_temp = 0
         self.nonBayes_alpha = 0.3
         self.nonBayes_tolerance = 0.01
-        self.max_rounds = 20
+        self.max_rounds = 5
 
     def __str__(self):
         return (f"Config(\n"

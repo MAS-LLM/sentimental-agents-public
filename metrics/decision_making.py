@@ -2,11 +2,15 @@ import os
 import json
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 class DecisionMaker:
     """
     A class to make decisions based on sentiment analysis of agents' messages.
     """
+
     def __init__(self, directory: str, setup_file: str, score_type: str = "average"):
         """
         Initialize the DecisionMaker with a directory, setup file, and score type.
@@ -30,13 +34,12 @@ class DecisionMaker:
         for folder in sorted_folders:
             with open(f"{self.directory}/{folder}/simulation_data.json", "r", encoding="utf-8") as jfile:
                 data = json.load(jfile)
-            self.sim_data[folder.split("_")[-1]] = data  
+            self.sim_data[folder.split("_")[-1]] = data
 
     def assign_scores(self):
         with open(self.setup_file, "r", encoding="utf-8") as jfile:
             setup_data = json.load(jfile)
         self.agents = setup_data["technical_advisors"]
-        #self.agents = [x["name"] for x in list(self.sim_data.values())[0]["agent_data"]]
         self.score_data = []
         for key, candidate_data in self.sim_data.items():
             agent_scores = dict()
@@ -57,14 +60,15 @@ class DecisionMaker:
             agent_scores.update(
                 {
                     "candidate_name": key
-                    }
+                }
             )
             self.score_data.append(
                 agent_scores
             )
 
         self.sdf = pd.DataFrame(self.score_data)
-    def rank_list(self, intuition = False):
+
+    def rank_list(self, intuition=False):
         """
         Rank agents based on their sentiment score.
         """
@@ -74,7 +78,7 @@ class DecisionMaker:
         else:
             for agent in self.agents:
                 self.sdf[f'{agent}_rank'] = self.sdf[agent].rank(ascending=False)
-    
+
     def assign_valence(self) -> int:
         """
         Assign a valence based on the sentiment score.
@@ -93,12 +97,13 @@ class DecisionMaker:
             except KeyError:
                 self.sdf[f"{agent}_valence"] = np.nan
 
-    def borda_count(self, intuition = False):
+    def borda_count(self, intuition=False):
         """
         Assign points to agents based on their rank.
         """
         if intuition:
-            rank_sums = [self.sdf[[f'{y}_intuition_rank' for y in self.agents]].loc[x].sum() for x in range(len(self.sdf))]
+            rank_sums = [self.sdf[[f'{y}_intuition_rank' for y in self.agents]].loc[x].sum() for x in
+                         range(len(self.sdf))]
             sorted_lst = sorted(rank_sums, reverse=True)
             ranked_lst = [sorted_lst.index(x) + 1 for x in rank_sums]
             self.sdf["intuitive_rank"] = ranked_lst
@@ -107,7 +112,6 @@ class DecisionMaker:
             sorted_lst = sorted(rank_sums, reverse=True)
             ranked_lst = [sorted_lst.index(x) + 1 for x in rank_sums]
             self.sdf["borda_count"] = ranked_lst
-
 
     def get_tiered_list(self):
         """
@@ -132,14 +136,13 @@ class DecisionMaker:
         for key, candidate_data in self.sim_data.items():
             agent_confidence = dict()
             for entry in candidate_data["agent_data"]:
-                agent = entry["name"]                
+                agent = entry["name"]
                 sentiment_scores = [x['sentiment_data']['overall_sentiment'] for x in entry["messages"]]
                 std = np.std(sentiment_scores)
                 agent_confidence[f"{agent}_confidence"] = std
             std_list.append(agent_confidence)
         std_df = pd.DataFrame(std_list)
         self.sdf = pd.concat([self.sdf, std_df], axis=1)
-            
 
     def intuitive_list(self):
         """
@@ -147,7 +150,6 @@ class DecisionMaker:
         """
         for agent in self.agents:
             self.sdf[f'{agent}_intuition'] = self.sdf[agent] * self.sdf[f'{agent}_confidence']
-
         self.rank_list(intuition=True)
         self.borda_count(intuition=True)
 
@@ -162,6 +164,39 @@ class DecisionMaker:
         self.sdf.to_csv(output_path, index=False)
         print(f"Decision metrics saved to: {output_path}")
 
+    def plot_rankings(self):
+        """
+        Plot and save the rankings based on different decision-making protocols in a single compact plot.
+        """
+        output_path = os.path.join(self.directory, "decision_rankings.png")
+
+        # Shorten candidate names by removing the 'Candidate ' prefix
+        self.sdf['short_name'] = self.sdf['candidate_name'].str.replace('Candidate ', '')
+        candidates = self.sdf['short_name']
+
+        # Set up the plot with a more compact layout and increased font sizes
+        plt.figure(figsize=(10, 6))
+
+        # Plot each ranking as a bar graph on the same plot
+        bar_width = 0.25
+        index = np.arange(len(candidates))
+
+        plt.bar(index, self.sdf['borda_count'], bar_width, color='purple', label='Borda Count')
+        plt.bar(index + bar_width, self.sdf['borda_count'], bar_width, color='orange', label='Tiered List')
+        plt.bar(index + 2 * bar_width, self.sdf['intuitive_rank'], bar_width, color='teal', label='Intuitive List')
+
+        plt.title('Candidate Rankings by Protocol', fontsize=16)
+        plt.xlabel('Candidates', fontsize=14)
+        plt.ylabel('Rank', fontsize=14)
+        plt.xticks(index + bar_width, candidates, rotation=45, ha='right', fontsize=12)
+        plt.yticks(fontsize=12)
+        plt.legend(fontsize=12)
+
+        plt.tight_layout()
+        plt.savefig(output_path)
+        plt.close()
+
+        print(f"Decision rankings plot saved to: {output_path}")
 
     def calculate_decision_metrics(self):
         self.load_simulation_data()
@@ -172,6 +207,7 @@ class DecisionMaker:
         self.get_tiered_list()
         self.calculate_confidence()
         self.intuitive_list()
+
 
 # Example usage
 if __name__ == "__main__":
@@ -189,12 +225,17 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     decision_maker = DecisionMaker(directory=args.folder, setup_file=args.setup_file, score_type=args.score_type)
-    
+
     # Save the results to a CSV file
     decision_maker.save_results(args.output_file)
-    
+
+    # Generate and save the rankings plot
+    decision_maker.plot_rankings()
+
     # Print summary information
     print(f"Decision metrics calculated for data in: {args.folder}")
     print(f"Using setup file: {args.setup_file}")
     print(f"Using score type: {args.score_type}")
     print(f"Results saved to: {os.path.join(args.folder, args.output_file)}")
+    print(f"Rankings plot saved to: {os.path.join(args.folder, 'decision_rankings.png')}")
+

@@ -45,7 +45,7 @@ plt.figure(figsize=(10, 8))
 sns.heatmap(median_convergence_data,
             xticklabels=np.round(tolerance_values, 3),
             yticklabels=np.round(alpha_values[::-1], 2),
-            annot=True, fmt=".0f", cmap="viridis",
+            annot=True, fmt=".0f", cmap="summer",
             cbar_kws={'label': 'Median Number of Rounds to Convergence'})
 plt.xlabel("Tolerance")
 plt.ylabel("Alpha")
@@ -59,7 +59,7 @@ plt.figure(figsize=(10, 8))
 sns.heatmap(variance_convergence_data,
             xticklabels=np.round(tolerance_values, 3),
             yticklabels=np.round(alpha_values[::-1], 2),
-            annot=True, fmt=".2f", cmap="magma",
+            annot=True, fmt=".2f", cmap="YlOrBr",
             cbar_kws={'label': 'Variance of Rounds to Convergence'})
 plt.xlabel("Tolerance")
 plt.ylabel("Alpha")

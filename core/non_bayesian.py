@@ -33,23 +33,6 @@ class NonBayesianSentimentAgent:
         if change < self.tolerance:
             return prior, change
 
-        # return updated_sentiment, change
-        # updated_sentiment = new_evidence  # Directly use the new evidence without the alpha-weighted update
-        #
-        # # Clip the updated_sentiment to be within [-1, 1]
-        # updated_sentiment = max(-1, min(1, updated_sentiment))
-        #
-        # # Calculate the change (still based on the difference between prior and new evidence)
-        # change = abs(updated_sentiment - prior)
-        #
-        # # Continue with the rest of the method as before
-        # return updated_sentiment, change
-        # updated_sentiment = prior
-        # change = 0.0
-        # updated_sentiment = self.alpha * 0.6 + (1 - self.alpha) * prior  # Calculate updated sentiment
-        # change = abs(updated_sentiment - prior)
-        # if change < self.tolerance:
-        #     return prior, change
         return updated_sentiment, change
 
     def update(self, speaker_idx: int) -> str:
