@@ -8,7 +8,7 @@ import time
 import matplotlib.pyplot as plt
 from collections import defaultdict, Counter
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.linear_model import LinearRegression
 import gensim
 from gensim.models import LdaModel
 from gensim.corpora import Dictionary
@@ -47,6 +47,115 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 embed_model = LangchainEmbedding(
     HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2", model_kwargs={"device": device})
 )
+
+def bland_altman_plot(sentiment_df: pd.DataFrame, output_dir="results"):
+    """
+    Generate a Bland-Altman plot comparing Single LLM vs Multiagent sentiment.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    single = sentiment_df["single_llm_sentiment"].values
+    multi = sentiment_df["multiagent_mean_sentiment"].values
+    avg = (single + multi) / 2
+    diff = single - multi
+    mean_diff = np.mean(diff)
+    std_diff = np.std(diff)
+
+    plt.figure(figsize=(8, 6))
+    plt.scatter(avg, diff, edgecolors='k', c='blue')
+    plt.axhline(mean_diff, color='red', linestyle='--', label=f"Mean Diff = {mean_diff:.2f}")
+    plt.axhline(mean_diff + 1.96 * std_diff, color='gray', linestyle='--', label="+1.96 SD")
+    plt.axhline(mean_diff - 1.96 * std_diff, color='gray', linestyle='--', label="-1.96 SD")
+    plt.xlabel("Average of Single and Multiagent Sentiment")
+    plt.ylabel("Difference (Single - Multiagent)")
+    plt.title("Bland-Altman Plot: Single vs Multiagent Sentiment")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "bland_altman_sentiment_plot.png"))
+    plt.close()
+
+    return {
+        "mean_diff": mean_diff,
+        "upper_limit": mean_diff + 1.96 * std_diff,
+        "lower_limit": mean_diff - 1.96 * std_diff
+    }
+
+def cosine_similarity_analysis(sentiment_df: pd.DataFrame):
+    """
+    Compute cosine similarity between single and multiagent sentiment vectors.
+    Returns similarity score.
+    """
+    single_vec = sentiment_df["single_llm_sentiment"].values.reshape(1, -1)
+    multi_vec = sentiment_df["multiagent_mean_sentiment"].values.reshape(1, -1)
+    similarity = cosine_similarity(single_vec, multi_vec)[0, 0]
+    return similarity
+
+
+
+
+def compare_single_llm_vs_multiagent_sentiment(sim_data, output_dir):
+    """
+    Compare single LLM vs multi-agent sentiment variance and intensity for each candidate.
+    Loads single LLM data from fixed path, assumes sim_data is already loaded.
+    """
+
+    # Load single LLM results
+    single_llm_path = "./single_llm_control/single_llm_evaluation_results.csv"
+    single_df = pd.read_csv(single_llm_path)
+    single_df['candidate_name'] = single_df['candidate_name'].str.strip().str.lower()
+
+    # Extract sentiment stats from multi-agent sim_data
+    comparison_rows = []
+
+    for candidate_name, candidate_data in sim_data.items():
+        name_normalized = candidate_name.strip().lower()
+        sentiment_data = candidate_data.get("non_bayesian_data", {}).get("sentiment_data", {})
+
+        if not sentiment_data or name_normalized not in single_df["candidate_name"].values:
+            continue  # Skip if data is missing
+
+        # Multiagent final sentiments per agent
+        agent_final_sentiments = [scores[-1] for scores in sentiment_data.values() if scores]
+        variance_multi = np.var(agent_final_sentiments)
+        mean_multi = np.mean(agent_final_sentiments)
+
+        # Single LLM sentiment
+        single_row = single_df[single_df["candidate_name"] == name_normalized].iloc[0]
+        sentiment_single = float(single_row["overall_sentiment"])
+
+        comparison_rows.append({
+            "candidate": candidate_name,
+            "multiagent_mean_sentiment": mean_multi,
+            "multiagent_variance": variance_multi,
+            "single_llm_sentiment": sentiment_single
+        })
+
+    # Create DataFrame
+    comparison_df = pd.DataFrame(comparison_rows)
+
+    # Save to CSV
+    out_csv = os.path.join(output_dir, "sentiment_comparison_single_vs_multiagent.csv")
+    comparison_df.to_csv(out_csv, index=False)
+    print(f"Saved comparison CSV to {out_csv}")
+
+    # Plot: Sentiment Variance (Multiagent) vs Single LLM
+    plt.figure(figsize=(10, 6))
+    plt.scatter(comparison_df["single_llm_sentiment"], comparison_df["multiagent_variance"], s=100, c='blue', edgecolors='k')
+    for _, row in comparison_df.iterrows():
+        plt.text(row["single_llm_sentiment"], row["multiagent_variance"], row["candidate"], fontsize=8, ha='right')
+    plt.xlabel("Single LLM Sentiment")
+    plt.ylabel("Multiagent Sentiment Variance")
+    plt.title("Single LLM vs Multiagent Sentiment Variance per Candidate")
+    plt.grid(True)
+    plt.tight_layout()
+    plot_path = os.path.join(output_dir, "single_vs_multiagent_sentiment_variance.png")
+    plt.savefig(plot_path)
+    plt.close()
+    print(f"Saved comparison plot to {plot_path}")
+
+    return comparison_df
+
 
 def analyze_emergent_behavior(sim_data, directory):
     """Evaluate and save metrics related to emergent behaviors like groupthink, polarization, and consensus."""
@@ -125,6 +234,30 @@ def plot_emergent_behavior(behavior_df, directory):
     plt.savefig(agent_sync_path)
     plt.close()
     print(f"Agent synchronization plot saved to {agent_sync_path}")
+
+    # Scatter plot: Sentiment Variance vs Agent Synchronization
+    plt.figure(figsize=(8, 6))
+    scatter = plt.scatter(
+        behavior_df['Sentiment_Variance'],
+        behavior_df['Agent_Synchronization'],
+        c=range(len(behavior_df)),  # Color points based on order
+        cmap='viridis',
+        s=100,
+        edgecolors='k'
+    )
+    for i, label in enumerate(behavior_df['Scenario']):
+        plt.text(behavior_df['Sentiment_Variance'][i], behavior_df['Agent_Synchronization'][i],
+                 label, fontsize=8, ha='right', va='bottom')
+
+    plt.xlabel('Sentiment Variance (Polarization)', fontsize=12)
+    plt.ylabel('Agent Synchronization (Consensus)', fontsize=12)
+    plt.title('Consensus vs. Polarization', fontsize=14)
+    plt.grid(True)
+    plt.tight_layout()
+    scatter_plot_path = os.path.join(directory, "consensus_vs_polarization_scatter.png")
+    plt.savefig(scatter_plot_path)
+    plt.close()
+    print(f"Consensus vs. Polarization scatter plot saved to {scatter_plot_path}")
 
 
 def quantitative_metrics_ablation(sim_data, directory):
@@ -503,22 +636,146 @@ def process_candidate(candidate_index, candidate_name, sim_data, experiment_dire
         print(f"Error processing candidate {candidate_name}: {str(e)}")
 
 
+def evaluate_cognitive_bias(sentiment_df: pd.DataFrame, output_dir="results"):
+    """
+    Evaluates and plots cognitive bias between Single LLM and Multiagent sentiment data.
+    Assumes the dataframe contains:
+    - candidate
+    - multiagent_mean_sentiment
+    - multiagent_variance
+    - single_llm_sentiment
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    # 1. Compute Bias Gap
+    sentiment_df["bias_gap"] = sentiment_df["single_llm_sentiment"] - sentiment_df["multiagent_mean_sentiment"]
+
+    # 2. Compute Extremity (absolute sentiment)
+    sentiment_df["single_extremity"] = sentiment_df["single_llm_sentiment"].abs()
+    sentiment_df["multi_extremity"] = sentiment_df["multiagent_mean_sentiment"].abs()
+
+    # 3. Inconsistency Index
+    sentiment_df["inconsistency_index"] = sentiment_df["bias_gap"].abs() + sentiment_df["multiagent_variance"]
+
+    # Summary stats
+    avg_bias_gap = sentiment_df["bias_gap"].mean()
+    avg_variance = sentiment_df["multiagent_variance"].mean()
+    avg_extremity_diff = (sentiment_df["single_extremity"] - sentiment_df["multi_extremity"]).mean()
+
+    print("📊 Cognitive Bias Summary:")
+    print(f"- Average Bias Gap: {avg_bias_gap:.4f}")
+    print(f"- Average Multiagent Variance: {avg_variance:.4f}")
+    print(f"- Avg Extremity Difference (Single - Multi): {avg_extremity_diff:.4f}")
+
+    # === Plot 1: Bias Gap per Candidate ===
+    plt.figure(figsize=(10, 6))
+    plt.bar(sentiment_df["candidate"], sentiment_df["bias_gap"], color='skyblue', edgecolor='k')
+    plt.axhline(0, color='black', linestyle='--')
+    plt.title("Bias Gap (Single LLM - Multiagent Mean) per Candidate")
+    plt.ylabel("Bias Gap")
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "bias_gap_per_candidate.png"))
+    plt.close()
+
+    # === Plot 2: Inconsistency Index vs Candidate ===
+    plt.figure(figsize=(10, 6))
+    plt.bar(sentiment_df["candidate"], sentiment_df["inconsistency_index"], color='salmon', edgecolor='k')
+    plt.title("Inconsistency Index (|Bias Gap| + Variance) per Candidate")
+    plt.ylabel("Inconsistency Index")
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "inconsistency_index_per_candidate.png"))
+    plt.close()
+
+    # === Plot 3: Scatter of Bias Gap vs Variance ===
+    plt.figure(figsize=(8, 6))
+    plt.scatter(sentiment_df["bias_gap"].abs(), sentiment_df["multiagent_variance"], c='purple', edgecolors='k', s=100)
+    for i, row in sentiment_df.iterrows():
+        plt.text(abs(row["bias_gap"]), row["multiagent_variance"], row["candidate"],
+                 fontsize=8, ha='right', va='bottom')
+    plt.xlabel("Absolute Bias Gap |Single - Multi|")
+    plt.ylabel("Multiagent Sentiment Variance")
+    plt.title("Bias Gap vs Multiagent Variance")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "bias_gap_vs_variance_scatter.png"))
+    plt.close()
+
+    return sentiment_df[["candidate", "bias_gap", "multiagent_variance", "inconsistency_index"]]
+
+def analyze_single_vs_multi_bias_regression(sentiment_df: pd.DataFrame, output_dir="results"):
+    """
+    Uses linear regression to analyze how single LLM sentiment relates to multiagent sentiment,
+    and how bias gap relates to multiagent disagreement (variance).
+    Saves plots and returns regression stats.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    # === A. Regress Multiagent Mean ~ Single Sentiment ===
+    X1 = sentiment_df["single_llm_sentiment"].values.reshape(-1, 1)
+    y1 = sentiment_df["multiagent_mean_sentiment"].values
+    model1 = LinearRegression()
+    model1.fit(X1, y1)
+    slope1 = model1.coef_[0]
+    intercept1 = model1.intercept_
+    r_squared1 = model1.score(X1, y1)
+
+    plt.figure(figsize=(8, 6))
+    plt.scatter(X1, y1, c='blue', edgecolors='k')
+    plt.plot(X1, model1.predict(X1), color='red', label=f'y={slope1:.2f}x + {intercept1:.2f} (R²={r_squared1:.2f})')
+    plt.title("Multiagent Sentiment vs Single LLM Sentiment")
+    plt.xlabel("Single LLM Sentiment")
+    plt.ylabel("Multiagent Mean Sentiment")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "regression_multi_vs_single.png"))
+    plt.close()
+
+    # === B. Regress |Bias Gap| ~ Multiagent Variance ===
+    X2 = sentiment_df["multiagent_variance"].values.reshape(-1, 1)
+    y2 = sentiment_df["bias_gap"].abs().values
+    model2 = LinearRegression()
+    model2.fit(X2, y2)
+    slope2 = model2.coef_[0]
+    intercept2 = model2.intercept_
+    r_squared2 = model2.score(X2, y2)
+
+    plt.figure(figsize=(8, 6))
+    plt.scatter(X2, y2, c='purple', edgecolors='k')
+    plt.plot(X2, model2.predict(X2), color='green', label=f'y={slope2:.2f}x + {intercept2:.2f} (R²={r_squared2:.2f})')
+    plt.title("Absolute Bias Gap vs Multiagent Variance")
+    plt.xlabel("Multiagent Variance")
+    plt.ylabel("Absolute Bias Gap")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "regression_biasgap_vs_variance.png"))
+    plt.close()
+
+    # Return summary
+    return {
+        "multi_vs_single": {"slope": slope1, "intercept": intercept1, "r_squared": r_squared1},
+        "biasgap_vs_variance": {"slope": slope2, "intercept": intercept2, "r_squared": r_squared2},
+    }
+
 def main(experiment_directory, resume_file, num_processes):
     print("Loading simulation data...")
     sim_data = load_simulation_data(experiment_directory)
 
     print("Calculating nuance score...")
-    nuance_score(sim_data, experiment_directory)
+    # nuance_score(sim_data, experiment_directory)
 
-    candidates = list(sim_data.keys())
+    # candidates = list(sim_data.keys())
 
     # Print the names of the first 10 candidates (or fewer if there are less than 10)
-    plot_candidates = candidates[:10]
-    print("Generating plots for the following candidates:")
-    for i, candidate in enumerate(plot_candidates, 1):
-        print(f"{i}. {candidate}")
+    # plot_candidates = candidates[:10]
+    # print("Generating plots for the following candidates:")
+    # for i, candidate in enumerate(plot_candidates, 1):
+    #     print(f"{i}. {candidate}")
 
-    print(f"\nProcessing all {len(candidates)} candidates using {num_processes} processes...")
+    # print(f"\nProcessing all {len(candidates)} candidates using {num_processes} processes...")
 
     start_time = time.time()
 
@@ -538,20 +795,46 @@ def main(experiment_directory, resume_file, num_processes):
     end_time = time.time()
     print(f"Parallel processing completed in {end_time - start_time:.2f} seconds")
 
-    print("Calculating drift scores...")
-    calculate_drift(sim_data, experiment_directory)
+    # print("Calculating drift scores...")
+    # calculate_drift(sim_data, experiment_directory)
 
-    print("Running defensibility check...")
-    run_defensibility_check(experiment_directory, resume_file)
+    # print("Running defensibility check...")
+    # run_defensibility_check(experiment_directory, resume_file)
 
     # **New addition for ablation metrics**
-    print("Evaluating quantitative metrics for ablation study...")
-    quantitative_metrics_ablation(sim_data, experiment_directory)
+    # print("Evaluating quantitative metrics for ablation study...")
+    # quantitative_metrics_ablation(sim_data, experiment_directory)
 
     # **New addition for emergent behavior analysis**
-    print("Analyzing emergent behaviors...")
-    behavior_df = analyze_emergent_behavior(sim_data, experiment_directory)
-    plot_emergent_behavior(behavior_df, experiment_directory)
+    # print("Analyzing emergent behaviors...")
+    # behavior_df = analyze_emergent_behavior(sim_data, experiment_directory)
+    # plot_emergent_behavior(behavior_df, experiment_directory)
+
+    print("Comparing multi-agent and single LLM sentiment results...")
+    compare_single_llm_vs_multiagent_sentiment(sim_data, experiment_directory)
+
+    # Load the sentiment comparison data saved by the comparison function
+    sentiment_csv_path = os.path.join(experiment_directory, "sentiment_comparison_single_vs_multiagent.csv")
+    sentiment_df = pd.read_csv(sentiment_csv_path)
+
+    bias_df = evaluate_cognitive_bias(sentiment_df, output_dir=experiment_directory)
+    bias_df.to_csv(os.path.join(experiment_directory, "cognitive_bias_metrics.csv"), index=False)
+
+    regression_stats = analyze_single_vs_multi_bias_regression(sentiment_df, output_dir=experiment_directory)
+    regression_stats_df = pd.DataFrame.from_dict(regression_stats, orient='index')
+    regression_stats_df.to_csv(os.path.join(experiment_directory, "regression_analysis.csv"))
+
+    # Load the CSV and run both methods as an example
+    bland_stats = bland_altman_plot(sentiment_df, output_dir=experiment_directory)
+    cosine_sim = cosine_similarity_analysis(sentiment_df)
+    print(f"Bland-Altman stats: {bland_stats}")
+    print(f"Cosine similarity between single and multiagent sentiment: {cosine_sim:.4f}")
+    # save the cosine similarity to a file
+    with open(os.path.join(experiment_directory, "cosine_similarity.txt"), "w") as f:
+        f.write(f"Cosine similarity: {cosine_sim:.4f}")
+    # save bland-altman stats to a file
+    bland_stats.to_csv(os.path.join(experiment_directory, "bland_altman_stats.csv"), index=False)
+
 
     print("Analysis complete!")
 

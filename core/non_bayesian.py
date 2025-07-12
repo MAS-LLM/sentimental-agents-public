@@ -17,21 +17,22 @@ class NonBayesianSentimentAgent:
         self.tolerance = tolerance  # Minimum change required for updating the prior
 
     def update_sentiment_estimate(self, prior: float, new_evidence: float) -> tuple:
-        """
-        NonBayesian updating based on new evidence.
-        :param prior: Prior sentiment value.
-        :param new_evidence: New sentiment value.
-        :return: Tuple of updated sentiment value and change.
-        """
-        updated_sentiment = self.alpha * new_evidence + (1 - self.alpha) * prior  # Calculate updated sentiment
+        # """
+        # NonBayesian updating based on new evidence.
+        # :param prior: Prior sentiment value.
+        # :param new_evidence: New sentiment value.
+        # :return: Tuple of updated sentiment value and change.
+        # """
+        # updated_sentiment = self.alpha * new_evidence + (1 - self.alpha) * prior  # Calculate updated sentiment
 
+        updated_sentiment = new_evidence
         # Clip the updated_sentiment to be within [-1, 1]
         updated_sentiment = max(-1, min(1, updated_sentiment))
 
         # Check if the change is too small to make a difference
         change = abs(updated_sentiment - prior)
-        if change < self.tolerance:
-            return prior, change
+        # if change < self.tolerance:
+        #     return prior, change
 
         return updated_sentiment, change
 
