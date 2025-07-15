@@ -63,12 +63,28 @@ def bland_altman_plot(sentiment_df: pd.DataFrame, output_dir="results"):
 
     plt.figure(figsize=(8, 6))
     plt.scatter(avg, diff, edgecolors='k', c='blue')
+
+    # Add labels above each point
+    for i, row in sentiment_df.iterrows():
+        label = str(row["candidate"])  # Strip 'Candidate' prefix
+        plt.text(
+            avg[i],
+            diff[i] + 0.02,  # Slightly above the point
+            label,
+            fontsize=10,
+            fontweight='bold',
+            ha='center',
+            va='bottom'
+        )
+
+    # Plot reference lines
     plt.axhline(mean_diff, color='red', linestyle='--', label=f"Mean Diff = {mean_diff:.2f}")
     plt.axhline(mean_diff + 1.96 * std_diff, color='gray', linestyle='--', label="+1.96 SD")
     plt.axhline(mean_diff - 1.96 * std_diff, color='gray', linestyle='--', label="-1.96 SD")
-    plt.xlabel("Average of Single and Multiagent Sentiment")
-    plt.ylabel("Difference (Single - Multiagent)")
-    plt.title("Bland-Altman Plot: Single vs Multiagent Sentiment")
+
+    plt.xlabel("Average of Single and Multiagent Sentiment", fontsize=12)
+    plt.ylabel("Difference (Single - Multiagent)", fontsize=12)
+    plt.title("Bland-Altman Plot: Single vs Multiagent Sentiment", fontsize=14)
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
@@ -81,6 +97,7 @@ def bland_altman_plot(sentiment_df: pd.DataFrame, output_dir="results"):
         "lower_limit": mean_diff - 1.96 * std_diff
     }
 
+
 def cosine_similarity_analysis(sentiment_df: pd.DataFrame):
     """
     Compute cosine similarity between single and multiagent sentiment vectors.
@@ -92,61 +109,100 @@ def cosine_similarity_analysis(sentiment_df: pd.DataFrame):
     return similarity
 
 
-
-
-def compare_single_llm_vs_multiagent_sentiment(sim_data, output_dir):
+def compare_single_llm_vs_multiagent_sentiment(
+        sim_data: dict,
+        output_dir: str,
+        single_llm_path: str = None,
+) -> str:
     """
-    Compare single LLM vs multi-agent sentiment variance and intensity for each candidate.
-    Loads single LLM data from fixed path, assumes sim_data is already loaded.
+    Compare single LLM vs multiagent sentiment:
+      - sim_data keys are "Candidate_01", ...,
+      - the original name is in candidate_data['initial_conditions']['candidate_name'].
+    Returns the path to the saved comparison CSV.
     """
+    # 1) Use the provided single_llm_path directly (it should already be in output_dir)
+    if single_llm_path is None:
+        raise ValueError("single_llm_path must be provided")
 
-    # Load single LLM results
-    single_llm_path = "./single_llm_control/single_llm_evaluation_results.csv"
+    # Verify the file exists
+    if not os.path.exists(single_llm_path):
+        raise FileNotFoundError(f"Single LLM file not found: {single_llm_path}")
+
+    print(f"Using single LLM results from: {single_llm_path}")
+
+    # 2) load and normalize headers
     single_df = pd.read_csv(single_llm_path)
-    single_df['candidate_name'] = single_df['candidate_name'].str.strip().str.lower()
+    single_df.columns = single_df.columns.str.strip().str.lower()
 
-    # Extract sentiment stats from multi-agent sim_data
-    comparison_rows = []
+    # 3) make sure we have the right columns
+    if "overall_sentiment" not in single_df.columns:
+        # maybe they named it "sentiment"
+        if "sentiment" in single_df.columns:
+            single_df = single_df.rename(columns={"sentiment": "overall_sentiment"})
+        else:
+            raise KeyError(
+                f"Expected column 'overall_sentiment' in {single_llm_path!r}, got {list(single_df.columns)}"
+            )
 
-    for candidate_name, candidate_data in sim_data.items():
-        name_normalized = candidate_name.strip().lower()
-        sentiment_data = candidate_data.get("non_bayesian_data", {}).get("sentiment_data", {})
+    # 4) normalize candidate_name
+    single_df["candidate_name"] = single_df["candidate_name"].str.strip().str.lower()
 
-        if not sentiment_data or name_normalized not in single_df["candidate_name"].values:
-            continue  # Skip if data is missing
+    rows = []
+    for sim_key, candidate_data in sim_data.items():
+        orig = candidate_data["initial_conditions"]["candidate_name"]
+        norm = orig.strip().lower()
 
-        # Multiagent final sentiments per agent
-        agent_final_sentiments = [scores[-1] for scores in sentiment_data.values() if scores]
-        variance_multi = np.var(agent_final_sentiments)
-        mean_multi = np.mean(agent_final_sentiments)
+        if norm not in single_df["candidate_name"].values:
+            print(f"  ▶ skipping {sim_key} ({orig!r}) – not in single-LLM CSV")
+            continue
 
-        # Single LLM sentiment
-        single_row = single_df[single_df["candidate_name"] == name_normalized].iloc[0]
-        sentiment_single = float(single_row["overall_sentiment"])
+        # multiagent stats
+        sentiments = [
+            scores[-1]
+            for scores in candidate_data["non_bayesian_data"]["sentiment_data"].values()
+            if scores
+        ]
+        mean_multi = float(np.mean(sentiments))
+        var_multi = float(np.var(sentiments))
 
-        comparison_rows.append({
-            "candidate": candidate_name,
+        # single-LLM
+        single_row = single_df[single_df["candidate_name"] == norm].iloc[0]
+        mean_single = float(single_row["overall_sentiment"])
+
+        rows.append({
+            "candidate": orig,
             "multiagent_mean_sentiment": mean_multi,
-            "multiagent_variance": variance_multi,
-            "single_llm_sentiment": sentiment_single
+            "multiagent_variance": var_multi,
+            "single_llm_sentiment": mean_single,
         })
 
-    # Create DataFrame
-    comparison_df = pd.DataFrame(comparison_rows)
+    comparison_df = pd.DataFrame(rows)
+    if comparison_df.empty:
+        raise RuntimeError("No candidates matched between sim_data and single-LLM CSV!")
 
-    # Save to CSV
+    # save CSV
     out_csv = os.path.join(output_dir, "sentiment_comparison_single_vs_multiagent.csv")
     comparison_df.to_csv(out_csv, index=False)
     print(f"Saved comparison CSV to {out_csv}")
 
-    # Plot: Sentiment Variance (Multiagent) vs Single LLM
+    # scatter‐plot
     plt.figure(figsize=(10, 6))
-    plt.scatter(comparison_df["single_llm_sentiment"], comparison_df["multiagent_variance"], s=100, c='blue', edgecolors='k')
-    for _, row in comparison_df.iterrows():
-        plt.text(row["single_llm_sentiment"], row["multiagent_variance"], row["candidate"], fontsize=8, ha='right')
-    plt.xlabel("Single LLM Sentiment")
-    plt.ylabel("Multiagent Sentiment Variance")
-    plt.title("Single LLM vs Multiagent Sentiment Variance per Candidate")
+    plt.scatter(
+        comparison_df["single_llm_sentiment"],
+        comparison_df["multiagent_variance"],
+        s=100, edgecolors="k", c="blue"
+    )
+    for _, r in comparison_df.iterrows():
+        plt.text(
+            r["single_llm_sentiment"],
+            r["multiagent_variance"] + 0.015,
+            r["candidate"],
+            fontsize=10, fontweight="bold",
+            ha="center", va="bottom"
+        )
+    plt.xlabel("Single LLM Sentiment", fontsize=12)
+    plt.ylabel("Multiagent Variance", fontsize=12)
+    plt.title("Single vs Multiagent Sentiment Variance", fontsize=14)
     plt.grid(True)
     plt.tight_layout()
     plot_path = os.path.join(output_dir, "single_vs_multiagent_sentiment_variance.png")
@@ -154,7 +210,10 @@ def compare_single_llm_vs_multiagent_sentiment(sim_data, output_dir):
     plt.close()
     print(f"Saved comparison plot to {plot_path}")
 
-    return comparison_df
+    return out_csv
+
+
+
 
 
 def analyze_emergent_behavior(sim_data, directory):
@@ -197,139 +256,134 @@ def analyze_emergent_behavior(sim_data, directory):
     print(f"Emergent behavior metrics saved to {behavior_csv_path}")
 
     return behavior_df
+import matplotlib.pyplot as plt
+import os
+from collections import defaultdict
+
+import matplotlib.pyplot as plt
+import os
+from collections import defaultdict
+
 def plot_emergent_behavior(behavior_df, directory):
     """Generate plots to visualize emergent behaviors like polarization and consensus."""
-    # Removing the word 'Candidate' from Scenario names
-    behavior_df['Scenario'] = behavior_df['Scenario'].str.replace('Candidate ', '')
+    # 0) Derive a short label (numeric suffix) for each scenario
+    behavior_df = behavior_df.copy()
+    # If your Scenario column is "Candidate_001", "Candidate_002", etc.
+    behavior_df['ScenarioID'] = behavior_df['Scenario'].str.replace(r'.*_(\d+)$', r'\1', regex=True)
 
-    # Define a colormap that can handle a wide variety of colors
-    cmap = plt.get_cmap("viridis")  # 'viridis' is continuous and can handle many distinct values
-
-    # Normalize the colors to ensure a unique color for each scenario
-    norm = plt.Normalize(0, len(behavior_df['Scenario']))
-    colors = cmap(norm(range(len(behavior_df['Scenario']))))
-
-    # Plotting Sentiment Variance (Polarization)
+    # 1) Sentiment Variance Bar Chart
     plt.figure(figsize=(10, 6))
-    plt.bar(behavior_df['Scenario'], behavior_df['Sentiment_Variance'], color=colors)
-    plt.xlabel('Scenario')
-    plt.ylabel('Sentiment Variance')
-    plt.title('Sentiment Variance Across Scenarios (Polarization)')
-    plt.xticks(rotation=90, ha='right')
-    plt.tight_layout()
-    sentiment_variance_path = os.path.join(directory, "sentiment_variance_plot.png")
-    plt.savefig(sentiment_variance_path)
-    plt.close()
-    print(f"Sentiment variance plot saved to {sentiment_variance_path}")
-
-    # Plotting Agent Synchronization (Consensus or Groupthink)
-    plt.figure(figsize=(10, 6))
-    plt.bar(behavior_df['Scenario'], behavior_df['Agent_Synchronization'], color=colors)
-    plt.xlabel('Scenario')
-    plt.ylabel('Agent Synchronization')
-    plt.title('Agent Synchronization Across Scenarios (Consensus or Groupthink)')
-    plt.xticks(rotation=90, ha='right')
-    plt.tight_layout()
-    agent_sync_path = os.path.join(directory, "agent_synchronization_plot.png")
-    plt.savefig(agent_sync_path)
-    plt.close()
-    print(f"Agent synchronization plot saved to {agent_sync_path}")
-
-    # Scatter plot: Sentiment Variance vs Agent Synchronization
-    plt.figure(figsize=(8, 6))
-    scatter = plt.scatter(
+    plt.bar(
+        behavior_df['ScenarioID'],
         behavior_df['Sentiment_Variance'],
+        color=plt.get_cmap('viridis')(range(len(behavior_df)))
+    )
+    plt.xlabel('Scenario ID', fontsize=12)
+    plt.ylabel('Sentiment Variance', fontsize=12)
+    plt.title('Sentiment Variance Across Scenarios (Polarization)', fontsize=14)
+    plt.xticks(rotation=90, ha='center')
+    plt.tight_layout()
+    path1 = os.path.join(directory, "sentiment_variance_plot.png")
+    plt.savefig(path1)
+    plt.close()
+    print(f"Sentiment variance plot saved to {path1}")
+
+    # 2) Agent Synchronization Bar Chart
+    plt.figure(figsize=(10, 6))
+    plt.bar(
+        behavior_df['ScenarioID'],
         behavior_df['Agent_Synchronization'],
-        c=range(len(behavior_df)),  # Color points based on order
+        color=plt.get_cmap('viridis')(range(len(behavior_df)))
+    )
+    plt.xlabel('Scenario ID', fontsize=12)
+    plt.ylabel('Agent Synchronization', fontsize=12)
+    plt.title('Agent Synchronization Across Scenarios (Consensus)', fontsize=14)
+    plt.xticks(rotation=90, ha='center')
+    plt.tight_layout()
+    path2 = os.path.join(directory, "agent_synchronization_plot.png")
+    plt.savefig(path2)
+    plt.close()
+    print(f"Agent synchronization plot saved to {path2}")
+
+    # 3) Scatter: Variance vs. Synchronization
+    x = behavior_df['Sentiment_Variance']
+    y = behavior_df['Agent_Synchronization']
+    labels = behavior_df['ScenarioID']
+
+    plt.figure(figsize=(8, 6))
+    plt.scatter(
+        x, y,
+        c=range(len(labels)),
         cmap='viridis',
         s=100,
         edgecolors='k'
     )
-    for i, label in enumerate(behavior_df['Scenario']):
-        plt.text(behavior_df['Sentiment_Variance'][i], behavior_df['Agent_Synchronization'][i],
-                 label, fontsize=8, ha='right', va='bottom')
+
+    # 4) Stagger overlapping labels
+    offsets = defaultdict(int)
+    for xi, yi, lab in zip(x, y, labels):
+        key = round(xi, 6)
+        count = offsets[key]
+        y_offset = yi + count * 0.02
+        plt.text(
+            xi, y_offset,
+            lab,
+            fontsize=10,
+            ha='center',
+            va='bottom'
+        )
+        offsets[key] += 1
 
     plt.xlabel('Sentiment Variance (Polarization)', fontsize=12)
     plt.ylabel('Agent Synchronization (Consensus)', fontsize=12)
     plt.title('Consensus vs. Polarization', fontsize=14)
     plt.grid(True)
     plt.tight_layout()
-    scatter_plot_path = os.path.join(directory, "consensus_vs_polarization_scatter.png")
-    plt.savefig(scatter_plot_path)
+    path3 = os.path.join(directory, "consensus_vs_polarization_scatter.png")
+    plt.savefig(path3)
     plt.close()
-    print(f"Consensus vs. Polarization scatter plot saved to {scatter_plot_path}")
-
-
-def quantitative_metrics_ablation(sim_data, directory):
-    """Evaluate and save quantitative metrics for the ablation scenarios."""
-    metrics_results = []
-
-    for scenario_name, scenario_data in sim_data.items():
-        print(f"Evaluating {scenario_name} scenario...")
-        scenario_metrics = {'Scenario': scenario_name}
-
-        convergence_speeds = []
-        sentiment_stabilities = []
-        sentiment_drifts = []
-        max_rounds_utilization = []
-        agent_syncs = []
-
-        if isinstance(scenario_data, dict):
-            non_bayesian_data = scenario_data.get("non_bayesian_data", {})
-            sentiment_data = non_bayesian_data.get("sentiment_data", {})
-            change_data = non_bayesian_data.get("change", {})
-
-            # 1. Convergence Speed: Average rounds to converge
-            avg_rounds = np.mean([len(scores) for scores in sentiment_data.values()])
-            convergence_speeds.append(avg_rounds)
-
-            # 2. Sentiment Stability: Variance of sentiment changes
-            sentiment_variance = np.mean([np.var(changes) for changes in change_data.values()])
-            sentiment_stabilities.append(sentiment_variance)
-
-            # 3. Sentiment Drift: Total drift across rounds
-            total_drift = np.sum([np.sum(np.abs(np.diff(scores))) for scores in sentiment_data.values()])
-            sentiment_drifts.append(total_drift)
-
-            # 4. Max Rounds Utilization
-            max_rounds = 20
-            percentage_max_rounds = (avg_rounds / max_rounds) * 100
-            max_rounds_utilization.append(percentage_max_rounds)
-
-            # 5. Agent Synchronization: End similarity of agent sentiments
-            final_sentiments = [np.array([scores[-1]]) for scores in sentiment_data.values() if scores]
-            if len(final_sentiments) > 1:
-                agent_sync = np.mean([cosine_similarity(s1.reshape(1, -1), s2.reshape(1, -1))
-                                      for i, s1 in enumerate(final_sentiments)
-                                      for j, s2 in enumerate(final_sentiments) if i != j])
-            else:
-                agent_sync = 1.0
-            agent_syncs.append(agent_sync)
-
-        scenario_metrics['Avg_Convergence_Speed'] = np.mean(convergence_speeds)
-        scenario_metrics['Sentiment_Stability'] = np.mean(sentiment_stabilities)
-        scenario_metrics['Sentiment_Drift'] = np.mean(sentiment_drifts)
-        scenario_metrics['Max_Rounds_Utilization'] = np.mean(max_rounds_utilization)
-        scenario_metrics['Agent_Synchronization'] = np.mean(agent_syncs)
-
-        metrics_results.append(scenario_metrics)
-
-    metrics_df = pd.DataFrame(metrics_results)
-    metrics_df.to_csv(os.path.join(directory, "ablation_quantitative_metrics.csv"), index=False)
-    print(f"Quantitative metrics saved to {directory}/ablation_quantitative_metrics.csv")
+    print(f"Consensus vs. Polarization scatter plot saved to {path3}")
 
 
 
 
-def load_simulation_data(directory):
-    folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
-    sorted_folders = sorted(folders, key=lambda f: os.path.getmtime(os.path.join(directory, f)))
+def load_simulation_data(directory: str) -> dict:
+    """
+    Load all simulation_data.json files from subfolders named 'Cand_XX'
+    and return a dict keyed by 'Candidate_XX'.
+    """
+    # pick only the Cand_ folders
+    cand_folders = [
+        f for f in os.listdir(directory)
+        if f.startswith("Cand_") and os.path.isdir(os.path.join(directory, f))
+    ]
+    cand_folders.sort(key=lambda f: os.path.getmtime(os.path.join(directory, f)))
+
     sim_data = {}
-    for folder in sorted_folders:
-        with open(os.path.join(directory, folder, "simulation_data.json"), "r", encoding="utf-8") as jfile:
+    for folder in cand_folders:
+        path = os.path.join(directory, folder, "simulation_data.json")
+        if not os.path.isfile(path):
+            continue
+        with open(path, "r", encoding="utf-8") as jfile:
             data = json.load(jfile)
-        sim_data[folder.split("_")[-1]] = data
+        # turn "Cand_01" → "Candidate_01"
+        suffix = folder.split("_", 1)[1]
+        key = f"Candidate_{suffix}"
+        sim_data[key] = data
+
     return sim_data
+
+
+
+# def load_simulation_data(directory):
+#     folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
+#     sorted_folders = sorted(folders, key=lambda f: os.path.getmtime(os.path.join(directory, f)))
+#     sim_data = {}
+#     for folder in sorted_folders:
+#         with open(os.path.join(directory, folder, "simulation_data.json"), "r", encoding="utf-8") as jfile:
+#             data = json.load(jfile)
+#         sim_data[folder.split("_")[-1]] = data
+#     return sim_data
 
 
 def generate_short_forms(roles):
@@ -558,65 +612,60 @@ def sanitize_text(text):
     # Truncate to Excel's character limit (32,767 characters)
     return text[:32767]
 
-def run_defensibility_check(directory: str, resume_file: str, export: bool = True) -> list:
-    """Run defensibility check on folders in a directory."""
-    resume_df = pd.read_csv(resume_file)
-    folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
-    sorted_folders = sorted(folders, key=lambda f: os.path.getmtime(os.path.join(directory, f)))
-
+def run_defensibility_check(sim_data: dict, directory: str, export: bool = True) -> list:
+    """
+    Run defensibility check on each candidate in sim_data.
+    Writes one sheet per candidate into defensibility_scores.xlsx.
+    """
     dfs_list = []
     sheet_names = []
-    for folder_name in sorted_folders:
-        candidate_name = folder_name.split("_")[-1]
-        resume_row = resume_df[resume_df['candidate_name'].str.strip().str.lower() == candidate_name.strip().lower()]
 
-        if resume_row.empty:
-            print(f"No resume found for candidate {candidate_name}. Skipping.")
-            continue
+    for candidate_key, candidate_data in sim_data.items():
+        # grab the resume text we saved in initial_conditions
+        resume = candidate_data["initial_conditions"]["candidate_bio"]
 
-        resume = resume_row.iloc[0]["resume"]
-
-        with open(os.path.join(directory, folder_name, "simulation_data.json"), "r", encoding="utf-8") as jfile:
-            data = json.load(jfile)
-
-        documents = load_resume(resume)
+        # build the index
+        documents = [Document(text=resume)]
         node_parser = MarkdownNodeParser.from_defaults()
         Settings.node_parser = node_parser
         Settings.embed_model = embed_model
 
-        index = VectorStoreIndex.from_documents(documents, show_progress=True)
-
+        index = VectorStoreIndex.from_documents(documents, show_progress=False)
         retriever = index.as_retriever()
-        def_list = []
-        for agent in data["agent_data"]:
-            agent_name = agent["name"]
-            for message in agent["messages"]:
-                message_text = sanitize_text(message["content"])
-                response = retriever.retrieve(message_text)
-                if len(response) == 0:
-                    def_list.append({
-                        "agent": agent_name,
-                        "argument": message_text,
+
+        def_rows = []
+        for agent in candidate_data["agent_data"]:
+            for msg in agent["messages"]:
+                txt = msg["content"]
+                resp = retriever.retrieve(txt)
+                if not resp:
+                    def_rows.append({
+                        "agent": agent["name"],
+                        "argument": txt,
                         "source_text": "",
                         "score": 0
                     })
                 else:
-                    def_list.append({
-                        "agent": agent_name,
-                        "argument": message_text,
-                        "source_text": sanitize_text(response[0].node.text),
-                        "score": response[0].score
+                    def_rows.append({
+                        "agent": agent["name"],
+                        "argument": txt,
+                        "source_text": resp[0].node.text[:32767],
+                        "score": resp[0].score
                     })
-        def_df = pd.DataFrame(def_list)
-        dfs_list.append(def_df)
-        sheet_names.append(candidate_name)
-        print(f"Processed {candidate_name}")
 
-    if export:
-        with pd.ExcelWriter(os.path.join(directory, "defensibility_scores.xlsx"), engine='openpyxl') as writer:
-            for idx, df in enumerate(dfs_list):
-                sheet_name = sheet_names[idx]
-                df.to_excel(writer, sheet_name=sheet_name, index=False)
+        df = pd.DataFrame(def_rows)
+        dfs_list.append(df)
+        sheet_names.append(candidate_key)
+        print(f"Defensibility for {candidate_key}: {len(df)} rows")
+
+    # write all sheets
+    if export and dfs_list:
+        out_path = os.path.join(directory, "defensibility_scores.xlsx")
+        with pd.ExcelWriter(out_path, engine='openpyxl') as writer:
+            for df, name in zip(dfs_list, sheet_names):
+                df.to_excel(writer, sheet_name=name, index=False)
+        print(f"Defensibility workbook written to {out_path}")
+
     return dfs_list
 
 
@@ -690,13 +739,27 @@ def evaluate_cognitive_bias(sentiment_df: pd.DataFrame, output_dir="results"):
 
     # === Plot 3: Scatter of Bias Gap vs Variance ===
     plt.figure(figsize=(8, 6))
-    plt.scatter(sentiment_df["bias_gap"].abs(), sentiment_df["multiagent_variance"], c='purple', edgecolors='k', s=100)
+    plt.scatter(
+        sentiment_df["bias_gap"].abs(),
+        sentiment_df["multiagent_variance"],
+        c='purple', edgecolors='k', s=100
+    )
+
     for i, row in sentiment_df.iterrows():
-        plt.text(abs(row["bias_gap"]), row["multiagent_variance"], row["candidate"],
-                 fontsize=8, ha='right', va='bottom')
-    plt.xlabel("Absolute Bias Gap |Single - Multi|")
-    plt.ylabel("Multiagent Sentiment Variance")
-    plt.title("Bias Gap vs Multiagent Variance")
+        label = str(row["candidate"]).replace("Candidate ", "")  # Remove 'Candidate' if present
+        plt.text(
+            abs(row["bias_gap"]),
+            row["multiagent_variance"] + 0.015,  # Slightly above the point
+            label,
+            fontsize=10,
+            fontweight='bold',
+            ha='center',
+            va='bottom'
+        )
+
+    plt.xlabel("Absolute Bias Gap |Single - Multi|", fontsize=12)
+    plt.ylabel("Multiagent Sentiment Variance", fontsize=12)
+    plt.title("Bias Gap vs Multiagent Variance", fontsize=14)
     plt.grid(True)
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, "bias_gap_vs_variance_scatter.png"))
@@ -704,78 +767,24 @@ def evaluate_cognitive_bias(sentiment_df: pd.DataFrame, output_dir="results"):
 
     return sentiment_df[["candidate", "bias_gap", "multiagent_variance", "inconsistency_index"]]
 
-def analyze_single_vs_multi_bias_regression(sentiment_df: pd.DataFrame, output_dir="results"):
-    """
-    Uses linear regression to analyze how single LLM sentiment relates to multiagent sentiment,
-    and how bias gap relates to multiagent disagreement (variance).
-    Saves plots and returns regression stats.
-    """
-    os.makedirs(output_dir, exist_ok=True)
 
-    # === A. Regress Multiagent Mean ~ Single Sentiment ===
-    X1 = sentiment_df["single_llm_sentiment"].values.reshape(-1, 1)
-    y1 = sentiment_df["multiagent_mean_sentiment"].values
-    model1 = LinearRegression()
-    model1.fit(X1, y1)
-    slope1 = model1.coef_[0]
-    intercept1 = model1.intercept_
-    r_squared1 = model1.score(X1, y1)
 
-    plt.figure(figsize=(8, 6))
-    plt.scatter(X1, y1, c='blue', edgecolors='k')
-    plt.plot(X1, model1.predict(X1), color='red', label=f'y={slope1:.2f}x + {intercept1:.2f} (R²={r_squared1:.2f})')
-    plt.title("Multiagent Sentiment vs Single LLM Sentiment")
-    plt.xlabel("Single LLM Sentiment")
-    plt.ylabel("Multiagent Mean Sentiment")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "regression_multi_vs_single.png"))
-    plt.close()
-
-    # === B. Regress |Bias Gap| ~ Multiagent Variance ===
-    X2 = sentiment_df["multiagent_variance"].values.reshape(-1, 1)
-    y2 = sentiment_df["bias_gap"].abs().values
-    model2 = LinearRegression()
-    model2.fit(X2, y2)
-    slope2 = model2.coef_[0]
-    intercept2 = model2.intercept_
-    r_squared2 = model2.score(X2, y2)
-
-    plt.figure(figsize=(8, 6))
-    plt.scatter(X2, y2, c='purple', edgecolors='k')
-    plt.plot(X2, model2.predict(X2), color='green', label=f'y={slope2:.2f}x + {intercept2:.2f} (R²={r_squared2:.2f})')
-    plt.title("Absolute Bias Gap vs Multiagent Variance")
-    plt.xlabel("Multiagent Variance")
-    plt.ylabel("Absolute Bias Gap")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "regression_biasgap_vs_variance.png"))
-    plt.close()
-
-    # Return summary
-    return {
-        "multi_vs_single": {"slope": slope1, "intercept": intercept1, "r_squared": r_squared1},
-        "biasgap_vs_variance": {"slope": slope2, "intercept": intercept2, "r_squared": r_squared2},
-    }
-
-def main(experiment_directory, resume_file, num_processes):
+def eval_main(experiment_directory, resume_file, num_processes):
     print("Loading simulation data...")
     sim_data = load_simulation_data(experiment_directory)
 
     print("Calculating nuance score...")
-    # nuance_score(sim_data, experiment_directory)
+    nuance_score(sim_data, experiment_directory)
 
-    # candidates = list(sim_data.keys())
+    candidates = list(sim_data.keys())
 
     # Print the names of the first 10 candidates (or fewer if there are less than 10)
-    # plot_candidates = candidates[:10]
-    # print("Generating plots for the following candidates:")
-    # for i, candidate in enumerate(plot_candidates, 1):
-    #     print(f"{i}. {candidate}")
+    plot_candidates = candidates[:10]
+    print("Generating plots for the following candidates:")
+    for i, candidate in enumerate(plot_candidates, 1):
+        print(f"{i}. {candidate}")
 
-    # print(f"\nProcessing all {len(candidates)} candidates using {num_processes} processes...")
+    print(f"\nProcessing all {len(candidates)} candidates using {num_processes} processes...")
 
     start_time = time.time()
 
@@ -795,10 +804,11 @@ def main(experiment_directory, resume_file, num_processes):
     end_time = time.time()
     print(f"Parallel processing completed in {end_time - start_time:.2f} seconds")
 
-    # print("Calculating drift scores...")
-    # calculate_drift(sim_data, experiment_directory)
+    print("Calculating drift scores...")
+    calculate_drift(sim_data, experiment_directory)
 
-    # print("Running defensibility check...")
+    print("Running defensibility check...")
+    run_defensibility_check(sim_data, experiment_directory)
     # run_defensibility_check(experiment_directory, resume_file)
 
     # **New addition for ablation metrics**
@@ -806,12 +816,13 @@ def main(experiment_directory, resume_file, num_processes):
     # quantitative_metrics_ablation(sim_data, experiment_directory)
 
     # **New addition for emergent behavior analysis**
-    # print("Analyzing emergent behaviors...")
-    # behavior_df = analyze_emergent_behavior(sim_data, experiment_directory)
-    # plot_emergent_behavior(behavior_df, experiment_directory)
+    print("Analyzing emergent behaviors...")
+    behavior_df = analyze_emergent_behavior(sim_data, experiment_directory)
+    plot_emergent_behavior(behavior_df, experiment_directory)
 
     print("Comparing multi-agent and single LLM sentiment results...")
-    compare_single_llm_vs_multiagent_sentiment(sim_data, experiment_directory)
+    sentiment_csv_path = compare_single_llm_vs_multiagent_sentiment(
+        sim_data, experiment_directory, single_llm_path=resume_file)
 
     # Load the sentiment comparison data saved by the comparison function
     sentiment_csv_path = os.path.join(experiment_directory, "sentiment_comparison_single_vs_multiagent.csv")
@@ -819,10 +830,6 @@ def main(experiment_directory, resume_file, num_processes):
 
     bias_df = evaluate_cognitive_bias(sentiment_df, output_dir=experiment_directory)
     bias_df.to_csv(os.path.join(experiment_directory, "cognitive_bias_metrics.csv"), index=False)
-
-    regression_stats = analyze_single_vs_multi_bias_regression(sentiment_df, output_dir=experiment_directory)
-    regression_stats_df = pd.DataFrame.from_dict(regression_stats, orient='index')
-    regression_stats_df.to_csv(os.path.join(experiment_directory, "regression_analysis.csv"))
 
     # Load the CSV and run both methods as an example
     bland_stats = bland_altman_plot(sentiment_df, output_dir=experiment_directory)
@@ -833,25 +840,26 @@ def main(experiment_directory, resume_file, num_processes):
     with open(os.path.join(experiment_directory, "cosine_similarity.txt"), "w") as f:
         f.write(f"Cosine similarity: {cosine_sim:.4f}")
     # save bland-altman stats to a file
-    bland_stats.to_csv(os.path.join(experiment_directory, "bland_altman_stats.csv"), index=False)
-
+    # Convert to DataFrame before saving
+    bland_stats_df = pd.DataFrame([bland_stats])  # Wrap in list to create a single-row DataFrame
+    bland_stats_df.to_csv(os.path.join(experiment_directory, "bland_altman_stats.csv"), index=False)
 
     print("Analysis complete!")
 
 
 
-if __name__ == "__main__":
-    if len(sys.argv) not in [3, 4]:
-        print("Usage: python script_name.py <experiment_directory> <resume_file> [num_processes]")
-        sys.exit(1)
-
-    experiment_directory = sys.argv[1]
-    resume_file = sys.argv[2]
-
-    if len(sys.argv) == 4:
-        num_processes = int(sys.argv[3])
-    else:
-        # Use the number of CPU cores minus 1, or 1 if there's only one core
-        num_processes = max(1, mp.cpu_count() - 1)
-
-    main(experiment_directory, resume_file, num_processes)
+# if __name__ == "__main__":
+#     if len(sys.argv) not in [3, 4]:
+#         print("Usage: python script_name.py <experiment_directory> <resume_file> [num_processes]")
+#         sys.exit(1)
+#
+#     experiment_directory = sys.argv[1]
+#     resume_file = sys.argv[2]
+#
+#     if len(sys.argv) == 4:
+#         num_processes = int(sys.argv[3])
+#     else:
+#         # Use the number of CPU cores minus 1, or 1 if there's only one core
+#         num_processes = max(1, mp.cpu_count() - 1)
+#
+#     eval_main(experiment_directory, resume_file, num_processes)

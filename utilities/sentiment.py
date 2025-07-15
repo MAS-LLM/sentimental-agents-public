@@ -14,7 +14,7 @@ from llama_index.program.openai import OpenAIPydanticProgram
 load_dotenv()
 
 # Set logging configuration
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
+# logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 
 # Set device based on GPU availability
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
@@ -87,7 +87,7 @@ class SentimentAnalyzer:
     def analyze_message(self, message: str) -> dict:
         """Fetch opinions and sentiment scores for a given message."""
         res = self.program(message=message)
-        logging.info("Fetched opinions")
+        # logging.info("Fetched opinions")
         opinion_dict = res.dict()
         scores = [self.classify(entry["opinion"]) for entry in opinion_dict["opinions"]]
         overall_score = sum(scores) / len(scores)

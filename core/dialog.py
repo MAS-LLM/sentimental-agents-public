@@ -127,7 +127,7 @@ class DialogueAgentWithTools(DialogueAgent):
         )
         token_count = len(encoding.encode(message_content))
         self.total_tokens += token_count
-        print(f"Message token count: {token_count}, Total tokens: {self.total_tokens}")
+        # print(f"Message token count: {token_count}, Total tokens: {self.total_tokens}")
         self.own_messages.append(message_content)
         agent_message = AgentMessage(
             content=message_content,

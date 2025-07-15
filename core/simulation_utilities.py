@@ -18,7 +18,7 @@ from utilities.utilities import generate_content_from_template
 
 OPENAI_MODEL = os.getenv("OPENAI_MODEL")
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
+# logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 
 
 def generate_agent_information(agent_names: Dict, job_title: str) -> Tuple[Dict, Dict, Dict]:
