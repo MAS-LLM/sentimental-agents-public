@@ -685,7 +685,7 @@ def process_candidate(candidate_index, candidate_name, sim_data, experiment_dire
         print(f"Error processing candidate {candidate_name}: {str(e)}")
 
 
-def evaluate_cognitive_bias(sentiment_df: pd.DataFrame, output_dir="results"):
+def evaluate_sentiment_bias(sentiment_df: pd.DataFrame, output_dir="results"):
     """
     Evaluates and plots cognitive bias between Single LLM and Multiagent sentiment data.
     Assumes the dataframe contains:
@@ -828,7 +828,7 @@ def eval_main(experiment_directory, resume_file, num_processes):
     sentiment_csv_path = os.path.join(experiment_directory, "sentiment_comparison_single_vs_multiagent.csv")
     sentiment_df = pd.read_csv(sentiment_csv_path)
 
-    bias_df = evaluate_cognitive_bias(sentiment_df, output_dir=experiment_directory)
+    bias_df = evaluate_sentiment_bias(sentiment_df, output_dir=experiment_directory)
     bias_df.to_csv(os.path.join(experiment_directory, "cognitive_bias_metrics.csv"), index=False)
 
     # Load the CSV and run both methods as an example
