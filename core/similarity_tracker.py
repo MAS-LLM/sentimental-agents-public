@@ -12,8 +12,6 @@ print(f"Using device: {device}")
 model = SentenceTransformer("BAAI/bge-large-en-v1.5")
 model = model.to(device)
 
-# with open("output_files/20240731_162814/candidate_Austin Wilson/simulation_data.json", "r") as jfile:
-#     test_data = json.load(jfile)["raw_history"]
 
 class SentimentTracker:
     def __init__(self, agents: list, visualize=True) -> None:

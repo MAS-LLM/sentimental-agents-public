@@ -8,14 +8,19 @@ import random
 import numpy as np
 
 from utilities.sentiment import SentimentAnalyzer
-from llama_index.llms.openai import OpenAI
+# from llama_index.llms.openai import OpenAI
+# from langchain.chat_models import ChatAnthropic  # ADD this import
+import anthropic
+from langchain.schema import HumanMessage
+
 from advisor_prompt_template import (
     SINGLE_TOPIC,
     SINGLE_DESCRIPTION,
     SINGLE_PRIORITIES,
     SINGLE_CRITERIA,
 )
-
+ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 def build_prompt(candidate_name, candidate_bio, role_to_fill, role_description):
     topic = SINGLE_TOPIC.format(
         candidate_name=candidate_name,
@@ -37,7 +42,7 @@ def build_prompt(candidate_name, candidate_bio, role_to_fill, role_description):
 
 Now, as the UnifiedAdvisor, synthesize your pros vs. cons in one strong, emotionally upfront paragraph.
 Base your reasoning strictly on the description, priorities, and criteria above.
-Give a clear overall_sentiment in [-1, +1] at the end."""
+"""
 
 def generate_response_from_sample(csv_filename=None, output_dir=None):
     # reproducibility
@@ -63,10 +68,10 @@ def generate_response_from_sample(csv_filename=None, output_dir=None):
         )
     }
 
-    llm      = OpenAI(model="gpt-4o-mini", temperature=0.0)
+    # llm      = OpenAI(model="gpt-4o-mini", temperature=0.0)
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
     analyzer = SentimentAnalyzer()
     results  = []
-
     for _, row in df.iterrows():
         prompt = build_prompt(
             row["candidate_name"],
@@ -74,14 +79,43 @@ def generate_response_from_sample(csv_filename=None, output_dir=None):
             job_data["role_to_fill"],
             job_data["role_description"]
         )
-        opinion = llm.complete(prompt).text.strip()
-        sentiment_data = analyzer.analyze_message(opinion)
 
+        # Use direct Anthropic client
+        try:
+            response = client.messages.create(
+                model=ANTHROPIC_MODEL,
+                max_tokens=1000,
+                temperature=0.0,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            opinion = response.content[0].text.strip()
+        except Exception as e:
+            print(f"Error processing {row['candidate_name']}: {e}")
+            opinion = "Error generating response"
+
+        sentiment_data = analyzer.analyze_message(opinion)
         results.append({
-            "candidate_name":    row["candidate_name"],
-            "opinion":           opinion,
+            "candidate_name": row["candidate_name"],
+            "opinion": opinion,
             "overall_sentiment": sentiment_data["overall_sentiment"],
         })
+
+    # for _, row in df.iterrows():
+    #     prompt = build_prompt(
+    #         row["candidate_name"],
+    #         row["resume"],
+    #         job_data["role_to_fill"],
+    #         job_data["role_description"]
+    #     )
+    #     # opinion = llm.complete(prompt).text.strip()
+    #     opinion = llm([HumanMessage(content=prompt)]).content.strip()
+    #     sentiment_data = analyzer.analyze_message(opinion)
+    #
+    #     results.append({
+    #         "candidate_name":    row["candidate_name"],
+    #         "opinion":           opinion,
+    #         "overall_sentiment": sentiment_data["overall_sentiment"],
+    #     })
 
     os.makedirs(output_dir, exist_ok=True)
     base     = os.path.splitext(csv_filename)[0]

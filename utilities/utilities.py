@@ -10,11 +10,13 @@ from langchain_core.prompts import PromptTemplate
 
 
 
-from langchain_community.chat_models import ChatOpenAI
+# from langchain_community.chat_models import ChatOpenAI
+from langchain_anthropic import ChatAnthropic
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 
-
-OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+# OPENAI_MODEL = os.getenv("OPENAI_MODEL")
 
 # Initialize NLP Model
 #nlp = spacy.load("en_core_web_sm")
@@ -67,7 +69,36 @@ def generate_content_from_template(name: str, template: str, word_limit: int = N
             content=template.format(**prompt_vars)
         ),
     ]
-    return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
+    return ChatAnthropic(
+        model=ANTHROPIC_MODEL,
+        anthropic_api_key=ANTHROPIC_API_KEY,
+        temperature=0.0
+    )(prompt).content
+    # return ChatOpenAI(model_name=OPENAI_MODEL, temperature=0.0)(prompt).content
+
+
+# def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
+#     """Generate content using a specified template.
+#
+#     Parameters:
+#         name (str): Name of the agent.
+#         template (str): The template to be filled.
+#         word_limit (int): Limit for word count.
+#         extra_vars (Dict[str, Any]): Extra variables to be used in formatting.
+#
+#     Returns:
+#         str: Generated content.
+#     """
+#     prompt_vars = {'name': name, 'word_limit': word_limit}
+#     if extra_vars:
+#         prompt_vars.update(extra_vars)
+#
+#     prompt = [
+#         HumanMessage(
+#             content=template.format(**prompt_vars)
+#         ),
+#     ]
+#     return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
 
 
 #def extract_names(text: str) -> List[str]:
@@ -101,7 +132,13 @@ def summarise_document(messages_history: Any, temperature = 0) -> str:
         Don't use corporate jargon.
 
         """
-        llm = ChatOpenAI(model = OPENAI_MODEL,temperature=temperature, max_tokens=256)
+        # llm = ChatOpenAI(model = OPENAI_MODEL,temperature=temperature, max_tokens=256)
+        llm = ChatAnthropic(
+            model=ANTHROPIC_MODEL,
+            anthropic_api_key=ANTHROPIC_API_KEY,
+            temperature=temperature,
+            max_tokens=256
+        )
         prompt = PromptTemplate(template=summary_template, input_variables=["messages_history"])
         chain = LLMChain(llm=llm, prompt=prompt)
 

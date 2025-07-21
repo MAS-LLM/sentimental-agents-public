@@ -93,12 +93,6 @@ class SentimentAnalyzer:
                 positive_score = result['score']
             elif result['label'] == 'NEGATIVE':
                 negative_score = result['score']
-
-        # Use raw score difference: positive_score - negative_score
-        # This naturally gives us [-1, +1] range:
-        # - When positive_score = 1.0, negative_score = 0.0 → result = +1.0
-        # - When positive_score = 0.0, negative_score = 1.0 → result = -1.0
-        # - When positive_score = 0.5, negative_score = 0.5 → result = 0.0 (neutral)
         return positive_score - negative_score
 
     def analyze_message(self, message: str) -> dict:

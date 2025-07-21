@@ -1,19 +1,11 @@
-import os
-import sys
 import json
 import math
 import numpy as np
 import pandas as pd
 import time
-import matplotlib.pyplot as plt
-from collections import defaultdict, Counter
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LinearRegression
-import gensim
 from gensim.models import LdaModel
 from gensim.corpora import Dictionary
-import pyLDAvis
-import pyLDAvis.gensim_models as gensimvis
 import nltk
 from nltk.corpus import stopwords
 from gensim.utils import simple_preprocess
@@ -23,11 +15,10 @@ from polyfuzz.models import SentenceEmbeddings
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
-from llama_index.core import VectorStoreIndex, ServiceContext
+from llama_index.core import VectorStoreIndex
 from llama_index.core.node_parser import MarkdownNodeParser
 from llama_index.embeddings.langchain import LangchainEmbedding
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from llama_index.core import SimpleDirectoryReader
 from llama_index.core import Document
 from llama_index.core import Settings
 

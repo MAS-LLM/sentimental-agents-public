@@ -17,7 +17,8 @@ import json
 from core.simulation_utilities import generate_agent_information, generate_system_messages, generate_topic, \
     specify_topic, initialize_agents
 from core.non_bayesian import NonBayesianSentimentAgent
-from langchain.callbacks import get_openai_callback
+# from langchain.callbacks import get_openai_callback
+import anthropic
 from utilities.opinion_analyser import AdvisorReport
 import argparse
 import datetime
@@ -51,7 +52,9 @@ os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 logging.getLogger("torch").setLevel(logging.ERROR)
 
 
-OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+# OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 
 class Config:
@@ -301,22 +304,38 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
         candidate_name = advisor_data["candidate_name"]
         candidate_bio = advisor_data['resume']
         tools = []
-        with get_openai_callback() as cb:
-            if config is not None:
-                output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-                    candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
-                )
-            else:
-                output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-                    candidate_name, candidate_bio, job_title, job_description, tools, advisors
-                )
+        if config is not None:
+            output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+                candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
+            )
+        else:
+            output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+                candidate_name, candidate_bio, job_title, job_description, tools, advisors
+            )
+
+
+        # with get_openai_callback() as cb:
+        #     if config is not None:
+        #         output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+        #             candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
+        #         )
+        #     else:
+        #         output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+        #             candidate_name, candidate_bio, job_title, job_description, tools, advisors
+        #         )
         non_bayesian_agents.append(non_bayesian_agent)
         simulation_data = get_simulation_output(agents, non_bayesian_agent, history, output)
+        # costs = {
+        #     "Total_Tokens": f"{cb.total_tokens}",
+        #     "Prompt_Tokens": f"{cb.prompt_tokens}",
+        #     "Completion_Tokens": f"{cb.completion_tokens}",
+        #     "Total_Cost_USD": f"${cb.total_cost}"
+        # }
         costs = {
-            "Total_Tokens": f"{cb.total_tokens}",
-            "Prompt_Tokens": f"{cb.prompt_tokens}",
-            "Completion_Tokens": f"{cb.completion_tokens}",
-            "Total_Cost_USD": f"${cb.total_cost}"
+            "Total_Tokens": "N/A",
+            "Prompt_Tokens": "N/A",
+            "Completion_Tokens": "N/A",
+            "Total_Cost_USD": "N/A"
         }
         simulation_data["costs"] = costs
         simulation_data["initial_conditions"] = initial_conditions
