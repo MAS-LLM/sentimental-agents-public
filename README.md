@@ -37,3 +37,17 @@
 
    ```
 
+---
+
+## Dependencies and Environment Setup for LLMs
+
+This project integrates multiple Large Language Models (LLMs) through different APIs and local models:
+
+- **OpenAI GPT Models**  
+  Requires the `openai` Python package and a valid OpenAI API key.
+
+- **Anthropic Claude Models**  
+  Requires the `anthropic` Python package and a valid Anthropic API key.
+
+- **Local LLMs (e.g., LLaMA, others)**  
+  Use `transformers`, `torch`, and optionally `sentencepiece` and `tokenizers` for local model inference.

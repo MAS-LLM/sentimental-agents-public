@@ -20,7 +20,7 @@ MAX_ATTEMPTS=3
 echo "🔬 Starting batch runs with up to ${NUM_PROCS} parallel workers"
 echo "🎯 Using CPU cores: ${MULTIAGENT_CORES}"
 
-for i in $(seq 1 30); do
+for i in $(seq 27 30); do
     CANDIDATE_CSV="${INPUT_DIR}/sample_${i}.csv"
 
     echo "=========================================="
