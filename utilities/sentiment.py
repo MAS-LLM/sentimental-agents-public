@@ -14,7 +14,7 @@ from llama_index.program.openai import OpenAIPydanticProgram
 load_dotenv()
 
 # Set logging configuration
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
+# logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 
 # Set device based on GPU availability
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
@@ -58,12 +58,12 @@ class OpinionReport(BaseModel):
 # Initialize classifier pipeline
 classifier = pipeline(
     "text-classification",
-    model="CouchCat/ma_sa_v7_distil",
     return_all_scores=True,
     device=device_code
 )
 
 llm = OpenAI(model=OPENAI_MODEL)
+
 
 class SentimentAnalyzer:
     """A class to analyze sentiments from messages using a model."""
@@ -80,18 +80,34 @@ class SentimentAnalyzer:
         )
 
     def classify(self, text: str) -> float:
-        """Classify the sentiment of a given text."""
-        score = classifier(text)[0][-1]["score"]
-        return 2 * score - 1  # Rescale value from [0,1] to [-1,1]
+        """Classify the sentiment of a given text using raw model scores."""
+        # Get all scores from the default model
+        results = classifier(text)[0]
+
+        # Find positive and negative scores
+        positive_score = 0
+        negative_score = 0
+
+        for result in results:
+            if result['label'] == 'POSITIVE':
+                positive_score = result['score']
+            elif result['label'] == 'NEGATIVE':
+                negative_score = result['score']
+        return positive_score - negative_score
 
     def analyze_message(self, message: str) -> dict:
         """Fetch opinions and sentiment scores for a given message."""
         res = self.program(message=message)
-        logging.info("Fetched opinions")
+        # logging.info("Fetched opinions")
         opinion_dict = res.dict()
+
+        # Get sentiment scores for each opinion using raw model scores
         scores = [self.classify(entry["opinion"]) for entry in opinion_dict["opinions"]]
-        overall_score = sum(scores) / len(scores)
+
+        # Calculate overall sentiment as average of all opinion scores
+        overall_score = sum(scores) / len(scores) if scores else 0
+
+        # Add overall sentiment to the result
         opinion_dict["overall_sentiment"] = overall_score
+
         return opinion_dict
-
-

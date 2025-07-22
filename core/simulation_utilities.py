@@ -1,12 +1,14 @@
 from typing import List, Dict, Callable, Tuple, Any, Union
 import os
 import logging
+import anthropic
 
 from dotenv import load_dotenv
 load_dotenv()
 
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
-from langchain_community.chat_models import ChatOpenAI
+# from langchain_community.chat_models import ChatOpenAI
+from langchain_anthropic import ChatAnthropic
 from core.dialog import DialogueSimulator, DialogueAgent, DialogueAgentWithTools
 #from sentiment import classify_text
 from core.advisory_brief import (
@@ -17,8 +19,10 @@ from core.advisory_brief import (
 from utilities.utilities import generate_content_from_template
 
 OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
+# logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")
 
 
 def generate_agent_information(agent_names: Dict, job_title: str) -> Tuple[Dict, Dict, Dict]:
@@ -52,22 +56,56 @@ def generate_system_messages(agent_names: Dict, agent_descriptions: Dict, agent_
     }
 
 
-
-def specify_topic(topic: str, agent_names: Dict, temperature = 1.5) -> str:
+def specify_topic(topic: str, agent_names: Dict, temperature=0.0) -> str:
     """Make the topic more specific."""
-    topic_specifier_prompt = [
-        SystemMessage(content="You can make a topic more specific."),
-        HumanMessage(content=SPECIFIC_TOPIC.format(topic=topic, word_limit=5, names=', '.join(agent_names)))
-    ]
-    return ChatOpenAI(model_name=OPENAI_MODEL, temperature=temperature)(topic_specifier_prompt).content #change temperature from 1.0 to 0.7
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
-def initialize_agents(agent_names: Dict, agent_system_messages: Dict, temperature = 1.5) -> List[DialogueAgent]:
-    """Initialize agents for the conversation."""
+    prompt = SPECIFIC_TOPIC.format(topic=topic, word_limit=5, names=', '.join(agent_names))
+    system_content = "You can make a topic more specific."
+
+    try:
+        response = client.messages.create(
+            model=ANTHROPIC_MODEL,
+            max_tokens=1000,
+            temperature=temperature,
+            system=system_content,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response.content[0].text
+    except Exception as e:
+        logging.error(f"Error in specify_topic: {e}")
+        return topic  # fallback to original topic
+
+# def specify_topic(topic: str, agent_names: Dict, temperature = 0.0) -> str:
+#     """Make the topic more specific."""
+#     topic_specifier_prompt = [
+#         SystemMessage(content="You can make a topic more specific."),
+#         HumanMessage(content=SPECIFIC_TOPIC.format(topic=topic, word_limit=5, names=', '.join(agent_names)))
+#     ]
+#     return ChatOpenAI(model_name=OPENAI_MODEL, temperature=temperature)(topic_specifier_prompt).content #change temperature from 1.0 to 0.7
+
+# def initialize_agents(agent_names: Dict, agent_system_messages: Dict, temperature = 0.0) -> List[DialogueAgent]:
+#     """Initialize agents for the conversation."""
+#     return [
+#         DialogueAgentWithTools(
+#             name=name,
+#             system_message=SystemMessage(content=system_message),
+#             model=ChatOpenAI(model_name=OPENAI_MODEL, temperature=temperature),
+#             tools=tools,
+#             top_k_results=2
+#         ) for (name, tools), system_message in zip(agent_names.items(), agent_system_messages.values())
+#     ]
+
+def initialize_agents(agent_names: Dict, agent_system_messages: Dict, temperature = 0.0) -> List[DialogueAgent]:
     return [
         DialogueAgentWithTools(
             name=name,
             system_message=SystemMessage(content=system_message),
-            model=ChatOpenAI(model_name=OPENAI_MODEL, temperature=temperature), 
+            model=ChatAnthropic(
+                model=ANTHROPIC_MODEL,
+                temperature=temperature,
+                anthropic_api_key=ANTHROPIC_API_KEY,
+            ),
             tools=tools,
             top_k_results=2
         ) for (name, tools), system_message in zip(agent_names.items(), agent_system_messages.values())
