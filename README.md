@@ -18,24 +18,31 @@
    ALPHAVANTAGE_API_KEY=""
    METAPHOR_API_KEY=""
     ```
-4. Run the application:
+## Running the Project
+
+A convenience script `run.sh` is included to simplify running simulations and evaluations:
+
 ```bash
-   python3 main.py --simulation_setup_data "data/input/simulation_setup_data.json" --candidate_csv "data/input/10sample.csv"
-   ```
-5. Run the evaluation:
-   ```bash
-   python3 metrics/evaluation.py output_files/20240811_093714 data/input/samples.csv
+bash run.sh
 
    ```
-6. Run the bias evaluation:
-   ```bash
-    python3 metrics/bias.py output_files/20240811_093714 --how all
-    ```
-8. Run the decision-making evaluation:
-```bash
-   python3 metrics/decision_making.py output_files/20240802_095722
 
-   ```
+[//]: # (6. Run the bias evaluation:)
+
+[//]: # (   ```bash)
+
+[//]: # (    python3 metrics/bias.py output_files/20240811_093714 --how all)
+
+[//]: # (    ```)
+
+[//]: # (8. Run the decision-making evaluation:)
+
+[//]: # (```bash)
+
+[//]: # (   python3 metrics/decision_making.py output_files/20240802_095722)
+
+[//]: # ()
+[//]: # (   ```)
 
 ---
 
@@ -51,3 +58,15 @@ This project integrates multiple Large Language Models (LLMs) through different 
 
 - **Local LLMs (e.g., LLaMA, others)**  
   Use `transformers`, `torch`, and optionally `sentencepiece` and `tokenizers` for local model inference.
+
+## System Requirements
+
+- **GPU:** Recommended for local LLMs to run efficiently (NVIDIA CUDA drivers + compatible PyTorch)
+
+- **CPU:** Local LLMs can run on CPU but slower; llama.cpp or other optimized runtimes can help
+
+## Environment Variables
+
+Set API keys in `.env` file:
+
+
