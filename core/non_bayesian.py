@@ -23,8 +23,6 @@ class NonBayesianSentimentAgent:
         # :param new_evidence: New sentiment value.
         # :return: Tuple of updated sentiment value and change.
         # """
-        # updated_sentiment = self.alpha * new_evidence + (1 - self.alpha) * prior  # Calculate updated sentiment
-
         updated_sentiment = new_evidence
         # Clip the updated_sentiment to be within [-1, 1]
         updated_sentiment = max(-1, min(1, updated_sentiment))
