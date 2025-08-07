@@ -4,7 +4,7 @@ import os
 
 # Third-party Library Imports
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-#import spacy
+import spacy
 from langchain.chains import LLMChain
 from langchain_core.prompts import PromptTemplate
 
@@ -14,12 +14,12 @@ from langchain_core.prompts import PromptTemplate
 from langchain_anthropic import ChatAnthropic
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 
-ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-# OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+# ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
+# ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL")
 
 # Initialize NLP Model
-#nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_sm")
 
 
 def handle_error(error: Exception) -> str:
@@ -48,35 +48,6 @@ def get_sentiment(text: str) -> float:
     return vs['compound']
 
 
-def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
-    """Generate content using a specified template.
-
-    Parameters:
-        name (str): Name of the agent.
-        template (str): The template to be filled.
-        word_limit (int): Limit for word count.
-        extra_vars (Dict[str, Any]): Extra variables to be used in formatting.
-
-    Returns:
-        str: Generated content.
-    """
-    prompt_vars = {'name': name, 'word_limit': word_limit}
-    if extra_vars:
-        prompt_vars.update(extra_vars)
-
-    prompt = [
-        HumanMessage(
-            content=template.format(**prompt_vars)
-        ),
-    ]
-    return ChatAnthropic(
-        model=ANTHROPIC_MODEL,
-        anthropic_api_key=ANTHROPIC_API_KEY,
-        temperature=0.0
-    )(prompt).content
-    # return ChatOpenAI(model_name=OPENAI_MODEL, temperature=0.0)(prompt).content
-
-
 # def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
 #     """Generate content using a specified template.
 #
@@ -98,20 +69,49 @@ def generate_content_from_template(name: str, template: str, word_limit: int = N
 #             content=template.format(**prompt_vars)
 #         ),
 #     ]
-#     return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
+#     return ChatAnthropic(
+#         model=ANTHROPIC_MODEL,
+#         anthropic_api_key=ANTHROPIC_API_KEY,
+#         temperature=0.0
+#     )(prompt).content
+#     # return ChatOpenAI(model_name=OPENAI_MODEL, temperature=0.0)(prompt).content
 
 
-#def extract_names(text: str) -> List[str]:
-#    """Extract names from the given text.
-#
-#    Parameters:
-#        text (str): Input text from which to extract names.
-#
-#    Returns:
-#        List[str]: List of names.
-#    """
-#    doc = nlp(text)
-#    return [entity.text for entity in doc.ents if entity.label_ == "PERSON"]
+def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
+    """Generate content using a specified template.
+
+    Parameters:
+        name (str): Name of the agent.
+        template (str): The template to be filled.
+        word_limit (int): Limit for word count.
+        extra_vars (Dict[str, Any]): Extra variables to be used in formatting.
+
+    Returns:
+        str: Generated content.
+    """
+    prompt_vars = {'name': name, 'word_limit': word_limit}
+    if extra_vars:
+        prompt_vars.update(extra_vars)
+
+    prompt = [
+        HumanMessage(
+            content=template.format(**prompt_vars)
+        ),
+    ]
+    return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
+
+
+def extract_names(text: str) -> List[str]:
+   """Extract names from the given text.
+
+   Parameters:
+       text (str): Input text from which to extract names.
+
+   Returns:
+       List[str]: List of names.
+   """
+   doc = nlp(text)
+   return [entity.text for entity in doc.ents if entity.label_ == "PERSON"]
 
 
 def summarise_document(messages_history: Any, temperature = 0) -> str:
@@ -132,13 +132,13 @@ def summarise_document(messages_history: Any, temperature = 0) -> str:
         Don't use corporate jargon.
 
         """
-        # llm = ChatOpenAI(model = OPENAI_MODEL,temperature=temperature, max_tokens=256)
-        llm = ChatAnthropic(
-            model=ANTHROPIC_MODEL,
-            anthropic_api_key=ANTHROPIC_API_KEY,
-            temperature=temperature,
-            max_tokens=256
-        )
+        llm = ChatOpenAI(model = OPENAI_MODEL,temperature=temperature, max_tokens=256)
+        # llm = ChatAnthropic(
+        #     model=ANTHROPIC_MODEL,
+        #     anthropic_api_key=ANTHROPIC_API_KEY,
+        #     temperature=temperature,
+        #     max_tokens=256
+        # )
         prompt = PromptTemplate(template=summary_template, input_variables=["messages_history"])
         chain = LLMChain(llm=llm, prompt=prompt)
 
