@@ -17,7 +17,7 @@ import json
 from core.simulation_utilities import generate_agent_information, generate_system_messages, generate_topic, \
     specify_topic, initialize_agents
 from core.non_bayesian import NonBayesianSentimentAgent
-# from langchain.callbacks import get_openai_callback
+from langchain.callbacks import get_openai_callback
 import anthropic
 from utilities.opinion_analyser import AdvisorReport
 import argparse
@@ -258,107 +258,14 @@ def get_simulation_output(agents, non_bayesian_agent, history, output):
         }
     }
     return out
-def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config=None, num_processes=None):
-    seed = 42
-    random.seed(seed)
-    np.random.seed(seed)
-    os.environ["PYTHONHASHSEED"] = str(seed)
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = f"output_files/{timestamp}"
-    os.makedirs(output_dir, exist_ok=True)
-    print("🔬 Starting simulation with the following parameters:",
-          f"simulation_setup_data={simulation_setup_data}, "
-          f"candidate_csv={candidate_csv}, "
-          f"candidate_name={candidate_name}, "
-          f"candidate_bio={candidate_bio}, "
-          f"config={config}")
-    # 1) Run single-LLM evaluation first:
-    if candidate_csv:
-        print("🖋️  Running single-LLM evaluation on", candidate_csv)
-        # this will produce single_llm_evaluation_results.csv in cwd
-        single_llm_path = generate_response_from_sample(os.path.basename(candidate_csv), output_dir=output_dir)
-        print(f"Single-LLM evaluation results saved to {single_llm_path}")
-    else:
-        # if you're doing a one-off candidate_name/bio run, you could call
-        # your single-LLM logic directly here instead.
-        raise ValueError("single-LLM evaluation requires a candidate_csv")
-
-    with open(simulation_setup_data, "r", encoding="utf-8") as f:
-        simulation_setup_data = json.load(f)
-    job_title = simulation_setup_data["job_title"]
-    job_description = simulation_setup_data["job_description"]
-    advisors = [{"title": x} for x in simulation_setup_data['technical_advisors']]
-
-    if candidate_csv:
-        input_data = pd.read_csv(candidate_csv).to_dict('records')
-    elif candidate_name and candidate_bio:
-        input_data = [{"candidate_name": candidate_name, "resume": candidate_bio}]
-    else:
-        raise ValueError("Either candidate_csv or both candidate_name and candidate_bio must be provided.")
-
-
-    non_bayesian_agents = []
-
-    # wrap the loop in tqdm
-    for advisor_data in tqdm(input_data, desc="🔬 Simulations", unit="cand"):
-        candidate_name = advisor_data["candidate_name"]
-        candidate_bio = advisor_data['resume']
-        tools = []
-        if config is not None:
-            output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-                candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
-            )
-        else:
-            output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-                candidate_name, candidate_bio, job_title, job_description, tools, advisors
-            )
-
-
-        # with get_openai_callback() as cb:
-        #     if config is not None:
-        #         output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-        #             candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
-        #         )
-        #     else:
-        #         output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-        #             candidate_name, candidate_bio, job_title, job_description, tools, advisors
-        #         )
-        non_bayesian_agents.append(non_bayesian_agent)
-        simulation_data = get_simulation_output(agents, non_bayesian_agent, history, output)
-        # costs = {
-        #     "Total_Tokens": f"{cb.total_tokens}",
-        #     "Prompt_Tokens": f"{cb.prompt_tokens}",
-        #     "Completion_Tokens": f"{cb.completion_tokens}",
-        #     "Total_Cost_USD": f"${cb.total_cost}"
-        # }
-        costs = {
-            "Total_Tokens": "N/A",
-            "Prompt_Tokens": "N/A",
-            "Completion_Tokens": "N/A",
-            "Total_Cost_USD": "N/A"
-        }
-        simulation_data["costs"] = costs
-        simulation_data["initial_conditions"] = initial_conditions
-
-        candidate_dir = os.path.join(output_dir, candidate_name)
-        os.makedirs(candidate_dir, exist_ok=True)
-
-        sim_data_file = os.path.join(candidate_dir, "simulation_data.json")
-        with open(sim_data_file, "w", encoding="utf-8") as f:
-            json.dump(simulation_data, f, indent=2)
-
-    print("🔬 All simulations complete. Kicking off evaluation…")
-    eval_main(
-        experiment_directory=output_dir,
-        resume_file=single_llm_path,
-        num_processes=num_processes if num_processes is not None else max(1, mp.cpu_count() - 1)
-    )
-
-# def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config=None):
+# def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config=None, num_processes=None):
 #     seed = 42
 #     random.seed(seed)
 #     np.random.seed(seed)
 #     os.environ["PYTHONHASHSEED"] = str(seed)
+#     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+#     output_dir = f"output_files/{timestamp}"
+#     os.makedirs(output_dir, exist_ok=True)
 #     print("🔬 Starting simulation with the following parameters:",
 #           f"simulation_setup_data={simulation_setup_data}, "
 #           f"candidate_csv={candidate_csv}, "
@@ -369,7 +276,8 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
 #     if candidate_csv:
 #         print("🖋️  Running single-LLM evaluation on", candidate_csv)
 #         # this will produce single_llm_evaluation_results.csv in cwd
-#         single_llm_path = generate_response_from_sample(os.path.basename(candidate_csv))
+#         single_llm_path = generate_response_from_sample(os.path.basename(candidate_csv), output_dir=output_dir)
+#         print(f"Single-LLM evaluation results saved to {single_llm_path}")
 #     else:
 #         # if you're doing a one-off candidate_name/bio run, you could call
 #         # your single-LLM logic directly here instead.
@@ -388,101 +296,193 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
 #     else:
 #         raise ValueError("Either candidate_csv or both candidate_name and candidate_bio must be provided.")
 #
-#     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-#     output_dir = f"output_files/{timestamp}"
+#
 #     non_bayesian_agents = []
-#     pbar = tqdm(input_data, desc="🔬 Simulations", unit="cand")
-#     for advisor_data in input_data:
+#
+#     # wrap the loop in tqdm
+#     for advisor_data in tqdm(input_data, desc="🔬 Simulations", unit="cand"):
 #         candidate_name = advisor_data["candidate_name"]
 #         candidate_bio = advisor_data['resume']
 #         tools = []
-#         with get_openai_callback() as cb:
-#             if config is not None:
-#                 output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-#                     candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
-#                 )
-#             else:
-#                 output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-#                     candidate_name, candidate_bio, job_title, job_description, tools, advisors
-#                 )
+#         if config is not None:
+#             output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+#                 candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
+#             )
+#         else:
+#             output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+#                 candidate_name, candidate_bio, job_title, job_description, tools, advisors
+#             )
+#
+#
+#         # with get_openai_callback() as cb:
+#         #     if config is not None:
+#         #         output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+#         #             candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
+#         #         )
+#         #     else:
+#         #         output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+#         #             candidate_name, candidate_bio, job_title, job_description, tools, advisors
+#         #         )
 #         non_bayesian_agents.append(non_bayesian_agent)
 #         simulation_data = get_simulation_output(agents, non_bayesian_agent, history, output)
+#         # costs = {
+#         #     "Total_Tokens": f"{cb.total_tokens}",
+#         #     "Prompt_Tokens": f"{cb.prompt_tokens}",
+#         #     "Completion_Tokens": f"{cb.completion_tokens}",
+#         #     "Total_Cost_USD": f"${cb.total_cost}"
+#         # }
 #         costs = {
-#             "Total_Tokens": f"{cb.total_tokens}",
-#             "Prompt_Tokens": f"{cb.prompt_tokens}",
-#             "Completion_Tokens": f"{cb.completion_tokens}",
-#             "Total_Cost_USD": f"${cb.total_cost}"
+#             "Total_Tokens": "N/A",
+#             "Prompt_Tokens": "N/A",
+#             "Completion_Tokens": "N/A",
+#             "Total_Cost_USD": "N/A"
 #         }
 #         simulation_data["costs"] = costs
 #         simulation_data["initial_conditions"] = initial_conditions
 #
 #         candidate_dir = os.path.join(output_dir, candidate_name)
-#
-#         if not os.path.exists(candidate_dir):
-#             os.makedirs(candidate_dir)
+#         os.makedirs(candidate_dir, exist_ok=True)
 #
 #         sim_data_file = os.path.join(candidate_dir, "simulation_data.json")
 #         with open(sim_data_file, "w", encoding="utf-8") as f:
 #             json.dump(simulation_data, f, indent=2)
 #
 #     print("🔬 All simulations complete. Kicking off evaluation…")
-#     eval_main(output_dir, resume_file=single_llm_path,num_processes= max(1, mp.cpu_count() - 1))
+#     eval_main(
+#         experiment_directory=output_dir,
+#         resume_file=single_llm_path,
+#         num_processes=num_processes if num_processes is not None else max(1, mp.cpu_count() - 1)
+#     )
 
+def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config=None):
+    seed = 42
+    random.seed(seed)
+    np.random.seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    print("🔬 Starting simulation with the following parameters:",
+          f"simulation_setup_data={simulation_setup_data}, "
+          f"candidate_csv={candidate_csv}, "
+          f"candidate_name={candidate_name}, "
+          f"candidate_bio={candidate_bio}, "
+          f"config={config}")
+    # 1) Run single-LLM evaluation first:
+    if candidate_csv:
+        print("🖋️  Running single-LLM evaluation on", candidate_csv)
+        # this will produce single_llm_evaluation_results.csv in cwd
+        single_llm_path = generate_response_from_sample(os.path.basename(candidate_csv))
+    else:
+        # if you're doing a one-off candidate_name/bio run, you could call
+        # your single-LLM logic directly here instead.
+        raise ValueError("single-LLM evaluation requires a candidate_csv")
 
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser(description='Run simulation for candidate(s).')
-#     parser.add_argument('--simulation_setup_data', type=str, help='JSON file containing simulation setup data.')
-#     parser.add_argument('--candidate_csv', type=str, help='CSV file containing candidate names and resumes.')
-#     parser.add_argument('--candidate_name', type=str, help='Name of a single candidate.')
-#     parser.add_argument('--candidate_bio', type=str, help='Resume of a single candidate.')
-#     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility.')
-#
-#     args = parser.parse_args()
-#     main(args.simulation_setup_data, args.candidate_csv, args.candidate_name, args.candidate_bio, config=config)
+    with open(simulation_setup_data, "r", encoding="utf-8") as f:
+        simulation_setup_data = json.load(f)
+    job_title = simulation_setup_data["job_title"]
+    job_description = simulation_setup_data["job_description"]
+    advisors = [{"title": x} for x in simulation_setup_data['technical_advisors']]
+
+    if candidate_csv:
+        input_data = pd.read_csv(candidate_csv).to_dict('records')
+    elif candidate_name and candidate_bio:
+        input_data = [{"candidate_name": candidate_name, "resume": candidate_bio}]
+    else:
+        raise ValueError("Either candidate_csv or both candidate_name and candidate_bio must be provided.")
+
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_dir = f"output_files/{timestamp}"
+    non_bayesian_agents = []
+    pbar = tqdm(input_data, desc="🔬 Simulations", unit="cand")
+    for advisor_data in input_data:
+        candidate_name = advisor_data["candidate_name"]
+        candidate_bio = advisor_data['resume']
+        tools = []
+        with get_openai_callback() as cb:
+            if config is not None:
+                output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+                    candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
+                )
+            else:
+                output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+                    candidate_name, candidate_bio, job_title, job_description, tools, advisors
+                )
+        non_bayesian_agents.append(non_bayesian_agent)
+        simulation_data = get_simulation_output(agents, non_bayesian_agent, history, output)
+        costs = {
+            "Total_Tokens": f"{cb.total_tokens}",
+            "Prompt_Tokens": f"{cb.prompt_tokens}",
+            "Completion_Tokens": f"{cb.completion_tokens}",
+            "Total_Cost_USD": f"${cb.total_cost}"
+        }
+        simulation_data["costs"] = costs
+        simulation_data["initial_conditions"] = initial_conditions
+
+        candidate_dir = os.path.join(output_dir, candidate_name)
+
+        if not os.path.exists(candidate_dir):
+            os.makedirs(candidate_dir)
+
+        sim_data_file = os.path.join(candidate_dir, "simulation_data.json")
+        with open(sim_data_file, "w", encoding="utf-8") as f:
+            json.dump(simulation_data, f, indent=2)
+
+    print("🔬 All simulations complete. Kicking off evaluation…")
+    eval_main(output_dir, resume_file=single_llm_path,num_processes= max(1, mp.cpu_count() - 1))
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run simulation for candidate(s).')
-    parser.add_argument(
-        '--simulation_setup_data',
-        type=str,
-        required=True,
-        help='JSON file containing simulation setup data.'
-    )
-    parser.add_argument(
-        '--candidate_csv',
-        type=str,
-        help='CSV file containing candidate names and resumes.'
-    )
-    parser.add_argument(
-        '--candidate_name',
-        type=str,
-        help='Name of a single candidate.'
-    )
-    parser.add_argument(
-        '--candidate_bio',
-        type=str,
-        help='Resume of a single candidate.'
-    )
-    parser.add_argument(
-        '--seed',
-        type=int,
-        default=42,
-        help='Random seed for reproducibility.'
-    )
-    parser.add_argument(
-        '-n', '--num_processes',
-        type=int,
-        default=max(1, mp.cpu_count() - 1),
-        help='Number of worker processes to use during evaluation.'
-    )
+    parser.add_argument('--simulation_setup_data', type=str, help='JSON file containing simulation setup data.')
+    parser.add_argument('--candidate_csv', type=str, help='CSV file containing candidate names and resumes.')
+    parser.add_argument('--candidate_name', type=str, help='Name of a single candidate.')
+    parser.add_argument('--candidate_bio', type=str, help='Resume of a single candidate.')
+    parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility.')
 
     args = parser.parse_args()
+    main(args.simulation_setup_data, args.candidate_csv, args.candidate_name, args.candidate_bio, config=config)
 
-    main(
-        simulation_setup_data=args.simulation_setup_data,
-        candidate_csv=args.candidate_csv,
-        candidate_name=args.candidate_name,
-        candidate_bio=args.candidate_bio,
-        config=config,
-        num_processes=args.num_processes
-    )
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser(description='Run simulation for candidate(s).')
+#     parser.add_argument(
+#         '--simulation_setup_data',
+#         type=str,
+#         required=True,
+#         help='JSON file containing simulation setup data.'
+#     )
+#     parser.add_argument(
+#         '--candidate_csv',
+#         type=str,
+#         help='CSV file containing candidate names and resumes.'
+#     )
+#     parser.add_argument(
+#         '--candidate_name',
+#         type=str,
+#         help='Name of a single candidate.'
+#     )
+#     parser.add_argument(
+#         '--candidate_bio',
+#         type=str,
+#         help='Resume of a single candidate.'
+#     )
+#     parser.add_argument(
+#         '--seed',
+#         type=int,
+#         default=42,
+#         help='Random seed for reproducibility.'
+#     )
+#     parser.add_argument(
+#         '-n', '--num_processes',
+#         type=int,
+#         default=max(1, mp.cpu_count() - 1),
+#         help='Number of worker processes to use during evaluation.'
+#     )
+#
+#     args = parser.parse_args()
+#
+#     main(
+#         simulation_setup_data=args.simulation_setup_data,
+#         candidate_csv=args.candidate_csv,
+#         candidate_name=args.candidate_name,
+#         candidate_bio=args.candidate_bio,
+#         config=config,
+#         num_processes=args.num_processes
+#     )
