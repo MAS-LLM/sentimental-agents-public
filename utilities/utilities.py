@@ -10,7 +10,7 @@ from langchain_core.prompts import PromptTemplate
 
 
 
-# from langchain_community.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 

@@ -6,21 +6,23 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pandas as pd
 import random
 import numpy as np
+import datetime
 
 from utilities.sentiment import SentimentAnalyzer
-# from llama_index.llms.openai import OpenAI
-# from langchain.chat_models import ChatAnthropic  # ADD this import
-import anthropic
-from langchain.schema import HumanMessage
-
 from advisor_prompt_template import (
     SINGLE_TOPIC,
     SINGLE_DESCRIPTION,
     SINGLE_PRIORITIES,
     SINGLE_CRITERIA,
 )
-ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+
+# === OpenAI (official SDK) ===
+# pip install openai>=1.0.0
+from openai import OpenAI
+
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")  # must be set
+
 def build_prompt(candidate_name, candidate_bio, role_to_fill, role_description):
     topic = SINGLE_TOPIC.format(
         candidate_name=candidate_name,
@@ -45,33 +47,42 @@ Base your reasoning strictly on the description, priorities, and criteria above.
 """
 
 def generate_response_from_sample(csv_filename=None, output_dir=None):
-    # reproducibility
+    # --- Reproducibility
     SEED = 42
     random.seed(SEED)
     np.random.seed(SEED)
     os.environ["PYTHONHASHSEED"] = str(SEED)
 
+    # --- Resolve CSV path
+    if not csv_filename:
+        raise ValueError("csv_filename must be provided.")
     SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
     csv_path   = os.path.join(SCRIPT_DIR, "..", "data", "input", csv_filename)
-    df         = pd.read_csv(csv_path)
+    if not os.path.exists(csv_path):
+        raise FileNotFoundError(f"CSV not found: {csv_path}")
 
-    # Full job configuration
-    # In your single‐agent script
+    df = pd.read_csv(csv_path)
+
+    # --- Job config
     job_data = {
-        "role_to_fill": "# Head of Technology in a Recycling Plant Scale‑Up",
+        "role_to_fill": "# Head of Technology in a Recycling Plant Scale-Up",
         "role_description": (
-            "We are a B‑Corp‑certified recycling initiative with 2,500+ collectors "
-            "and 6,000 tons recycled annually.  Seeking a strategic, hands‑on Head of Technology "
-            "to design modular, cloud‑based infrastructure, automate supply‑chain processes, "
-            "and build a high‑performance team.  Reports to the CIO; requires 5+ years in senior "
-            "tech leadership, full‑stack expertise, and agile delivery experience."
+            "We are a B-Corp-certified recycling initiative with 2,500+ collectors "
+            "and 6,000 tons recycled annually. Seeking a strategic, hands-on Head of Technology "
+            "to design modular, cloud-based infrastructure, automate supply-chain processes, "
+            "and build a high-performance team. Reports to the CIO; requires 5+ years in senior "
+            "tech leadership, full-stack expertise, and agile delivery experience."
         )
     }
 
-    # llm      = OpenAI(model="gpt-4o-mini", temperature=0.0)
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    # --- OpenAI client
+    if not OPENAI_API_KEY:
+        raise EnvironmentError("OPENAI_API_KEY is not set.")
+    client = OpenAI(api_key=OPENAI_API_KEY)
+
     analyzer = SentimentAnalyzer()
     results  = []
+
     for _, row in df.iterrows():
         prompt = build_prompt(
             row["candidate_name"],
@@ -80,15 +91,18 @@ def generate_response_from_sample(csv_filename=None, output_dir=None):
             job_data["role_description"]
         )
 
-        # Use direct Anthropic client
         try:
-            response = client.messages.create(
-                model=ANTHROPIC_MODEL,
-                max_tokens=1000,
+            # Chat Completions API (stable)
+            chat = client.chat.completions.create(
+                model=OPENAI_MODEL,
                 temperature=0.0,
-                messages=[{"role": "user", "content": prompt}]
+                max_tokens=600,
+                messages=[
+                    {"role": "system", "content": "You are a concise, direct hiring advisor."},
+                    {"role": "user", "content": prompt},
+                ],
             )
-            opinion = response.content[0].text.strip()
+            opinion = (chat.choices[0].message.content or "").strip()
         except Exception as e:
             print(f"Error processing {row['candidate_name']}: {e}")
             opinion = "Error generating response"
@@ -97,29 +111,16 @@ def generate_response_from_sample(csv_filename=None, output_dir=None):
         results.append({
             "candidate_name": row["candidate_name"],
             "opinion": opinion,
-            "overall_sentiment": sentiment_data["overall_sentiment"],
+            "overall_sentiment": sentiment_data.get("overall_sentiment"),
         })
 
-    # for _, row in df.iterrows():
-    #     prompt = build_prompt(
-    #         row["candidate_name"],
-    #         row["resume"],
-    #         job_data["role_to_fill"],
-    #         job_data["role_description"]
-    #     )
-    #     # opinion = llm.complete(prompt).text.strip()
-    #     opinion = llm([HumanMessage(content=prompt)]).content.strip()
-    #     sentiment_data = analyzer.analyze_message(opinion)
-    #
-    #     results.append({
-    #         "candidate_name":    row["candidate_name"],
-    #         "opinion":           opinion,
-    #         "overall_sentiment": sentiment_data["overall_sentiment"],
-    #     })
-
+    # --- Output path
+    if output_dir is None:
+        ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_dir = os.path.join("output_files", "single_llm", ts)
     os.makedirs(output_dir, exist_ok=True)
+
     base     = os.path.splitext(csv_filename)[0]
     out_path = os.path.join(output_dir, f"{base}_single_llm_evaluation_results.csv")
     pd.DataFrame(results).to_csv(out_path, index=False)
-
     return out_path

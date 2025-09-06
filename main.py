@@ -16,9 +16,8 @@ import pandas as pd
 import json
 from core.simulation_utilities import generate_agent_information, generate_system_messages, generate_topic, \
     specify_topic, initialize_agents
-from core.non_bayesian import NonBayesianSentimentAgent
+from core.sentiment_agent import SentimentAgent
 from langchain.callbacks import get_openai_callback
-import anthropic
 from utilities.opinion_analyser import AdvisorReport
 import argparse
 import datetime
@@ -52,10 +51,6 @@ os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 logging.getLogger("torch").setLevel(logging.ERROR)
 
 
-# OPENAI_MODEL = os.getenv("OPENAI_MODEL")
-ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-
 
 class Config:
     def __init__(self):
@@ -63,8 +58,6 @@ class Config:
         self.specifyTopic_temp = 0.0
         self.generateContent_temp = 0.0  # Content gen for agent messages TODO: split parameters for individual agents
         self.summarize_temp = 0
-        self.nonBayes_alpha = 0.3
-        self.nonBayes_tolerance = 0.01
         self.max_rounds = 1
 
     def __str__(self):
@@ -73,8 +66,6 @@ class Config:
                 f"    specifyTopic_temp={self.specifyTopic_temp},\n"
                 f"    generateContent_temp={self.generateContent_temp},\n"
                 f"    summarize_temp={self.summarize_temp},\n"
-                f"    nonBayes_alpha={self.nonBayes_alpha},\n"
-                f"    nonBayes_tolerance={self.nonBayes_tolerance},\n"
                 f"    max_rounds={self.max_rounds}\n"
                 f")")
 
@@ -84,8 +75,6 @@ class Config:
             "specifyTopic_temp": self.specifyTopic_temp,
             "generateContent_temp": self.generateContent_temp,
             "summarize_temp": self.summarize_temp,
-            "nonBayes_alpha": self.nonBayes_alpha,
-            "nonBayes_tolerance": self.nonBayes_tolerance,
             "max_rounds": self.max_rounds
         }
 
@@ -109,9 +98,9 @@ def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_
         return step % len(agents)
 
     if config is None:
-        non_bayesian_agent = NonBayesianSentimentAgent(agents)
+        sentiment_agent = SentimentAgent(agents)
     else:
-        non_bayesian_agent = NonBayesianSentimentAgent(agents, config.nonBayes_alpha, config.nonBayes_tolerance)
+        sentiment_agent = SentimentAgent(agents)
 
     simulator = DialogueSimulator(agents=agents, selection_function=select_next_speaker)
     simulator.reset()
@@ -130,7 +119,7 @@ def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_
             # print('round:', round_counter, 'speaker:', name,  'speaker_idx:', speaker_idx)
 
             # Update the agent's sentiment and check if the stopping condition is met
-            if non_bayesian_agent.update(speaker_idx) == "Break":
+            if sentiment_agent.update(speaker_idx) == "Break":
                 # print(f"Agent {name} has triggered the stopping condition, ending simulation.")
                 break  # Exit the for-loop if the stopping condition is met
 
@@ -156,7 +145,7 @@ def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_
         "Summary": summary,
     }
 
-    return output, non_bayesian_agent, history
+    return output, sentiment_agent, history
 
 
 def fetch_agent_profiles(advisors: List[str], job_title: str) -> str:
@@ -230,18 +219,18 @@ def simulate(
         agents = initialize_agents(agent_names, agent_system_messages, temperature=config.dialog_temp)
     else:
         agents = initialize_agents(agent_names, agent_system_messages)
-    output, non_bayesian_agent, history = run_simulation(agents, specified_topic, candidate_name=candidate_name,
+    output, sentiment_agent, history = run_simulation(agents, specified_topic, candidate_name=candidate_name,
                                                          config=config)
 
-    return output, non_bayesian_agent, agents, history, initial_conditions
+    return output, sentiment_agent, agents, history, initial_conditions
 
 
-def get_simulation_output(agents, non_bayesian_agent, history, output):
+def get_simulation_output(agents, sentiment_agent, history, output):
     # dm = DecisionMaker(agents)
     # decision_metrics = {
     #    x.name: x.decision_metrics for x in dm.agents
     # }
-    report = AdvisorReport(agents)
+    # report = AdvisorReport(agents)
     agent_data = [{
         "name": agent.name,
         "messages": [x.to_dict() for x in agent.messages],
@@ -250,109 +239,15 @@ def get_simulation_output(agents, non_bayesian_agent, history, output):
         "agent_data": agent_data,
         "raw_history": history,
         "summarized_output": output,
-        "opinion_report": report.generate().to_dict(orient="records"),
+        # "opinion_report": report.generate().to_dict(orient="records"),
         # "decision_metrics": decision_metrics,
-        "non_bayesian_data": {
-            "change": non_bayesian_agent.change_tracker,
-            "sentiment_data": non_bayesian_agent.agent_tracker,
+        "sentiment_data": {
+            "change": sentiment_agent.change_tracker,
+            "sentiment_data": sentiment_agent.agent_tracker,
         }
     }
     return out
-# def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config=None, num_processes=None):
-#     seed = 42
-#     random.seed(seed)
-#     np.random.seed(seed)
-#     os.environ["PYTHONHASHSEED"] = str(seed)
-#     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-#     output_dir = f"output_files/{timestamp}"
-#     os.makedirs(output_dir, exist_ok=True)
-#     print("🔬 Starting simulation with the following parameters:",
-#           f"simulation_setup_data={simulation_setup_data}, "
-#           f"candidate_csv={candidate_csv}, "
-#           f"candidate_name={candidate_name}, "
-#           f"candidate_bio={candidate_bio}, "
-#           f"config={config}")
-#     # 1) Run single-LLM evaluation first:
-#     if candidate_csv:
-#         print("🖋️  Running single-LLM evaluation on", candidate_csv)
-#         # this will produce single_llm_evaluation_results.csv in cwd
-#         single_llm_path = generate_response_from_sample(os.path.basename(candidate_csv), output_dir=output_dir)
-#         print(f"Single-LLM evaluation results saved to {single_llm_path}")
-#     else:
-#         # if you're doing a one-off candidate_name/bio run, you could call
-#         # your single-LLM logic directly here instead.
-#         raise ValueError("single-LLM evaluation requires a candidate_csv")
-#
-#     with open(simulation_setup_data, "r", encoding="utf-8") as f:
-#         simulation_setup_data = json.load(f)
-#     job_title = simulation_setup_data["job_title"]
-#     job_description = simulation_setup_data["job_description"]
-#     advisors = [{"title": x} for x in simulation_setup_data['technical_advisors']]
-#
-#     if candidate_csv:
-#         input_data = pd.read_csv(candidate_csv).to_dict('records')
-#     elif candidate_name and candidate_bio:
-#         input_data = [{"candidate_name": candidate_name, "resume": candidate_bio}]
-#     else:
-#         raise ValueError("Either candidate_csv or both candidate_name and candidate_bio must be provided.")
-#
-#
-#     non_bayesian_agents = []
-#
-#     # wrap the loop in tqdm
-#     for advisor_data in tqdm(input_data, desc="🔬 Simulations", unit="cand"):
-#         candidate_name = advisor_data["candidate_name"]
-#         candidate_bio = advisor_data['resume']
-#         tools = []
-#         if config is not None:
-#             output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-#                 candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
-#             )
-#         else:
-#             output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-#                 candidate_name, candidate_bio, job_title, job_description, tools, advisors
-#             )
-#
-#
-#         # with get_openai_callback() as cb:
-#         #     if config is not None:
-#         #         output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-#         #             candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
-#         #         )
-#         #     else:
-#         #         output, non_bayesian_agent, agents, history, initial_conditions = simulate(
-#         #             candidate_name, candidate_bio, job_title, job_description, tools, advisors
-#         #         )
-#         non_bayesian_agents.append(non_bayesian_agent)
-#         simulation_data = get_simulation_output(agents, non_bayesian_agent, history, output)
-#         # costs = {
-#         #     "Total_Tokens": f"{cb.total_tokens}",
-#         #     "Prompt_Tokens": f"{cb.prompt_tokens}",
-#         #     "Completion_Tokens": f"{cb.completion_tokens}",
-#         #     "Total_Cost_USD": f"${cb.total_cost}"
-#         # }
-#         costs = {
-#             "Total_Tokens": "N/A",
-#             "Prompt_Tokens": "N/A",
-#             "Completion_Tokens": "N/A",
-#             "Total_Cost_USD": "N/A"
-#         }
-#         simulation_data["costs"] = costs
-#         simulation_data["initial_conditions"] = initial_conditions
-#
-#         candidate_dir = os.path.join(output_dir, candidate_name)
-#         os.makedirs(candidate_dir, exist_ok=True)
-#
-#         sim_data_file = os.path.join(candidate_dir, "simulation_data.json")
-#         with open(sim_data_file, "w", encoding="utf-8") as f:
-#             json.dump(simulation_data, f, indent=2)
-#
-#     print("🔬 All simulations complete. Kicking off evaluation…")
-#     eval_main(
-#         experiment_directory=output_dir,
-#         resume_file=single_llm_path,
-#         num_processes=num_processes if num_processes is not None else max(1, mp.cpu_count() - 1)
-#     )
+
 
 def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candidate_bio=None, config=None, num_processes=None):
     seed = 42
@@ -390,23 +285,23 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
 
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     output_dir = f"output_files/{timestamp}"
-    non_bayesian_agents = []
-    pbar = tqdm(input_data, desc="🔬 Simulations", unit="cand")
+    sentiment_agents = []
+    # pbar = tqdm(input_data, desc="🔬 Simulations", unit="cand")
     for advisor_data in input_data:
         candidate_name = advisor_data["candidate_name"]
         candidate_bio = advisor_data['resume']
         tools = []
         with get_openai_callback() as cb:
             if config is not None:
-                output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+                output, sentiment_agent, agents, history, initial_conditions = simulate(
                     candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
                 )
             else:
-                output, non_bayesian_agent, agents, history, initial_conditions = simulate(
+                output, sentiment_agent, agents, history, initial_conditions = simulate(
                     candidate_name, candidate_bio, job_title, job_description, tools, advisors
                 )
-        non_bayesian_agents.append(non_bayesian_agent)
-        simulation_data = get_simulation_output(agents, non_bayesian_agent, history, output)
+        sentiment_agents.append(sentiment_agent)
+        simulation_data = get_simulation_output(agents, sentiment_agent, history, output)
         costs = {
             "Total_Tokens": f"{cb.total_tokens}",
             "Prompt_Tokens": f"{cb.prompt_tokens}",
@@ -431,18 +326,6 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
         resume_file=single_llm_path,
         num_processes=num_processes if num_processes is not None else max(1, mp.cpu_count() - 1)
     )
-
-
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser(description='Run simulation for candidate(s).')
-#     parser.add_argument('--simulation_setup_data', type=str, help='JSON file containing simulation setup data.')
-#     parser.add_argument('--candidate_csv', type=str, help='CSV file containing candidate names and resumes.')
-#     parser.add_argument('--candidate_name', type=str, help='Name of a single candidate.')
-#     parser.add_argument('--candidate_bio', type=str, help='Resume of a single candidate.')
-#     parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility.')
-#
-#     args = parser.parse_args()
-#     main(args.simulation_setup_data, args.candidate_csv, args.candidate_name, args.candidate_bio, config=config)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run simulation for candidate(s).')

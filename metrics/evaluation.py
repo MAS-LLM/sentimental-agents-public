@@ -150,7 +150,7 @@ def compare_single_llm_vs_multiagent_sentiment(
         # multiagent stats
         sentiments = [
             scores[-1]
-            for scores in candidate_data["non_bayesian_data"]["sentiment_data"].values()
+            for scores in candidate_data["sentiment_data"]["sentiment_data"].values()
             if scores
         ]
         mean_multi = float(np.mean(sentiments))
@@ -204,9 +204,6 @@ def compare_single_llm_vs_multiagent_sentiment(
     return out_csv
 
 
-
-
-
 def analyze_emergent_behavior(sim_data, directory):
     """Evaluate and save metrics related to emergent behaviors like groupthink, polarization, and consensus."""
     behavior_results = []
@@ -219,8 +216,8 @@ def analyze_emergent_behavior(sim_data, directory):
         agent_syncs = []  # Consensus or groupthink
 
         if isinstance(scenario_data, dict):
-            non_bayesian_data = scenario_data.get("non_bayesian_data", {})
-            sentiment_data = non_bayesian_data.get("sentiment_data", {})
+            sentiment_data = scenario_data.get("sentiment_data", {})
+            sentiment_data = sentiment_data.get("sentiment_data", {})
 
             # 1. Sentiment Variance Across Agents: Polarization measure
             sentiment_variance_across_agents = np.var([scores[-1] for scores in sentiment_data.values()])

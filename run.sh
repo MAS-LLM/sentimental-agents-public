@@ -21,7 +21,7 @@ echo "🔬 Starting batch runs with up to ${NUM_PROCS} parallel workers"
 echo "🎯 Using CPU cores: ${MULTIAGENT_CORES}"
 
 for i in $(seq 1 1); do
-    CANDIDATE_CSV="${INPUT_DIR}/samp_${i}.csv"
+    CANDIDATE_CSV="${INPUT_DIR}/default_sample_${i}.csv"
 
     echo "=========================================="
     echo "🚀 Processing ${CANDIDATE_CSV}"

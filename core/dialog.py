@@ -1,9 +1,7 @@
 import os
 from typing import List, Callable
-
 from langchain.schema import HumanMessage, SystemMessage
 from langchain_community.chat_models import ChatOpenAI
-# from langchain_anthropic import ChatAnthropic
 from langchain.agents import initialize_agent, AgentType
 from langchain.memory import ConversationBufferMemory
 import tiktoken
@@ -14,11 +12,6 @@ sentiment_analyzer = SentimentAnalyzer()
 
 OPENAI_MODEL = os.getenv("OPENAI_MODEL")
 encoding = tiktoken.encoding_for_model(OPENAI_MODEL)
-# def dummy_encode(text: str):
-#     # crude token count approximation by splitting on whitespace
-#     return text.split()
-#
-# encoding = type("DummyEncoding", (), {"encode": dummy_encode})()
 
 class AgentMessage:
     def __init__(self, content: str, sentiment_data: dict = None, metrics: dict = None) -> None:
@@ -39,7 +32,6 @@ class DialogueAgent:
         self,
         name: str,
         system_message: SystemMessage,
-        # model: ChatAnthropic,  # Use ChatAnthropic for compatibility with the latest version
         model: ChatOpenAI,
     ) -> None:
         self.name = name
@@ -93,27 +85,6 @@ class DialogueSimulator:
         for agent in self.agents:
             agent.receive(name, message)
         self._step += 1
-
-    # def step(self) -> tuple:
-    #     try:
-    #         speaker_idx = self.select_next_speaker(self._step, self.agents)
-    #         if speaker_idx is None or speaker_idx >= len(self.agents):
-    #             print(f"Invalid speaker_idx: {speaker_idx}")
-    #             return None, None, None
-    #
-    #         speaker = self.agents[speaker_idx]
-    #         agent_message = speaker.send()
-    #
-    #         for receiver in self.agents:
-    #             receiver.receive(speaker.name, agent_message)
-    #         self._step += 1
-    #         self.conversation_history.append(f"({speaker.name}): {agent_message}")
-    #         return speaker.name, agent_message, speaker_idx
-    #     except Exception as e:
-    #         print(f"An error occurred in step method: {e}")
-    #         import traceback
-    #         traceback.print_exc()
-    #         return None, None, None
     def step(self) -> tuple[str, AgentMessage, int]:
         try:
             speaker_idx = self.select_next_speaker(self._step, self.agents)
@@ -136,29 +107,10 @@ class DialogueSimulator:
 
 
 class DialogueAgentWithTools(DialogueAgent):
-    # def __init__(self, name: str, system_message: SystemMessage, model: ChatAnthropic, tools, **tool_kwargs) -> None:
-    #     super().__init__(name, system_message, model)
-    #     self.tools = tools
-    #     self.total_tokens = 0
     def __init__(self, name: str, system_message: SystemMessage, model: ChatOpenAI, tools, **tool_kwargs) -> None:
         super().__init__(name, system_message, model)
         self.tools = tools
         self.total_tokens = 0
-    # def send(self) -> str:
-    #     message = self.model([
-    #         self.system_message,
-    #         HumanMessage(content="\n".join(self.message_history + [self.prefix])),
-    #     ])
-    #     message_content = message.content
-    #     self.own_messages.append(message_content)
-    #
-    #     # Create AgentMessage with sentiment analysis
-    #     agent_message = AgentMessage(
-    #         content=message_content,
-    #         sentiment_data=sentiment_analyzer.analyze_message(message_content),
-    #     )
-    #     self.messages.append(agent_message)
-    #     return message_content
     def send(self) -> AgentMessage:
         agent_chain = initialize_agent(
             self.tools, self.model, agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
