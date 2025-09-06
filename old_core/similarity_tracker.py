@@ -15,7 +15,7 @@ model = model.to(device)
 
 class SentimentTracker:
     def __init__(self, agents: list, visualize=True) -> None:
-        self.visualize = visualize
+        # self.visualize = visualize
         self.similarities = {agent: [] for agent in agents}
         self.messages = {agent: [] for agent in agents}
         self.text_embeddings = []

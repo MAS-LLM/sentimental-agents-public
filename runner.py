@@ -1,32 +1,20 @@
-from typing import List, Dict, Callable, Tuple, Any, Union
+from typing import List, Dict, Tuple, Any
 import os
 import logging
 
 from dotenv import load_dotenv
 load_dotenv()
-import concurrent.futures
 
-from core.dialog import DialogueSimulator, DialogueAgent, DialogueAgentWithTools
+from core.dialog import DialogueSimulator, DialogueAgent
 
 from utilities import summarise_document
 #from tool_loader import TOOLS
-from utilities.data_loader import load_file
-import pandas as pd
-
-from collections import defaultdict
-import json
-import wandb
 
 
 from core.simulation_utilities import generate_agent_information, generate_system_messages, generate_topic, specify_topic, initialize_agents
 from core.non_bayesian import NonBayesianSentimentAgent
-from langchain.callbacks import get_openai_callback
-from metrics.decision_making import DecisionMaker
-from utilities.opinion_analyser import AdvisorReport
-import argparse
-import pandas as pd
 from utilities.utilities import summarise_document
-from utilities.plots import create_change_sentiment_plot
+from old_utilities.plots import create_change_sentiment_plot
 
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s]: %(message)s")

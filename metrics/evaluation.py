@@ -14,17 +14,14 @@ from polyfuzz import PolyFuzz
 from polyfuzz.models import SentenceEmbeddings
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
-
 from llama_index.core import VectorStoreIndex
 from llama_index.core.node_parser import MarkdownNodeParser
 from llama_index.embeddings.langchain import LangchainEmbedding
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from llama_index.core import Document
 from llama_index.core import Settings
-
 import multiprocessing as mp
 from functools import partial
-
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Download NLTK stopwords

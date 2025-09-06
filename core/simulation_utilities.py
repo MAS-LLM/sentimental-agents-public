@@ -3,9 +3,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
+from langchain.schema import HumanMessage, SystemMessage
 from langchain_community.chat_models import ChatOpenAI
-from core.dialog import DialogueSimulator, DialogueAgent, DialogueAgentWithTools
+from core.dialog import DialogueAgent, DialogueAgentWithTools
 from core.advisory_brief import (
     TOPIC, ADVISOR_PRIORITIES, ADVISOR_DESCRIPTION, 
     ADVISOR_CRITERIA, SYSTEM_MESSAGE, SPECIFIC_TOPIC,

@@ -1,16 +1,14 @@
-from typing import List, Dict, Callable, Tuple, Any, Union
+from typing import List, Dict,Tuple, Any
 import multiprocessing as mp
 import os
 import pathlib
 import sys
 sys.path.append(str(pathlib.Path(__file__).parent / "metrics"))
 sys.path.append(str(pathlib.Path(__file__).parent / "single_llm_control"))
-import logging
 import numpy as np
 from dotenv import load_dotenv
 load_dotenv()
-from core.dialog import DialogueSimulator, DialogueAgent, DialogueAgentWithTools
-from utilities.utilities import summarise_document
+from core.dialog import DialogueSimulator, DialogueAgent
 from single_llm_control.evaluate_single_llm import generate_response_from_sample
 import pandas as pd
 import json
@@ -18,15 +16,12 @@ from core.simulation_utilities import generate_agent_information, generate_syste
     specify_topic, initialize_agents
 from core.sentiment_agent import SentimentAgent
 from langchain.callbacks import get_openai_callback
-from utilities.opinion_analyser import AdvisorReport
 import argparse
 import datetime
 import random
 from metrics.evaluation import eval_main
-from tqdm import tqdm
 import warnings
 import logging
-# import numpy as np
 # ─── 1) Global Python warnings ─────────────────────────────────────────────────
 warnings.filterwarnings("ignore")                              # hide UserWarning, DeprecationWarning, etc.
 warnings.filterwarnings("ignore", category=DeprecationWarning)  # specifically hide DeprecationWarning
@@ -82,9 +77,6 @@ class Config:
 # Usage:
 config = Config()
 
-# print(config)
-# print(config.to_dict())
-
 def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_name, config=None) -> Tuple[
     str, Dict[str, Any]]:
     """Run the simulation and return the summary and analytics."""
@@ -115,9 +107,6 @@ def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_
         # Iterate through each agent in the simulation
         for i in range(len(agents)):
             name, agent_message, speaker_idx = simulator.step()  # Get new data from the simulator
-
-            # print('round:', round_counter, 'speaker:', name,  'speaker_idx:', speaker_idx)
-
             # Update the agent's sentiment and check if the stopping condition is met
             if sentiment_agent.update(speaker_idx) == "Break":
                 # print(f"Agent {name} has triggered the stopping condition, ending simulation.")
@@ -134,18 +123,7 @@ def run_simulation(agents: List[DialogueAgent], specified_topic: str, candidate_
 
     # Post-process conversation for analytics
     history = simulator.conversation_history
-
-    if config is None:
-        summary = summarise_document(history)
-    else:
-        summary = summarise_document(history, config.summarize_temp)
-
-    output = {
-        "Candidate Name": candidate_name,
-        "Summary": summary,
-    }
-
-    return output, sentiment_agent, history
+    return sentiment_agent, history
 
 
 def fetch_agent_profiles(advisors: List[str], job_title: str) -> str:
@@ -219,18 +197,13 @@ def simulate(
         agents = initialize_agents(agent_names, agent_system_messages, temperature=config.dialog_temp)
     else:
         agents = initialize_agents(agent_names, agent_system_messages)
-    output, sentiment_agent, history = run_simulation(agents, specified_topic, candidate_name=candidate_name,
+    sentiment_agent, history = run_simulation(agents, specified_topic, candidate_name=candidate_name,
                                                          config=config)
 
-    return output, sentiment_agent, agents, history, initial_conditions
+    return sentiment_agent, agents, history, initial_conditions
 
 
-def get_simulation_output(agents, sentiment_agent, history, output):
-    # dm = DecisionMaker(agents)
-    # decision_metrics = {
-    #    x.name: x.decision_metrics for x in dm.agents
-    # }
-    # report = AdvisorReport(agents)
+def get_simulation_output(agents, sentiment_agent, history):
     agent_data = [{
         "name": agent.name,
         "messages": [x.to_dict() for x in agent.messages],
@@ -238,9 +211,7 @@ def get_simulation_output(agents, sentiment_agent, history, output):
     out = {
         "agent_data": agent_data,
         "raw_history": history,
-        "summarized_output": output,
-        # "opinion_report": report.generate().to_dict(orient="records"),
-        # "decision_metrics": decision_metrics,
+        # "summarized_output": output,
         "sentiment_data": {
             "change": sentiment_agent.change_tracker,
             "sentiment_data": sentiment_agent.agent_tracker,
@@ -293,15 +264,15 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
         tools = []
         with get_openai_callback() as cb:
             if config is not None:
-                output, sentiment_agent, agents, history, initial_conditions = simulate(
+                sentiment_agent, agents, history, initial_conditions = simulate(
                     candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
                 )
             else:
-                output, sentiment_agent, agents, history, initial_conditions = simulate(
+                sentiment_agent, agents, history, initial_conditions = simulate(
                     candidate_name, candidate_bio, job_title, job_description, tools, advisors
                 )
         sentiment_agents.append(sentiment_agent)
-        simulation_data = get_simulation_output(agents, sentiment_agent, history, output)
+        simulation_data = get_simulation_output(agents, sentiment_agent, history)
         costs = {
             "Total_Tokens": f"{cb.total_tokens}",
             "Prompt_Tokens": f"{cb.prompt_tokens}",
