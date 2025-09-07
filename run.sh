@@ -38,7 +38,12 @@ case "${OS}" in
         USE_CPU_AFFINITY=true
         ;;
     "macos")
-        PYTHON_CMD="python3"
+        # Prefer conda env python if active
+        if [ -n "${CONDA_PREFIX:-}" ] && [ -x "${CONDA_PREFIX}/bin/python" ]; then
+            PYTHON_CMD="${CONDA_PREFIX}/bin/python"
+        else
+            PYTHON_CMD="$(command -v python3)"
+        fi
         USE_CPU_AFFINITY=false
         ;;
     "windows")

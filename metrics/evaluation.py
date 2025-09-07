@@ -16,8 +16,13 @@ from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 from llama_index.core import VectorStoreIndex
 from llama_index.core.node_parser import MarkdownNodeParser
-from llama_index.embeddings.langchain import LangchainEmbedding
 from langchain_community.embeddings import HuggingFaceEmbeddings
+from llama_index.core import Settings
+
+
+
+# from llama_index.embeddings.langchain import LangchainEmbedding
+# from langchain_community.embeddings import HuggingFaceEmbeddings
 from llama_index.core import Document
 from llama_index.core import Settings
 import multiprocessing as mp
@@ -31,11 +36,15 @@ nltk.download('stopwords', quiet=True)
 load_dotenv()
 
 # Set up device and embedding model for defensibility check
+# device = "cuda" if torch.cuda.is_available() else "cpu"
+# embed_model = LangchainEmbedding(
+#     HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2", model_kwargs={"device": device})
+# )
 device = "cuda" if torch.cuda.is_available() else "cpu"
-embed_model = LangchainEmbedding(
-    HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2", model_kwargs={"device": device})
+Settings.embed_model = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-mpnet-base-v2",
+    model_kwargs={"device": device}
 )
-
 def bland_altman_plot(sentiment_df: pd.DataFrame, output_dir="results"):
     """
     Generate a Bland-Altman plot comparing Single LLM vs Multiagent sentiment.
@@ -510,9 +519,9 @@ def sentiment_non_bayesian_plot(candidate_name, candidate_data, candidate_dir, c
         print(f"No agent data available for {candidate_name}. Skipping.")
         return
 
-    non_bayesian_data = candidate_data.get("non_bayesian_data", {})
-    sentiment_data = non_bayesian_data.get("sentiment_data", {})
-    change_data = non_bayesian_data.get("change", {})
+    sentiment_data = candidate_data.get("sentiment_data", {})
+    sentiment_data = sentiment_data.get("sentiment_data", {})
+    change_data = sentiment_data.get("change", {})
 
     # Determine the maximum number of rounds
     max_rounds = max(len(scores) for scores in sentiment_data.values())
@@ -613,7 +622,6 @@ def run_defensibility_check(sim_data: dict, directory: str, export: bool = True)
         documents = [Document(text=resume)]
         node_parser = MarkdownNodeParser.from_defaults()
         Settings.node_parser = node_parser
-        Settings.embed_model = embed_model
 
         index = VectorStoreIndex.from_documents(documents, show_progress=False)
         retriever = index.as_retriever()
