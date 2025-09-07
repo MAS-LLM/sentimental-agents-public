@@ -3,4 +3,11 @@ __pycache__/
 .env
 output_files/
 plot_outputs/
+old_core/
+old_metric/
+old_utilities/
+log.txt
+runner.py
+start.sh
+analyze_non_bayes.py
 
