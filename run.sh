@@ -124,8 +124,8 @@ if [ ! -d "${INPUT_DIR}" ]; then
 fi
 
 # Process CSV files
-for i in $(seq 1 10); do  # Increased range to check more files
-    CANDIDATE_CSV="${INPUT_DIR}/default_sample_${i}.csv"
+for i in $(seq 1 1); do  # Increased range to check more files
+    CANDIDATE_CSV="${INPUT_DIR}/sample_${i}.csv"
 
     # Skip if file doesn't exist
     if [ ! -f "${CANDIDATE_CSV}" ]; then

@@ -49,11 +49,11 @@ logging.getLogger("torch").setLevel(logging.ERROR)
 
 class Config:
     def __init__(self):
-        self.dialog_temp = 0.0
-        self.specifyTopic_temp = 0.0
-        self.generateContent_temp = 0.0  # Content gen for agent messages TODO: split parameters for individual agents
-        self.summarize_temp = 0
-        self.max_rounds = 1
+        self.dialog_temp = 0.7
+        self.specifyTopic_temp = 0.7
+        self.generateContent_temp = 0.7  # Content gen for agent messages TODO: split parameters for individual agents
+        self.summarize_temp = 0.7
+        self.max_rounds = 3
 
     def __str__(self):
         return (f"Config(\n"

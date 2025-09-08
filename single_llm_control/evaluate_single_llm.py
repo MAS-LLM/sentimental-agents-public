@@ -95,7 +95,7 @@ def generate_response_from_sample(csv_filename=None, output_dir=None):
             # Chat Completions API (stable)
             chat = client.chat.completions.create(
                 model=OPENAI_MODEL,
-                temperature=0.0,
+                temperature=0.7,
                 max_tokens=600,
                 messages=[
                     {"role": "system", "content": "You are a concise, direct hiring advisor."},
