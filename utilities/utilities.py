@@ -1,85 +1,57 @@
-# Standard Library Imports
-from typing import List, Dict, Any
+# utilities.py
+
 import os
-from langchain_community.chat_models import ChatOpenAI
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
-OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+from typing import Dict, Any
+from langchain_ollama import OllamaLLM
+from langchain.schema import HumanMessage
+
+# Define the available Ollama models you’ve pulled locally
+OLLAMA_MODELS = {
+    "llama3": "llama3",
+    "mistral": "mistral",
+    "gemma": "gemma",
+    "gpt-oss": "gpt-oss",
+    # Add more if you have pulled them via `ollama pull <model>`
+}
+
+
+def get_model(model_name: str = "llama3", temperature: float = 0.3):
+    """Return an Ollama-backed model via LangChain OllamaLLM."""
+    if model_name not in OLLAMA_MODELS:
+        raise ValueError(f"Unknown model '{model_name}'. Available: {list(OLLAMA_MODELS.keys())}")
+
+    model_id = OLLAMA_MODELS[model_name]
+
+    return OllamaLLM(
+        model=model_id,
+        temperature=temperature,
+        # optional extras you can pass:
+        num_ctx=2048,   # context window size
+        num_predict=200 # max tokens to generate
+    )
+
 
 def handle_error(error: Exception) -> str:
-    """Handle errors and return a truncated message.
-
-    Parameters:
-        error (Exception): The Exception object.
-
-    Returns:
-        str: Truncated error message.
-    """
+    """Truncate error message for logging/agents."""
     return str(error)[:50]
 
-def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
-    """Generate content using a specified template.
 
-    Parameters:
-        name (str): Name of the agent.
-        template (str): The template to be filled.
-        word_limit (int): Limit for word count.
-        extra_vars (Dict[str, Any]): Extra variables to be used in formatting.
-
-    Returns:
-        str: Generated content.
-    """
-    prompt_vars = {'name': name, 'word_limit': word_limit}
+def generate_content_from_template(
+    name: str,
+    template: str,
+    word_limit: int = None,
+    extra_vars: Dict[str, Any] = None,
+    model_name: str = "llama3",
+    temperature: float = 0.3,
+) -> str:
+    """Generate content by filling a template and running it through the selected chat model."""
+    prompt_vars = {"name": name, "word_limit": word_limit}
     if extra_vars:
         prompt_vars.update(extra_vars)
 
-    prompt = [
-        HumanMessage(
-            content=template.format(**prompt_vars)
-        ),
-    ]
-    return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
-#
-#
-# def extract_names(text: str) -> List[str]:
-#    """Extract names from the given text.
-#
-#    Parameters:
-#        text (str): Input text from which to extract names.
-#
-#    Returns:
-#        List[str]: List of names.
-#    """
-#    doc = nlp(text)
-#    return [entity.text for entity in doc.ents if entity.label_ == "PERSON"]
-#
-#
-# def summarise_document(messages_history: Any, temperature = 0) -> str:
-#     """Generate a summary for the provided messages.
-#
-#     Parameters:
-#         messages_history (Any): History of messages to be summarized.
-#
-#     Returns:
-#         str: Summary of the document.
-#     """
-#     try:
-#         summary_template = """Write a concise summary of the following messages:
-#
-#         {messages_history}
-#
-#         Answer in bullet points.
-#         Don't use corporate jargon.
-#
-#         """
-#         llm = ChatOpenAI(model = OPENAI_MODEL,temperature=temperature, max_tokens=256)
-#         prompt = PromptTemplate(template=summary_template, input_variables=["messages_history"])
-#         chain = LLMChain(llm=llm, prompt=prompt)
-#
-#         input_data = {
-#             "messages_history": "\n".join([str(x) for x in messages_history]) if isinstance(messages_history, list) else messages_history
-#         }
-#         return chain.run(input_data)
-#
-#     except Exception as e:
-#         print(f"An error occurred while summarizing the document: {handle_error(e)}")
-#         return None
+    prompt_text = template.format(**prompt_vars)
+    chat_model = get_model(model_name, temperature)
+
+    # OllamaLLM works with plain strings (no need to wrap in HumanMessage)
+    response = chat_model.invoke(prompt_text)
+    return response if isinstance(response, str) else str(response)
