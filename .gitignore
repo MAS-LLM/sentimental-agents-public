@@ -10,4 +10,7 @@ log.txt
 runner.py
 start.sh
 analyze_non_bayes.py
+simulations/
+candidates/
+global_analysis.py
 

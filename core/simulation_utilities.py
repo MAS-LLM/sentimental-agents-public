@@ -64,20 +64,27 @@ def generate_topic(candidate_name: str, candidate_bio: str, job_title: str, job_
         role_description=job_description,
     )
 
-
+# In simulation_utilities.py, add debugging to system message generation
 def generate_system_messages(
-    agent_names: Dict,
-    agent_descriptions: Dict,
-    agent_priorities: Dict,
-    agent_criteria: Dict,
-    tools: Dict,
-    conversation_description: str,
-    model_name: str,
-    temperature: float,
+        agent_names: Dict,
+        agent_descriptions: Dict,
+        agent_priorities: Dict,
+        agent_criteria: Dict,
+        tools: Dict,
+        conversation_description: str,
+        model_name: str,
+        temperature: float,
 ) -> Dict[str, str]:
     """Generate system messages for each agent using Ollama models (as plain strings)."""
-    return {
-        name: generate_content_from_template(
+    system_messages = {}
+
+    for (name, tools), description, priority, criterion in zip(
+            agent_names.items(),
+            agent_descriptions.values(),
+            agent_priorities.values(),
+            agent_criteria.values(),
+    ):
+        system_msg = generate_content_from_template(
             name,
             SYSTEM_MESSAGE,
             extra_vars={
@@ -90,13 +97,12 @@ def generate_system_messages(
             model_name=model_name,
             temperature=temperature,
         )
-        for (name, tools), description, priority, criterion in zip(
-            agent_names.items(),
-            agent_descriptions.values(),
-            agent_priorities.values(),
-            agent_criteria.values(),
-        )
-    }
+
+        # Debug print
+        # print(f"DEBUG: Generated system message for {name}: '{system_msg[:100]}...'")
+        system_messages[name] = system_msg
+
+    return system_messages
 
 
 def specify_topic(

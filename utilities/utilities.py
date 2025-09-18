@@ -1,5 +1,3 @@
-# utilities.py
-
 import os
 from typing import Dict, Any
 from langchain_ollama import OllamaLLM
@@ -9,8 +7,9 @@ from langchain.schema import HumanMessage
 OLLAMA_MODELS = {
     "llama3": "llama3",
     "mistral": "mistral",
-    "gemma": "gemma",
+    "gemma2:2b": "gemma2:2b",
     "gpt-oss": "gpt-oss",
+    "deepseek-r1:1.5b": "deepseek-r1:1.5b",
     # Add more if you have pulled them via `ollama pull <model>`
 }
 

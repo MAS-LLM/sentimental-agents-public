@@ -7,7 +7,6 @@ from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from llama_index.core import Settings, Document
-
 import matplotlib.pyplot as plt
 import os
 import multiprocessing as mp
@@ -574,4 +573,4 @@ def eval_main(experiment_directory, num_processes):
         # Statistical comparisons
         analyze_statistical_significance(combined_df, experiment_directory, tag="global")
 
-    print("\n✅ Comprehensive sentiment-based evaluation complete.")
+    print("\n Comprehensive sentiment-based evaluation complete.")

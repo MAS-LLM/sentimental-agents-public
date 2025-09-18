@@ -1,12 +1,9 @@
-# main.py
 from typing import List, Dict, Tuple, Any
 import multiprocessing as mp
 import os
 import pathlib
 import sys
 sys.path.append(str(pathlib.Path(__file__).parent / "metrics"))
-sys.path.append(str(pathlib.Path(__file__).parent / "single_llm_control"))
-
 import numpy as np
 from dotenv import load_dotenv
 load_dotenv()
@@ -128,7 +125,7 @@ def run_simulation(
     round_counter = 0
     while round_counter < config.max_rounds:
         for _ in range(len(agents)):
-            name, agent_message, speaker_idx = simulator.step()
+            name, message_content, speaker_idx = simulator.step()  # Now returns string content
             if speaker_idx is None:
                 print("Skipping sentiment update because step() failed")
                 continue
@@ -290,6 +287,7 @@ def main(
 ):
     # Define feedback modes directly
     feedback_modes = ["none", "own_sentiment", "others_sentiment"]
+    # feedback_modes = ["none"]
 
     # Load job setup data
     with open(simulation_setup_data, "r", encoding="utf-8") as f:
@@ -311,7 +309,7 @@ def main(
     for model_name in models:
         base_config = Config(
             model_name=model_name,
-            seeds=[42]
+            seeds=[10],
         )
 
         print(f"Running full experiment with model: {model_name}")
@@ -420,7 +418,8 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    models = ["llama3", "gpt-oss"]
+    # models = ["llama3", "gpt-oss", "deepseek-r1:1.5b"]
+    models = ["deepseek-r1:1.5b"]
     dialog_temps = [0.0, 0.3, 0.7]
     main(
         simulation_setup_data=args.simulation_setup_data,

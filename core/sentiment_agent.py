@@ -86,7 +86,7 @@ class SentimentAgent:
 
         semantic_stop = all(repeating_flags)
 
-        print(f"[Stopping Check] sims={sims_log}, semantic_stop={semantic_stop}")
+        # print(f"[Stopping Check] sims={sims_log}, semantic_stop={semantic_stop}")
 
         return semantic_stop
 

@@ -1,5 +1,3 @@
-# dialog.py
-
 import os
 import traceback
 from typing import List, Callable
@@ -43,7 +41,7 @@ class DialogueAgent:
         self.message_history = ["Here is the conversation so far."]
         self.messages = []
 
-    def send(self) -> str:
+    def send(self) -> AgentMessage:  # Changed return type to match others
         short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
         limit_instruction = "\nRespond in no more than 2 sentences."
         prompt = "\n".join(short_context + [self.prefix]) + limit_instruction
@@ -53,14 +51,24 @@ class DialogueAgent:
             system_text = getattr(self.system_message, "content", str(self.system_message))
             response = self.model.invoke(system_text + "\n" + prompt)
             message_content = response if isinstance(response, str) else str(response)
+
+            # Debug print to see what's being generated
+            print(f"DEBUG: {self.name} generated: '{message_content[:50]}...'")
+
         except Exception as e:
-            print(f"❌ Error in {self.name}.send():", e)
+            print(f"Error in {self.name}.send():", e)
             traceback.print_exc()
             message_content = "[ERROR: no response]"
 
         self.own_messages.append(message_content)
-        self.messages.append(AgentMessage(content=message_content))
-        return message_content
+
+        # Create AgentMessage with sentiment analysis
+        agent_message = AgentMessage(
+            content=message_content,
+            sentiment_data=sentiment_analyzer.analyze_message(message_content),
+        )
+        self.messages.append(agent_message)
+        return agent_message  # Return AgentMessage object
 
     def receive(self, name: str, message: str) -> None:
         self.message_history.append(f"{name}: {message}")
@@ -103,7 +111,7 @@ class DialogueSimulator:
             self.conversation_history.append(f"({speaker.name}): {agent_message}")
             return speaker.name, agent_message, speaker_idx
         except Exception as e:
-            print("❌ Error in step():", e)
+            print("Error in step():", e)
             traceback.print_exc()
             fallback_msg = AgentMessage(content="[ERROR: step failed]")
             return "UNKNOWN", fallback_msg, 0
@@ -132,7 +140,7 @@ class DialogueAgentWithTools(DialogueAgent):
             response = self.model.invoke(prompt)
             message_content = response if isinstance(response, str) else str(response)
         except Exception as e:
-            print(f"❌ Error in {self.name}.send() with tools:", e)
+            print(f"Error in {self.name}.send() with tools:", e)
             traceback.print_exc()
             message_content = "[ERROR: no response]"
 
@@ -169,7 +177,7 @@ class DialogueAgentWithOwnSentimentFeedback(DialogueAgentWithTools):
             response = self.model.invoke(prompt)
             message_content = response if isinstance(response, str) else str(response)
         except Exception as e:
-            print(f"❌ Error in {self.name}.send() with own sentiment feedback:", e)
+            print(f"Error in {self.name}.send() with own sentiment feedback:", e)
             traceback.print_exc()
             message_content = "[ERROR: no response]"
 
@@ -209,7 +217,7 @@ class DialogueAgentWithOthersSentimentFeedback(DialogueAgentWithTools):
             response = self.model.invoke(prompt)
             message_content = response if isinstance(response, str) else str(response)
         except Exception as e:
-            print(f"❌ Error in {self.name}.send() with others sentiment feedback:", e)
+            print(f"Error in {self.name}.send() with others sentiment feedback:", e)
             traceback.print_exc()
             message_content = "[ERROR: no response]"
 
