@@ -3,6 +3,7 @@ import multiprocessing as mp
 import os
 import pathlib
 import sys
+import time
 sys.path.append(str(pathlib.Path(__file__).parent / "metrics"))
 sys.path.append(str(pathlib.Path(__file__).parent / "single_llm_control"))
 import numpy as np
@@ -15,7 +16,9 @@ import json
 from core.simulation_utilities import generate_agent_information, generate_system_messages, generate_topic, \
     specify_topic, initialize_agents
 from core.sentiment_agent import SentimentAgent
-from langchain.callbacks import get_openai_callback
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
+# from langchain.callbacks import get_openai_callback
 import argparse
 import datetime
 import random
@@ -23,6 +26,7 @@ from metrics.evaluation import eval_main
 import warnings
 import logging
 # ─── 1) Global Python warnings ─────────────────────────────────────────────────
+from langchain_community.llms import Ollama
 warnings.filterwarnings("ignore")                              # hide UserWarning, DeprecationWarning, etc.
 warnings.filterwarnings("ignore", category=DeprecationWarning)  # specifically hide DeprecationWarning
 
@@ -44,6 +48,9 @@ transformers_logging.set_verbosity_error()
 # ─── 4) (Optional) Quiet CUDA / PyTorch info ────────────────────────────────────
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 logging.getLogger("torch").setLevel(logging.ERROR)
+
+# Initialize Ollama model globally
+ollama_llm = Ollama(model="gpt-oss:20b")
 
 
 
@@ -262,24 +269,45 @@ def main(simulation_setup_data, candidate_csv=None, candidate_name=None, candida
         candidate_name = advisor_data["candidate_name"]
         candidate_bio = advisor_data['resume']
         tools = []
-        with get_openai_callback() as cb:
-            if config is not None:
-                sentiment_agent, agents, history, initial_conditions = simulate(
-                    candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
-                )
-            else:
-                sentiment_agent, agents, history, initial_conditions = simulate(
-                    candidate_name, candidate_bio, job_title, job_description, tools, advisors
-                )
+
+        # 2025-09-19: 
+        # Commented out for now in case the team wants to make both OpenAI and local LLM options
+        # available to the users. -KS
+        # 
+        # with get_openai_callback() as cb:
+        #     if config is not None:
+        #         sentiment_agent, agents, history, initial_conditions = simulate(
+        #             candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
+        #         )
+        #     else:
+        #         sentiment_agent, agents, history, initial_conditions = simulate(
+        #             candidate_name, candidate_bio, job_title, job_description, tools, advisors
+        #         )
+
+
+        if config is not None:
+            sentiment_agent, agents, history, initial_conditions = simulate(
+                candidate_name, candidate_bio, job_title, job_description, tools, advisors, config
+            )
+        else:
+            sentiment_agent, agents, history, initial_conditions = simulate(
+                candidate_name, candidate_bio, job_title, job_description, tools, advisors
+            )
         sentiment_agents.append(sentiment_agent)
         simulation_data = get_simulation_output(agents, sentiment_agent, history)
-        costs = {
-            "Total_Tokens": f"{cb.total_tokens}",
-            "Prompt_Tokens": f"{cb.prompt_tokens}",
-            "Completion_Tokens": f"{cb.completion_tokens}",
-            "Total_Cost_USD": f"${cb.total_cost}"
-        }
-        simulation_data["costs"] = costs
+
+        # 2025-09-19: 
+        # Commented out for now in case the team wants to make both OpenAI and local LLM options
+        # available to the users. -KS
+        # 
+        # costs = {
+        #     "Total_Tokens": f"{cb.total_tokens}",
+        #     "Prompt_Tokens": f"{cb.prompt_tokens}",
+        #     "Completion_Tokens": f"{cb.completion_tokens}",
+        #     "Total_Cost_USD": f"${cb.total_cost}"
+        # }
+        # simulation_data["costs"] = costs
+
         simulation_data["initial_conditions"] = initial_conditions
 
         candidate_dir = os.path.join(output_dir, candidate_name)
@@ -336,6 +364,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    start_time = time.perf_counter()
     main(
         simulation_setup_data=args.simulation_setup_data,
         candidate_csv=args.candidate_csv,
@@ -344,3 +373,6 @@ if __name__ == "__main__":
         config=config,
         num_processes=args.num_processes
     )
+    end_time = time.perf_counter()
+    logging.info(f"==== Total Program Execution Time: {end_time/start_time}:.1f")
+    print(f"==== Total Program Execution Time: {end_time/start_time:.1f}")

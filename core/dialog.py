@@ -1,7 +1,8 @@
 import os
 from typing import List, Callable
 from langchain.schema import HumanMessage, SystemMessage
-from langchain_community.chat_models import ChatOpenAI
+# from langchain_community.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOllama
 from langchain.agents import initialize_agent, AgentType
 from langchain.memory import ConversationBufferMemory
 import tiktoken
@@ -9,9 +10,13 @@ from utilities.utilities import handle_error
 from utilities.sentiment import SentimentAnalyzer
 
 sentiment_analyzer = SentimentAnalyzer()
-
-OPENAI_MODEL = os.getenv("OPENAI_MODEL")
-encoding = tiktoken.encoding_for_model(OPENAI_MODEL)
+#####
+# OPENAI_MODEL = os.getenv("OPENAI_MODEL") # ToDo: decide on how we want to differentiate what model to initialize (e.g. command argument, or environment vars?)
+# OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
+OLLAMA_MODEL = "gpt-oss:20b"
+# encoding = tiktoken.encoding_for_model(OPENAI_MODEL) # ToDo: same as above
+# encoding = tiktoken.encoding_for_model("cl100k_base")
+encoding = tiktoken.get_encoding("cl100k_base")
 
 class AgentMessage:
     def __init__(self, content: str, sentiment_data: dict = None, metrics: dict = None) -> None:
@@ -32,7 +37,8 @@ class DialogueAgent:
         self,
         name: str,
         system_message: SystemMessage,
-        model: ChatOpenAI,
+        # model: ChatOpenAI, # ToDo: decide on how we want to differentiate what model to initialize (e.g. command argument, or environment vars?)
+        model: ChatOllama,
     ) -> None:
         self.name = name
         self.system_message = system_message
@@ -47,6 +53,7 @@ class DialogueAgent:
         self.messages = []
 
     def send(self) -> str:
+        #####
         message = self.model([
             self.system_message,
             HumanMessage(content="\n".join(self.message_history + [self.prefix])),
@@ -107,11 +114,13 @@ class DialogueSimulator:
 
 
 class DialogueAgentWithTools(DialogueAgent):
-    def __init__(self, name: str, system_message: SystemMessage, model: ChatOpenAI, tools, **tool_kwargs) -> None:
+    def __init__(self, name: str, system_message: SystemMessage, model: ChatOllama, tools, **tool_kwargs) -> None:
+    # def __init__(self, name: str, system_message: SystemMessage, model: ChatOpenAI, tools, **tool_kwargs) -> None:
         super().__init__(name, system_message, model)
         self.tools = tools
         self.total_tokens = 0
     def send(self) -> AgentMessage:
+        #####
         agent_chain = initialize_agent(
             self.tools, self.model, agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
             verbose=False,

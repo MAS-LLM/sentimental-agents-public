@@ -1,9 +1,18 @@
 # Standard Library Imports
 from typing import List, Dict, Any
 import os
-from langchain_community.chat_models import ChatOpenAI
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
+# from langchain.callbacks import get_openai_callback
+# from langchain_community.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOllama
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
-OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
+# from langchain.callbacks import get_openai_callback
+# OPENAI_MODEL = os.getenv("OPENAI_MODEL") # nToDo
+# OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
+OLLAMA_MODEL = "gpt-oss:20b"
 
 def handle_error(error: Exception) -> str:
     """Handle errors and return a truncated message.
@@ -17,7 +26,7 @@ def handle_error(error: Exception) -> str:
     return str(error)[:50]
 
 def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
-    """Generate content using a specified template.
+    """Generate content using a specified template. (e.g. [repo-root]/single_llm_control/advisor_prompt_template.py)
 
     Parameters:
         name (str): Name of the agent.
@@ -37,49 +46,8 @@ def generate_content_from_template(name: str, template: str, word_limit: int = N
             content=template.format(**prompt_vars)
         ),
     ]
-    return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
-#
-#
-# def extract_names(text: str) -> List[str]:
-#    """Extract names from the given text.
-#
-#    Parameters:
-#        text (str): Input text from which to extract names.
-#
-#    Returns:
-#        List[str]: List of names.
-#    """
-#    doc = nlp(text)
-#    return [entity.text for entity in doc.ents if entity.label_ == "PERSON"]
-#
-#
-# def summarise_document(messages_history: Any, temperature = 0) -> str:
-#     """Generate a summary for the provided messages.
-#
-#     Parameters:
-#         messages_history (Any): History of messages to be summarized.
-#
-#     Returns:
-#         str: Summary of the document.
-#     """
-#     try:
-#         summary_template = """Write a concise summary of the following messages:
-#
-#         {messages_history}
-#
-#         Answer in bullet points.
-#         Don't use corporate jargon.
-#
-#         """
-#         llm = ChatOpenAI(model = OPENAI_MODEL,temperature=temperature, max_tokens=256)
-#         prompt = PromptTemplate(template=summary_template, input_variables=["messages_history"])
-#         chain = LLMChain(llm=llm, prompt=prompt)
-#
-#         input_data = {
-#             "messages_history": "\n".join([str(x) for x in messages_history]) if isinstance(messages_history, list) else messages_history
-#         }
-#         return chain.run(input_data)
-#
-#     except Exception as e:
-#         print(f"An error occurred while summarizing the document: {handle_error(e)}")
-#         return None
+    # return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
+    # ToDo - incomplete
+    OLLAMA_MODEL = "gpt-oss:20b"
+    return ChatOllama(model=OLLAMA_MODEL, temperature=1.0)(prompt).content
+

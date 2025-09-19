@@ -16,12 +16,18 @@ from advisor_prompt_template import (
     SINGLE_CRITERIA,
 )
 
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
 # === OpenAI (official SDK) ===
 # pip install openai>=1.0.0
-from openai import OpenAI
+# from openai import OpenAI
+from langchain_community.chat_models import ChatOllama
 
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")  # must be set
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
+# OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")  # must be set
+OLLAMA_MODEL = "gpt-oss:20b"
 
 def build_prompt(candidate_name, candidate_bio, role_to_fill, role_description):
     topic = SINGLE_TOPIC.format(
@@ -74,11 +80,14 @@ def generate_response_from_sample(csv_filename=None, output_dir=None):
             "tech leadership, full-stack expertise, and agile delivery experience."
         )
     }
-
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
     # --- OpenAI client
-    if not OPENAI_API_KEY:
-        raise EnvironmentError("OPENAI_API_KEY is not set.")
-    client = OpenAI(api_key=OPENAI_API_KEY)
+    # if not OPENAI_API_KEY:
+    #     raise EnvironmentError("OPENAI_API_KEY is not set.")
+    # client = OpenAI(api_key=OPENAI_API_KEY)
+    ollama_model = ChatOllama(model=OLLAMA_MODEL, temperature=0.0)
+
 
     analyzer = SentimentAnalyzer()
     results  = []
@@ -91,18 +100,29 @@ def generate_response_from_sample(csv_filename=None, output_dir=None):
             job_data["role_description"]
         )
 
-        try:
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
+        # try:
             # Chat Completions API (stable)
-            chat = client.chat.completions.create(
-                model=OPENAI_MODEL,
-                temperature=0.7,
-                max_tokens=600,
-                messages=[
-                    {"role": "system", "content": "You are a concise, direct hiring advisor."},
-                    {"role": "user", "content": prompt},
-                ],
-            )
-            opinion = (chat.choices[0].message.content or "").strip()
+        #     chat = client.chat.completions.create(
+        #         model = OLLAMA_MODEL ,
+        #         temperature=0.0,
+        #         max_tokens=600,
+        #         messages=[
+        #             {"role": "system", "content": "You are a concise, direct hiring advisor."},
+        #             {"role": "user", "content": prompt},
+        #         ],
+        #     )
+        #     opinion = (chat.choices[0].message.content or "").strip()
+        # except Exception as e:
+        #     print(f"Error processing {row['candidate_name']}: {e}")
+        #     opinion = "Error generating response"
+        try:
+            chat_response = ollama_model.invoke([
+                {"role": "system", "content": "You are a concise, direct hiring advisor."},
+                {"role": "user", "content": prompt},
+            ])
+            opinion = (chat_response.content or "").strip()
         except Exception as e:
             print(f"Error processing {row['candidate_name']}: {e}")
             opinion = "Error generating response"

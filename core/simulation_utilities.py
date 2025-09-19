@@ -1,68 +1,53 @@
-from typing import List, Dict,Tuple
+# Standard Library Imports
+from typing import List, Dict, Any
 import os
-from dotenv import load_dotenv
-load_dotenv()
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
+# from langchain.callbacks import get_openai_callback
+# from langchain_community.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOllama
+from langchain.schema import AIMessage, HumanMessage, SystemMessage
+# 2025-09-19: 
+# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
+# from langchain.callbacks import get_openai_callback
+# OPENAI_MODEL = os.getenv("OPENAI_MODEL") # nToDo
+# OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
+OLLAMA_MODEL = "gpt-oss:20b"
 
-from langchain.schema import HumanMessage, SystemMessage
-from langchain_community.chat_models import ChatOpenAI
-from core.dialog import DialogueAgent, DialogueAgentWithTools
-from core.advisory_brief import (
-    TOPIC, ADVISOR_PRIORITIES, ADVISOR_DESCRIPTION, 
-    ADVISOR_CRITERIA, SYSTEM_MESSAGE, SPECIFIC_TOPIC,
-)
+def handle_error(error: Exception) -> str:
+    """Handle errors and return a truncated message.
 
-from utilities.utilities import generate_content_from_template
+    Parameters:
+        error (Exception): The Exception object.
 
-OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+    Returns:
+        str: Truncated error message.
+    """
+    return str(error)[:50]
 
+def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
+    """Generate content using a specified template. (e.g. [repo-root]/single_llm_control/advisor_prompt_template.py)
 
-def generate_agent_information(agent_names: Dict, job_title: str) -> Tuple[Dict, Dict, Dict]:
-    """Generate descriptions, priorities, and criteria for agents."""
-    word_limit = 10  # word limit for task brainstorming between agents
-    agent_descriptions = {name: generate_content_from_template(name, ADVISOR_DESCRIPTION, word_limit) for name in agent_names}
-    agent_priorities = {name: generate_content_from_template(name, ADVISOR_PRIORITIES, word_limit) for name in agent_names}
-    agent_criteria = {name: generate_content_from_template(name, ADVISOR_CRITERIA, word_limit, extra_vars={"role_to_fill": job_title}) for name in agent_names}
-    
-    return agent_descriptions, agent_priorities, agent_criteria
+    Parameters:
+        name (str): Name of the agent.
+        template (str): The template to be filled.
+        word_limit (int): Limit for word count.
+        extra_vars (Dict[str, Any]): Extra variables to be used in formatting.
 
-def generate_topic(candidate_name: str, candidate_bio: str, job_title: str, job_description: str) -> str:
-    """Generate the topic of the conversation."""
-    return TOPIC.format(candidate_name=candidate_name, candidate_bio=candidate_bio, role_to_fill=job_title, role_description=job_description)
+    Returns:
+        str: Generated content.
+    """
+    prompt_vars = {'name': name, 'word_limit': word_limit}
+    if extra_vars:
+        prompt_vars.update(extra_vars)
 
-def generate_system_messages(agent_names: Dict, agent_descriptions: Dict, agent_priorities: Dict, agent_criteria: Dict, tools: Dict, conversation_description: str) -> Dict:
-    """Generate system messages for each agent."""
-    return {
-        name: generate_content_from_template(
-            name, SYSTEM_MESSAGE, 
-            extra_vars={
-                "description": description,
-                "priority": priority,
-                "criterion": criterion,
-                "tools": tools,
-                "conversation_description": conversation_description
-            }
-        ) for (name, tools), description, priority, criterion in zip(
-            agent_names.items(), agent_descriptions.values(), agent_priorities.values(), agent_criteria.values()
-        )
-    }
-
-def specify_topic(topic: str, agent_names: Dict, temperature = 0.0) -> str:
-    """Make the topic more specific."""
-    topic_specifier_prompt = [
-        SystemMessage(content="You can make a topic more specific."),
-        HumanMessage(content=SPECIFIC_TOPIC.format(topic=topic, word_limit=5, names=', '.join(agent_names)))
+    prompt = [
+        HumanMessage(
+            content=template.format(**prompt_vars)
+        ),
     ]
-    return ChatOpenAI(model_name=OPENAI_MODEL, temperature=temperature)(topic_specifier_prompt).content #change temperature from 1.0 to 0.7
-
-def initialize_agents(agent_names: Dict, agent_system_messages: Dict, temperature = 0.0) -> List[DialogueAgent]:
-    """Initialize agents for the conversation."""
-    return [
-        DialogueAgentWithTools(
-            name=name,
-            system_message=SystemMessage(content=system_message),
-            model=ChatOpenAI(model_name=OPENAI_MODEL, temperature=temperature),
-            tools=tools,
-            top_k_results=2
-        ) for (name, tools), system_message in zip(agent_names.items(), agent_system_messages.values())
-    ]
+    # return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
+    # ToDo - incomplete
+    OLLAMA_MODEL = "gpt-oss:20b"
+    return ChatOllama(model=OLLAMA_MODEL, temperature=1.0)(prompt).content
 
