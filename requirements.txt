@@ -20,7 +20,7 @@ python_docx
 scikit_learn
 scipy
 seaborn
-sentence_transformers==3.0.1
-tiktoken==0.7.0
-torch==2.0.1
-transformers==4.43.3
+sentence_transformers
+tiktoken
+torch
+transformers
