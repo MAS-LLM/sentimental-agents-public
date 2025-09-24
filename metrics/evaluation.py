@@ -15,6 +15,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 import seaborn as sns
 import re
 from collections import defaultdict
+from scipy import stats
+import scipy.stats as stats
 
 # Load env + embeddings
 load_dotenv()
@@ -517,6 +519,219 @@ def analyze_statistical_significance(df, output_dir, tag=""):
     return pd.DataFrame()
 
 
+def calculate_confidence_interval(data, confidence=0.95):
+    """
+    Calculate mean and confidence interval for a dataset.
+
+    Args:
+        data: array-like of numeric values
+        confidence: confidence level (default 0.95 for 95% CI)
+
+    Returns:
+        dict with 'mean', 'ci_lower', 'ci_upper', 'std', 'n'
+    """
+    if len(data) == 0:
+        return {
+            'mean': np.nan,
+            'ci_lower': np.nan,
+            'ci_upper': np.nan,
+            'std': np.nan,
+            'n': 0
+        }
+
+    data = np.array(data)
+    data = data[~np.isnan(data)]  # Remove NaN values
+
+    if len(data) == 0:
+        return {
+            'mean': np.nan,
+            'ci_lower': np.nan,
+            'ci_upper': np.nan,
+            'std': np.nan,
+            'n': 0
+        }
+
+    n = len(data)
+    mean = np.mean(data)
+    std = np.std(data, ddof=1)  # Sample standard deviation
+
+    if n == 1:
+        return {
+            'mean': float(mean),
+            'ci_lower': float(mean),
+            'ci_upper': float(mean),
+            'std': 0.0,
+            'n': n
+        }
+
+    # Calculate confidence interval using t-distribution
+    alpha = 1 - confidence
+    t_critical = stats.t.ppf(1 - alpha / 2, df=n - 1)
+    margin_of_error = t_critical * (std / np.sqrt(n))
+
+    return {
+        'mean': float(mean),
+        'ci_lower': float(mean - margin_of_error),
+        'ci_upper': float(mean + margin_of_error),
+        'std': float(std),
+        'n': n
+    }
+
+
+def aggregate_metrics_with_ci(sim_data: dict, output_dir: str):
+    """
+    Updated aggregate_metrics function that calculates confidence intervals across seeds.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    # First, collect all raw data points
+    rows = []
+    for cand, runs in sim_data.items():
+        for run_key, data in runs.items():
+            # Extract feedback mode, temperature, and seed from run_key
+            feedback_mode = extract_feedback_mode_from_run_key(run_key)
+            parts = run_key.split('_')
+            temp_str = [p for p in parts if p.startswith('temp')]
+            seed_str = [p for p in parts if p.startswith('seed')]
+
+            temperature = float(temp_str[0].replace('temp', '')) if temp_str else np.nan
+            seed = int(seed_str[0].replace('seed', '')) if seed_str else np.nan
+
+            # Calculate rounds
+            rounds = data.get("rounds")
+            if rounds is None:
+                sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+                if sentiment_data:
+                    rounds = max(len(values) for values in sentiment_data.values()) - 1
+            if rounds is not None:
+                rounds = int(rounds)
+
+            # Extract model name
+            exp_cfg = data.get("experiment_config", {})
+            model_name = exp_cfg.get("model_name", "unknown")
+
+            # Calculate all sentiment-based metrics
+            rows.append({
+                "candidate": cand,
+                "mode_seed": run_key,
+                "feedback_mode": feedback_mode,
+                "seed": seed,
+                "temperature": temperature,
+                "model_name": model_name,
+                "rounds": rounds if rounds is not None else np.nan,
+                "sentiment_variance": calculate_sentiment_variance(data),
+                "agent_synchronization": calculate_agent_synchronization(data),
+                "sentiment_stability": calculate_sentiment_stability(data),
+                "repetition_index": calculate_repetition_index(data),
+                "consensus_quality": calculate_consensus_quality(data),
+                "communication_efficiency": calculate_communication_efficiency(data),
+            })
+
+    df = pd.DataFrame(rows)
+
+    # Save seed-level data (raw data points)
+    seed_level_csv = os.path.join(output_dir, "metrics_per_seed.csv")
+    df.to_csv(seed_level_csv, index=False)
+    print(f"Saved seed-level metrics → {seed_level_csv}")
+
+    # Now aggregate with confidence intervals
+    metrics_to_aggregate = [
+        "rounds", "sentiment_variance", "agent_synchronization",
+        "sentiment_stability", "repetition_index", "consensus_quality",
+        "communication_efficiency"
+    ]
+
+    # Group by condition (everything except seed)
+    grouping_cols = ["candidate", "feedback_mode", "temperature", "model_name"]
+    aggregated_rows = []
+
+    for name, group in df.groupby(grouping_cols):
+        row_dict = dict(zip(grouping_cols, name))
+
+        # Calculate CI for each metric
+        for metric in metrics_to_aggregate:
+            if metric in group.columns:
+                ci_results = calculate_confidence_interval(group[metric].dropna())
+                row_dict[f"{metric}_mean"] = ci_results['mean']
+                row_dict[f"{metric}_ci_lower"] = ci_results['ci_lower']
+                row_dict[f"{metric}_ci_upper"] = ci_results['ci_upper']
+                row_dict[f"{metric}_std"] = ci_results['std']
+                row_dict[f"{metric}_n"] = ci_results['n']
+
+                # Also include median for rounds
+                if metric == "rounds":
+                    row_dict[f"{metric}_median"] = float(group[metric].median()) if not group[
+                        metric].isna().all() else np.nan
+
+        aggregated_rows.append(row_dict)
+
+    aggregated_df = pd.DataFrame(aggregated_rows)
+
+    # Save aggregated data with confidence intervals
+    agg_csv = os.path.join(output_dir, "aggregated_metrics_with_ci.csv")
+    aggregated_df.to_csv(agg_csv, index=False)
+    print(f"Saved aggregated metrics with 95% CI → {agg_csv}")
+
+    return df, aggregated_df
+
+
+def create_plots_with_ci(candidate_agg, output_dir, tag):
+    """Create plots with confidence intervals"""
+    plot_dir = os.path.join(output_dir, "plots_with_ci")
+    os.makedirs(plot_dir, exist_ok=True)
+
+    metrics_to_plot = [
+        ("rounds", "Number of Rounds"),
+        ("sentiment_variance", "Sentiment Variance (Polarization)"),
+        ("agent_synchronization", "Agent Synchronization (Consensus)"),
+        ("sentiment_stability", "Sentiment Stability"),
+        ("repetition_index", "Repetition Index"),
+        ("consensus_quality", "Consensus Quality"),
+        ("communication_efficiency", "Communication Efficiency"),
+    ]
+
+    for metric, ylabel in metrics_to_plot:
+        mean_col = f"{metric}_mean"
+        ci_lower_col = f"{metric}_ci_lower"
+        ci_upper_col = f"{metric}_ci_upper"
+
+        if mean_col not in candidate_agg.columns:
+            continue
+
+        plt.figure(figsize=(12, 8))
+
+        # Plot by feedback mode
+        for feedback_mode in candidate_agg["feedback_mode"].unique():
+            for model in candidate_agg["model_name"].unique():
+                subset = candidate_agg[
+                    (candidate_agg["feedback_mode"] == feedback_mode) &
+                    (candidate_agg["model_name"] == model)
+                    ].sort_values("temperature")
+
+                if not subset.empty and not subset[mean_col].isna().all():
+                    label = f"{model}_{feedback_mode}"
+
+                    # Calculate error bars (CI width)
+                    y_err_lower = subset[mean_col] - subset[ci_lower_col]
+                    y_err_upper = subset[ci_upper_col] - subset[mean_col]
+                    yerr = [y_err_lower, y_err_upper]
+
+                    plt.errorbar(subset["temperature"], subset[mean_col],
+                                 yerr=yerr, marker="o", label=label,
+                                 capsize=5, capthick=2)
+
+        plt.xlabel("Temperature")
+        plt.ylabel(f"{ylabel} (Mean ± 95% CI)")
+        plt.title(f"{ylabel} vs Temperature — {tag}")
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        plt.grid(True, alpha=0.3)
+        plt.tight_layout()
+
+        plt.savefig(os.path.join(plot_dir, f"{metric}_vs_temp_with_ci_{tag}.png"),
+                    dpi=300, bbox_inches='tight')
+        plt.close()
+
+
 # ─────────────────────────────────────────────
 # Main eval pipeline
 # ─────────────────────────────────────────────
@@ -550,27 +765,36 @@ def eval_main(experiment_directory, num_processes):
         aggregate_dir = os.path.join(mode_dir, "aggregate")
         os.makedirs(aggregate_dir, exist_ok=True)
 
-        # Calculate metrics for this mode
-        df = aggregate_metrics(mode_data, aggregate_dir)
-        if not df.empty:
-            all_mode_dfs.append(df)
+        all_raw_dfs = []
+        all_agg_dfs = []
 
-    # Global analysis across all feedback modes
-    if all_mode_dfs:
-        print("\n🔍 Running comprehensive cross-condition analysis...")
+        # Calculate metrics with CI for this mode
+        raw_df, agg_df = aggregate_metrics_with_ci(mode_data, aggregate_dir)
+        if not raw_df.empty:
+            all_raw_dfs.append(raw_df)
+            all_agg_dfs.append(agg_df)
+        # # Calculate metrics for this mode
+        # df = aggregate_metrics(mode_data, aggregate_dir)
+        # if not df.empty:
+        #     all_mode_dfs.append(df)
 
-        # Combine all data
-        combined_df = pd.concat(all_mode_dfs, ignore_index=True)
+     # Global analysis across all feedback modes
+    if all_raw_dfs and all_agg_dfs:
+        print("\n🔍 Running comprehensive cross-condition analysis with confidence intervals...")
 
-        # Global aggregations across feedback modes
-        combined_cand, combined_glob = aggregate_across_feedback_modes(
-            all_mode_dfs, experiment_directory, tag="global"
-        )
+        # Combine all raw data
+        combined_raw_df = pd.concat(all_raw_dfs, ignore_index=True)
+        combined_agg_df = pd.concat(all_agg_dfs, ignore_index=True)
 
-        # Temperature analysis
-        aggregate_by_temperature(combined_df, experiment_directory, tag="global")
+        # Save global aggregated data
+        global_agg_csv = os.path.join(experiment_directory, "global_aggregated_with_ci.csv")
+        combined_agg_df.to_csv(global_agg_csv, index=False)
+        print(f"Saved global aggregated data with CI → {global_agg_csv}")
 
-        # Statistical comparisons
-        analyze_statistical_significance(combined_df, experiment_directory, tag="global")
+        # Create plots with confidence intervals
+        create_plots_with_ci(combined_agg_df, experiment_directory, "global")
+
+        # Statistical comparisons (using raw data)
+        analyze_statistical_significance(combined_raw_df, experiment_directory, tag="global")
 
     print("\n Comprehensive sentiment-based evaluation complete.")

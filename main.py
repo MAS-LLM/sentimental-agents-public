@@ -305,16 +305,21 @@ def main(
     else:
         raise ValueError("Either candidate_csv or both candidate_name and candidate_bio must be provided.")
 
+    # Ensure base output directory exists
+    base_output_dir = "output_files_bio"
+    os.makedirs(base_output_dir, exist_ok=True)
     # Run experiment across all conditions
     for model_name in models:
         base_config = Config(
             model_name=model_name,
-            seeds=[10],
+            seeds=[10, 20, 30]
+            # seeds=[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120,
+            #        130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300],
         )
 
         print(f"Running full experiment with model: {model_name}")
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        experiment_dir = f"output_files/{timestamp}_{model_name}_full_experiment"
+        experiment_dir = os.path.join(base_output_dir, f"{timestamp}_{model_name}_full_experiment")
         os.makedirs(experiment_dir, exist_ok=True)
 
         # Run all combinations: candidates × temperatures × seeds × feedback_modes

@@ -43,7 +43,7 @@ class DialogueAgent:
 
     def send(self) -> AgentMessage:  # Changed return type to match others
         short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
-        limit_instruction = "\nRespond in no more than 2 sentences."
+        limit_instruction = "\nRespond in no more than 3 sentences."
         prompt = "\n".join(short_context + [self.prefix]) + limit_instruction
 
         try:
@@ -131,7 +131,7 @@ class DialogueAgentWithTools(DialogueAgent):
 
     def send(self) -> AgentMessage:
         short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
-        limit_instruction = "\nRespond in no more than 2 sentences."
+        limit_instruction = "\nRespond in no more than 3 sentences."
 
         system_text = getattr(self.system_message, "content", str(self.system_message))
         prompt = "\n".join([system_text] + short_context + [self.prefix]) + limit_instruction
@@ -164,12 +164,12 @@ class DialogueAgentWithOwnSentimentFeedback(DialogueAgentWithTools):
 
     def send(self) -> AgentMessage:
         short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
-        limit_instruction = "\nRespond in no more than 2 sentences."
+        limit_instruction = "\nRespond in no more than 3 sentences."
 
         system_text = getattr(self.system_message, "content", str(self.system_message))
 
         # Add own sentiment feedback to prompt
-        sentiment_context = f"\n\nSentiment Awareness: Your recent tone has been {self.own_sentiment}. Consider this in your response."
+        sentiment_context = f"\n\nYour recent sentiment is {self.own_sentiment}."
 
         prompt = "\n".join([system_text] + short_context + [sentiment_context, self.prefix]) + limit_instruction
 
@@ -201,7 +201,7 @@ class DialogueAgentWithOthersSentimentFeedback(DialogueAgentWithTools):
 
     def send(self) -> AgentMessage:
         short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
-        limit_instruction = "\nRespond in no more than 2 sentences."
+        limit_instruction = "\nRespond in no more than 3 sentences."
 
         system_text = getattr(self.system_message, "content", str(self.system_message))
 
@@ -209,7 +209,7 @@ class DialogueAgentWithOthersSentimentFeedback(DialogueAgentWithTools):
         sentiment_context = ""
         if self.other_agents_sentiment:
             others_info = ", ".join([f"{name}: {sentiment}" for name, sentiment in self.other_agents_sentiment.items()])
-            sentiment_context = f"\n\nSentiment Awareness: Other participants' recent tones: {others_info}. Consider this emotional context in your response."
+            sentiment_context = f"\n\nOther participants' recent sentiment is: {others_info}."
 
         prompt = "\n".join([system_text] + short_context + [sentiment_context, self.prefix]) + limit_instruction
 
