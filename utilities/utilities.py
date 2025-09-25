@@ -1,53 +1,58 @@
-# Standard Library Imports
-from typing import List, Dict, Any
 import os
-# 2025-09-19: 
-# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
-# from langchain.callbacks import get_openai_callback
-# from langchain_community.chat_models import ChatOpenAI
-from langchain_community.chat_models import ChatOllama
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
-# 2025-09-19: 
-# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
-# from langchain.callbacks import get_openai_callback
-# OPENAI_MODEL = os.getenv("OPENAI_MODEL") # nToDo
-# OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
-OLLAMA_MODEL = "gpt-oss:20b"
+from typing import Dict, Any
+from langchain_ollama import OllamaLLM
+from langchain.schema import HumanMessage
+
+# Define the available Ollama models you’ve pulled locally
+OLLAMA_MODELS = {
+    "deepseek-r1:1.5b": "deepseek-r1:1.5b",
+    "llama3.2:1b": "llama3.2:1b",
+    "llama3.1:8b": "llama3.1:8b",
+    "mistral:7b": "mistral:7b",
+    "gpt-oss": "gpt-oss",
+    "gemma3:27b": "gemma3:27b",
+   
+    # Add more if you have pulled them via `ollama pull <model>`
+}
+
+
+def get_model(model_name: str = "llama3", temperature: float = 0.3):
+    """Return an Ollama-backed model via LangChain OllamaLLM."""
+    if model_name not in OLLAMA_MODELS:
+        raise ValueError(f"Unknown model '{model_name}'. Available: {list(OLLAMA_MODELS.keys())}")
+
+    model_id = OLLAMA_MODELS[model_name]
+
+    return OllamaLLM(
+        model=model_id,
+        temperature=temperature,
+        # optional extras you can pass:
+        num_ctx=2048,   # context window size
+        num_predict=200 # max tokens to generate
+    )
+
 
 def handle_error(error: Exception) -> str:
-    """Handle errors and return a truncated message.
-
-    Parameters:
-        error (Exception): The Exception object.
-
-    Returns:
-        str: Truncated error message.
-    """
+    """Truncate error message for logging/agents."""
     return str(error)[:50]
 
-def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
-    """Generate content using a specified template. (e.g. [repo-root]/single_llm_control/advisor_prompt_template.py)
 
-    Parameters:
-        name (str): Name of the agent.
-        template (str): The template to be filled.
-        word_limit (int): Limit for word count.
-        extra_vars (Dict[str, Any]): Extra variables to be used in formatting.
-
-    Returns:
-        str: Generated content.
-    """
-    prompt_vars = {'name': name, 'word_limit': word_limit}
+def generate_content_from_template(
+    name: str,
+    template: str,
+    word_limit: int = None,
+    extra_vars: Dict[str, Any] = None,
+    model_name: str = "llama3",
+    temperature: float = 0.3,
+) -> str:
+    """Generate content by filling a template and running it through the selected chat model."""
+    prompt_vars = {"name": name, "word_limit": word_limit}
     if extra_vars:
         prompt_vars.update(extra_vars)
 
-    prompt = [
-        HumanMessage(
-            content=template.format(**prompt_vars)
-        ),
-    ]
-    # return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
-    # ToDo - incomplete
-    OLLAMA_MODEL = "gpt-oss:20b"
-    return ChatOllama(model=OLLAMA_MODEL, temperature=1.0)(prompt).content
+    prompt_text = template.format(**prompt_vars)
+    chat_model = get_model(model_name, temperature)
 
+    # OllamaLLM works with plain strings (no need to wrap in HumanMessage)
+    response = chat_model.invoke(prompt_text)
+    return response if isinstance(response, str) else str(response)

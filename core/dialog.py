@@ -1,22 +1,11 @@
 import os
+import traceback
 from typing import List, Callable
-from langchain.schema import HumanMessage, SystemMessage
-# from langchain_community.chat_models import ChatOpenAI
-from langchain_community.chat_models import ChatOllama
-from langchain.agents import initialize_agent, AgentType
-from langchain.memory import ConversationBufferMemory
-import tiktoken
-from utilities.utilities import handle_error
+from utilities.utilities import handle_error, get_model
 from utilities.sentiment import SentimentAnalyzer
 
 sentiment_analyzer = SentimentAnalyzer()
-#####
-# OPENAI_MODEL = os.getenv("OPENAI_MODEL") # ToDo: decide on how we want to differentiate what model to initialize (e.g. command argument, or environment vars?)
-# OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
-OLLAMA_MODEL = "gpt-oss:20b"
-# encoding = tiktoken.encoding_for_model(OPENAI_MODEL) # ToDo: same as above
-# encoding = tiktoken.encoding_for_model("cl100k_base")
-encoding = tiktoken.get_encoding("cl100k_base")
+
 
 class AgentMessage:
     def __init__(self, content: str, sentiment_data: dict = None, metrics: dict = None) -> None:
@@ -28,21 +17,21 @@ class AgentMessage:
         return {
             "content": self.content,
             "sentiment_data": self.sentiment_data,
-            "metrics": self.metrics
+            "metrics": self.metrics,
         }
 
 
 class DialogueAgent:
     def __init__(
-        self,
-        name: str,
-        system_message: SystemMessage,
-        # model: ChatOpenAI, # ToDo: decide on how we want to differentiate what model to initialize (e.g. command argument, or environment vars?)
-        model: ChatOllama,
+            self,
+            name: str,
+            system_message,
+            model_name: str = "llama3",
+            temperature: float = 0.3,
     ) -> None:
         self.name = name
         self.system_message = system_message
-        self.model = model
+        self.model = get_model(model_name, temperature)  # OllamaLLM instance
         self.prefix = f"{self.name}: "
         self.reset()
         self.own_messages = []
@@ -52,16 +41,34 @@ class DialogueAgent:
         self.message_history = ["Here is the conversation so far."]
         self.messages = []
 
-    def send(self) -> str:
-        #####
-        message = self.model([
-            self.system_message,
-            HumanMessage(content="\n".join(self.message_history + [self.prefix])),
-        ])
-        message_content = message.content
+    def send(self) -> AgentMessage:  # Changed return type to match others
+        short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
+        limit_instruction = "\nRespond in no more than 3 sentences."
+        prompt = "\n".join(short_context + [self.prefix]) + limit_instruction
+
+        try:
+            # Robust system message handling
+            system_text = getattr(self.system_message, "content", str(self.system_message))
+            response = self.model.invoke(system_text + "\n" + prompt)
+            message_content = response if isinstance(response, str) else str(response)
+
+            # Debug print to see what's being generated
+            print(f"DEBUG: {self.name} generated: '{message_content[:50]}...'")
+
+        except Exception as e:
+            print(f"Error in {self.name}.send():", e)
+            traceback.print_exc()
+            message_content = "[ERROR: no response]"
+
         self.own_messages.append(message_content)
-        self.messages.append(AgentMessage(content=message_content))
-        return message_content
+
+        # Create AgentMessage with sentiment analysis
+        agent_message = AgentMessage(
+            content=message_content,
+            sentiment_data=sentiment_analyzer.analyze_message(message_content),
+        )
+        self.messages.append(agent_message)
+        return agent_message  # Return AgentMessage object
 
     def receive(self, name: str, message: str) -> None:
         self.message_history.append(f"{name}: {message}")
@@ -69,15 +76,15 @@ class DialogueAgent:
     def save_own_messages(self, filename):
         directory = "output_files"
         os.makedirs(directory, exist_ok=True)
-        with open(os.path.join(directory, filename), 'w') as f:
+        with open(os.path.join(directory, filename), "w") as f:
             f.writelines(f"{msg}\n" for msg in self.own_messages)
 
 
 class DialogueSimulator:
     def __init__(
-        self,
-        agents: List[DialogueAgent],
-        selection_function: Callable[[int, List[DialogueAgent]], int],
+            self,
+            agents: List[DialogueAgent],
+            selection_function: Callable[[int, List[DialogueAgent]], int],
     ) -> None:
         self.agents = agents
         self._step = 0
@@ -92,6 +99,7 @@ class DialogueSimulator:
         for agent in self.agents:
             agent.receive(name, message)
         self._step += 1
+
     def step(self) -> tuple[str, AgentMessage, int]:
         try:
             speaker_idx = self.select_next_speaker(self._step, self.agents)
@@ -103,36 +111,116 @@ class DialogueSimulator:
             self.conversation_history.append(f"({speaker.name}): {agent_message}")
             return speaker.name, agent_message, speaker_idx
         except Exception as e:
-            print("An error occurred in step method:", e)
-            return None, None, None
+            print("Error in step():", e)
+            traceback.print_exc()
+            fallback_msg = AgentMessage(content="[ERROR: step failed]")
+            return "UNKNOWN", fallback_msg, 0
 
     def save_conversation_history(self, filename):
         directory = "output_files"
         os.makedirs(directory, exist_ok=True)
-        with open(os.path.join(directory, filename), 'w') as f:
+        with open(os.path.join(directory, filename), "w") as f:
             f.writelines(f"{msg}\n" for msg in self.conversation_history)
 
 
 class DialogueAgentWithTools(DialogueAgent):
-    def __init__(self, name: str, system_message: SystemMessage, model: ChatOllama, tools, **tool_kwargs) -> None:
-    # def __init__(self, name: str, system_message: SystemMessage, model: ChatOpenAI, tools, **tool_kwargs) -> None:
-        super().__init__(name, system_message, model)
+    def __init__(self, name: str, system_message, model_name: str, tools, temperature: float = 0.3) -> None:
+        super().__init__(name, system_message, model_name, temperature)
         self.tools = tools
         self.total_tokens = 0
+
     def send(self) -> AgentMessage:
-        #####
-        agent_chain = initialize_agent(
-            self.tools, self.model, agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
-            verbose=False,
-            memory=ConversationBufferMemory(memory_key="chat_history", return_messages=True),
-            handle_parsing_errors=handle_error,
+        short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
+        limit_instruction = "\nRespond in no more than 3 sentences."
+
+        system_text = getattr(self.system_message, "content", str(self.system_message))
+        prompt = "\n".join([system_text] + short_context + [self.prefix]) + limit_instruction
+
+        try:
+            response = self.model.invoke(prompt)
+            message_content = response if isinstance(response, str) else str(response)
+        except Exception as e:
+            print(f"Error in {self.name}.send() with tools:", e)
+            traceback.print_exc()
+            message_content = "[ERROR: no response]"
+
+        self.own_messages.append(message_content)
+        agent_message = AgentMessage(
+            content=message_content,
+            sentiment_data=sentiment_analyzer.analyze_message(message_content),
         )
-        message_content = agent_chain.run(
-            "\n".join([self.system_message.content] + [str(x) for x in self.message_history] + [self.prefix])
+        self.messages.append(agent_message)
+        return agent_message
+
+
+class DialogueAgentWithOwnSentimentFeedback(DialogueAgentWithTools):
+    def __init__(self, name: str, system_message, model_name: str, tools, temperature: float = 0.3) -> None:
+        super().__init__(name, system_message, model_name, tools, temperature)
+        self.own_sentiment = "neutral"
+
+    def update_own_sentiment_awareness(self, own_sentiment: str):
+        """Update agent's awareness of their own sentiment only"""
+        self.own_sentiment = own_sentiment
+
+    def send(self) -> AgentMessage:
+        short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
+        limit_instruction = "\nRespond in no more than 3 sentences."
+
+        system_text = getattr(self.system_message, "content", str(self.system_message))
+
+        # Add own sentiment feedback to prompt
+        sentiment_context = f"\n\nYour recent sentiment is {self.own_sentiment}."
+
+        prompt = "\n".join([system_text] + short_context + [sentiment_context, self.prefix]) + limit_instruction
+
+        try:
+            response = self.model.invoke(prompt)
+            message_content = response if isinstance(response, str) else str(response)
+        except Exception as e:
+            print(f"Error in {self.name}.send() with own sentiment feedback:", e)
+            traceback.print_exc()
+            message_content = "[ERROR: no response]"
+
+        self.own_messages.append(message_content)
+        agent_message = AgentMessage(
+            content=message_content,
+            sentiment_data=sentiment_analyzer.analyze_message(message_content),
         )
-        token_count = len(encoding.encode(message_content))
-        self.total_tokens += token_count
-        # print(f"Message token count: {token_count}, Total tokens: {self.total_tokens}")
+        self.messages.append(agent_message)
+        return agent_message
+
+
+class DialogueAgentWithOthersSentimentFeedback(DialogueAgentWithTools):
+    def __init__(self, name: str, system_message, model_name: str, tools, temperature: float = 0.3) -> None:
+        super().__init__(name, system_message, model_name, tools, temperature)
+        self.other_agents_sentiment = {}
+
+    def update_others_sentiment_awareness(self, others_sentiment: dict):
+        """Update agent's awareness of others' sentiment only"""
+        self.other_agents_sentiment = others_sentiment
+
+    def send(self) -> AgentMessage:
+        short_context = self.message_history[-2:] if len(self.message_history) > 2 else self.message_history
+        limit_instruction = "\nRespond in no more than 3 sentences."
+
+        system_text = getattr(self.system_message, "content", str(self.system_message))
+
+        # Add others' sentiment feedback to prompt
+        sentiment_context = ""
+        if self.other_agents_sentiment:
+            others_info = ", ".join([f"{name}: {sentiment}" for name, sentiment in self.other_agents_sentiment.items()])
+            sentiment_context = f"\n\nOther participants' recent sentiment is: {others_info}."
+
+        prompt = "\n".join([system_text] + short_context + [sentiment_context, self.prefix]) + limit_instruction
+
+        try:
+            response = self.model.invoke(prompt)
+            message_content = response if isinstance(response, str) else str(response)
+        except Exception as e:
+            print(f"Error in {self.name}.send() with others sentiment feedback:", e)
+            traceback.print_exc()
+            message_content = "[ERROR: no response]"
+
         self.own_messages.append(message_content)
         agent_message = AgentMessage(
             content=message_content,

@@ -1,858 +1,1228 @@
+
 import json
-import math
 import numpy as np
 import pandas as pd
 import time
-from sklearn.feature_extraction.text import TfidfVectorizer
-from gensim.models import LdaModel
-from gensim.corpora import Dictionary
-import nltk
-from nltk.corpus import stopwords
-from gensim.utils import simple_preprocess
 import torch
-from polyfuzz import PolyFuzz
-from polyfuzz.models import SentenceEmbeddings
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
-from llama_index.core import VectorStoreIndex
-from llama_index.core.node_parser import MarkdownNodeParser
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from llama_index.core import Settings
-
-
-
-# from llama_index.embeddings.langchain import LangchainEmbedding
-# from langchain_community.embeddings import HuggingFaceEmbeddings
-from llama_index.core import Document
-from llama_index.core import Settings
+from llama_index.core import Settings, Document
+import matplotlib.pyplot as plt
+import os
 import multiprocessing as mp
 from functools import partial
 from sklearn.metrics.pairwise import cosine_similarity
+import seaborn as sns
+import re
+from collections import defaultdict
+from scipy import stats
+import scipy.stats as stats
 
-# Download NLTK stopwords
-nltk.download('stopwords', quiet=True)
-
-# Load environment variables
+# Load env + embeddings
 load_dotenv()
-
-# Set up device and embedding model for defensibility check
-# device = "cuda" if torch.cuda.is_available() else "cpu"
-# embed_model = LangchainEmbedding(
-#     HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2", model_kwargs={"device": device})
-# )
 device = "cuda" if torch.cuda.is_available() else "cpu"
 Settings.embed_model = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-mpnet-base-v2",
     model_kwargs={"device": device}
 )
-def bland_altman_plot(sentiment_df: pd.DataFrame, output_dir="results"):
-    """
-    Generate a Bland-Altman plot comparing Single LLM vs Multiagent sentiment.
-    """
-    os.makedirs(output_dir, exist_ok=True)
-
-    single = sentiment_df["single_llm_sentiment"].values
-    multi = sentiment_df["multiagent_mean_sentiment"].values
-    avg = (single + multi) / 2
-    diff = single - multi
-    mean_diff = np.mean(diff)
-    std_diff = np.std(diff)
-
-    plt.figure(figsize=(8, 6))
-    plt.scatter(avg, diff, edgecolors='k', c='blue')
-
-    # Add labels above each point
-    for i, row in sentiment_df.iterrows():
-        label = str(row["candidate"])  # Strip 'Candidate' prefix
-        plt.text(
-            avg[i],
-            diff[i] + 0.02,  # Slightly above the point
-            label,
-            fontsize=10,
-            fontweight='bold',
-            ha='center',
-            va='bottom'
-        )
-
-    # Plot reference lines
-    plt.axhline(mean_diff, color='red', linestyle='--', label=f"Mean Diff = {mean_diff:.2f}")
-    plt.axhline(mean_diff + 1.96 * std_diff, color='gray', linestyle='--', label="+1.96 SD")
-    plt.axhline(mean_diff - 1.96 * std_diff, color='gray', linestyle='--', label="-1.96 SD")
-
-    plt.xlabel("Average of Single and Multiagent Sentiment", fontsize=12)
-    plt.ylabel("Difference (Single - Multiagent)", fontsize=12)
-    plt.title("Bland-Altman Plot: Single vs Multiagent Sentiment", fontsize=14)
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "bland_altman_sentiment_plot.png"))
-    plt.close()
-
-    return {
-        "mean_diff": mean_diff,
-        "upper_limit": mean_diff + 1.96 * std_diff,
-        "lower_limit": mean_diff - 1.96 * std_diff
-    }
+embed_model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
 
 
-def cosine_similarity_analysis(sentiment_df: pd.DataFrame):
-    """
-    Compute cosine similarity between single and multiagent sentiment vectors.
-    Returns similarity score.
-    """
-    single_vec = sentiment_df["single_llm_sentiment"].values.reshape(1, -1)
-    multi_vec = sentiment_df["multiagent_mean_sentiment"].values.reshape(1, -1)
-    similarity = cosine_similarity(single_vec, multi_vec)[0, 0]
-    return similarity
-
-
-def compare_single_llm_vs_multiagent_sentiment(
-        sim_data: dict,
-        output_dir: str,
-        single_llm_path: str = None,
-) -> str:
-    """
-    Compare single LLM vs multiagent sentiment:
-      - sim_data keys are "Candidate_01", ...,
-      - the original name is in candidate_data['initial_conditions']['candidate_name'].
-    Returns the path to the saved comparison CSV.
-    """
-    # 1) Use the provided single_llm_path directly (it should already be in output_dir)
-    if single_llm_path is None:
-        raise ValueError("single_llm_path must be provided")
-
-    # Verify the file exists
-    if not os.path.exists(single_llm_path):
-        raise FileNotFoundError(f"Single LLM file not found: {single_llm_path}")
-
-    print(f"Using single LLM results from: {single_llm_path}")
-
-    # 2) load and normalize headers
-    single_df = pd.read_csv(single_llm_path)
-    single_df.columns = single_df.columns.str.strip().str.lower()
-
-    # 3) make sure we have the right columns
-    if "overall_sentiment" not in single_df.columns:
-        # maybe they named it "sentiment"
-        if "sentiment" in single_df.columns:
-            single_df = single_df.rename(columns={"sentiment": "overall_sentiment"})
-        else:
-            raise KeyError(
-                f"Expected column 'overall_sentiment' in {single_llm_path!r}, got {list(single_df.columns)}"
-            )
-
-    # 4) normalize candidate_name
-    single_df["candidate_name"] = single_df["candidate_name"].str.strip().str.lower()
-
-    rows = []
-    for sim_key, candidate_data in sim_data.items():
-        orig = candidate_data["initial_conditions"]["candidate_name"]
-        norm = orig.strip().lower()
-
-        if norm not in single_df["candidate_name"].values:
-            print(f"  ▶ skipping {sim_key} ({orig!r}) – not in single-LLM CSV")
-            continue
-
-        # multiagent stats
-        sentiments = [
-            scores[-1]
-            for scores in candidate_data["sentiment_data"]["sentiment_data"].values()
-            if scores
-        ]
-        mean_multi = float(np.mean(sentiments))
-        var_multi = float(np.var(sentiments))
-
-        # single-LLM
-        single_row = single_df[single_df["candidate_name"] == norm].iloc[0]
-        mean_single = float(single_row["overall_sentiment"])
-
-        rows.append({
-            "candidate": orig,
-            "multiagent_mean_sentiment": mean_multi,
-            "multiagent_variance": var_multi,
-            "single_llm_sentiment": mean_single,
-        })
-
-    comparison_df = pd.DataFrame(rows)
-    if comparison_df.empty:
-        raise RuntimeError("No candidates matched between sim_data and single-LLM CSV!")
-
-    # save CSV
-    out_csv = os.path.join(output_dir, "sentiment_comparison_single_vs_multiagent.csv")
-    comparison_df.to_csv(out_csv, index=False)
-    print(f"Saved comparison CSV to {out_csv}")
-
-    # scatter‐plot
-    plt.figure(figsize=(10, 6))
-    plt.scatter(
-        comparison_df["single_llm_sentiment"],
-        comparison_df["multiagent_variance"],
-        s=100, edgecolors="k", c="blue"
-    )
-    for _, r in comparison_df.iterrows():
-        plt.text(
-            r["single_llm_sentiment"],
-            r["multiagent_variance"] + 0.015,
-            r["candidate"],
-            fontsize=10, fontweight="bold",
-            ha="center", va="bottom"
-        )
-    plt.xlabel("Single LLM Sentiment", fontsize=12)
-    plt.ylabel("Multiagent Variance", fontsize=12)
-    plt.title("Single vs Multiagent Sentiment Variance", fontsize=14)
-    plt.grid(True)
-    plt.tight_layout()
-    plot_path = os.path.join(output_dir, "single_vs_multiagent_sentiment_variance.png")
-    plt.savefig(plot_path)
-    plt.close()
-    print(f"Saved comparison plot to {plot_path}")
-
-    return out_csv
-
-
-def analyze_emergent_behavior(sim_data, directory):
-    """Evaluate and save metrics related to emergent behaviors like groupthink, polarization, and consensus."""
-    behavior_results = []
-
-    for scenario_name, scenario_data in sim_data.items():
-        print(f"Analyzing emergent behavior for {scenario_name} scenario...")
-        scenario_behavior = {'Scenario': scenario_name}
-
-        sentiment_variances = []  # Polarization
-        agent_syncs = []  # Consensus or groupthink
-
-        if isinstance(scenario_data, dict):
-            sentiment_data = scenario_data.get("sentiment_data", {})
-            sentiment_data = sentiment_data.get("sentiment_data", {})
-
-            # 1. Sentiment Variance Across Agents: Polarization measure
-            sentiment_variance_across_agents = np.var([scores[-1] for scores in sentiment_data.values()])
-            sentiment_variances.append(sentiment_variance_across_agents)
-
-            # 2. Agent Synchronization: Measure of consensus or groupthink
-            final_sentiments = [np.array([scores[-1]]) for scores in sentiment_data.values() if scores]
-            if len(final_sentiments) > 1:
-                agent_sync = np.mean([cosine_similarity(s1.reshape(1, -1), s2.reshape(1, -1))
-                                      for i, s1 in enumerate(final_sentiments)
-                                      for j, s2 in enumerate(final_sentiments) if i != j])
-            else:
-                agent_sync = 1.0
-            agent_syncs.append(agent_sync)
-
-        scenario_behavior['Sentiment_Variance'] = np.mean(sentiment_variances)
-        scenario_behavior['Agent_Synchronization'] = np.mean(agent_syncs)
-
-        behavior_results.append(scenario_behavior)
-
-    behavior_df = pd.DataFrame(behavior_results)
-    behavior_csv_path = os.path.join(directory, "emergent_behavior_metrics.csv")
-    behavior_df.to_csv(behavior_csv_path, index=False)
-    print(f"Emergent behavior metrics saved to {behavior_csv_path}")
-
-    return behavior_df
-import matplotlib.pyplot as plt
-import os
-from collections import defaultdict
-
-import matplotlib.pyplot as plt
-import os
-from collections import defaultdict
-
-def plot_emergent_behavior(behavior_df, directory):
-    """Generate plots to visualize emergent behaviors like polarization and consensus."""
-    # 0) Derive a short label (numeric suffix) for each scenario
-    behavior_df = behavior_df.copy()
-    # If your Scenario column is "Candidate_001", "Candidate_002", etc.
-    behavior_df['ScenarioID'] = behavior_df['Scenario'].str.replace(r'.*_(\d+)$', r'\1', regex=True)
-
-    # 1) Sentiment Variance Bar Chart
-    plt.figure(figsize=(10, 6))
-    plt.bar(
-        behavior_df['ScenarioID'],
-        behavior_df['Sentiment_Variance'],
-        color=plt.get_cmap('viridis')(range(len(behavior_df)))
-    )
-    plt.xlabel('Scenario ID', fontsize=12)
-    plt.ylabel('Sentiment Variance', fontsize=12)
-    plt.title('Sentiment Variance Across Scenarios (Polarization)', fontsize=14)
-    plt.xticks(rotation=90, ha='center')
-    plt.tight_layout()
-    path1 = os.path.join(directory, "sentiment_variance_plot.png")
-    plt.savefig(path1)
-    plt.close()
-    print(f"Sentiment variance plot saved to {path1}")
-
-    # 2) Agent Synchronization Bar Chart
-    plt.figure(figsize=(10, 6))
-    plt.bar(
-        behavior_df['ScenarioID'],
-        behavior_df['Agent_Synchronization'],
-        color=plt.get_cmap('viridis')(range(len(behavior_df)))
-    )
-    plt.xlabel('Scenario ID', fontsize=12)
-    plt.ylabel('Agent Synchronization', fontsize=12)
-    plt.title('Agent Synchronization Across Scenarios (Consensus)', fontsize=14)
-    plt.xticks(rotation=90, ha='center')
-    plt.tight_layout()
-    path2 = os.path.join(directory, "agent_synchronization_plot.png")
-    plt.savefig(path2)
-    plt.close()
-    print(f"Agent synchronization plot saved to {path2}")
-
-    # 3) Scatter: Variance vs. Synchronization
-    x = behavior_df['Sentiment_Variance']
-    y = behavior_df['Agent_Synchronization']
-    labels = behavior_df['ScenarioID']
-
-    plt.figure(figsize=(8, 6))
-    plt.scatter(
-        x, y,
-        c=range(len(labels)),
-        cmap='viridis',
-        s=100,
-        edgecolors='k'
-    )
-
-    # 4) Stagger overlapping labels
-    offsets = defaultdict(int)
-    for xi, yi, lab in zip(x, y, labels):
-        key = round(xi, 6)
-        count = offsets[key]
-        y_offset = yi + count * 0.02
-        plt.text(
-            xi, y_offset,
-            lab,
-            fontsize=10,
-            ha='center',
-            va='bottom'
-        )
-        offsets[key] += 1
-
-    plt.xlabel('Sentiment Variance (Polarization)', fontsize=12)
-    plt.ylabel('Agent Synchronization (Consensus)', fontsize=12)
-    plt.title('Consensus vs. Polarization', fontsize=14)
-    plt.grid(True)
-    plt.tight_layout()
-    path3 = os.path.join(directory, "consensus_vs_polarization_scatter.png")
-    plt.savefig(path3)
-    plt.close()
-    print(f"Consensus vs. Polarization scatter plot saved to {path3}")
-
-
-
-
+# ─────────────────────────────────────────────
+# Load simulation data
+# ─────────────────────────────────────────────
 def load_simulation_data(directory: str) -> dict:
-    """
-    Load all simulation_data.json files from subfolders named 'Cand_XX'
-    and return a dict keyed by 'Candidate_XX'.
-    """
-    # pick only the Cand_ folders
-    cand_folders = [
-        f for f in os.listdir(directory)
-        if f.startswith("Cand_") and os.path.isdir(os.path.join(directory, f))
-    ]
-    cand_folders.sort(key=lambda f: os.path.getmtime(os.path.join(directory, f)))
-
     sim_data = {}
-    for folder in cand_folders:
-        path = os.path.join(directory, folder, "simulation_data.json")
-        if not os.path.isfile(path):
+    for cand_name in os.listdir(directory):
+        cand_dir = os.path.join(directory, cand_name)
+        if not os.path.isdir(cand_dir):
             continue
-        with open(path, "r", encoding="utf-8") as jfile:
-            data = json.load(jfile)
-        # turn "Cand_01" → "Candidate_01"
-        suffix = folder.split("_", 1)[1]
-        key = f"Candidate_{suffix}"
-        sim_data[key] = data
-
+        sim_data[cand_name] = {}
+        for subdir in os.listdir(cand_dir):
+            path = os.path.join(cand_dir, subdir, "simulation_data.json")
+            if os.path.isfile(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                sim_data[cand_name][subdir] = data
     return sim_data
 
 
-
-# def load_simulation_data(directory):
-#     folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
-#     sorted_folders = sorted(folders, key=lambda f: os.path.getmtime(os.path.join(directory, f)))
-#     sim_data = {}
-#     for folder in sorted_folders:
-#         with open(os.path.join(directory, folder, "simulation_data.json"), "r", encoding="utf-8") as jfile:
-#             data = json.load(jfile)
-#         sim_data[folder.split("_")[-1]] = data
-#     return sim_data
-
-
-def generate_short_forms(roles):
-    key = {}
-    for role in roles:
-        words = role.split()
-        if len(words) == 1:
-            short_form = role
-        else:
-            short_form = ''.join(word[0].upper() for word in words if word.lower() not in ['and', 'the', 'of'])
-        key[role] = short_form
-    return key
-
-
-def prolificness_score(sim_data, directory):
-    num_candidates = len(sim_data)
-    rows, cols = math.ceil(num_candidates / 3), 3
-    fig_width, fig_height = cols * 4, rows * 3
-    fig, axes = plt.subplots(rows, cols, figsize=(fig_width, fig_height))
-
-    for i, (candidate_name, candidate_data) in enumerate(sim_data.items()):
-        unique_arguments_count_by_role = {}
-        roles = []
-        for entry in candidate_data["agent_data"]:
-            statements = [x["content"] for x in entry["messages"]]
-            role = entry["name"]
-            roles.append(role)
-            unique_arguments_count_by_role[role] = len(statements)
-
-        i_val, j_val = divmod(i, 3)
-        ax = axes[i_val, j_val] if rows > 1 else axes[j_val]
-
-        key = generate_short_forms(set(roles))
-        roles = [key[x] for x in unique_arguments_count_by_role.keys()]
-        counts = list(unique_arguments_count_by_role.values())
-        ax.bar(roles, counts)
-        ax.set_xlabel('Role')
-        ax.set_ylabel('Number of Unique Arguments')
-        ax.set_title(f'Prolificness Score for {candidate_name}')
-        for k, count in enumerate(counts):
-            ax.text(k, count, str(count), ha='center', va='bottom')
-        ax.tick_params(axis='x', rotation=45)
-
-    plt.tight_layout()
-    plt.savefig(os.path.join(directory, "prolificness_score_by_role_grid.png"))
-    plt.close()  # Close the figure to free memory
-
-
-def nuance_score(sim_data, directory):
-    dfs = []
-    candidate_names = []
-    for candidate_name, candidate_data in sim_data.items():
-        statements = []
-        for entry in candidate_data["agent_data"]:
-            statements.extend([x["content"] for x in entry["messages"]])
-
-        additional_exclude_words = set(candidate_name.split(" "))
-        stop_words = set(stopwords.words('english')).union(additional_exclude_words)
-        data_words = [simple_preprocess(statement, deacc=True) for statement in statements]
-        data_words_nostops = [[word for word in doc if word not in stop_words] for doc in data_words]
-
-        id2word = Dictionary(data_words_nostops)
-        corpus = [id2word.doc2bow(text) for text in data_words_nostops]
-
-        lda_model = LdaModel(corpus=corpus, id2word=id2word, num_topics=5, random_state=100,
-                             update_every=1, chunksize=100, passes=10, alpha='auto')
-
-        top_words_per_topic = {f"Topic {i}": [word for word, _ in lda_model.show_topic(i, 10)]
-                               for i in range(lda_model.num_topics)}
-
-        df = pd.DataFrame(top_words_per_topic)
-        dfs.append(df)
-        candidate_names.append(candidate_name)
-
-    with pd.ExcelWriter(os.path.join(directory, 'nuance_scores.xlsx')) as writer:
-        for i, df in enumerate(dfs):
-            df.to_excel(writer, sheet_name=candidate_names[i], index=False)
-
-
-def similarity_score(data, output_directory, candidate_index):
-    messages_by_agent = defaultdict(list)
-    for entry in data["agent_data"]:
-        agent_messages = [x["content"] for x in entry["messages"]]
-        agent = entry["name"]
-        messages_by_agent[agent].extend(agent_messages)
-
-    def compute_cosine_similarity(messages):
-        vectorizer = TfidfVectorizer()
-        tfidf_matrix = vectorizer.fit_transform(messages)
-        return cosine_similarity(tfidf_matrix)
-
-    # Calculate intra-agent similarities
-    intra_agent_similarities = {agent: compute_cosine_similarity(messages)
-                                for agent, messages in messages_by_agent.items() if messages}
-
-    vectorizer = TfidfVectorizer()
-    agents = list(messages_by_agent.keys())
-    inter_agent_similarities = np.zeros((len(agents), len(agents)))
-
-    for i, agent1 in enumerate(agents):
-        for j, agent2 in enumerate(agents):
-            if i != j and messages_by_agent[agent1] and messages_by_agent[agent2]:
-                similarities = []
-                for message1 in messages_by_agent[agent1]:
-                    for message2 in messages_by_agent[agent2]:
-                        combined_tfidf = vectorizer.fit_transform([message1, message2])
-                        cosine_sim = cosine_similarity(combined_tfidf)
-                        similarities.append(cosine_sim[0, 1])
-                inter_agent_similarities[i, j] = np.mean(similarities) if similarities else 0
-
-    # Only generate plots for the first 10 candidates
-    if candidate_index < 10:
-        # Plot and save inter-agent similarities
-        plt.figure(figsize=(8, 6))
-        cax = plt.matshow(inter_agent_similarities, cmap="coolwarm", vmin=0, vmax=1)
-        plt.title("Inter-Agent Similarities")
-        plt.xticks(range(len(agents)), agents, rotation=90, fontsize=6)
-        plt.yticks(range(len(agents)), agents, fontsize=6)
-        plt.colorbar(cax, fraction=0.046, pad=0.04)
-        plt.savefig(os.path.join(output_directory, "inter_agent_similarities.png"), dpi=300)
-        plt.close()
-
-        # Plot and save intra-agent similarities
-        for agent, similarity in intra_agent_similarities.items():
-            plt.figure(figsize=(8, 6))
-            cax = plt.matshow(similarity, cmap="coolwarm", vmin=0, vmax=1)
-            plt.title(f'Intra-agent Similarity - {agent}')
-            plt.colorbar(cax)
-            plt.savefig(os.path.join(output_directory, f"intra_agent_similarity_{agent}.png"), dpi=300)
-            plt.close()
-
-    return inter_agent_similarities, intra_agent_similarities
-
-
-def sentiment_non_bayesian_plot(candidate_name, candidate_data, candidate_dir, candidate_index):
-    """Plot and save sentiment and non-Bayesian change data for each candidate."""
-    agents = candidate_data.get("agent_data", [])
-    if not agents:
-        print(f"No agent data available for {candidate_name}. Skipping.")
-        return
-
-    sentiment_data = candidate_data.get("sentiment_data", {})
-    sentiment_data = sentiment_data.get("sentiment_data", {})
-    change_data = sentiment_data.get("change", {})
-
-    # Determine the maximum number of rounds
-    max_rounds = max(len(scores) for scores in sentiment_data.values())
-
-    # Only generate plots for the first 10 candidates
-    if candidate_index < 10:
-        # Plot and save sentiment scores
-        plt.figure(figsize=(10, 6))
-
-        for agent in agents:
-            agent_name = agent.get("name", "Unknown")
-            sentiment_scores = sentiment_data.get(agent_name, [])
-            plt.plot(range(1, len(sentiment_scores) + 1), sentiment_scores, marker='o', linestyle='-', label=agent_name)
-
-        plt.title(f'Sentiment Scores over Rounds for {candidate_name}', fontsize=18)
-        plt.xlabel('Round', fontsize=14)
-        plt.ylabel('Sentiment Score', fontsize=14)
-        plt.legend()
-        plt.grid(True)
-        plt.xticks(range(1, max_rounds + 1), [str(i) for i in range(1, max_rounds + 1)])
-        plt.gca().yaxis.set_major_locator(plt.MaxNLocator(integer=True))
-        plt.tight_layout()
-        plt.savefig(os.path.join(candidate_dir, f'sentiment_scores_{candidate_name}.png'), dpi=150)
-        plt.close()
-
-        # Plot and save non-Bayesian changes
-        plt.figure(figsize=(12, 6))  # Increased figure width
-        bar_width = 0.15  # Reduced bar width
-        num_agents = len(agents)
-        index = np.arange(1, max_rounds)  # Increased spacing between round groups
-
-        for i, agent in enumerate(agents):
-            agent_name = agent.get("name", "Unknown")
-            change_scores = change_data.get(agent_name, [])[1:]  # Exclude round 0
-            plt.bar(index[:len(change_scores)] + i * bar_width, change_scores, bar_width, label=agent_name)
-
-        plt.title(f'Non-Bayesian Change over Rounds for {candidate_name}', fontsize=18)
-        plt.xlabel('Round', fontsize=14)
-        plt.ylabel('Change Score', fontsize=14)
-        plt.xticks(index + bar_width * (num_agents - 1) / 2, [str(i) for i in range(1, max_rounds)])
-        plt.legend()
-        plt.grid(True, axis='y')
-        plt.tight_layout()
-        plt.savefig(os.path.join(candidate_dir, f'non_bayesian_change_{candidate_name}.png'), dpi=150)
-        plt.close()
-
-    return sentiment_data, change_data
-def calculate_drift(sim_data, directory):
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    embedding_model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
-    distance_model = SentenceEmbeddings(embedding_model)
-    model = PolyFuzz(distance_model)
-
-    drift_list = []
-    for candidate_name, candidate_data in sim_data.items():
-        agent_drift = {"candidate": candidate_name}
-        for entry in candidate_data["agent_data"]:
-            messages = [x["content"] for x in entry["messages"]]
-            agent = entry["name"]
-            if not messages:
-                agent_drift[agent] = np.nan
-            else:
-                system_messages = candidate_data["initial_conditions"]["agent_system_messages"][agent]
-                df = model.match(messages, [system_messages]).get_matches()
-                agent_drift[agent] = df["Similarity"].mean()
-        drift_list.append(agent_drift)
-
-    drift_df = pd.DataFrame(drift_list)
-    drift_df.to_csv(os.path.join(directory, "drift_df.csv"), index=False)
-
-
-def load_resume(text: str) -> list:
-    """Load resume data from text."""
-    documents = [Document(text=text)]
-    return documents
-
-import re
-
 def sanitize_text(text):
-    # Remove or replace illegal characters
     text = re.sub(r'[\000-\010]|[\013-\014]|[\016-\037]', '', text)
-    # Truncate to Excel's character limit (32,767 characters)
     return text[:32767]
 
-def run_defensibility_check(sim_data: dict, directory: str, export: bool = True) -> list:
-    """
-    Run defensibility check on each candidate in sim_data.
-    Writes one sheet per candidate into defensibility_scores.xlsx.
-    """
-    dfs_list = []
-    sheet_names = []
 
-    for candidate_key, candidate_data in sim_data.items():
-        # grab the resume text we saved in initial_conditions
-        resume = candidate_data["initial_conditions"]["candidate_bio"]
+# ─────────────────────────────────────────────
+# Candidate-level plots
+# ─────────────────────────────────────────────
+def plot_candidate_sentiment(candidate_name, candidate_data, candidate_dir, feedback_mode):
+    sentiment_data = candidate_data.get("sentiment_data", {}).get("sentiment_tracker", {})
+    if not sentiment_data:
+        return
 
-        # build the index
-        documents = [Document(text=resume)]
-        node_parser = MarkdownNodeParser.from_defaults()
-        Settings.node_parser = node_parser
+    plt.figure(figsize=(10, 6))
+    for agent_name, values in sentiment_data.items():
+        x = range(len(values))
+        plt.plot(x, values, marker="o", label=agent_name)
 
-        index = VectorStoreIndex.from_documents(documents, show_progress=False)
-        retriever = index.as_retriever()
-
-        def_rows = []
-        for agent in candidate_data["agent_data"]:
-            for msg in agent["messages"]:
-                txt = msg["content"]
-                resp = retriever.retrieve(txt)
-                if not resp:
-                    def_rows.append({
-                        "agent": agent["name"],
-                        "argument": txt,
-                        "source_text": "",
-                        "score": 0
-                    })
-                else:
-                    def_rows.append({
-                        "agent": agent["name"],
-                        "argument": txt,
-                        "source_text": resp[0].node.text[:32767],
-                        "score": resp[0].score
-                    })
-
-        df = pd.DataFrame(def_rows)
-        dfs_list.append(df)
-        sheet_names.append(candidate_key)
-        print(f"Defensibility for {candidate_key}: {len(df)} rows")
-
-    # write all sheets
-    if export and dfs_list:
-        out_path = os.path.join(directory, "defensibility_scores.xlsx")
-        with pd.ExcelWriter(out_path, engine='openpyxl') as writer:
-            for df, name in zip(dfs_list, sheet_names):
-                df.to_excel(writer, sheet_name=name, index=False)
-        print(f"Defensibility workbook written to {out_path}")
-
-    return dfs_list
+    plt.xlabel("Round")
+    plt.ylabel("Sentiment Score (-1 to 1)")
+    plt.title(f"Sentiment Evolution: {candidate_name} – {feedback_mode}")
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(os.path.join(candidate_dir, f"sentiment_per_round_{feedback_mode}_{candidate_name}.png"))
+    plt.close()
 
 
 def process_candidate(candidate_index, candidate_name, sim_data, experiment_directory):
     try:
-        candidate_data = sim_data[candidate_name]
-        candidate_dir = os.path.join(experiment_directory, candidate_name)
-        if not os.path.exists(candidate_dir):
-            os.makedirs(candidate_dir)
-
-        similarity_score(candidate_data, candidate_dir, candidate_index)
-        sentiment_non_bayesian_plot(candidate_name, candidate_data, candidate_dir, candidate_index)
-
-        # Clear matplotlib's figure cache
+        candidate_runs = sim_data[candidate_name]
+        for run_key, candidate_data in candidate_runs.items():
+            feedback_mode = extract_feedback_mode_from_run_key(run_key)
+            candidate_dir = os.path.join(experiment_directory, candidate_name, run_key)
+            os.makedirs(candidate_dir, exist_ok=True)
+            plot_candidate_sentiment(candidate_name, candidate_data, candidate_dir, feedback_mode)
         plt.close('all')
     except Exception as e:
         print(f"Error processing candidate {candidate_name}: {str(e)}")
 
 
-def evaluate_sentiment_bias(sentiment_df: pd.DataFrame, output_dir="results"):
-    """
-    Evaluates and plots cognitive bias between Single LLM and Multiagent sentiment data.
-    Assumes the dataframe contains:
-    - candidate
-    - multiagent_mean_sentiment
-    - multiagent_variance
-    - single_llm_sentiment
-    """
+def extract_feedback_mode_from_run_key(run_key):
+    """Extract feedback mode from run key (e.g., 'sentiment_temp0.0_seed42' -> 'sentiment')"""
+    return run_key.split('_')[0]
+
+
+# ─────────────────────────────────────────────
+# Sentiment-based metrics calculations
+# ─────────────────────────────────────────────
+def calculate_sentiment_variance(data):
+    """Calculate polarization as sentiment variance across agents"""
+    sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+    if not sentiment_data or len(sentiment_data) < 2:
+        return 0.0
+
+    # Get final sentiment scores for all agents
+    final_sentiments = []
+    for agent_name, sentiment_history in sentiment_data.items():
+        if sentiment_history:
+            final_sentiments.append(sentiment_history[-1])
+
+    return float(np.var(final_sentiments)) if len(final_sentiments) > 1 else 0.0
+
+
+def calculate_agent_synchronization(data):
+    """Calculate consensus as pairwise cosine similarity between agent sentiment trajectories"""
+    sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+    if not sentiment_data or len(sentiment_data) < 2:
+        return 0.0
+
+    agent_names = list(sentiment_data.keys())
+    similarities = []
+
+    for i in range(len(agent_names)):
+        for j in range(i + 1, len(agent_names)):
+            agent_i_scores = sentiment_data[agent_names[i]]
+            agent_j_scores = sentiment_data[agent_names[j]]
+
+            if len(agent_i_scores) > 1 and len(agent_j_scores) > 1:
+                # Ensure same length
+                min_len = min(len(agent_i_scores), len(agent_j_scores))
+                scores_i = agent_i_scores[:min_len]
+                scores_j = agent_j_scores[:min_len]
+
+                # Calculate cosine similarity
+                sim = cosine_similarity([scores_i], [scores_j])[0, 0]
+                if not np.isnan(sim):
+                    similarities.append(sim)
+
+    return float(np.mean(similarities)) if similarities else 0.0
+
+
+def calculate_sentiment_stability(data):
+    """Calculate average standard deviation of sentiment within each agent over time"""
+    sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+    if not sentiment_data:
+        return 0.0
+
+    stabilities = []
+    for agent_name, sentiment_history in sentiment_data.items():
+        if len(sentiment_history) > 1:
+            stabilities.append(np.std(sentiment_history))
+
+    return float(np.mean(stabilities)) if stabilities else 0.0
+
+
+def calculate_repetition_index(data):
+    """Calculate semantic similarity between consecutive messages"""
+    agent_data = data.get("agent_data", [])
+    repetition_scores = []
+
+    for agent in agent_data:
+        messages = [msg["content"] for msg in agent["messages"] if msg.get("content")]
+        if len(messages) > 1:
+            embeddings = embed_model.encode(messages)
+            similarities = []
+            for i in range(1, len(embeddings)):
+                sim = cosine_similarity([embeddings[i - 1]], [embeddings[i]])[0, 0]
+                similarities.append(sim)
+            repetition_scores.append(np.mean(similarities))
+
+    return float(np.mean(repetition_scores)) if repetition_scores else 0.0
+
+
+def calculate_consensus_quality(data):
+    """Calculate consensus quality as inverse of sentiment variance"""
+    variance = calculate_sentiment_variance(data)
+    return float(1 / (1 + variance))
+
+
+def calculate_communication_efficiency(data):
+    """Calculate efficiency as inverse of rounds needed"""
+    rounds = data.get("rounds")
+    if rounds is None:
+        # Estimate rounds from sentiment data
+        sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+        if sentiment_data:
+            rounds = max(len(values) for values in sentiment_data.values()) - 1
+
+    if rounds is None or rounds <= 0:
+        return 0.0
+
+    return float(1 / rounds)
+
+
+def calculate_agent_sentiment_stats(data):
+    """Calculate agent-level sentiment statistics"""
+    sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+    if not sentiment_data:
+        return {}
+    
+    agent_stats = {}
+    for agent_name, sentiment_history in sentiment_data.items():
+        if sentiment_history:
+            agent_stats[agent_name] = {
+                'mean_sentiment': float(np.mean(sentiment_history)),
+                'final_sentiment': float(sentiment_history[-1]),
+                'sentiment_range': float(np.max(sentiment_history) - np.min(sentiment_history)),
+                'sentiment_std': float(np.std(sentiment_history)) if len(sentiment_history) > 1 else 0.0
+            }
+    
+    return agent_stats
+
+
+# ─────────────────────────────────────────────
+# Statistical analysis
+# ─────────────────────────────────────────────
+def analyze_statistical_significance(df, output_dir, tag=""):
+    """Perform statistical tests between feedback modes"""
+    if df.empty or "feedback_mode" not in df.columns:
+        return
+
+    metrics = ["rounds", "sentiment_variance", "agent_synchronization",
+               "sentiment_stability", "repetition_index", "consensus_quality"]
+
+    results = []
+    modes = df["feedback_mode"].unique()
+
+    for metric in metrics:
+        if metric not in df.columns:
+            continue
+
+        df[metric] = pd.to_numeric(df[metric], errors='coerce')
+
+        for temp in df["temperature"].unique():
+            for model in df["model_name"].unique():
+                temp_model_data = df[(df["temperature"] == temp) & (df["model_name"] == model)]
+
+                for i, mode1 in enumerate(modes):
+                    for mode2 in modes[i + 1:]:
+                        data1 = temp_model_data[temp_model_data["feedback_mode"] == mode1][metric].dropna()
+                        data2 = temp_model_data[temp_model_data["feedback_mode"] == mode2][metric].dropna()
+
+                        if len(data1) > 1 and len(data2) > 1:
+                            try:
+                                t_stat, p_val = stats.ttest_ind(data1, data2)
+                                pooled_std = np.sqrt(((len(data1) - 1) * data1.var() + (len(data2) - 1) * data2.var()) /
+                                                     (len(data1) + len(data2) - 2))
+                                effect_size = (data1.mean() - data2.mean()) / pooled_std if pooled_std > 0 else 0
+
+                                results.append({
+                                    "metric": metric,
+                                    "temperature": float(temp),
+                                    "model_name": model,
+                                    "mode1": mode1,
+                                    "mode2": mode2,
+                                    "t_statistic": float(t_stat),
+                                    "p_value": float(p_val),
+                                    "effect_size": float(effect_size),
+                                    "significant": p_val < 0.05,
+                                    "mean1": float(data1.mean()),
+                                    "mean2": float(data2.mean()),
+                                    "n1": len(data1),
+                                    "n2": len(data2)
+                                })
+                            except Exception as e:
+                                print(
+                                    f"Warning: Could not compute statistics for {metric} between {mode1} and {mode2}: {e}")
+                                continue
+
+    if results:
+        stats_df = pd.DataFrame(results)
+        stats_csv = os.path.join(output_dir, f"statistical_comparisons_{tag}.csv")
+        stats_df.to_csv(stats_csv, index=False)
+        print(f"Saved statistical analysis → {stats_csv}")
+        return stats_df
+
+    return pd.DataFrame()
+
+
+def calculate_confidence_interval(data, confidence=0.95):
+    """Calculate mean and confidence interval for a dataset (for continuous metrics only)"""
+    if len(data) == 0:
+        return {
+            'mean': np.nan,
+            'ci_lower': np.nan,
+            'ci_upper': np.nan,
+            'std': np.nan,
+            'n': 0
+        }
+
+    data = np.array(data)
+    data = data[~np.isnan(data)]
+
+    if len(data) == 0:
+        return {
+            'mean': np.nan,
+            'ci_lower': np.nan,
+            'ci_upper': np.nan,
+            'std': np.nan,
+            'n': 0
+        }
+
+    n = len(data)
+    mean = np.mean(data)
+    std = np.std(data, ddof=1)
+
+    if n == 1:
+        return {
+            'mean': float(mean),
+            'ci_lower': float(mean),
+            'ci_upper': float(mean),
+            'std': 0.0,
+            'n': n
+        }
+
+    # Calculate confidence interval using t-distribution
+    alpha = 1 - confidence
+    t_critical = stats.t.ppf(1 - alpha / 2, df=n - 1)
+    margin_of_error = t_critical * (std / np.sqrt(n))
+
+    return {
+        'mean': float(mean),
+        'ci_lower': float(mean - margin_of_error),
+        'ci_upper': float(mean + margin_of_error),
+        'std': float(std),
+        'n': n
+    }
+
+
+def calculate_discrete_stats(data):
+    """Calculate statistics for discrete metrics like rounds"""
+    if len(data) == 0:
+        return {
+            'mode': np.nan,
+            'median': np.nan,
+            'min': np.nan,
+            'max': np.nan,
+            'n': 0
+        }
+
+    data = np.array(data)
+    data = data[~np.isnan(data)]
+    
+    if len(data) == 0:
+        return {
+            'mode': np.nan,
+            'median': np.nan,
+            'min': np.nan,
+            'max': np.nan,
+            'n': 0
+        }
+
+    from scipy import stats as scipy_stats
+    mode_result = scipy_stats.mode(data, keepdims=True)
+    
+    return {
+        'mode': float(mode_result.mode[0]) if len(mode_result.mode) > 0 else float(data[0]),
+        'median': float(np.median(data)),
+        'min': float(np.min(data)),
+        'max': float(np.max(data)),
+        'n': len(data)
+    }
+
+
+def aggregate_metrics_with_ci(sim_data: dict, output_dir: str):
+    """Updated aggregate_metrics function with proper discrete/continuous metric handling"""
     os.makedirs(output_dir, exist_ok=True)
 
-    # 1. Compute Bias Gap
-    sentiment_df["bias_gap"] = sentiment_df["single_llm_sentiment"] - sentiment_df["multiagent_mean_sentiment"]
+    # Collect all raw data points
+    rows = []
+    agent_sentiment_rows = []
+    
+    for cand, runs in sim_data.items():
+        for run_key, data in runs.items():
+            # Extract feedback mode, temperature, and seed from run_key
+            feedback_mode = extract_feedback_mode_from_run_key(run_key)
+            parts = run_key.split('_')
+            temp_str = [p for p in parts if p.startswith('temp')]
+            seed_str = [p for p in parts if p.startswith('seed')]
 
-    # 2. Compute Extremity (absolute sentiment)
-    sentiment_df["single_extremity"] = sentiment_df["single_llm_sentiment"].abs()
-    sentiment_df["multi_extremity"] = sentiment_df["multiagent_mean_sentiment"].abs()
+            temperature = float(temp_str[0].replace('temp', '')) if temp_str else np.nan
+            seed = int(seed_str[0].replace('seed', '')) if seed_str else np.nan
 
-    # 3. Inconsistency Index
-    sentiment_df["inconsistency_index"] = sentiment_df["bias_gap"].abs() + sentiment_df["multiagent_variance"]
+            # Calculate rounds
+            rounds = data.get("rounds")
+            if rounds is None:
+                sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+                if sentiment_data:
+                    rounds = max(len(values) for values in sentiment_data.values()) - 1
+            if rounds is not None:
+                rounds = int(rounds)
 
-    # Summary stats
-    avg_bias_gap = sentiment_df["bias_gap"].mean()
-    avg_variance = sentiment_df["multiagent_variance"].mean()
-    avg_extremity_diff = (sentiment_df["single_extremity"] - sentiment_df["multi_extremity"]).mean()
+            # Extract model name
+            exp_cfg = data.get("experiment_config", {})
+            model_name = exp_cfg.get("model_name", "unknown")
 
-    print("📊 Cognitive Bias Summary:")
-    print(f"- Average Bias Gap: {avg_bias_gap:.4f}")
-    print(f"- Average Multiagent Variance: {avg_variance:.4f}")
-    print(f"- Avg Extremity Difference (Single - Multi): {avg_extremity_diff:.4f}")
+            # Calculate all sentiment-based metrics
+            rows.append({
+                "candidate": cand,
+                "mode_seed": run_key,
+                "feedback_mode": feedback_mode,
+                "seed": seed,
+                "temperature": temperature,
+                "model_name": model_name,
+                "rounds": rounds if rounds is not None else np.nan,
+                "sentiment_variance": calculate_sentiment_variance(data),
+                "agent_synchronization": calculate_agent_synchronization(data),
+                "sentiment_stability": calculate_sentiment_stability(data),
+                "repetition_index": calculate_repetition_index(data),
+                "consensus_quality": calculate_consensus_quality(data),
+                "communication_efficiency": calculate_communication_efficiency(data),
+            })
+            
+            # Calculate agent-level sentiment stats
+            agent_stats = calculate_agent_sentiment_stats(data)
+            for agent_name, stats_dict in agent_stats.items():
+                agent_sentiment_rows.append({
+                    "candidate": cand,
+                    "mode_seed": run_key,
+                    "feedback_mode": feedback_mode,
+                    "seed": seed,
+                    "temperature": temperature,
+                    "model_name": model_name,
+                    "agent_name": agent_name,
+                    **stats_dict
+                })
 
-    # === Plot 1: Bias Gap per Candidate ===
-    plt.figure(figsize=(10, 6))
-    plt.bar(sentiment_df["candidate"], sentiment_df["bias_gap"], color='skyblue', edgecolor='k')
-    plt.axhline(0, color='black', linestyle='--')
-    plt.title("Bias Gap (Single LLM - Multiagent Mean) per Candidate")
-    plt.ylabel("Bias Gap")
-    plt.xticks(rotation=45, ha='right')
+    df = pd.DataFrame(rows)
+    agent_df = pd.DataFrame(agent_sentiment_rows)
+
+    # Save seed-level data
+    seed_level_csv = os.path.join(output_dir, "metrics_per_seed.csv")
+    df.to_csv(seed_level_csv, index=False)
+    print(f"Saved seed-level metrics → {seed_level_csv}")
+    
+    # Save agent-level data
+    agent_csv = os.path.join(output_dir, "agent_sentiment_per_seed.csv")
+    agent_df.to_csv(agent_csv, index=False)
+    print(f"Saved agent sentiment per seed → {agent_csv}")
+
+    # Aggregate metrics by condition
+    continuous_metrics = ["sentiment_variance", "agent_synchronization", "sentiment_stability", 
+                         "repetition_index", "consensus_quality", "communication_efficiency"]
+    discrete_metrics = ["rounds"]
+
+    grouping_cols = ["candidate", "feedback_mode", "temperature", "model_name"]
+    aggregated_rows = []
+
+    for name, group in df.groupby(grouping_cols):
+        row_dict = dict(zip(grouping_cols, name))
+
+        # Handle continuous metrics with CI
+        for metric in continuous_metrics:
+            if metric in group.columns:
+                ci_results = calculate_confidence_interval(group[metric].dropna())
+                row_dict[f"{metric}_mean"] = ci_results['mean']
+                row_dict[f"{metric}_ci_lower"] = ci_results['ci_lower']
+                row_dict[f"{metric}_ci_upper"] = ci_results['ci_upper']
+                row_dict[f"{metric}_std"] = ci_results['std']
+                row_dict[f"{metric}_n"] = ci_results['n']
+
+        # Handle discrete metrics differently
+        for metric in discrete_metrics:
+            if metric in group.columns:
+                discrete_results = calculate_discrete_stats(group[metric].dropna())
+                row_dict[f"{metric}_mode"] = discrete_results['mode']
+                row_dict[f"{metric}_median"] = discrete_results['median']
+                row_dict[f"{metric}_min"] = discrete_results['min']
+                row_dict[f"{metric}_max"] = discrete_results['max']
+                row_dict[f"{metric}_n"] = discrete_results['n']
+
+        aggregated_rows.append(row_dict)
+
+    # Aggregate agent sentiment data
+    agent_aggregated_rows = []
+    agent_grouping_cols = grouping_cols + ["agent_name"]
+    
+    for name, group in agent_df.groupby(agent_grouping_cols):
+        row_dict = dict(zip(agent_grouping_cols, name))
+        
+        agent_metrics = ["mean_sentiment", "final_sentiment", "sentiment_range", "sentiment_std"]
+        for metric in agent_metrics:
+            if metric in group.columns:
+                ci_results = calculate_confidence_interval(group[metric].dropna())
+                row_dict[f"{metric}_mean"] = ci_results['mean']
+                row_dict[f"{metric}_ci_lower"] = ci_results['ci_lower'] 
+                row_dict[f"{metric}_ci_upper"] = ci_results['ci_upper']
+                row_dict[f"{metric}_std"] = ci_results['std']
+                row_dict[f"{metric}_n"] = ci_results['n']
+        
+        agent_aggregated_rows.append(row_dict)
+
+    aggregated_df = pd.DataFrame(aggregated_rows)
+    agent_aggregated_df = pd.DataFrame(agent_aggregated_rows)
+
+    # Save aggregated data
+    agg_csv = os.path.join(output_dir, "aggregated_metrics_with_ci.csv")
+    aggregated_df.to_csv(agg_csv, index=False)
+    print(f"Saved aggregated metrics with 95% CI → {agg_csv}")
+    
+    agent_agg_csv = os.path.join(output_dir, "agent_sentiment_aggregated.csv")
+    agent_aggregated_df.to_csv(agent_agg_csv, index=False)
+    print(f"Saved aggregated agent sentiment data → {agent_agg_csv}")
+
+    return df, aggregated_df, agent_df, agent_aggregated_df
+
+
+def create_plots_with_ci(candidate_agg, output_dir, tag):
+    """Create plots with confidence intervals for continuous metrics only"""
+    plot_dir = os.path.join(output_dir, "plots_with_ci")
+    os.makedirs(plot_dir, exist_ok=True)
+
+    # Only continuous metrics get CI plots
+    continuous_metrics_to_plot = [
+        ("sentiment_variance", "Sentiment Variance (Polarization)"),
+        ("agent_synchronization", "Agent Synchronization (Consensus)"),
+        ("sentiment_stability", "Sentiment Stability"),
+        ("repetition_index", "Repetition Index"),
+        ("consensus_quality", "Consensus Quality"),
+        ("communication_efficiency", "Communication Efficiency"),
+    ]
+
+    for metric, ylabel in continuous_metrics_to_plot:
+        mean_col = f"{metric}_mean"
+        ci_lower_col = f"{metric}_ci_lower"
+        ci_upper_col = f"{metric}_ci_upper"
+
+        if mean_col not in candidate_agg.columns:
+            continue
+
+        plt.figure(figsize=(12, 8))
+
+        for feedback_mode in candidate_agg["feedback_mode"].unique():
+            for model in candidate_agg["model_name"].unique():
+                subset = candidate_agg[
+                    (candidate_agg["feedback_mode"] == feedback_mode) &
+                    (candidate_agg["model_name"] == model)
+                    ].sort_values("temperature")
+
+                if not subset.empty and not subset[mean_col].isna().all():
+                    label = f"{model}_{feedback_mode}"
+
+                    y_err_lower = subset[mean_col] - subset[ci_lower_col]
+                    y_err_upper = subset[ci_upper_col] - subset[mean_col]
+                    yerr = [y_err_lower, y_err_upper]
+
+                    plt.errorbar(subset["temperature"], subset[mean_col],
+                                 yerr=yerr, marker="o", label=label,
+                                 capsize=5, capthick=2)
+
+        plt.xlabel("Temperature")
+        plt.ylabel(f"{ylabel} (Mean ± 95% CI)")
+        plt.title(f"{ylabel} vs Temperature — {tag}")
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        plt.grid(True, alpha=0.3)
+        plt.tight_layout()
+
+        plt.savefig(os.path.join(plot_dir, f"{metric}_vs_temp_with_ci_{tag}.png"),
+                    dpi=300, bbox_inches='tight')
+        plt.close()
+
+
+def create_rounds_plots(candidate_agg, output_dir, tag):
+    """Create specialized plots for rounds (discrete metric)"""
+    plot_dir = os.path.join(output_dir, "plots_with_ci")
+    os.makedirs(plot_dir, exist_ok=True)
+
+    if "rounds_median" not in candidate_agg.columns:
+        return
+
+    plt.figure(figsize=(12, 8))
+
+    width = 0.8
+    x_positions = np.arange(len(candidate_agg["temperature"].unique()))
+    
+    for i, feedback_mode in enumerate(candidate_agg["feedback_mode"].unique()):
+        for j, model in enumerate(candidate_agg["model_name"].unique()):
+            subset = candidate_agg[
+                (candidate_agg["feedback_mode"] == feedback_mode) &
+                (candidate_agg["model_name"] == model)
+                ].sort_values("temperature")
+
+            if not subset.empty:
+                label = f"{model}_{feedback_mode}"
+                offset = (i * len(candidate_agg["model_name"].unique()) + j) * width / len(candidate_agg["feedback_mode"].unique()) / len(candidate_agg["model_name"].unique())
+                
+                plt.bar(x_positions + offset, subset["rounds_median"], 
+                       width=width/(len(candidate_agg["feedback_mode"].unique()) * len(candidate_agg["model_name"].unique())), 
+                       label=label, alpha=0.7)
+                
+                # Add error bars showing min/max
+                yerr_lower = subset["rounds_median"] - subset["rounds_min"]
+                yerr_upper = subset["rounds_max"] - subset["rounds_median"]
+                plt.errorbar(x_positions + offset, subset["rounds_median"],
+                           yerr=[yerr_lower, yerr_upper], fmt='none', color='black', alpha=0.5)
+
+    plt.xlabel("Temperature")
+    plt.ylabel("Number of Rounds")
+    plt.title(f"Rounds Distribution (Median with Min/Max) — {tag}")
+    plt.xticks(x_positions, candidate_agg["temperature"].unique())
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "bias_gap_per_candidate.png"))
+
+    plt.savefig(os.path.join(plot_dir, f"rounds_vs_temp_{tag}.png"),
+                dpi=300, bbox_inches='tight')
     plt.close()
 
-    # === Plot 2: Inconsistency Index vs Candidate ===
-    plt.figure(figsize=(10, 6))
-    plt.bar(sentiment_df["candidate"], sentiment_df["inconsistency_index"], color='salmon', edgecolor='k')
-    plt.title("Inconsistency Index (|Bias Gap| + Variance) per Candidate")
-    plt.ylabel("Inconsistency Index")
-    plt.xticks(rotation=45, ha='right')
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "inconsistency_index_per_candidate.png"))
-    plt.close()
 
-    # === Plot 3: Scatter of Bias Gap vs Variance ===
-    plt.figure(figsize=(8, 6))
-    plt.scatter(
-        sentiment_df["bias_gap"].abs(),
-        sentiment_df["multiagent_variance"],
-        c='purple', edgecolors='k', s=100
-    )
-
-    for i, row in sentiment_df.iterrows():
-        label = str(row["candidate"]).replace("Candidate ", "")  # Remove 'Candidate' if present
-        plt.text(
-            abs(row["bias_gap"]),
-            row["multiagent_variance"] + 0.015,  # Slightly above the point
-            label,
-            fontsize=10,
-            fontweight='bold',
-            ha='center',
-            va='bottom'
-        )
-
-    plt.xlabel("Absolute Bias Gap |Single - Multi|", fontsize=12)
-    plt.ylabel("Multiagent Sentiment Variance", fontsize=12)
-    plt.title("Bias Gap vs Multiagent Variance", fontsize=14)
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "bias_gap_vs_variance_scatter.png"))
-    plt.close()
-
-    return sentiment_df[["candidate", "bias_gap", "multiagent_variance", "inconsistency_index"]]
-
-
-
-def eval_main(experiment_directory, resume_file, num_processes):
+# ─────────────────────────────────────────────
+# Main eval pipeline
+# ─────────────────────────────────────────────
+def eval_main(experiment_directory, num_processes):
     print("Loading simulation data...")
     sim_data = load_simulation_data(experiment_directory)
-
-    print("Calculating nuance score...")
-    nuance_score(sim_data, experiment_directory)
-
     candidates = list(sim_data.keys())
+    print(f"Found {len(candidates)} candidates")
 
-    # Print the names of the first 10 candidates (or fewer if there are less than 10)
-    plot_candidates = candidates[:10]
-    print("Generating plots for the following candidates:")
-    for i, candidate in enumerate(plot_candidates, 1):
-        print(f"{i}. {candidate}")
-
-    print(f"\nProcessing all {len(candidates)} candidates using {num_processes} processes...")
-
-    start_time = time.time()
-
-    # Create a pool of worker processes
+    # Candidate plots
     pool = mp.Pool(processes=num_processes)
-
-    # Create a partial function with fixed arguments
     process_func = partial(process_candidate, sim_data=sim_data, experiment_directory=experiment_directory)
-
-    # Map the function to all candidates, passing the candidate index and name
     pool.starmap(process_func, enumerate(candidates))
-
-    # Close the pool and wait for all processes to finish
     pool.close()
     pool.join()
 
-    end_time = time.time()
-    print(f"Parallel processing completed in {end_time - start_time:.2f} seconds")
+    # Group by feedback mode
+    feedback_mode_groups = {}
+    for cand, runs in sim_data.items():
+        for run_key, data in runs.items():
+            feedback_mode = extract_feedback_mode_from_run_key(run_key)
+            feedback_mode_groups.setdefault(feedback_mode, {}).setdefault(cand, {})[run_key] = data
 
-    print("Calculating drift scores...")
-    calculate_drift(sim_data, experiment_directory)
+    # Initialize global data collectors OUTSIDE the loop
+    all_raw_dfs = []
+    all_agg_dfs = []
+    all_agent_raw_dfs = []
+    all_agent_agg_dfs = []
 
-    print("Running defensibility check...")
-    run_defensibility_check(sim_data, experiment_directory)
-    # run_defensibility_check(experiment_directory, resume_file)
+    # Evaluate per feedback mode
+    for feedback_mode, mode_data in feedback_mode_groups.items():
+        print(f"\nEvaluating feedback mode: {feedback_mode}")
+        mode_dir = os.path.join(experiment_directory, feedback_mode)
+        os.makedirs(mode_dir, exist_ok=True)
+        aggregate_dir = os.path.join(mode_dir, "aggregate")
+        os.makedirs(aggregate_dir, exist_ok=True)
 
-    # **New addition for ablation metrics**
-    # print("Evaluating quantitative metrics for ablation study...")
-    # quantitative_metrics_ablation(sim_data, experiment_directory)
+        # Calculate metrics with CI for this mode
+        raw_df, agg_df, agent_raw_df, agent_agg_df = aggregate_metrics_with_ci(mode_data, aggregate_dir)
+        if not raw_df.empty:
+            all_raw_dfs.append(raw_df)
+            all_agg_dfs.append(agg_df)
+            all_agent_raw_dfs.append(agent_raw_df)
+            all_agent_agg_dfs.append(agent_agg_df)
 
-    # **New addition for emergent behavior analysis**
-    print("Analyzing emergent behaviors...")
-    behavior_df = analyze_emergent_behavior(sim_data, experiment_directory)
-    plot_emergent_behavior(behavior_df, experiment_directory)
+    # Global analysis across all feedback modes
+    if all_raw_dfs and all_agg_dfs:
+        print("\n Running comprehensive cross-condition analysis with confidence intervals...")
 
-    print("Comparing multi-agent and single LLM sentiment results...")
-    sentiment_csv_path = compare_single_llm_vs_multiagent_sentiment(
-        sim_data, experiment_directory, single_llm_path=resume_file)
+        # Combine all data
+        combined_raw_df = pd.concat(all_raw_dfs, ignore_index=True)
+        combined_agg_df = pd.concat(all_agg_dfs, ignore_index=True)
+        combined_agent_raw_df = pd.concat(all_agent_raw_dfs, ignore_index=True)
+        combined_agent_agg_df = pd.concat(all_agent_agg_dfs, ignore_index=True)
 
-    # Load the sentiment comparison data saved by the comparison function
-    sentiment_csv_path = os.path.join(experiment_directory, "sentiment_comparison_single_vs_multiagent.csv")
-    sentiment_df = pd.read_csv(sentiment_csv_path)
+        # Save global data
+        global_agg_csv = os.path.join(experiment_directory, "global_aggregated_with_ci.csv")
+        combined_agg_df.to_csv(global_agg_csv, index=False)
+        print(f"Saved global aggregated data with CI → {global_agg_csv}")
+        
+        global_agent_csv = os.path.join(experiment_directory, "global_agent_sentiment_aggregated.csv")
+        combined_agent_agg_df.to_csv(global_agent_csv, index=False)
+        print(f"Saved global agent sentiment data → {global_agent_csv}")
 
-    bias_df = evaluate_sentiment_bias(sentiment_df, output_dir=experiment_directory)
-    bias_df.to_csv(os.path.join(experiment_directory, "cognitive_bias_metrics.csv"), index=False)
+        # Create plots
+        create_plots_with_ci(combined_agg_df, experiment_directory, "global")
+        create_rounds_plots(combined_agg_df, experiment_directory, "global")
 
-    # Load the CSV and run both methods as an example
-    bland_stats = bland_altman_plot(sentiment_df, output_dir=experiment_directory)
-    cosine_sim = cosine_similarity_analysis(sentiment_df)
-    print(f"Bland-Altman stats: {bland_stats}")
-    print(f"Cosine similarity between single and multiagent sentiment: {cosine_sim:.4f}")
-    # save the cosine similarity to a file
-    with open(os.path.join(experiment_directory, "cosine_similarity.txt"), "w") as f:
-        f.write(f"Cosine similarity: {cosine_sim:.4f}")
-    # save bland-altman stats to a file
-    # Convert to DataFrame before saving
-    bland_stats_df = pd.DataFrame([bland_stats])  # Wrap in list to create a single-row DataFrame
-    bland_stats_df.to_csv(os.path.join(experiment_directory, "bland_altman_stats.csv"), index=False)
+        # Statistical comparisons
+        analyze_statistical_significance(combined_raw_df, experiment_directory, tag="global")
 
-    print("Analysis complete!")
+    print("\n Comprehensive sentiment-based evaluation with confidence intervals complete.")
 
 
 
-# if __name__ == "__main__":
-#     if len(sys.argv) not in [3, 4]:
-#         print("Usage: python script_name.py <experiment_directory> <resume_file> [num_processes]")
-#         sys.exit(1)
-#
-#     experiment_directory = sys.argv[1]
-#     resume_file = sys.argv[2]
-#
-#     if len(sys.argv) == 4:
-#         num_processes = int(sys.argv[3])
-#     else:
-#         # Use the number of CPU cores minus 1, or 1 if there's only one core
-#         num_processes = max(1, mp.cpu_count() - 1)
-#
-#     eval_main(experiment_directory, resume_file, num_processes)
+
+
+# import json
+# import numpy as np
+# import pandas as pd
+# import time
+# import torch
+# from sentence_transformers import SentenceTransformer
+# from dotenv import load_dotenv
+# from langchain_community.embeddings import HuggingFaceEmbeddings
+# from llama_index.core import Settings, Document
+# import matplotlib.pyplot as plt
+# import os
+# import multiprocessing as mp
+# from functools import partial
+# from sklearn.metrics.pairwise import cosine_similarity
+# import seaborn as sns
+# import re
+# from collections import defaultdict
+# from scipy import stats
+# import scipy.stats as stats
+
+# # Load env + embeddings
+# load_dotenv()
+# device = "cuda" if torch.cuda.is_available() else "cpu"
+# Settings.embed_model = HuggingFaceEmbeddings(
+#     model_name="sentence-transformers/all-mpnet-base-v2",
+#     model_kwargs={"device": device}
+# )
+# embed_model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+
+
+# # ─────────────────────────────────────────────
+# # Load simulation data
+# # ─────────────────────────────────────────────
+# def load_simulation_data(directory: str) -> dict:
+#     sim_data = {}
+#     for cand_name in os.listdir(directory):
+#         cand_dir = os.path.join(directory, cand_name)
+#         if not os.path.isdir(cand_dir):
+#             continue
+#         sim_data[cand_name] = {}
+#         for subdir in os.listdir(cand_dir):
+#             path = os.path.join(cand_dir, subdir, "simulation_data.json")
+#             if os.path.isfile(path):
+#                 with open(path, "r", encoding="utf-8") as f:
+#                     data = json.load(f)
+#                 sim_data[cand_name][subdir] = data
+#     return sim_data
+
+
+# def sanitize_text(text):
+#     text = re.sub(r'[\000-\010]|[\013-\014]|[\016-\037]', '', text)
+#     return text[:32767]
+
+
+# # ─────────────────────────────────────────────
+# # Candidate-level plots
+# # ─────────────────────────────────────────────
+# def plot_candidate_sentiment(candidate_name, candidate_data, candidate_dir, feedback_mode):
+#     sentiment_data = candidate_data.get("sentiment_data", {}).get("sentiment_tracker", {})
+#     if not sentiment_data:
+#         return
+
+#     plt.figure(figsize=(10, 6))
+#     for agent_name, values in sentiment_data.items():
+#         x = range(len(values))
+#         plt.plot(x, values, marker="o", label=agent_name)
+
+#     plt.xlabel("Round")
+#     plt.ylabel("Sentiment Score (-1 to 1)")
+#     plt.title(f"Sentiment Evolution: {candidate_name} – {feedback_mode}")
+#     plt.legend()
+#     plt.grid(True)
+#     plt.savefig(os.path.join(candidate_dir, f"sentiment_per_round_{feedback_mode}_{candidate_name}.png"))
+#     plt.close()
+
+
+# def process_candidate(candidate_index, candidate_name, sim_data, experiment_directory):
+#     try:
+#         candidate_runs = sim_data[candidate_name]
+#         for run_key, candidate_data in candidate_runs.items():
+#             feedback_mode = extract_feedback_mode_from_run_key(run_key)
+#             candidate_dir = os.path.join(experiment_directory, candidate_name, run_key)
+#             os.makedirs(candidate_dir, exist_ok=True)
+#             plot_candidate_sentiment(candidate_name, candidate_data, candidate_dir, feedback_mode)
+#         plt.close('all')
+#     except Exception as e:
+#         print(f"Error processing candidate {candidate_name}: {str(e)}")
+
+
+# def extract_feedback_mode_from_run_key(run_key):
+#     """Extract feedback mode from run key (e.g., 'sentiment_temp0.0_seed42' -> 'sentiment')"""
+#     return run_key.split('_')[0]
+
+
+# # ─────────────────────────────────────────────
+# # Sentiment-based metrics calculations
+# # ─────────────────────────────────────────────
+# def calculate_sentiment_variance(data):
+#     """Calculate polarization as sentiment variance across agents"""
+#     sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+#     if not sentiment_data or len(sentiment_data) < 2:
+#         return 0.0
+
+#     # Get final sentiment scores for all agents
+#     final_sentiments = []
+#     for agent_name, sentiment_history in sentiment_data.items():
+#         if sentiment_history:
+#             final_sentiments.append(sentiment_history[-1])
+
+#     return float(np.var(final_sentiments)) if len(final_sentiments) > 1 else 0.0
+
+
+# def calculate_agent_synchronization(data):
+#     """Calculate consensus as pairwise cosine similarity between agent sentiment trajectories"""
+#     sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+#     if not sentiment_data or len(sentiment_data) < 2:
+#         return 0.0
+
+#     agent_names = list(sentiment_data.keys())
+#     similarities = []
+
+#     for i in range(len(agent_names)):
+#         for j in range(i + 1, len(agent_names)):
+#             agent_i_scores = sentiment_data[agent_names[i]]
+#             agent_j_scores = sentiment_data[agent_names[j]]
+
+#             if len(agent_i_scores) > 1 and len(agent_j_scores) > 1:
+#                 # Ensure same length
+#                 min_len = min(len(agent_i_scores), len(agent_j_scores))
+#                 scores_i = agent_i_scores[:min_len]
+#                 scores_j = agent_j_scores[:min_len]
+
+#                 # Calculate cosine similarity
+#                 sim = cosine_similarity([scores_i], [scores_j])[0, 0]
+#                 if not np.isnan(sim):
+#                     similarities.append(sim)
+
+#     return float(np.mean(similarities)) if similarities else 0.0
+
+
+# def calculate_sentiment_stability(data):
+#     """Calculate average standard deviation of sentiment within each agent over time"""
+#     sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+#     if not sentiment_data:
+#         return 0.0
+
+#     stabilities = []
+#     for agent_name, sentiment_history in sentiment_data.items():
+#         if len(sentiment_history) > 1:
+#             stabilities.append(np.std(sentiment_history))
+
+#     return float(np.mean(stabilities)) if stabilities else 0.0
+
+
+# def calculate_repetition_index(data):
+#     """Calculate semantic similarity between consecutive messages"""
+#     agent_data = data.get("agent_data", [])
+#     repetition_scores = []
+
+#     for agent in agent_data:
+#         messages = [msg["content"] for msg in agent["messages"] if msg.get("content")]
+#         if len(messages) > 1:
+#             embeddings = embed_model.encode(messages)
+#             similarities = []
+#             for i in range(1, len(embeddings)):
+#                 sim = cosine_similarity([embeddings[i - 1]], [embeddings[i]])[0, 0]
+#                 similarities.append(sim)
+#             repetition_scores.append(np.mean(similarities))
+
+#     return float(np.mean(repetition_scores)) if repetition_scores else 0.0
+
+
+# def calculate_consensus_quality(data):
+#     """Calculate consensus quality as inverse of sentiment variance"""
+#     variance = calculate_sentiment_variance(data)
+#     return float(1 / (1 + variance))
+
+
+# def calculate_communication_efficiency(data):
+#     """Calculate efficiency as inverse of rounds needed"""
+#     rounds = data.get("rounds")
+#     if rounds is None:
+#         # Estimate rounds from sentiment data
+#         sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+#         if sentiment_data:
+#             rounds = max(len(values) for values in sentiment_data.values()) - 1
+
+#     if rounds is None or rounds <= 0:
+#         return 0.0
+
+#     return float(1 / rounds)
+
+
+
+# # ─────────────────────────────────────────────
+# # Statistical analysis
+# # ─────────────────────────────────────────────
+# def analyze_statistical_significance(df, output_dir, tag=""):
+#     """Perform statistical tests between feedback modes"""
+#     from scipy import stats
+#     import pandas as pd
+
+#     if df.empty or "feedback_mode" not in df.columns:
+#         return
+
+#     metrics = ["rounds", "sentiment_variance", "agent_synchronization",
+#                "sentiment_stability", "repetition_index", "consensus_quality"]
+
+#     results = []
+#     modes = df["feedback_mode"].unique()
+
+#     for metric in metrics:
+#         if metric not in df.columns:
+#             continue
+
+#         df[metric] = pd.to_numeric(df[metric], errors='coerce')
+
+#         for temp in df["temperature"].unique():
+#             for model in df["model_name"].unique():
+#                 temp_model_data = df[(df["temperature"] == temp) & (df["model_name"] == model)]
+
+#                 for i, mode1 in enumerate(modes):
+#                     for mode2 in modes[i + 1:]:
+#                         data1 = temp_model_data[temp_model_data["feedback_mode"] == mode1][metric].dropna()
+#                         data2 = temp_model_data[temp_model_data["feedback_mode"] == mode2][metric].dropna()
+
+#                         if len(data1) > 1 and len(data2) > 1:
+#                             try:
+#                                 t_stat, p_val = stats.ttest_ind(data1, data2)
+#                                 pooled_std = np.sqrt(((len(data1) - 1) * data1.var() + (len(data2) - 1) * data2.var()) /
+#                                                      (len(data1) + len(data2) - 2))
+#                                 effect_size = (data1.mean() - data2.mean()) / pooled_std if pooled_std > 0 else 0
+
+#                                 results.append({
+#                                     "metric": metric,
+#                                     "temperature": float(temp),
+#                                     "model_name": model,
+#                                     "mode1": mode1,
+#                                     "mode2": mode2,
+#                                     "t_statistic": float(t_stat),
+#                                     "p_value": float(p_val),
+#                                     "effect_size": float(effect_size),
+#                                     "significant": p_val < 0.05,
+#                                     "mean1": float(data1.mean()),
+#                                     "mean2": float(data2.mean()),
+#                                     "n1": len(data1),
+#                                     "n2": len(data2)
+#                                 })
+#                             except Exception as e:
+#                                 print(
+#                                     f"Warning: Could not compute statistics for {metric} between {mode1} and {mode2}: {e}")
+#                                 continue
+
+#     if results:
+#         stats_df = pd.DataFrame(results)
+#         stats_csv = os.path.join(output_dir, f"statistical_comparisons_{tag}.csv")
+#         stats_df.to_csv(stats_csv, index=False)
+#         print(f"Saved statistical analysis → {stats_csv}")
+#         return stats_df
+
+#     return pd.DataFrame()
+
+
+# def calculate_confidence_interval(data, confidence=0.95):
+#     """
+#     Calculate mean and confidence interval for a dataset.
+
+#     Args:
+#         data: array-like of numeric values
+#         confidence: confidence level (default 0.95 for 95% CI)
+
+#     Returns:
+#         dict with 'mean', 'ci_lower', 'ci_upper', 'std', 'n'
+#     """
+#     if len(data) == 0:
+#         return {
+#             'mean': np.nan,
+#             'ci_lower': np.nan,
+#             'ci_upper': np.nan,
+#             'std': np.nan,
+#             'n': 0
+#         }
+
+#     data = np.array(data)
+#     data = data[~np.isnan(data)]  # Remove NaN values
+
+#     if len(data) == 0:
+#         return {
+#             'mean': np.nan,
+#             'ci_lower': np.nan,
+#             'ci_upper': np.nan,
+#             'std': np.nan,
+#             'n': 0
+#         }
+
+#     n = len(data)
+#     mean = np.mean(data)
+#     std = np.std(data, ddof=1)  # Sample standard deviation
+
+#     if n == 1:
+#         return {
+#             'mean': float(mean),
+#             'ci_lower': float(mean),
+#             'ci_upper': float(mean),
+#             'std': 0.0,
+#             'n': n
+#         }
+
+#     # Calculate confidence interval using t-distribution
+#     alpha = 1 - confidence
+#     t_critical = stats.t.ppf(1 - alpha / 2, df=n - 1)
+#     margin_of_error = t_critical * (std / np.sqrt(n))
+
+#     return {
+#         'mean': float(mean),
+#         'ci_lower': float(mean - margin_of_error),
+#         'ci_upper': float(mean + margin_of_error),
+#         'std': float(std),
+#         'n': n
+#     }
+
+
+# def aggregate_metrics_with_ci(sim_data: dict, output_dir: str):
+#     """
+#     Updated aggregate_metrics function that calculates confidence intervals across seeds.
+#     """
+#     os.makedirs(output_dir, exist_ok=True)
+
+#     # First, collect all raw data points
+#     rows = []
+#     for cand, runs in sim_data.items():
+#         for run_key, data in runs.items():
+#             # Extract feedback mode, temperature, and seed from run_key
+#             feedback_mode = extract_feedback_mode_from_run_key(run_key)
+#             parts = run_key.split('_')
+#             temp_str = [p for p in parts if p.startswith('temp')]
+#             seed_str = [p for p in parts if p.startswith('seed')]
+
+#             temperature = float(temp_str[0].replace('temp', '')) if temp_str else np.nan
+#             seed = int(seed_str[0].replace('seed', '')) if seed_str else np.nan
+
+#             # Calculate rounds
+#             rounds = data.get("rounds")
+#             if rounds is None:
+#                 sentiment_data = data.get("sentiment_data", {}).get("sentiment_tracker", {})
+#                 if sentiment_data:
+#                     rounds = max(len(values) for values in sentiment_data.values()) - 1
+#             if rounds is not None:
+#                 rounds = int(rounds)
+
+#             # Extract model name
+#             exp_cfg = data.get("experiment_config", {})
+#             model_name = exp_cfg.get("model_name", "unknown")
+
+#             # Calculate all sentiment-based metrics
+#             rows.append({
+#                 "candidate": cand,
+#                 "mode_seed": run_key,
+#                 "feedback_mode": feedback_mode,
+#                 "seed": seed,
+#                 "temperature": temperature,
+#                 "model_name": model_name,
+#                 "rounds": rounds if rounds is not None else np.nan,
+#                 "sentiment_variance": calculate_sentiment_variance(data),
+#                 "agent_synchronization": calculate_agent_synchronization(data),
+#                 "sentiment_stability": calculate_sentiment_stability(data),
+#                 "repetition_index": calculate_repetition_index(data),
+#                 "consensus_quality": calculate_consensus_quality(data),
+#                 "communication_efficiency": calculate_communication_efficiency(data),
+#             })
+
+#     df = pd.DataFrame(rows)
+
+#     # Save seed-level data (raw data points)
+#     seed_level_csv = os.path.join(output_dir, "metrics_per_seed.csv")
+#     df.to_csv(seed_level_csv, index=False)
+#     print(f"Saved seed-level metrics → {seed_level_csv}")
+
+#     # Now aggregate with confidence intervals
+#     metrics_to_aggregate = [
+#         "rounds", "sentiment_variance", "agent_synchronization",
+#         "sentiment_stability", "repetition_index", "consensus_quality",
+#         "communication_efficiency"
+#     ]
+
+#     # Group by condition (everything except seed)
+#     grouping_cols = ["candidate", "feedback_mode", "temperature", "model_name"]
+#     aggregated_rows = []
+
+#     for name, group in df.groupby(grouping_cols):
+#         row_dict = dict(zip(grouping_cols, name))
+
+#         # Calculate CI for each metric
+#         for metric in metrics_to_aggregate:
+#             if metric in group.columns:
+#                 ci_results = calculate_confidence_interval(group[metric].dropna())
+#                 row_dict[f"{metric}_mean"] = ci_results['mean']
+#                 row_dict[f"{metric}_ci_lower"] = ci_results['ci_lower']
+#                 row_dict[f"{metric}_ci_upper"] = ci_results['ci_upper']
+#                 row_dict[f"{metric}_std"] = ci_results['std']
+#                 row_dict[f"{metric}_n"] = ci_results['n']
+
+#                 # Also include median for rounds
+#                 if metric == "rounds":
+#                     row_dict[f"{metric}_median"] = float(group[metric].median()) if not group[
+#                         metric].isna().all() else np.nan
+
+#         aggregated_rows.append(row_dict)
+
+#     aggregated_df = pd.DataFrame(aggregated_rows)
+
+#     # Save aggregated data with confidence intervals
+#     agg_csv = os.path.join(output_dir, "aggregated_metrics_with_ci.csv")
+#     aggregated_df.to_csv(agg_csv, index=False)
+#     print(f"Saved aggregated metrics with 95% CI → {agg_csv}")
+
+#     return df, aggregated_df
+
+
+# def create_plots_with_ci(candidate_agg, output_dir, tag):
+#     """Create plots with confidence intervals"""
+#     plot_dir = os.path.join(output_dir, "plots_with_ci")
+#     os.makedirs(plot_dir, exist_ok=True)
+
+#     metrics_to_plot = [
+#         ("rounds", "Number of Rounds"),
+#         ("sentiment_variance", "Sentiment Variance (Polarization)"),
+#         ("agent_synchronization", "Agent Synchronization (Consensus)"),
+#         ("sentiment_stability", "Sentiment Stability"),
+#         ("repetition_index", "Repetition Index"),
+#         ("consensus_quality", "Consensus Quality"),
+#         ("communication_efficiency", "Communication Efficiency"),
+#     ]
+
+#     for metric, ylabel in metrics_to_plot:
+#         mean_col = f"{metric}_mean"
+#         ci_lower_col = f"{metric}_ci_lower"
+#         ci_upper_col = f"{metric}_ci_upper"
+
+#         if mean_col not in candidate_agg.columns:
+#             continue
+
+#         plt.figure(figsize=(12, 8))
+
+#         # Plot by feedback mode
+#         for feedback_mode in candidate_agg["feedback_mode"].unique():
+#             for model in candidate_agg["model_name"].unique():
+#                 subset = candidate_agg[
+#                     (candidate_agg["feedback_mode"] == feedback_mode) &
+#                     (candidate_agg["model_name"] == model)
+#                     ].sort_values("temperature")
+
+#                 if not subset.empty and not subset[mean_col].isna().all():
+#                     label = f"{model}_{feedback_mode}"
+
+#                     # Calculate error bars (CI width)
+#                     y_err_lower = subset[mean_col] - subset[ci_lower_col]
+#                     y_err_upper = subset[ci_upper_col] - subset[mean_col]
+#                     yerr = [y_err_lower, y_err_upper]
+
+#                     plt.errorbar(subset["temperature"], subset[mean_col],
+#                                  yerr=yerr, marker="o", label=label,
+#                                  capsize=5, capthick=2)
+
+#         plt.xlabel("Temperature")
+#         plt.ylabel(f"{ylabel} (Mean ± 95% CI)")
+#         plt.title(f"{ylabel} vs Temperature — {tag}")
+#         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+#         plt.grid(True, alpha=0.3)
+#         plt.tight_layout()
+
+#         plt.savefig(os.path.join(plot_dir, f"{metric}_vs_temp_with_ci_{tag}.png"),
+#                     dpi=300, bbox_inches='tight')
+#         plt.close()
+
+
+# # ─────────────────────────────────────────────
+# # Main eval pipeline
+# # ─────────────────────────────────────────────
+# def eval_main(experiment_directory, num_processes):
+#     print("Loading simulation data...")
+#     sim_data = load_simulation_data(experiment_directory)
+#     candidates = list(sim_data.keys())
+#     print(f"Found {len(candidates)} candidates")
+
+#     # Candidate plots
+#     pool = mp.Pool(processes=num_processes)
+#     process_func = partial(process_candidate, sim_data=sim_data, experiment_directory=experiment_directory)
+#     pool.starmap(process_func, enumerate(candidates))
+#     pool.close()
+#     pool.join()
+
+#     # Group by feedback mode
+#     feedback_mode_groups = {}
+#     for cand, runs in sim_data.items():
+#         for run_key, data in runs.items():
+#             feedback_mode = extract_feedback_mode_from_run_key(run_key)
+#             feedback_mode_groups.setdefault(feedback_mode, {}).setdefault(cand, {})[run_key] = data
+
+#     all_mode_dfs = []
+
+#     # Evaluate per feedback mode
+#     for feedback_mode, mode_data in feedback_mode_groups.items():
+#         print(f"\nEvaluating feedback mode: {feedback_mode}")
+#         mode_dir = os.path.join(experiment_directory, feedback_mode)
+#         os.makedirs(mode_dir, exist_ok=True)
+#         aggregate_dir = os.path.join(mode_dir, "aggregate")
+#         os.makedirs(aggregate_dir, exist_ok=True)
+
+#         all_raw_dfs = []
+#         all_agg_dfs = []
+
+#         # Calculate metrics with CI for this mode
+#         raw_df, agg_df = aggregate_metrics_with_ci(mode_data, aggregate_dir)
+#         if not raw_df.empty:
+#             all_raw_dfs.append(raw_df)
+#             all_agg_dfs.append(agg_df)
+#         # # Calculate metrics for this mode
+#         # df = aggregate_metrics(mode_data, aggregate_dir)
+#         # if not df.empty:
+#         #     all_mode_dfs.append(df)
+
+#      # Global analysis across all feedback modes
+#     if all_raw_dfs and all_agg_dfs:
+#         print("\n🔍 Running comprehensive cross-condition analysis with confidence intervals...")
+
+#         # Combine all raw data
+#         combined_raw_df = pd.concat(all_raw_dfs, ignore_index=True)
+#         combined_agg_df = pd.concat(all_agg_dfs, ignore_index=True)
+
+#         # Save global aggregated data
+#         global_agg_csv = os.path.join(experiment_directory, "global_aggregated_with_ci.csv")
+#         combined_agg_df.to_csv(global_agg_csv, index=False)
+#         print(f"Saved global aggregated data with CI → {global_agg_csv}")
+
+#         # Create plots with confidence intervals
+#         create_plots_with_ci(combined_agg_df, experiment_directory, "global")
+
+#         # Statistical comparisons (using raw data)
+#         analyze_statistical_significance(combined_raw_df, experiment_directory, tag="global")
+
+#     print("\n Comprehensive sentiment-based evaluation complete.")

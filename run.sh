@@ -13,7 +13,7 @@ MULTIAGENT_CORES="8-15"               # CPU cores to use (Linux only - ignored o
 MAX_ATTEMPTS=3                        # how many times to retry a failing run
 
 # File paths
-SIM_SETUP="data/input/simulation_setup_data.json"
+SIM_SETUP="data/input/simulation_setup_paper_data.json"
 INPUT_DIR="data/input"
 
 # ===============================================
@@ -125,7 +125,7 @@ fi
 
 # Process CSV files
 for i in $(seq 1 1); do  # Increased range to check more files
-    CANDIDATE_CSV="${INPUT_DIR}/sample_${i}.csv"
+    CANDIDATE_CSV="${INPUT_DIR}/papers_sample_${i}.csv"
 
     # Skip if file doesn't exist
     if [ ! -f "${CANDIDATE_CSV}" ]; then

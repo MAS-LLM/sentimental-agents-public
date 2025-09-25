@@ -24,3 +24,5 @@ sentence_transformers
 tiktoken
 torch
 transformers
+langchain-ollama
+llama-index-embeddings-langchain

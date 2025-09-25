@@ -10,4 +10,11 @@ log.txt
 runner.py
 start.sh
 analyze_non_bayes.py
+simulations/
+candidates/
+global_analysis.py
+single_llm_control/
+PeerRead/
+output_files_bio/
+output_files_paper/
 

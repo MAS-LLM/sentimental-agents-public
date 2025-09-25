@@ -1,53 +1,182 @@
-# Standard Library Imports
-from typing import List, Dict, Any
-import os
-# 2025-09-19: 
-# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
-# from langchain.callbacks import get_openai_callback
-# from langchain_community.chat_models import ChatOpenAI
-from langchain_community.chat_models import ChatOllama
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
-# 2025-09-19: 
-# Commented out for now in case the team wants to make both OpenAI and local LLM options availabe
-# from langchain.callbacks import get_openai_callback
-# OPENAI_MODEL = os.getenv("OPENAI_MODEL") # nToDo
-# OLLAMA_MODEL = os.getenv("OLLAMA_MODEL")
-OLLAMA_MODEL = "gpt-oss:20b"
+from typing import List, Dict, Tuple
+from dotenv import load_dotenv
+from core.dialog import DialogueAgent, DialogueAgentWithTools, DialogueAgentWithOwnSentimentFeedback, DialogueAgentWithOthersSentimentFeedback
+# from core.advisory_brief import (
+#     TOPIC, ADVISOR_PRIORITIES, ADVISOR_DESCRIPTION,
+#     ADVISOR_CRITERIA, SYSTEM_MESSAGE, SPECIFIC_TOPIC,
+# )
+from core.advisory_brief_paper import (
+    TOPIC, ADVISOR_PRIORITIES, ADVISOR_DESCRIPTION,
+    ADVISOR_CRITERIA, SYSTEM_MESSAGE, SPECIFIC_TOPIC,
+)
+from utilities.utilities import generate_content_from_template, get_model
 
-def handle_error(error: Exception) -> str:
-    """Handle errors and return a truncated message.
+# Load environment variables (not strictly needed for Ollama, but kept for consistency)
+load_dotenv()
 
-    Parameters:
-        error (Exception): The Exception object.
+# ─────────────────────────────────────────────────────────────
+# Agent information generation
+# ─────────────────────────────────────────────────────────────
+def generate_agent_information(
+    agent_names: Dict,
+    job_title: str,
+    model_name: str,
+    temperature: float,
+) -> Tuple[Dict, Dict, Dict]:
+    """Generate descriptions, priorities, and criteria for agents using Ollama models."""
+    word_limit = 10
+    agent_descriptions = {
+        name: generate_content_from_template(
+            name,
+            ADVISOR_DESCRIPTION,
+            word_limit,
+            model_name=model_name,
+            temperature=temperature,
+        )
+        for name in agent_names
+    }
+    agent_priorities = {
+        name: generate_content_from_template(
+            name,
+            ADVISOR_PRIORITIES,
+            word_limit,
+            model_name=model_name,
+            temperature=temperature,
+        )
+        for name in agent_names
+    }
+    agent_criteria = {
+        name: generate_content_from_template(
+            name,
+            ADVISOR_CRITERIA,
+            word_limit,
+            extra_vars={"role_to_fill": job_title},
+            model_name=model_name,
+            temperature=temperature,
+        )
+        for name in agent_names
+    }
+    return agent_descriptions, agent_priorities, agent_criteria
 
-    Returns:
-        str: Truncated error message.
-    """
-    return str(error)[:50]
 
-def generate_content_from_template(name: str, template: str, word_limit: int = None, extra_vars: Dict[str, Any] = None) -> str:
-    """Generate content using a specified template. (e.g. [repo-root]/single_llm_control/advisor_prompt_template.py)
+def generate_topic(candidate_name: str, candidate_bio: str, job_title: str, job_description: str) -> str:
+    """Generate the topic of the conversation from static template."""
+    return TOPIC.format(
+        candidate_name=candidate_name,
+        candidate_bio=candidate_bio,
+        role_to_fill=job_title,
+        role_description=job_description,
+    )
 
-    Parameters:
-        name (str): Name of the agent.
-        template (str): The template to be filled.
-        word_limit (int): Limit for word count.
-        extra_vars (Dict[str, Any]): Extra variables to be used in formatting.
+# In simulation_utilities.py, add debugging to system message generation
+def generate_system_messages(
+        agent_names: Dict,
+        agent_descriptions: Dict,
+        agent_priorities: Dict,
+        agent_criteria: Dict,
+        tools: Dict,
+        conversation_description: str,
+        model_name: str,
+        temperature: float,
+) -> Dict[str, str]:
+    """Generate system messages for each agent using Ollama models (as plain strings)."""
+    system_messages = {}
 
-    Returns:
-        str: Generated content.
-    """
-    prompt_vars = {'name': name, 'word_limit': word_limit}
-    if extra_vars:
-        prompt_vars.update(extra_vars)
+    for (name, tools), description, priority, criterion in zip(
+            agent_names.items(),
+            agent_descriptions.values(),
+            agent_priorities.values(),
+            agent_criteria.values(),
+    ):
+        system_msg = generate_content_from_template(
+            name,
+            SYSTEM_MESSAGE,
+            extra_vars={
+                "description": description,
+                "priority": priority,
+                "criterion": criterion,
+                "tools": tools,
+                "conversation_description": conversation_description,
+            },
+            model_name=model_name,
+            temperature=temperature,
+        )
 
-    prompt = [
-        HumanMessage(
-            content=template.format(**prompt_vars)
-        ),
-    ]
-    # return ChatOpenAI(model_name=OPENAI_MODEL, temperature=1.0)(prompt).content
-    # ToDo - incomplete
-    OLLAMA_MODEL = "gpt-oss:20b"
-    return ChatOllama(model=OLLAMA_MODEL, temperature=1.0)(prompt).content
+        # Debug print
+        # print(f"DEBUG: Generated system message for {name}: '{system_msg[:100]}...'")
+        system_messages[name] = system_msg
 
+    return system_messages
+
+
+def specify_topic(
+    topic: str,
+    agent_names: Dict,
+    model_name: str,
+    temperature: float,
+) -> str:
+    """Make the topic more specific using Ollama model."""
+    prompt = (
+        "You can make a topic more specific.\n\n" +
+        SPECIFIC_TOPIC.format(
+            topic=topic,
+            word_limit=5,
+            names=", ".join(agent_names)
+        )
+    )
+    llm = get_model(model_name, temperature)
+    response = llm.invoke(prompt)   # Ollama returns plain string
+    return response.strip()
+
+
+# ─────────────────────────────────────────────────────────────
+# Agent initialization
+# ─────────────────────────────────────────────────────────────
+def initialize_agents(
+        agent_names: Dict,
+        agent_system_messages: Dict[str, str],
+        model_name: str,
+        temperature: float,
+        feedback_mode: str = "none",  # "none", "own_sentiment", "others_sentiment"
+) -> List[DialogueAgent]:
+    """Initialize agents based on sentiment feedback mode."""
+
+    if feedback_mode == "own_sentiment":
+        return [
+            DialogueAgentWithOwnSentimentFeedback(
+                name=name,
+                system_message=system_message,
+                model_name=model_name,
+                tools=tools,
+                temperature=temperature,
+            )
+            for (name, tools), system_message in zip(
+                agent_names.items(), agent_system_messages.values()
+            )
+        ]
+    elif feedback_mode == "others_sentiment":
+        return [
+            DialogueAgentWithOthersSentimentFeedback(
+                name=name,
+                system_message=system_message,
+                model_name=model_name,
+                tools=tools,
+                temperature=temperature,
+            )
+            for (name, tools), system_message in zip(
+                agent_names.items(), agent_system_messages.values()
+            )
+        ]
+    else:  # feedback_mode == "none"
+        return [
+            DialogueAgentWithTools(
+                name=name,
+                system_message=system_message,
+                model_name=model_name,
+                tools=tools,
+                temperature=temperature,
+            )
+            for (name, tools), system_message in zip(
+                agent_names.items(), agent_system_messages.values()
+            )
+        ]

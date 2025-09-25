@@ -66,19 +66,6 @@ Speak directly to the participants: {names}.
 Do not add anything else.
 """
 
-ANALYTICS_TEMPLATE = '''
-Analyze the following discussion data and identify key conversation patterns.
-
-Your report should include:
-a. Points where agents expressed definitive positions (strong opinions)
-b. Areas where agents showed agreement or consensus (agreeable opinions)  
-c. Topics that received substantial discussion or multiple mentions (extensively discussed opinions)
-
-====DATA====
-
-{data}
-'''
-
 
 
 
