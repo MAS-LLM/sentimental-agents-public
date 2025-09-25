@@ -5,11 +5,13 @@ from langchain.schema import HumanMessage
 
 # Define the available Ollama models you’ve pulled locally
 OLLAMA_MODELS = {
-    "llama3": "llama3",
-    "mistral": "mistral",
-    "gemma2:2b": "gemma2:2b",
-    "gpt-oss": "gpt-oss",
     "deepseek-r1:1.5b": "deepseek-r1:1.5b",
+    "llama3.2:1b": "llama3.2:1b",
+    "llama3.1:8b": "llama3.1:8b",
+    "mistral:7b": "mistral:7b",
+    "gpt-oss": "gpt-oss",
+    "gemma3:27b": "gemma3:27b",
+   
     # Add more if you have pulled them via `ollama pull <model>`
 }
 

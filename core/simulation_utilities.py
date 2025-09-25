@@ -1,7 +1,11 @@
 from typing import List, Dict, Tuple
 from dotenv import load_dotenv
 from core.dialog import DialogueAgent, DialogueAgentWithTools, DialogueAgentWithOwnSentimentFeedback, DialogueAgentWithOthersSentimentFeedback
-from core.advisory_brief import (
+# from core.advisory_brief import (
+#     TOPIC, ADVISOR_PRIORITIES, ADVISOR_DESCRIPTION,
+#     ADVISOR_CRITERIA, SYSTEM_MESSAGE, SPECIFIC_TOPIC,
+# )
+from core.advisory_brief_paper import (
     TOPIC, ADVISOR_PRIORITIES, ADVISOR_DESCRIPTION,
     ADVISOR_CRITERIA, SYSTEM_MESSAGE, SPECIFIC_TOPIC,
 )
