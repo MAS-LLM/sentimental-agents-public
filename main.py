@@ -39,9 +39,6 @@ for noisy in ["pydantic", "langchain", "urllib3", "httpx"]:
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 logging.getLogger("torch").setLevel(logging.ERROR)
 
-# Initialize Ollama model globally
-ollama_llm = Ollama(model="gpt-oss:20b")
-
 
 class Config:
     def __init__(self,
@@ -427,8 +424,9 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    models = ["deepseek-r1:1.5b", "llama3.2:1b", "llama3.1:8b", "mistral:7b", "gpt-oss", "gemma3:27b"]
-    # models = ["deepseek-r1:1.5b"]
+    # models = ["deepseek-r1:1.5b", "llama3.2:1b", "llama3.1:8b", "mistral:7b", "gpt-oss:20b", "gemma3:27b"]
+    models = ["gpt-oss"]
+
     dialog_temps = [0.0, 0.3, 0.7]
     main(
         simulation_setup_data=args.simulation_setup_data,

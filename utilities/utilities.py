@@ -9,7 +9,7 @@ OLLAMA_MODELS = {
     "llama3.2:1b": "llama3.2:1b",
     "llama3.1:8b": "llama3.1:8b",
     "mistral:7b": "mistral:7b",
-    "gpt-oss": "gpt-oss",
+    "gpt-oss": "gpt-oss:20b",
     "gemma3:27b": "gemma3:27b",
    
     # Add more if you have pulled them via `ollama pull <model>`
