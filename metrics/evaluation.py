@@ -26,7 +26,10 @@ Settings.embed_model = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-mpnet-base-v2",
     model_kwargs={"device": device}
 )
-embed_model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+embed_model = SentenceTransformer(
+    "sentence-transformers/all-mpnet-base-v2",
+    device="cuda" if torch.cuda.is_available() else "cpu"
+)
 
 
 # ─────────────────────────────────────────────
@@ -220,7 +223,7 @@ def analyze_statistical_significance(df, output_dir, tag=""):
         return
 
     metrics = ["rounds", "sentiment_variance", "agent_synchronization",
-               "sentiment_stability", "repetition_index", "consensus_quality"]
+               "sentiment_stability", "repetition_index", "consensus_quality", "content_diversity"]
 
     results = []
     modes = df["feedback_mode"].unique()
@@ -361,7 +364,57 @@ def calculate_discrete_stats(data):
         'n': len(data)
     }
 
-
+def calculate_content_diversity(data):
+    """
+    Measure semantic diversity across all messages in the conversation.
+    Uses average pairwise cosine distance between all message embeddings.
+    
+    Higher values = more diverse content (agents exploring different aspects)
+    Lower values = repetitive/similar content (circular discussion)
+    
+    Returns: float in [0, 1] where 1 is maximum diversity
+    """
+    agent_data = data.get("agent_data", [])
+    if not agent_data:
+        return 0.0
+    
+    # Collect all messages from all agents
+    all_messages = []
+    for agent in agent_data:
+        messages = [msg["content"] for msg in agent["messages"] if msg.get("content")]
+        all_messages.extend(messages)
+    
+    if len(all_messages) < 2:
+        return 0.0
+    
+    try:
+        # Encode all messages
+        embeddings = embed_model.encode(all_messages)
+        
+        # Calculate pairwise cosine similarities
+        similarity_matrix = cosine_similarity(embeddings)
+        
+        # Extract upper triangle (avoid diagonal and duplicates)
+        n = len(embeddings)
+        similarities = []
+        for i in range(n):
+            for j in range(i + 1, n):
+                similarities.append(similarity_matrix[i, j])
+        
+        if not similarities:
+            return 0.0
+        
+        # Average similarity
+        avg_similarity = np.mean(similarities)
+        
+        # Convert to distance/diversity: distance = 1 - similarity
+        diversity = 1 - avg_similarity
+        
+        return float(max(0.0, min(1.0, diversity)))  # Clamp to [0, 1]
+        
+    except Exception as e:
+        print(f"Warning: Could not calculate content diversity: {e}")
+        return 0.0
 def aggregate_metrics_with_ci(sim_data: dict, output_dir: str):
     """Updated aggregate_metrics function with proper discrete/continuous metric handling"""
     os.makedirs(output_dir, exist_ok=True)
@@ -409,6 +462,7 @@ def aggregate_metrics_with_ci(sim_data: dict, output_dir: str):
                 "repetition_index": calculate_repetition_index(data),
                 "consensus_quality": calculate_consensus_quality(data),
                 "communication_efficiency": calculate_communication_efficiency(data),
+                "content_diversity": calculate_content_diversity(data),
             })
             
             # Calculate agent-level sentiment stats
@@ -440,7 +494,7 @@ def aggregate_metrics_with_ci(sim_data: dict, output_dir: str):
 
     # Aggregate metrics by condition
     continuous_metrics = ["sentiment_variance", "agent_synchronization", "sentiment_stability", 
-                         "repetition_index", "consensus_quality", "communication_efficiency"]
+                         "repetition_index", "consensus_quality", "communication_efficiency", "content_diversity"]
     discrete_metrics = ["rounds"]
 
     grouping_cols = ["candidate", "feedback_mode", "temperature", "model_name"]
@@ -518,6 +572,7 @@ def create_plots_with_ci(candidate_agg, output_dir, tag):
         ("repetition_index", "Repetition Index"),
         ("consensus_quality", "Consensus Quality"),
         ("communication_efficiency", "Communication Efficiency"),
+        ("content_diversity", "Content Diversity"), 
     ]
 
     for metric, ylabel in continuous_metrics_to_plot:

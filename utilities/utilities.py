@@ -28,7 +28,7 @@ def get_model(model_name: str = "llama3", temperature: float = 0.3):
         temperature=temperature,
         # optional extras you can pass:
         num_ctx=2048,   # context window size
-        num_predict=200 # max tokens to generate
+        num_predict=512 # max tokens to generate
     )
 
 

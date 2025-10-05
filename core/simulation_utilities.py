@@ -79,7 +79,11 @@ def generate_system_messages(
         model_name: str,
         temperature: float,
 ) -> Dict[str, str]:
-    """Generate system messages for each agent using Ollama models (as plain strings)."""
+    """Generate system messages for each agent as direct role instructions.
+    
+    CRITICAL: Does NOT use LLM generation. Constructs messages directly from components
+    to avoid creating biographical narratives that cause meta-commentary.
+    """
     system_messages = {}
 
     for (name, tools), description, priority, criterion in zip(
@@ -88,22 +92,17 @@ def generate_system_messages(
             agent_priorities.values(),
             agent_criteria.values(),
     ):
-        system_msg = generate_content_from_template(
-            name,
-            SYSTEM_MESSAGE,
-            extra_vars={
-                "description": description,
-                "priority": priority,
-                "criterion": criterion,
-                "tools": tools,
-                "conversation_description": conversation_description,
-            },
-            model_name=model_name,
-            temperature=temperature,
+        # DIRECT CONSTRUCTION - No LLM call
+        system_msg = (
+            f"You are {name}.\n\n"
+            f"Role: {description.strip()}\n\n"
+            f"Your priorities: {priority.strip()}\n\n"
+            f"Evaluation criteria: {criterion.strip()}\n\n"
+            f"Task: {conversation_description.strip()}\n\n"
+            f"Provide your evaluation based on the criteria above. "
+            f"Respond in English only. Do not speak from the perspective of other participants."
         )
-
-        # Debug print
-        # print(f"DEBUG: Generated system message for {name}: '{system_msg[:100]}...'")
+        
         system_messages[name] = system_msg
 
     return system_messages
@@ -117,13 +116,14 @@ def specify_topic(
 ) -> str:
     """Make the topic more specific using Ollama model."""
     prompt = (
-        "You can make a topic more specific.\n\n" +
-        SPECIFIC_TOPIC.format(
-            topic=topic,
-            word_limit=5,
-            names=", ".join(agent_names)
-        )
+        f"Based on this evaluation task:\n{topic}\n\n"
+        f"Provide a clear, structured evaluation prompt (50words) that tells "
+        f"the participants ({', '.join(agent_names)}) what specific aspects they should assess. "
+        f"The prompt should be actionable and guide them to provide independent, detailed evaluations."
     )
+    # print(f"\n[SPECIFY_TOPIC] Generating structured evaluation prompt...")
+    # print(f"[SPECIFY_TOPIC_INPUT] Original topic: {topic}")
+
     llm = get_model(model_name, temperature)
     response = llm.invoke(prompt)   # Ollama returns plain string
     return response.strip()
@@ -140,6 +140,11 @@ def initialize_agents(
         feedback_mode: str = "none",  # "none", "own_sentiment", "others_sentiment"
 ) -> List[DialogueAgent]:
     """Initialize agents based on sentiment feedback mode."""
+     
+    print("\n=== AGENT INITIALIZATION ORDER ===")
+    for idx, (name, tools) in enumerate(agent_names.items()):
+        print(f"Position {idx}: {name}")
+    print("===================================\n")
 
     if feedback_mode == "own_sentiment":
         return [

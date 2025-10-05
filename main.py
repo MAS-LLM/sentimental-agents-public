@@ -117,24 +117,33 @@ def run_simulation(
     sentiment_agent.set_resume_context(resume_context)
 
     def select_next_speaker(step: int, agents: List[DialogueAgent]) -> int:
-        return step % len(agents)
+        speaker_idx = step % len(agents)
+        # print(f"[SPEAKER_SELECTION] Step {step}: Selected agent index {speaker_idx} ({agents[speaker_idx].name})")
+        return speaker_idx
 
     simulator = DialogueSimulator(agents=agents, selection_function=select_next_speaker)
     simulator.reset()
+    # print(f"\n[FACILITATOR_MESSAGE] Injecting evaluation prompt:\n{specified_topic}\n")
     simulator.inject("Facilitator", specified_topic)
 
     round_counter = 0
     while round_counter < config.max_rounds:
+        # print(f"\n{'='*80}")
+        # print(f"[ROUND_START] Round {round_counter + 1}/{config.max_rounds}")
+        # print(f"{'='*80}\n")
         for _ in range(len(agents)):
             name, message_content, speaker_idx = simulator.step()  # Now returns string content
             if speaker_idx is None:
                 print("Skipping sentiment update because step() failed")
                 continue
+            # print(f"[MESSAGE_SENT] {name} spoke (index {speaker_idx})")
+            # print(f"[MESSAGE_CONTENT] First 150 chars: {message_content.content[:150]}...")
+            # print(f"[BROADCAST] Message broadcast to all {len(agents)} agents\n")
             sentiment_agent.update(speaker_idx)
 
         sentiment_agent.finalize_round(feedback_mode=feedback_mode)
         round_counter += 1
-
+        # print(f"\n[ROUND_END] Completed round {round_counter}")
         if round_counter < config.max_rounds:
             stop = sentiment_agent.check_stopping_semantic()
             if stop:
@@ -143,6 +152,21 @@ def run_simulation(
     else:
         print(f"Reached maximum of {config.max_rounds} rounds.")
 
+    
+    # ADD FINAL VALIDATION
+    # print(f"\n[SIMULATION_SUMMARY]")
+    # print(f"  Total conversation messages: {len(simulator.conversation_history)}")
+    # print(f"  Number of agents: {len(agents)}")
+    # print(f"  Rounds completed: {round_counter}")
+    # print(f"  Messages per agent: {len(simulator.conversation_history) / len(agents) if agents else 0}")
+    
+    # Validate sentiment data
+    sentiment_data = sentiment_agent.get_sentiment_dynamics_data()
+    if "sentiment_tracker" in sentiment_data:
+        for agent_name, values in sentiment_data["sentiment_tracker"].items():
+            print(f"  Agent '{agent_name}': {len(values)} sentiment values")
+
+    
     return sentiment_agent, simulator.conversation_history
 
 
@@ -242,6 +266,12 @@ def simulate(
         feedback_mode=feedback_mode,
     )
 
+    # ADD THIS DEBUG CODE
+    print("\n=== AGENT ORDER DEBUG ===")
+    for idx, agent in enumerate(agents):
+        print(f"Index {idx}: {agent.name}")
+    print("========================\n")
+
     sentiment_agent, history = run_simulation(
         agents,
         specified_topic,
@@ -255,13 +285,20 @@ def simulate(
 
 
 def get_simulation_output(agents, sentiment_agent, history, config, feedback_mode):
-    # Calculate rounds from conversation history
-    rounds = len(history) // len(agents) if agents else 0
+    # Calculate rounds from conversation history - FIX THIS
+    num_agents = len(agents) if agents else 1
+    rounds = len(history) // num_agents if num_agents > 0 else 0
+    
+    # Validate rounds
+    if rounds == 0 and history:
+        print(f"[WARNING] Rounds calculated as 0, but history has {len(history)} messages")
+    
+    print(f"[SIMULATION_OUTPUT] Calculated rounds: {rounds} from {len(history)} messages / {num_agents} agents")
 
     base_output = {
         "agent_data": [{
             "name": agent.name,
-            "system_message": agent.system_message,
+            "system_message": str(agent.system_message),  # CONVERT TO STRING
             "messages": [x.to_dict() for x in agent.messages],
         } for agent in agents],
         "raw_history": history,
@@ -272,8 +309,16 @@ def get_simulation_output(agents, sentiment_agent, history, config, feedback_mod
             "model_name": config.model_name,
         },
         "feedback_mode": feedback_mode,
-        "rounds": rounds,
+        "rounds": rounds,  # ENSURE THIS IS ALWAYS AN INTEGER
     }
+    
+    # Validation
+    print(f"[VALIDATION] Simulation output:")
+    print(f"  - Rounds: {base_output['rounds']}")
+    print(f"  - Agents: {len(base_output['agent_data'])}")
+    print(f"  - History length: {len(base_output['raw_history'])}")
+    print(f"  - Feedback mode: {base_output['feedback_mode']}")
+    
     return base_output
 
 
@@ -307,13 +352,13 @@ def main(
         raise ValueError("Either candidate_csv or both candidate_name and candidate_bio must be provided.")
 
     # Ensure base output directory exists
-    base_output_dir = "output_files_paper"
+    base_output_dir = "output_files_iclr_2017_dev_378"
     os.makedirs(base_output_dir, exist_ok=True)
     # Run experiment across all conditions
     for model_name in models:
         base_config = Config(
             model_name=model_name,
-            # seeds=[10, 20, 30]
+            # seeds=[10]
             seeds=[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120,
                    130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300],
         )
@@ -353,6 +398,13 @@ def main(
 
                         simulation_data = get_simulation_output(agents, sentiment_agent, history, run_config,
                                                                 feedback_mode)
+                        # ADD VALIDATION HERE
+                        if simulation_data["rounds"] is None or simulation_data["rounds"] == 0:
+                            print(f"[ERROR] Invalid rounds value: {simulation_data['rounds']}")
+                            print(f"  History length: {len(history)}, Agents: {len(agents)}")
+                            # Recalculate
+                            simulation_data["rounds"] = len(history) // len(agents) if agents else 0
+
                         simulation_data["initial_conditions"] = {
                             **initial_conditions,
                             "candidate_name": cand_name,
@@ -363,6 +415,14 @@ def main(
                             "feedback_mode": feedback_mode,
                         }
                         simulation_data["seed"] = seed
+                        # Validate before writing
+                        print(f"[PRE_SAVE_VALIDATION] Checking simulation data integrity...")
+                        assert "rounds" in simulation_data, "Missing 'rounds' key"
+                        assert "feedback_mode" in simulation_data, "Missing 'feedback_mode' key"
+                        assert "agent_data" in simulation_data, "Missing 'agent_data' key"
+                        assert len(simulation_data["agent_data"]) > 0, "No agent data"
+                        print(f"[PRE_SAVE_VALIDATION] ✓ All required fields present")
+
 
                         # Store with feedback mode in directory structure
                         cand_dir = os.path.join(experiment_dir, cand_name, f"{feedback_mode}_temp{temp}_seed{seed}")
@@ -424,8 +484,8 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    # models = ["deepseek-r1:1.5b", "llama3.2:1b", "llama3.1:8b", "mistral:7b", "gpt-oss:20b", "gemma3:27b"]
-    models = ["gpt-oss"]
+    models = ["llama3.2:1b", "llama3.1:8b", "mistral:7b", "gpt-oss", "gemma3:27b"]
+    # models = ["gemma3:27b"]
 
     dialog_temps = [0.0, 0.3, 0.7]
     main(

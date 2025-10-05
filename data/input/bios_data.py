@@ -15,9 +15,9 @@ df = pd.DataFrame(records)
 
 # 3) Generate 30 different random samples of size 10
 sample_size = 10
-num_samples = 30
+num_samples = 1
 
-for i in range(1, num_samples + 1):
+for i in range(6, num_samples + 6):
     # draw without a fixed seed so each sample is different
     df_sample = df.sample(n=sample_size).reset_index(drop=True)
 
