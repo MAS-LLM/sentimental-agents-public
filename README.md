@@ -41,7 +41,7 @@ The system simulates **multi-agent evaluation scenarios** where AI agents with d
 
 1. **Agent Generation**: Creates evaluators with distinct roles and specialized criteria
 2. **Item Evaluation**: Agents discuss merits and drawbacks using their domain expertise  
-3. **Sentiment Tracking**: Monitors emotional dynamics and opinion changes during deliberation
+3. **Sentiment Tracking**: Monitors sentiment dynamics during deliberation
 4. **Multi-Modal Analysis**: Tests different sentiment feedback modes:
    - `none`: No sentiment awareness
    - `own_sentiment`: Agents aware of their own emotional state
@@ -165,3 +165,4 @@ top   # macOS/Linux
 ```
 
 The system provides detailed logging and progress indicators throughout execution.
+
